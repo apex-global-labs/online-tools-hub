@@ -71,7 +71,7 @@
     const target = event.target;
     const typing = target instanceof HTMLElement &&
       (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName));
-    if (event.key === "/" && !typing && !event.ctrlKey && !event.metaKey && !event.altKey) {
+    if (event.key === "/" && !typing && !document.body.classList.contains("tool-open") && !event.ctrlKey && !event.metaKey && !event.altKey) {
       event.preventDefault();
       input.focus();
     }
