@@ -102,19 +102,31 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 
 
 ## Phase 4 — Universal Tool Workspace Template
-- Work branch: `phase4-universal-tool-workspace`.
+- Work branch: `phase4-universal-tool-workspace`; merged via PR #13.
+- Merge commit: `4b66933112c5d8bebfce4bb69ad2086f4bc475d0`.
 - Keeps all 20 existing tool implementations and adds a shared responsive workspace card around their current markup; no tool algorithms are intentionally rewritten.
 - Adds dynamic Home > Category > Tool breadcrumb, workspace heading/description, back-to-tools control and a styled 404 state for unknown tool IDs/slugs.
 - Adds bottom-screen toast notifications for existing success/error messages while retaining the inline accessible status message.
-- Supports modern `#/tools/:slug` URLs and legacy `#tool/:id` URLs; router bridge now handles unresolved routes explicitly.
+- Supports modern `#/tools/:slug` URLs and legacy `#tool/:id` URLs; router bridge handles unresolved routes explicitly.
 - Adds workspace-specific responsive/dark-mode/focus/reduced-motion styles and source-level regression tests.
-- Verification status: changes are on the feature branch for review. Automated tests and GitHub Actions must pass before the changes are considered verified. Live browser/mobile checks remain pending. Do not merge without the owner's explicit approval.
+- Verification: PR CI passed and post-merge regression tests passed. Live deployment was subsequently confirmed with the Phase 5 deployment run. Owner-reported live checks have confirmed key category/search/theme behaviors from earlier phases, but Phase 4 direct slug navigation, Back/Forward, toast and 404 behavior have not all been independently confirmed. The Escape-key issue is deferred for a later fix; do not mark it resolved.
 
-## Phase 5 — Universal tool actions (implementation PR pending)
-- Work branch: `phase5-universal-tool-actions`.
-- Added a consistent action row to every tool workspace: Copy result, Download result, and Clear.
+## Phase 5 — Universal tool actions
+- Work branch: `phase5-universal-tool-actions`; merged via PR #14.
+- Merge commit: `1da9efecc7b869e7f0c0c7321b0f44c0cbb053da`.
+- Adds a consistent action row to every tool workspace: Copy result, Download result, and Clear.
 - Copy uses the generated text/result; Markdown copies the visible preview text; QR Code Generator copies the QR payload text because browsers do not provide a dependable plain-text button for copying a canvas image.
 - Download saves text results as a UTF-8 `.txt` file and downloads the generated QR canvas as a PNG. Empty results show a helpful message instead of downloading a blank file.
 - Clear resets tool inputs, file selection, selections/checks, text outputs, previews, QR output, color swatch, and statistics.
-- Added responsive styling and source-level regression assertions. Existing tool-specific Convert/Generate actions remain intact; conversion buttons are kept tool-appropriate rather than forcing a meaningless Convert button onto generators or analysis tools.
-- Automated CI and live browser checks are pending. Do not claim the live site is updated until the PR is reviewed/merged and GitHub Pages deployment is confirmed.
+- Existing tool-specific Convert/Generate actions remain intact; conversion buttons are kept tool-appropriate rather than forcing a meaningless Convert button onto generators or analysis tools.
+- Verification: post-merge regression CI run #40959837740 completed successfully; GitHub Pages deployment run #40959837345 completed successfully. Owner confirmed that the three universal action buttons are visible on the live JSON Formatter workspace. Their actual Copy, Download and Clear behavior has not yet been fully exercised in the browser.
+
+
+## Current handover — 2026-10-30
+- Current production baseline: Phase 4 and Phase 5 are merged into `main`; latest relevant merge is Phase 5 PR #14 (merge commit `1da9efecc7b869e7f0c0c7321b0f44c0cbb053da`).
+- Latest CI regression run: #40959837740 — completed successfully.
+- Latest GitHub Pages deployment run: #40959837345 — completed successfully.
+- Owner's live-site report: universal Copy result, Download result and Clear buttons are visible in the JSON Formatter workspace. Button functionality is not yet confirmed.
+- Phase 4 live verification remains incomplete: test modern direct slug route, browser Back/Forward, breadcrumb/home navigation, toast and unknown-route 404 behavior. Owner reported the Escape-key behavior is broken; defer fixing it until a later dedicated task.
+- Next action: finish live verification one step at a time, beginning with browser Back from an open tool. Do not start Phase 6 until the owner decides to proceed after the outstanding checks or explicitly accepts deferring them.
+- No browser automation was run by the assistant; distinguish GitHub CI/deployment success from actual browser behavior.
