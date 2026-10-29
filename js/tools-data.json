@@ -8,7 +8,7 @@
     "description": "Generate a QR code for text or a URL.",
     "tagline": "Turn text or links into QR codes",
     "seo": {
-      "description": "QR Code Generator",
+      "description": "Generate a QR code for text or a URL. Use this free browser-based qr code generator to work with your content quickly without creating an account.",
       "steps": [
         "Enter text or paste a complete URL in the input field.",
         "Select Generate QR Code to create the code preview.",
@@ -21,16 +21,16 @@
       ],
       "faqs": [
         {
-          "question": "Download the generated QR code as a PNG image.",
-          "answer": "Does this QR generator upload my text?"
+          "question": "Can I create a QR code for a website?",
+          "answer": "Yes. Paste the complete website address, including https://, then generate the QR code."
         },
         {
-          "question": "The QR code is generated in your browser; the text is not sent to a ToolNest server.",
-          "answer": "Can I make a QR code for a website?"
+          "question": "Is my text uploaded to ToolNest?",
+          "answer": "The QR code is generated in your browser; ToolNest does not receive the text you enter."
         },
         {
-          "question": "Yes. Paste the full website address, including https://, then generate the code.",
-          "answer": "How do I save my QR code?"
+          "question": "How can I save the QR image?",
+          "answer": "Generate the code first, then use Download result to save it as a PNG image."
         }
       ]
     }
@@ -44,7 +44,7 @@
     "description": "Create clean, URL-friendly slugs from text.",
     "tagline": "Turn titles into clean URLs",
     "seo": {
-      "description": "Slug Generator",
+      "description": "Create clean, URL-friendly slugs from text. Use this free browser-based slug generator to work with your content quickly without creating an account.",
       "steps": [
         "Enter a title or phrase in the text box.",
         "Review the generated lowercase slug in the result area.",
@@ -58,15 +58,15 @@
       "faqs": [
         {
           "question": "What is a URL slug?",
-          "answer": "A slug is the readable part of a URL that identifies a page, usually written in lowercase with hyphens between words."
+          "answer": "A slug is the readable part of a URL that identifies a page, usually written in lowercase with hyphens."
         },
         {
-          "question": "Can I use the generated slug in a website URL?",
-          "answer": "Yes. Review it first to ensure it is unique and accurately describes the page."
+          "question": "Does this tool support non-English scripts?",
+          "answer": "This version creates ASCII slugs, so characters outside the supported Latin range may be omitted."
         },
         {
-          "question": "Does the slug generator support every language?",
-          "answer": "This version produces ASCII slugs, so non-Latin characters may be omitted."
+          "question": "Can I use the result directly on my website?",
+          "answer": "Yes, after checking that it is readable, accurate and unique for the page."
         }
       ]
     }
@@ -80,7 +80,7 @@
     "description": "Convert text case and count words, characters and lines.",
     "tagline": "Make every word fit your style",
     "seo": {
-      "description": "Text Case Converter",
+      "description": "Convert text case and count words, characters and lines. Use this free browser-based text case converter to work with your content quickly without creating an account.",
       "steps": [
         "Paste or type your text into the input box.",
         "Choose the case style you want, such as UPPERCASE or lowercase.",
@@ -93,16 +93,16 @@
       ],
       "faqs": [
         {
-          "question": "Does this tool change the meaning of my text?",
-          "answer": "No. It changes letter casing only; review names and abbreviations after conversion."
+          "question": "Which text styles can I convert?",
+          "answer": "The tool provides uppercase, lowercase, sentence case and title case options."
         },
         {
-          "question": "Can I convert a long text?",
-          "answer": "You can paste text into the browser-based editor. Very large inputs may depend on your device performance."
+          "question": "Does it rewrite or translate my text?",
+          "answer": "No. It changes letter casing only; it does not rewrite, translate or correct the text."
         },
         {
-          "question": "Is my text uploaded?",
-          "answer": "No. The conversion runs in your browser."
+          "question": "Is my text sent to a server?",
+          "answer": "No. Text case conversion runs in your browser."
         }
       ]
     }
@@ -116,7 +116,7 @@
     "description": "Validate JSON and format or minify it.",
     "tagline": "Format, minify and validate JSON",
     "seo": {
-      "description": "JSON Formatter & Validator",
+      "description": "Validate JSON and format or minify it. Use this free browser-based json formatter & validator to work with your content quickly without creating an account.",
       "steps": [
         "Paste your JSON data into the input area.",
         "Choose Format JSON to indent it, or Minify JSON to remove unnecessary whitespace.",
@@ -129,16 +129,16 @@
       ],
       "faqs": [
         {
-          "question": "What does a JSON formatter do?",
-          "answer": "It checks JSON syntax and changes whitespace and indentation to make the data easier to read or compact."
+          "question": "What does JSON validation check?",
+          "answer": "It checks whether the input follows JSON syntax, including quotes, commas, brackets and braces."
         },
         {
-          "question": "Why does my JSON show an error?",
-          "answer": "JSON requires double-quoted property names and strings, valid commas, and matching braces and brackets. Check the reported syntax issue."
+          "question": "Does minifying JSON change its values?",
+          "answer": "No. Minifying removes unnecessary whitespace while preserving the parsed data values."
         },
         {
-          "question": "Does formatting change the data values?",
-          "answer": "Formatting changes whitespace and indentation, not the parsed JSON values."
+          "question": "Why is my JSON invalid?",
+          "answer": "Common causes include single-quoted strings, trailing commas, unquoted property names or mismatched brackets."
         }
       ]
     }
@@ -152,7 +152,7 @@
     "description": "Encode or decode text with UTF-8 support.",
     "tagline": "Encode and decode text quickly",
     "seo": {
-      "description": "Base64 Encoder / Decoder",
+      "description": "Encode or decode text with UTF-8 support. Use this free browser-based base64 encoder / decoder to work with your content quickly without creating an account.",
       "steps": [
         "Enter the text you want to encode or decode.",
         "Choose Encode Base64 or Decode Base64.",
@@ -165,16 +165,16 @@
       ],
       "faqs": [
         {
-          "question": "Is Base64 encryption?",
-          "answer": "No. Base64 is an encoding format, not encryption. It does not protect confidential information."
-        },
-        {
-          "question": "Why does decoded text look incorrect?",
-          "answer": "The input may not be valid Base64 or may represent bytes that are not valid UTF-8 text."
+          "question": "Is Base64 a form of encryption?",
+          "answer": "No. Base64 is an encoding format, not encryption, and it does not protect sensitive information."
         },
         {
           "question": "Can I encode non-English text?",
-          "answer": "Yes. The tool uses UTF-8 handling for text."
+          "answer": "Yes. This tool uses UTF-8 handling for text."
+        },
+        {
+          "question": "Why might decoding fail?",
+          "answer": "The input may not be valid Base64 or may not represent valid UTF-8 text."
         }
       ]
     }
@@ -188,7 +188,7 @@
     "description": "Convert length, weight and temperature units.",
     "tagline": "Convert common measurement units",
     "seo": {
-      "description": "Unit Converter",
+      "description": "Convert length, weight and temperature units. Use this free browser-based unit converter to work with your content quickly without creating an account.",
       "steps": [
         "Choose Length, Weight or Temperature.",
         "Enter the value and select the source and target units.",
@@ -201,16 +201,16 @@
       ],
       "faqs": [
         {
-          "question": "Which unit categories are supported?",
-          "answer": "This version supports length, weight and temperature conversions."
+          "question": "Which measurement types are supported?",
+          "answer": "This version converts common length, weight and temperature units."
         },
         {
-          "question": "Why is a temperature conversion rejected?",
-          "answer": "Values below absolute zero are not physically valid and are rejected by the converter."
+          "question": "Why is a temperature below absolute zero rejected?",
+          "answer": "Absolute zero is the lower physical limit for temperature, so values below it are invalid."
         },
         {
-          "question": "Are conversion results exact?",
-          "answer": "Results use standard conversion factors and may be rounded for display."
+          "question": "Are the results rounded?",
+          "answer": "The displayed result is rounded to a practical precision; the conversion uses standard unit factors."
         }
       ]
     }
@@ -224,7 +224,7 @@
     "description": "Calculate age or the days between two dates.",
     "tagline": "Find ages and date differences",
     "seo": {
-      "description": "Age & Date Difference",
+      "description": "Calculate age or the days between two dates. Use this free browser-based age & date difference to work with your content quickly without creating an account.",
       "steps": [
         "Choose the starting date.",
         "Choose an ending date, or keep the default current date.",
@@ -238,15 +238,15 @@
       "faqs": [
         {
           "question": "Can I calculate my age?",
-          "answer": "Yes. Enter your date of birth as the start date and use today as the end date."
+          "answer": "Yes. Enter your birth date as the starting date and use today's date as the ending date."
         },
         {
-          "question": "Can the end date be before the start date?",
-          "answer": "No. The end date must be the same as or later than the start date."
+          "question": "Can the ending date be earlier than the starting date?",
+          "answer": "No. The ending date must be the same as or later than the starting date."
         },
         {
-          "question": "Does this tool store my dates?",
-          "answer": "No. The calculation runs in your browser."
+          "question": "Are my dates stored?",
+          "answer": "No. The date calculation is performed in your browser."
         }
       ]
     }
@@ -260,7 +260,7 @@
     "description": "Convert HEX colors into RGB and HSL values.",
     "tagline": "Explore HEX, RGB and HSL",
     "seo": {
-      "description": "Color Converter",
+      "description": "Convert HEX colors into RGB and HSL values. Use this free browser-based color converter to work with your content quickly without creating an account.",
       "steps": [
         "Choose a color with the picker or enter a HEX value.",
         "Select Convert if needed to calculate the color formats.",
@@ -273,16 +273,16 @@
       ],
       "faqs": [
         {
-          "question": "What HEX formats are accepted?",
+          "question": "Which HEX formats are accepted?",
           "answer": "The converter accepts 3-digit and 6-digit hexadecimal color values, with or without the # symbol."
         },
         {
-          "question": "What do RGB and HSL mean?",
-          "answer": "RGB describes red, green and blue channel values. HSL describes hue, saturation and lightness."
+          "question": "What do RGB and HSL represent?",
+          "answer": "RGB represents red, green and blue channels; HSL represents hue, saturation and lightness."
         },
         {
-          "question": "Why is my color value invalid?",
-          "answer": "Check that the value contains only hexadecimal characters and has either three or six digits."
+          "question": "Why is my HEX value invalid?",
+          "answer": "Check that it contains only hexadecimal characters and has exactly three or six digits."
         }
       ]
     }
@@ -296,7 +296,7 @@
     "description": "Compare two text blocks and identify changed lines.",
     "tagline": "Spot changes between two texts",
     "seo": {
-      "description": "Text Diff Checker",
+      "description": "Compare two text blocks and identify changed lines. Use this free browser-based text diff checker to work with your content quickly without creating an account.",
       "steps": [
         "Paste the original text into the first box.",
         "Paste the revised text into the second box.",
@@ -309,16 +309,16 @@
       ],
       "faqs": [
         {
-          "question": "Does the diff checker compare files?",
-          "answer": "This version compares text pasted into the two input areas; it does not upload or compare files directly."
+          "question": "What does the Text Diff Checker compare?",
+          "answer": "It compares two pasted text blocks line by line and marks lines that differ."
         },
         {
-          "question": "Does it ignore spaces or capitalization?",
-          "answer": "The current comparison checks each line as text, so spacing and letter-case differences can count as changes."
+          "question": "Does it ignore spaces and capitalization?",
+          "answer": "No. The current comparison treats spacing and letter case as part of the text."
         },
         {
-          "question": "Is my text sent to a server?",
-          "answer": "No. The comparison runs in your browser."
+          "question": "Are my texts uploaded?",
+          "answer": "No. The comparison runs locally in your browser."
         }
       ]
     }
@@ -332,7 +332,7 @@
     "description": "Preview basic Markdown safely as formatted text.",
     "tagline": "Write and preview Markdown",
     "seo": {
-      "description": "Markdown Previewer",
+      "description": "Preview basic Markdown safely as formatted text. Use this free browser-based markdown previewer to work with your content quickly without creating an account.",
       "steps": [
         "Type or paste Markdown into the editor.",
         "Review the formatted preview beside or below your input.",
@@ -345,16 +345,16 @@
       ],
       "faqs": [
         {
-          "question": "Does this previewer support all Markdown features?",
-          "answer": "It supports a basic subset of Markdown. Advanced extensions and every Markdown specification feature are not included."
+          "question": "Does the previewer support all Markdown syntax?",
+          "answer": "It supports a basic subset, including headings, emphasis, links and inline code."
         },
         {
-          "question": "Can I preview links?",
-          "answer": "Yes. Basic HTTP and HTTPS Markdown links are supported in the preview."
+          "question": "Can I preview web links?",
+          "answer": "Yes. Basic HTTP and HTTPS Markdown links can be displayed in the preview."
         },
         {
-          "question": "Is the preview saved automatically?",
-          "answer": "No. The preview is created in the current browser session."
+          "question": "Is my draft saved automatically?",
+          "answer": "No. The preview exists in the current browser session unless you copy or save your text."
         }
       ]
     }
@@ -368,7 +368,7 @@
     "description": "Encode or decode URL components.",
     "tagline": "Safely encode URL components",
     "seo": {
-      "description": "URL Encode / Decode",
+      "description": "Encode or decode URL components. Use this free browser-based url encode / decode to work with your content quickly without creating an account.",
       "steps": [
         "Paste the text or encoded component.",
         "Choose Encode component or Decode component.",
@@ -382,14 +382,14 @@
       "faqs": [
         {
           "question": "Is URL encoding the same as Base64?",
-          "answer": "No. URL encoding replaces characters with percent-encoded representations so they can be safely included in a URL component."
+          "answer": "No. URL encoding percent-encodes reserved characters so data can be used safely in a URL component."
         },
         {
-          "question": "Should I encode a full URL?",
-          "answer": "This tool encodes a component. Encoding an entire URL can also encode separators such as / and ?, so use it for the appropriate part of a URL."
+          "question": "Should I encode an entire web address?",
+          "answer": "Usually not. Encode the specific URL component you need; encoding the whole address can also encode separators."
         },
         {
-          "question": "Why does decoding fail?",
+          "question": "Why does decoding show an error?",
           "answer": "The input may contain an incomplete or invalid percent-encoding sequence."
         }
       ]
@@ -404,7 +404,7 @@
     "description": "Generate copy-ready SEO meta tag markup.",
     "tagline": "Create SEO-ready meta markup",
     "seo": {
-      "description": "Meta Tag Generator",
+      "description": "Generate copy-ready SEO meta tag markup. Use this free browser-based meta tag generator to work with your content quickly without creating an account.",
       "steps": [
         "Enter your page title and meta description.",
         "Optionally provide a valid HTTP or HTTPS canonical URL.",
@@ -417,16 +417,16 @@
       ],
       "faqs": [
         {
-          "question": "Where do I put the generated meta tags?",
-          "answer": "Add the generated tags inside the head element of the relevant HTML page."
+          "question": "Where should I add the generated meta tags?",
+          "answer": "Place the generated title, description and optional canonical link tags inside the head element of the relevant HTML page."
         },
         {
-          "question": "What is a meta description?",
-          "answer": "It is a short page summary that search engines may use when presenting a search result snippet."
+          "question": "Does a meta description guarantee better rankings?",
+          "answer": "No. It helps describe a page, but it does not guarantee a ranking improvement or a specific search snippet."
         },
         {
-          "question": "Does a meta description guarantee a higher ranking?",
-          "answer": "No. It can help describe a page in search results, but it does not guarantee rankings or a particular snippet."
+          "question": "Is a canonical URL required?",
+          "answer": "No. It is optional here; use it when you have a preferred canonical address for the page."
         }
       ]
     }
@@ -440,7 +440,7 @@
     "description": "Convert CSV data to JSON and JSON arrays to CSV.",
     "tagline": "Move data between CSV and JSON",
     "seo": {
-      "description": "CSV ↔ JSON Converter",
+      "description": "Convert CSV data to JSON and JSON arrays to CSV. Use this free browser-based csv ↔ json converter to work with your content quickly without creating an account.",
       "steps": [
         "Paste CSV data with a header row, or paste a JSON array of objects.",
         "Choose CSV to JSON or JSON to CSV.",
@@ -453,16 +453,16 @@
       ],
       "faqs": [
         {
-          "question": "What format should my CSV use?",
-          "answer": "Use the first row for column names, followed by rows with matching columns."
+          "question": "How should my CSV data be structured?",
+          "answer": "Use the first row for column names, followed by rows with corresponding values."
         },
         {
-          "question": "Can I convert a JSON object?",
-          "answer": "The JSON-to-CSV option expects an array of objects, not a single object."
+          "question": "Can I convert one JSON object?",
+          "answer": "The JSON-to-CSV option expects an array of objects rather than a single object."
         },
         {
-          "question": "Are nested JSON values supported?",
-          "answer": "Nested values are represented as JSON text in the corresponding CSV cell."
+          "question": "How are nested JSON values handled?",
+          "answer": "Nested values are represented as JSON text within the corresponding CSV cell."
         }
       ]
     }
@@ -476,7 +476,7 @@
     "description": "Generate random version 4 UUIDs in your browser.",
     "tagline": "Generate unique IDs instantly",
     "seo": {
-      "description": "UUID Generator",
+      "description": "Generate random version 4 UUIDs in your browser. Use this free browser-based uuid generator to work with your content quickly without creating an account.",
       "steps": [
         "Enter the number of UUIDs to generate, from 1 to 100.",
         "Choose Generate UUIDs.",
@@ -490,15 +490,15 @@
       "faqs": [
         {
           "question": "What is a UUID?",
-          "answer": "A UUID is a 128-bit identifier commonly used to label records and resources."
+          "answer": "A UUID is a 128-bit identifier commonly used to identify records, resources and objects."
         },
         {
-          "question": "Are generated UUIDs sequential?",
-          "answer": "No. Version 4 UUIDs are generated using random data rather than a sequential counter."
+          "question": "Are these UUIDs sequential?",
+          "answer": "No. The generator creates version 4 UUIDs using browser cryptographic randomness."
         },
         {
-          "question": "Can I generate more than one UUID?",
-          "answer": "Yes. Choose a quantity from 1 to 100."
+          "question": "Can I generate several UUIDs at once?",
+          "answer": "Yes. Choose a quantity from 1 to 100 before generating."
         }
       ]
     }
@@ -512,7 +512,7 @@
     "description": "Create a SHA-256 hash from text in your browser.",
     "tagline": "Create a SHA-256 text hash",
     "seo": {
-      "description": "SHA-256 Hash Generator",
+      "description": "Create a SHA-256 hash from text in your browser. Use this free browser-based sha-256 hash generator to work with your content quickly without creating an account.",
       "steps": [
         "Enter the text you want to hash.",
         "Choose Generate SHA-256.",
@@ -526,15 +526,15 @@
       "faqs": [
         {
           "question": "Can a SHA-256 hash be reversed?",
-          "answer": "SHA-256 is designed as a one-way hash function; it is not a reversible encoding."
+          "answer": "No. SHA-256 is designed as a one-way hash function, not a reversible encoding."
         },
         {
           "question": "Will the same text always produce the same hash?",
           "answer": "Yes. The same exact input produces the same SHA-256 digest."
         },
         {
-          "question": "Why is the tool unavailable in some browsers?",
-          "answer": "The Web Crypto API requires a supported browser and a secure context such as HTTPS."
+          "question": "Why does SHA-256 require HTTPS?",
+          "answer": "The browser Web Crypto API is restricted to secure contexts in supported browsers."
         }
       ]
     }
@@ -548,7 +548,7 @@
     "description": "Create a random password with character options.",
     "tagline": "Build a password to your needs",
     "seo": {
-      "description": "Password Generator",
+      "description": "Create a random password with character options. Use this free browser-based password generator to work with your content quickly without creating an account.",
       "steps": [
         "Choose a password length between 8 and 128 characters.",
         "Select the character groups to include.",
@@ -561,16 +561,16 @@
       ],
       "faqs": [
         {
+          "question": "Can I choose which characters appear?",
+          "answer": "Yes. Select uppercase, lowercase, numbers and symbols before generating the password."
+        },
+        {
           "question": "Is the generated password stored by ToolNest?",
           "answer": "No. Password generation happens in your browser and ToolNest does not store the generated result."
         },
         {
-          "question": "Can I choose which characters are included?",
-          "answer": "Yes. Select the character groups you want before generating a password."
-        },
-        {
-          "question": "What if I uncheck every character option?",
-          "answer": "The tool asks you to select at least one character group before generating a password."
+          "question": "What is the supported password length?",
+          "answer": "You can choose a length from 8 to 128 characters."
         }
       ]
     }
@@ -584,7 +584,7 @@
     "description": "Convert a local image into a Base64 data URL.",
     "tagline": "Convert images into data URLs",
     "seo": {
-      "description": "Image to Base64",
+      "description": "Convert a local image into a Base64 data URL. Use this free browser-based image to base64 to work with your content quickly without creating an account.",
       "steps": [
         "Choose an image file from your device.",
         "Wait for the image to be read and converted.",
@@ -598,15 +598,15 @@
       "faqs": [
         {
           "question": "What is an image data URL?",
-          "answer": "A data URL contains the image media type and its Base64-encoded data in one text string."
+          "answer": "A data URL combines an image media type and its Base64-encoded data in one text string."
         },
         {
-          "question": "Which image files can I select?",
-          "answer": "Choose a file recognized by your browser as an image. Files larger than 10 MB are rejected."
+          "question": "Which image files can I convert?",
+          "answer": "Choose a file recognized by your browser as an image; files larger than 10 MB are rejected."
         },
         {
           "question": "Is my image uploaded?",
-          "answer": "The selected file is read locally by your browser; it is not uploaded to a ToolNest server."
+          "answer": "No. The selected file is read locally by your browser."
         }
       ]
     }
@@ -620,7 +620,7 @@
     "description": "Convert major currencies using automatically retrieved reference exchange rates.",
     "tagline": "Convert currencies with reference rates",
     "seo": {
-      "description": "Forex Currency Converter",
+      "description": "Convert major currencies using automatically retrieved reference exchange rates. Use this free browser-based forex currency converter to work with your content quickly without creating an account.",
       "steps": [
         "Enter the amount you want to convert.",
         "Choose the source and target currencies.",
@@ -633,15 +633,15 @@
       ],
       "faqs": [
         {
-          "question": "Are exchange rates real-time market prices?",
-          "answer": "No. The tool displays reference rates supplied by its external rate provider; they may differ from live trading or payment rates."
+          "question": "Are these live trading prices?",
+          "answer": "No. The tool displays reference exchange rates from its rate provider; they may differ from trading or payment prices."
         },
         {
-          "question": "Why can a conversion fail?",
-          "answer": "The rate service may be unavailable, the currency pair may not be supported, or your connection may be offline."
+          "question": "Why might a currency conversion fail?",
+          "answer": "The rate service may be unavailable, the pair may not be supported, or your connection may be offline."
         },
         {
-          "question": "Are fees included?",
+          "question": "Are bank fees included?",
           "answer": "No. Bank, card, transfer and exchange-provider fees are not included."
         }
       ]
@@ -656,7 +656,7 @@
     "description": "Count words, characters, sentences and paragraphs.",
     "tagline": "Count words and characters",
     "seo": {
-      "description": "Word & Character Counter",
+      "description": "Count words, characters, sentences and paragraphs. Use this free browser-based word & character counter to work with your content quickly without creating an account.",
       "steps": [
         "Paste or type text into the input area.",
         "Choose Count text to calculate the statistics.",
@@ -669,16 +669,16 @@
       ],
       "faqs": [
         {
-          "question": "Are spaces included in the character count?",
-          "answer": "The character count follows the tool's displayed counting logic; spaces and line breaks are included in the text length."
-        },
-        {
-          "question": "How are words counted?",
+          "question": "How does the tool count words?",
           "answer": "Words are identified by separating the text at whitespace boundaries."
         },
         {
+          "question": "Are spaces included in the character count?",
+          "answer": "Spaces and line breaks are included in the text length counted by this tool."
+        },
+        {
           "question": "Can I count a long document?",
-          "answer": "You can paste text into the input. Very large documents may be limited by your browser and device memory."
+          "answer": "You can paste text into the input; very large documents may be limited by your browser and device memory."
         }
       ]
     }
@@ -692,7 +692,7 @@
     "description": "Remove repeated lines while preserving the first occurrence and original order.",
     "tagline": "Clean repeated lines from text",
     "seo": {
-      "description": "Duplicate Lines Remover",
+      "description": "Remove repeated lines while preserving the first occurrence and original order. Use this free browser-based duplicate lines remover to work with your content quickly without creating an account.",
       "steps": [
         "Paste text containing repeated lines into the input area.",
         "Choose Remove duplicate lines.",
@@ -705,7 +705,7 @@
       ],
       "faqs": [
         {
-          "question": "Does it keep the original line order?",
+          "question": "Does it preserve the original line order?",
           "answer": "Yes. The first occurrence of each exact line stays in its original position."
         },
         {
@@ -713,8 +713,8 @@
           "answer": "No. Blank lines are left unchanged by the current tool."
         },
         {
-          "question": "Does it treat uppercase and lowercase as duplicates?",
-          "answer": "No. The current version compares lines exactly, including letter case and spacing."
+          "question": "Are uppercase and lowercase lines considered duplicates?",
+          "answer": "No. Lines are compared exactly, including letter case and spacing."
         }
       ]
     }
