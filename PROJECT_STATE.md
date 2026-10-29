@@ -40,7 +40,7 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - Updated `js/tools-data.json` from 8 metadata records to 20 records, retaining existing IDs and slugs and adding metadata for the other 12 catalogue tools.
 - Slugs are unique, lowercase URL-friendly strings; IDs continue to match the `app.js` tool IDs.
 - Kept `app.js`, `js/router.js`, and `js/router-bridge.js` unchanged to minimize regression risk.
-- Verification status: metadata file was written to the feature branch. Automated consistency checks and live route regression checks are still pending; do not treat this phase as fully verified until those checks pass.
+- Verification status: automated source consistency checks passed on the router-metadata branch (20 records; no missing/extra IDs, duplicate IDs/slugs, invalid slugs or title mismatches). Live route regression checks remain pending; do not treat the routing phase as fully verified until those checks pass.
 - Main branch and live site have not been intentionally changed by this phase.
 
 ## Phase 3B — Category Grid & Tool Cards Layout
