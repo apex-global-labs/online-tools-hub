@@ -61,11 +61,11 @@ try {
   await page.waitForFunction(() => document.querySelector("#toolMessage")?.textContent === "Copied to clipboard.");
   assert.equal(await page.evaluate(() => navigator.clipboard.readText()), '{\n  "ok": true\n}');
 
-  await page.goto(new URL("#/tools/json-formatter", baseUrl).href, { waitUntil: "domcontentloaded" });
+  await page.goto(new URL("?smoke=modern#/tools/json-formatter", baseUrl).href, { waitUntil: "domcontentloaded" });
   await page.locator("#workspace").waitFor({ state: "visible" });
   assert.equal((await page.locator("#workspaceTitle").textContent()).trim(), "JSON Formatter & Validator");
 
-  await page.goto(new URL("#tool/json", baseUrl).href, { waitUntil: "domcontentloaded" });
+  await page.goto(new URL("?smoke=legacy#tool/json", baseUrl).href, { waitUntil: "domcontentloaded" });
   await page.locator("#workspace").waitFor({ state: "visible" });
   assert.equal((await page.locator("#workspaceTitle").textContent()).trim(), "JSON Formatter & Validator");
 
