@@ -36,3 +36,108 @@
   .nav-categories > summary { padding: .45rem .5rem; font-size: .78rem; }
   header #themeToggle { padding: .45rem .55rem; font-size: .78rem; }
 }
+
+/* Phase 2.1: accessible dark-mode contrast fixes.
+   These rules intentionally override older light-only declarations in style.css. */
+.dark body {
+  background: #0b1220;
+  color: #e2e8f0;
+}
+.dark header {
+  color: #f8fafc;
+  border-bottom-color: #273449;
+  background: rgba(11, 18, 32, 0.96);
+}
+.dark header a:not([aria-label="ToolNest home"]) { color: #e2e8f0; }
+.dark header a[aria-label="ToolNest home"] { color: #f8fafc; }
+.dark #hero {
+  background: linear-gradient(115deg, #151e3d 0%, #102c32 55%, #301b31 100%);
+}
+.dark #hero h1 { color: #f1f5f9; }
+.dark #hero p { color: #cbd5e1; }
+.dark .eyebrow { color: #a5b4fc; }
+.dark #tools h2,
+.dark #about h3 { color: #f1f5f9; }
+.dark #about {
+  background: #111c2f;
+  border-top-color: #273449;
+}
+.dark #about p { color: #cbd5e1; }
+.dark .tool-card {
+  background: #111c2f;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+.dark .tool-card h3 { color: #f1f5f9; }
+.dark .tool-card p,
+.dark .tool-card .category { color: #cbd5e1; }
+.dark .tool-card .launch { color: #a5b4fc; }
+.dark .tool-card .iconbox { background: #25234f; color: #c7d2fe; }
+.dark .filter-chip {
+  background: #111c2f;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+.dark .filter-chip:hover { background: #202c43; color: #f8fafc; }
+.dark .filter-chip.active { background: #4f46e5; border-color: #818cf8; color: #fff; }
+.dark #resultsCount { color: #cbd5e1; }
+.dark #noResults {
+  background: #111c2f;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+.dark #toolSearch,
+.dark .hero-search-area .search-wrap {
+  background: #111c2f;
+  border-color: #475569;
+  color: #f8fafc;
+}
+.dark #toolSearch::placeholder { color: #aab7ca; }
+.dark #toolSearch:focus { border-color: #a5b4fc; }
+.dark .search-wrap { background: #111c2f; color: #e2e8f0; }
+.dark .search-wrap kbd { background: #1e293b; border-color: #475569; color: #cbd5e1; }
+.dark .category-menu { background: #111c2f; border-color: #334155; }
+.dark .category-menu button { color: #e2e8f0; }
+.dark .search-suggestions { background: #111c2f; border-color: #334155; }
+.dark .search-suggestion { color: #f1f5f9; }
+.dark .search-suggestion small { color: #cbd5e1; }
+.dark .search-suggestion-icon { background: #25234f; color: #c7d2fe; }
+.dark #workspace {
+  background: #111c2f;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+.dark #workspaceTitle,
+.dark #workspace h3,
+.dark #workspace .field-label { color: #f1f5f9; }
+.dark #workspaceDescription,
+.dark #workspace .muted { color: #cbd5e1; }
+.dark .field,
+.dark .tool-form input[type="text"],
+.dark .tool-form input[type="number"],
+.dark .tool-form input[type="date"],
+.dark .tool-form input[type="color"],
+.dark .tool-form select,
+.dark .tool-form textarea {
+  background: #0b1220;
+  border-color: #475569;
+  color: #f8fafc;
+}
+.dark .btn-secondary {
+  background: #1e293b;
+  border-color: #475569;
+  color: #f8fafc;
+}
+.dark .btn-secondary:hover { background: #29374d; }
+.dark .output {
+  background: #0b1220;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+.dark #markdownPreview { background: #0b1220; border-color: #475569; color: #e2e8f0; }
+.dark #markdownPreview pre { background: #020617; color: #f1f5f9; }
+.dark #toolMessage.error { color: #fca5a5; }
+.dark #toolMessage.success { color: #86efac; }
+.dark footer { border-top-color: #273449; color: #cbd5e1; }
+.dark footer p[style] { color: #a5b4fc !important; }
+.dark .feature-icon { background: #1e293b; color: #e2e8f0; }
