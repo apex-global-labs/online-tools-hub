@@ -1,3 +1,4 @@
+
 const tools = [
 {id:"case",name:"Text Case Converter",category:"Text",icon:"Aa",description:"Convert text case and count words, characters and lines."},
 {id:"slug",name:"Slug Generator",category:"Text",icon:"🔗",description:"Create clean, URL-friendly slugs from text."},
