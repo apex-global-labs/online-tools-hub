@@ -45,7 +45,7 @@ function closeTool(){
  workspace.classList.add("hidden");
  document.body.classList.remove("tool-open");
  activeTool=null;
- if(location.hash.startsWith("#tool/")) history.pushState(null,"",location.pathname+location.search);
+ if(location.hash.startsWith("#tool/")||location.hash.startsWith("#/tools/")) history.pushState(null,"",location.pathname+location.search);
  window.scrollTo({top:0,behavior:"smooth"});
 }
 
