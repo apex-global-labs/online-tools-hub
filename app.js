@@ -15,6 +15,7 @@ const tools = [
 {id:"image64",name:"Image to Base64",category:"Image",icon:"▧",description:"Convert a local image into a Base64 data URL."},
 {id:"qr",name:"QR Code Generator",category:"Image",icon:"▦",description:"Generate a QR code for text or a URL."},
 {id:"color",name:"Color Converter",category:"Image",icon:"◉",description:"Convert HEX colors into RGB and HSL values."},
+{id:"forexcalc",name:"Forex Currency Converter",category:"Calculators",icon:"💱",description:"Convert major currencies using automatically retrieved reference exchange rates."},
 {id:"unit",name:"Unit Converter",category:"Calculators",icon:"↔",description:"Convert length, weight and temperature units."},
 {id:"age",name:"Age & Date Difference",category:"Calculators",icon:"▦",description:"Calculate age or the days between two dates."},
 {id:"counter",name:"Word & Character Counter",category:"Text",icon:"¶",description:"Count words, characters, sentences and paragraphs."},
@@ -129,6 +130,7 @@ function toolMarkup(id){
  case "qr":return form(`${input("qrText","Text or URL","https://example.com")}<div class="actions">${btn("generate","Generate QR code")}${btn("downloadQR","Download PNG",false)}</div><div id="qrOutput" class="pt-2"></div>`);
  case "meta":return form(`${input("pageTitle","Page title","My useful website")}${textarea("pageDescription","Meta description","A short and helpful description of this page.")}${input("pageUrl","Canonical URL","https://example.com","url")}<div class="actions">${btn("generate","Generate tags")}${btn("copy","Copy tags",false)}</div>${out()}`);
  case "color":return form(`<div class="grid gap-4 sm:grid-cols-2">${input("hex","HEX color","#6366f1")}<div><label class="field-label" for="colorPicker">Pick a color</label><input class="field h-12" id="colorPicker" type="color" value="#6366f1"></div></div><div class="actions">${btn("convert","Convert color")}${btn("copy","Copy values",false)}</div><div id="colorSwatch" class="h-16 rounded-xl border border-slate-200"></div>${out()}`);
+ case "forexcalc":return form(`\${input("forexAmount","Amount","100","number")}<div class="grid gap-4 sm:grid-cols-2">\${select("forexFrom","From currency",[["USD","USD — US Dollar"],["BDT","BDT — Bangladeshi Taka"],["EUR","EUR — Euro"],["GBP","GBP — British Pound"],["JPY","JPY — Japanese Yen"],["AUD","AUD — Australian Dollar"],["CAD","CAD — Canadian Dollar"],["CHF","CHF — Swiss Franc"],["NZD","NZD — New Zealand Dollar"],["INR","INR — Indian Rupee"],["SGD","SGD — Singapore Dollar"],["CNY","CNY — Chinese Yuan"],["PKR","PKR — Pakistani Rupee"],["AED","AED — UAE Dirham"],["SAR","SAR — Saudi Riyal"],["MYR","MYR — Malaysian Ringgit"],["THB","THB — Thai Baht"],["TRY","TRY — Turkish Lira"],["ZAR","ZAR — South African Rand"],["HKD","HKD — Hong Kong Dollar"]])}\${select("forexTo","To currency",[["USD","USD — US Dollar"],["BDT","BDT — Bangladeshi Taka"],["EUR","EUR — Euro"],["GBP","GBP — British Pound"],["JPY","JPY — Japanese Yen"],["AUD","AUD — Australian Dollar"],["CAD","CAD — Canadian Dollar"],["CHF","CHF — Swiss Franc"],["NZD","NZD — New Zealand Dollar"],["INR","INR — Indian Rupee"],["SGD","SGD — Singapore Dollar"],["CNY","CNY — Chinese Yuan"],["PKR","PKR — Pakistani Rupee"],["AED","AED — UAE Dirham"],["SAR","SAR — Saudi Riyal"],["MYR","MYR — Malaysian Ringgit"],["THB","THB — Thai Baht"],["TRY","TRY — Turkish Lira"],["ZAR","ZAR — South African Rand"],["HKD","HKD — Hong Kong Dollar"]])}</div><div class="actions">\${btn("convertCurrency","Convert currency")}\${btn("swapCurrencies","Swap currencies",false)}</div>\${out()}<p class="muted text-sm">Uses reference exchange rates retrieved online; rates are generally updated daily and may differ from your broker's executable Forex quotes. For information only, not trading advice. Rate source: <a href="https://www.exchangerate-api.com/docs/free" target="_blank" rel="noopener noreferrer">ExchangeRate-API</a>.</p>`);
  case "unit":return form(`${select("unitType","Conversion type",[["length","Length"],["weight","Weight"],["temperature","Temperature"]])}<div class="grid gap-4 sm:grid-cols-3">${input("unitValue","Value","1","number")}${select("unitFrom","From",[])}${select("unitTo","To",[])}</div><div class="actions">${btn("convert","Convert")}</div>${out()}`);
  case "age":return form(`<div class="grid gap-4 sm:grid-cols-2">${input("dateA","Date of birth / start date","","date")}${input("dateB","End date (blank = today)","","date")}</div><div class="actions">${btn("calculate","Calculate")}</div>${out()}`);
  default:return `<p class="muted">Tool not found.</p>`;
@@ -363,6 +365,36 @@ function wireTool(id){
  bind("copy",()=>copyOutput());
  break;
 
+ case "forexcalc":
+ bind("swapCurrencies",()=>{
+  const from=$("#forexFrom"),to=$("#forexTo");
+  const previous=from.value;
+  from.value=to.value;
+  to.value=previous;
+ });
+ bind("convertCurrency",async()=>{
+  const raw=$("#forexAmount").value.trim();
+  const amount=Number(raw),from=$("#forexFrom").value,to=$("#forexTo").value;
+  if(raw===""||!Number.isFinite(amount)||amount<0){message("Enter a valid amount (zero or greater).","error");return;}
+  if(from===to){setOutput(`${amount} ${from} = ${amount} ${to}\nExchange rate: 1 ${from} = 1 ${to}`);message("Conversion complete.");return;}
+  const button=$("#convertCurrency");
+  button.disabled=true;
+  button.textContent="Getting rate…";
+  try{
+   const response=await fetch(`https://open.er-api.com/v6/latest/${encodeURIComponent(from)}`);
+   if(!response.ok)throw new Error("Rate service returned HTTP "+response.status);
+   const data=await response.json();
+   const rate=data?.rates?.[to];
+   if(data?.result!=="success"||!Number.isFinite(rate))throw new Error("This currency pair is not available right now.");
+   const converted=amount*rate;
+   const fmt=n=>new Intl.NumberFormat("en-US",{maximumFractionDigits:6}).format(n);
+   const updated=data.time_last_update_utc||"date not provided";
+   setOutput(`${fmt(amount)} ${from} = ${fmt(converted)} ${to}\nExchange rate: 1 ${from} = ${fmt(rate)} ${to}\nRate last updated: ${updated}`);
+   message("Currency converted using the available reference rate.");
+  }catch(e){message("Could not load the exchange rate. Check your internet connection and try again.","error");}
+  finally{button.disabled=false;button.textContent="Convert currency";}
+ });
+ break;
  case "unit":
  const units={length:[["m","Meters",1],["km","Kilometers",1000],["cm","Centimeters",.01],["mm","Millimeters",.001],["mi","Miles",1609.344],["ft","Feet",.3048],["in","Inches",.0254]],weight:[["kg","Kilograms",1],["g","Grams",.001],["mg","Milligrams",.000001],["lb","Pounds",.45359237],["oz","Ounces",.028349523125]],temperature:[["C","Celsius"],["F","Fahrenheit"],["K","Kelvin"]]};
  const fill=()=>{const type=$("#unitType").value,opts=units[type];$("#unitFrom").innerHTML=opts.map(u=>`<option value="${u[0]}">${u[1]}</option>`).join("");$("#unitTo").innerHTML=opts.map(u=>`<option value="${u[0]}">${u[1]}</option>`).join("");if(opts.length>1)$("#unitTo").selectedIndex=1;};
