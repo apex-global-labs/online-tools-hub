@@ -8,6 +8,7 @@ const tools = [
 {id:"json",name:"JSON Formatter & Validator",category:"Developer",icon:"{}",description:"Validate JSON and format or minify it."},
 {id:"url",name:"URL Encode / Decode",category:"Developer",icon:"％",description:"Encode or decode URL components."},
 {id:"meta",name:"Meta Tag Generator",category:"Developer",icon:"⌘",description:"Generate copy-ready SEO meta tag markup."},
+{id:"csvjson",name:"CSV ↔ JSON Converter",category:"Developer",icon:"⇄",description:"Convert CSV data to JSON and JSON arrays to CSV."},
 {id:"password",name:"Password Generator",category:"Utilities",icon:"✳",description:"Create a random password with character options."},
 {id:"image64",name:"Image to Base64",category:"Image",icon:"▧",description:"Convert a local image into a Base64 data URL."},
 {id:"qr",name:"QR Code Generator",category:"Image",icon:"▦",description:"Generate a QR code for text or a URL."},
@@ -102,6 +103,19 @@ function toolMarkup(id){
  case "base64":return form(`${textarea("sourceText","Text to encode or decode")}<div class="actions">${btn("encode","Encode Base64")}${btn("decode","Decode Base64",false)}${btn("copy","Copy result",false)}</div>${out()}`);
  case "json":return form(`${textarea("sourceText","JSON input",'{"hello":"world"}')}<div class="actions">${btn("format","Format JSON")}${btn("minify","Minify JSON",false)}${btn("copy","Copy result",false)}</div>${out()}`);
  case "url":return form(`${textarea("sourceText","Text or URL")}<div class="actions">${btn("encode","Encode component")}${btn("decode","Decode component",false)}${btn("copy","Copy result",false)}</div>${out()}`);
+
+ case "csvjson":return form(`
+ <p class="muted text-sm">Convert CSV data to JSON or a JSON array to CSV. All conversion happens in your browser.</p>
+ ${textarea("sourceText","Paste CSV or JSON",'name,age,city\\nAlice,25,Dhaka\\nBob,30,Chattogram')}
+ <div class="actions">
+ ${btn("csvToJson","CSV → JSON")}
+ ${btn("jsonToCsv","JSON → CSV",false)}
+ ${btn("copy","Copy result",false)}
+ </div>
+ ${out()}
+ <p class="muted text-sm">CSV → JSON uses the first row as column headers. JSON → CSV expects an array of objects.</p>
+ `);
+
  case "password":return form(`<div class="grid gap-4 sm:grid-cols-2">${input("length","Password length (8–128)","16","number")}</div><div class="checkrow"><label><input id="upperOpt" type="checkbox" checked> Uppercase</label><label><input id="lowerOpt" type="checkbox" checked> Lowercase</label><label><input id="numberOpt" type="checkbox" checked> Numbers</label><label><input id="symbolOpt" type="checkbox" checked> Symbols</label></div><div class="actions">${btn("generate","Generate password")}${btn("copy","Copy password",false)}</div>${out()}`);
  case "slug":return form(`${input("sourceText","Text to convert","My Awesome Page Title")}<div class="actions">${btn("generate","Generate slug")}${btn("copy","Copy slug",false)}</div>${out()}`);
  case "diff":return form(`<div class="grid gap-4 md:grid-cols-2">${textarea("leftText","Original text")}${textarea("rightText","New text")}</div><div class="actions">${btn("compare","Compare text")}</div>${out()}`);
@@ -114,6 +128,43 @@ function toolMarkup(id){
  case "age":return form(`<div class="grid gap-4 sm:grid-cols-2">${input("dateA","Date of birth / start date","","date")}${input("dateB","End date (blank = today)","","date")}</div><div class="actions">${btn("calculate","Calculate")}</div>${out()}`);
  default:return `<p class="muted">Tool not found.</p>`;
  }
+}
+
+// CSV parser: supports quoted cells, commas and newlines inside quoted cells.
+function parseCSV(text){
+ const rows=[];
+ let row=[],cell="",quoted=false;
+ const s=text.replace(/^\uFEFF/,"");
+
+ for(let i=0;i<s.length;i++){
+  const ch=s[i];
+
+  if(quoted){
+   if(ch==='"'&&s[i+1]==='"'){cell+='"';i++;}
+   else if(ch==='"'){quoted=false;}
+   else{cell+=ch;}
+  }else{
+   if(ch==='"'&&cell===""){quoted=true;}
+   else if(ch===","){row.push(cell);cell="";}
+   else if(ch==="\n"){
+    row.push(cell);rows.push(row);row=[];cell="";
+   }else if(ch==="\r"){
+    if(s[i+1]==="\n")i++;
+    row.push(cell);rows.push(row);row=[];cell="";
+   }else{cell+=ch;}
+  }
+ }
+
+ if(quoted)throw new Error("CSV contains an unclosed quotation mark.");
+ if(cell!==""||row.length>0){row.push(cell);rows.push(row);}
+
+ while(rows.length&&rows[rows.length-1].every(v=>v.trim()===""))rows.pop();
+ return rows;
+}
+
+function csvCell(value){
+ const s=value===null||value===undefined?"":String(value);
+ return /[",\r\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;
 }
 
 function wireTool(id){
@@ -151,6 +202,68 @@ function wireTool(id){
  case "url":
  bind("encode",()=>setOutput(encodeURIComponent(src())));
  bind("decode",()=>{try{setOutput(decodeURIComponent(src().replace(/\+/g," ")));}catch{message("Invalid encoded URL text.","error");}});
+ bind("copy",()=>copyOutput());
+ break;
+
+ case "csvjson":
+ bind("csvToJson",()=>{
+  const raw=src();
+  if(!raw.trim()){message("Paste CSV data first.","error");return;}
+
+  try{
+   const rows=parseCSV(raw);
+   if(rows.length<2){message("CSV needs a header row and at least one data row.","error");return;}
+
+   const headers=rows[0].map((h,i)=>i===0?h.replace(/^\uFEFF/,"").trim():h.trim());
+   if(headers.some(h=>!h)){message("Every CSV column must have a header.","error");return;}
+   if(new Set(headers).size!==headers.length){message("Column headers must be unique.","error");return;}
+
+   const data=rows.slice(1).filter(row=>row.some(v=>v!=="")).map((row,index)=>{
+    if(row.length!==headers.length){
+     throw new Error(`Row ${index+2} has ${row.length} columns; expected ${headers.length}.`);
+    }
+    const obj={};
+    headers.forEach((header,i)=>obj[header]=row[i]);
+    return obj;
+   });
+
+   setOutput(JSON.stringify(data,null,2));
+   message(`Converted ${data.length} CSV row(s) to JSON.`);
+  }catch(e){
+   message("CSV conversion failed: "+e.message,"error");
+  }
+ });
+
+ bind("jsonToCsv",()=>{
+  const raw=src();
+  if(!raw.trim()){message("Paste JSON data first.","error");return;}
+
+  try{
+   const data=JSON.parse(raw);
+   if(!Array.isArray(data)){message("JSON must be an array of objects.","error");return;}
+   if(data.length===0){message("The JSON array is empty.","error");return;}
+   if(data.some(item=>item===null||typeof item!=="object"||Array.isArray(item))){
+    message("Every array item must be a JSON object.","error");return;
+   }
+
+   const headers=[...new Set(data.flatMap(item=>Object.keys(item)))];
+   if(headers.length===0){message("The JSON objects have no fields to convert.","error");return;}
+
+   const rows=[
+    headers.map(csvCell).join(","),
+    ...data.map(item=>headers.map(key=>{
+     const value=item[key];
+     return csvCell(value!==null&&typeof value==="object"?JSON.stringify(value):value);
+    }).join(","))
+   ];
+
+   setOutput(rows.join("\r\n"));
+   message(`Converted ${data.length} JSON object(s) to CSV.`);
+  }catch(e){
+   message("JSON conversion failed: "+e.message,"error");
+  }
+ });
+
  bind("copy",()=>copyOutput());
  break;
 
