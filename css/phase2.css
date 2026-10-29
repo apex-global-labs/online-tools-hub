@@ -25,3 +25,14 @@
   .hero-search-area .search-wrap kbd { display: none; }
   .category-menu { left: auto; right: 0; }
 }
+/* Preserve contrast when the existing theme toggle is enabled. */
+.dark header {
+  background: rgba(2, 6, 23, 0.94);
+  border-bottom-color: #263449;
+}
+.dark #hero h1 { color: #e2e8f0; }
+@media (max-width: 420px) {
+  .site-nav { gap: .45rem; }
+  .nav-categories > summary { padding: .45rem .5rem; font-size: .78rem; }
+  header #themeToggle { padding: .45rem .55rem; font-size: .78rem; }
+}
