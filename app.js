@@ -10,6 +10,7 @@ const tools = [
 {id:"meta",name:"Meta Tag Generator",category:"Developer",icon:"⌘",description:"Generate copy-ready SEO meta tag markup."},
 {id:"csvjson",name:"CSV ↔ JSON Converter",category:"Developer",icon:"⇄",description:"Convert CSV data to JSON and JSON arrays to CSV."},
 {id:"uuid",name:"UUID Generator",category:"Developer",icon:"🆔",description:"Generate random version 4 UUIDs in your browser."},
+{id:"sha256",name:"SHA-256 Hash Generator",category:"Developer",icon:"#️⃣",description:"Create a SHA-256 hash from text in your browser."},
 {id:"password",name:"Password Generator",category:"Utilities",icon:"✳",description:"Create a random password with character options."},
 {id:"image64",name:"Image to Base64",category:"Image",icon:"▧",description:"Convert a local image into a Base64 data URL."},
 {id:"qr",name:"QR Code Generator",category:"Image",icon:"▦",description:"Generate a QR code for text or a URL."},
@@ -117,6 +118,7 @@ function toolMarkup(id){
  ${out()}
  <p class="muted text-sm">CSV → JSON uses the first row as column headers. JSON → CSV expects an array of objects.</p>
  `);
+ case "sha256":return form(`${textarea("sourceText","Text to hash")}<div class="actions">${btn("generate","Generate SHA-256")}${btn("copy","Copy result",false)}</div>${out()}<p class="muted text-sm">Creates a SHA-256 hash locally in your browser using the Web Crypto API. The same text produces the same hash.</p>`);
  case "password":return form(`<div class="grid gap-4 sm:grid-cols-2">${input("length","Password length (8–128)","16","number")}</div><div class="checkrow"><label><input id="upperOpt" type="checkbox" checked> Uppercase</label><label><input id="lowerOpt" type="checkbox" checked> Lowercase</label><label><input id="numberOpt" type="checkbox" checked> Numbers</label><label><input id="symbolOpt" type="checkbox" checked> Symbols</label></div><div class="actions">${btn("generate","Generate password")}${btn("copy","Copy password",false)}</div>${out()}`);
  case "slug":return form(`${input("sourceText","Text to convert","My Awesome Page Title")}<div class="actions">${btn("generate","Generate slug")}${btn("copy","Copy slug",false)}</div>${out()}`);
  case "diff":return form(`<div class="grid gap-4 md:grid-cols-2">${textarea("leftText","Original text")}${textarea("rightText","New text")}</div><div class="actions">${btn("compare","Compare text")}</div>${out()}`);
@@ -288,6 +290,20 @@ function wireTool(id){
  bind("copy",()=>copyOutput());
  break;
 
+ case "sha256":
+ bind("generate",async()=>{
+  const text=$("#sourceText").value;
+  if(!globalThis.crypto?.subtle||typeof TextEncoder==="undefined"){message("SHA-256 requires a modern browser secure context. Open the HTTPS website and try again.","error");return;}
+  try{
+   const bytes=new TextEncoder().encode(text);
+   const digest=await crypto.subtle.digest("SHA-256",bytes);
+   const hash=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,"0")).join("");
+   setOutput(hash);
+   message("SHA-256 hash generated.");
+  }catch(e){message("Could not generate the hash. Please try again.","error");}
+ });
+ bind("copy",()=>copyOutput());
+ break;
  case "password":
  bind("generate",()=>{const n=Math.max(8,Math.min(128,Number($("#length").value)||16));$("#length").value=n;let pool="";if($("#upperOpt").checked)pool+="ABCDEFGHIJKLMNOPQRSTUVWXYZ";if($("#lowerOpt").checked)pool+="abcdefghijklmnopqrstuvwxyz";if($("#numberOpt").checked)pool+="0123456789";if($("#symbolOpt").checked)pool+="!@#$%^&*()-_=+[]{};:,.?";if(!pool){message("Choose at least one character set.","error");return;}const bytes=new Uint32Array(n);crypto.getRandomValues(bytes);setOutput(Array.from(bytes,x=>pool[x%pool.length]).join(""));});
  bind("copy",()=>copyOutput());
