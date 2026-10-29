@@ -20,7 +20,10 @@ function startRouterBridge() {
 }
 
 // DOMContentLoaded ensures the existing deferred app.js has executed first.
-if (document.readyState === "loading") {
+if (document.readyState === "loading" || document.readyState === "interactive") {
+  // Deferred classic scripts are guaranteed to run before DOMContentLoaded.
+  // Waiting while the document is interactive prevents the module bridge from
+  // resolving a direct modern route before app.js exposes window.openTool.
   document.addEventListener("DOMContentLoaded", startRouterBridge, { once: true });
 } else {
   startRouterBridge();
