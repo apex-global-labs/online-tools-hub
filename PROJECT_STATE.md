@@ -40,7 +40,7 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - Updated `js/tools-data.json` from 8 metadata records to 20 records, retaining existing IDs and slugs and adding metadata for the other 12 catalogue tools.
 - Slugs are unique, lowercase URL-friendly strings; IDs continue to match the `app.js` tool IDs.
 - Kept `app.js`, `js/router.js`, and `js/router-bridge.js` unchanged to minimize regression risk.
-- Verification status: automated source consistency checks passed on the router-metadata branch (20 records; no missing/extra IDs, duplicate IDs/slugs, invalid slugs or title mismatches). Live route regression checks remain pending; do not treat the routing phase as fully verified until those checks pass.
+- Verification status: automated source consistency checks passed (20 records; no missing/extra IDs, duplicate IDs/slugs, invalid slugs or title mismatches). Added router regression tests and normalized case-insensitive slug lookup in PR #8 (`a57b340c05c5c13c287541b6de6a27ad78884b5d`). Ten Node regression cases passed in a local test run using the fetched source/test files. Live browser route checks remain pending.
 - `main` has been updated. GitHub Pages deployment and live route behavior still need verification.
 
 ## Phase 3B — Category Grid & Tool Cards Layout
@@ -49,7 +49,7 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - Tool cards now include a short, tool-specific tagline in addition to the icon, category, name and description.
 - Added responsive card grid breakpoints: one column on narrow phones, two on wider phones, three on tablets/small desktops, and four on wide screens. Added hover/focus and reduced-motion styling, plus dark-mode overrides.
 - `index.html`, `app.js`, and a dedicated CSS file were changed; tool implementations and router logic were not intentionally rewritten.
-- Verification status: changes are merged into `main`. Source-level checks were reviewed; interactive browser/mobile regression checks and confirmation of the live GitHub Pages deployment remain pending. Do not claim the new UI is visually or interactively verified until those checks pass.
+- Verification status: changes are merged into `main` via PR #7 (`d657766208245b900395c8220e7f4d87e698ec1a`). Source-level checks passed, including 20 card taglines, five category labels, stylesheet linkage and responsive/dark-mode rules. Interactive browser/mobile regression checks and confirmation of the live GitHub Pages deployment remain pending.
 
 ## Suggested verification checklist
 1. Parse `js/tools-data.json` as JSON and confirm exactly 20 entries.
@@ -69,8 +69,8 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - The longer-term goal is 25 tools. Proposed candidates have included Regex Tester, Unix Timestamp Converter, Extra Spaces Remover, Image Resizer, Image Compressor and Image Format Converter; choose the final five only after reviewing risk and scope.
 
 ## Next roadmap
-1. Verify the live site after the Phase 3B merge: category filters, search, theme persistence, tool launches, metadata routes, legacy routes and mobile layout.
-2. Audit the existing 20 tools for input validation, error handling and Copy/Download behavior.
+1. Verify the live site after the Phase 3B and router-fix merges: category filters, search, theme persistence, tool launches, metadata routes, legacy routes and mobile layout.
+2. Add/extend automated checks for app-level behavior and audit the existing 20 tools for input validation, error handling and Copy/Download behavior.
 3. Audit the existing 20 tools for empty/invalid inputs, error handling and Copy/Download behavior.
 4. Choose and implement five additional tools using free, browser-side processing where practical; then complete SEO, accessibility and performance reviews.
 
