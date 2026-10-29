@@ -27,17 +27,40 @@ const grid=$("#toolGrid"), panel=$("#toolPanel"), workspace=$("#workspace");
 let activeCategory="All", activeTool=null;
 $("#year").textContent=new Date().getFullYear();
 
+const cardTaglines={
+ case:"Make every word fit your style",
+ slug:"Turn titles into clean URLs",
+ diff:"Spot changes between two texts",
+ markdown:"Write and preview Markdown",
+ base64:"Encode and decode text quickly",
+ json:"Format, minify and validate JSON",
+ url:"Safely encode URL components",
+ meta:"Create SEO-ready meta markup",
+ csvjson:"Move data between CSV and JSON",
+ uuid:"Generate unique IDs instantly",
+ sha256:"Create a SHA-256 text hash",
+ password:"Build a password to your needs",
+ image64:"Convert images into data URLs",
+ qr:"Turn text or links into QR codes",
+ color:"Explore HEX, RGB and HSL",
+ forexcalc:"Convert currencies with reference rates",
+ unit:"Convert common measurement units",
+ age:"Find ages and date differences",
+ counter:"Count words and characters",
+ duplines:"Clean repeated lines from text"
+};
+
 function renderCards(){
  const q=$("#toolSearch").value.trim().toLowerCase();
  const filtered=tools.filter(t=>(activeCategory==="All"||t.category===activeCategory)&&`${t.name} ${t.description} ${t.category}`.toLowerCase().includes(q));
- grid.innerHTML=filtered.map(t=>`<button class="tool-card" type="button" data-tool="${t.id}"><span class="iconbox">${escapeHtml(t.icon)}</span><span class="category mt-3">${escapeHtml(t.category)}</span><h3>${escapeHtml(t.name)}</h3><p>${escapeHtml(t.description)}</p><span class="launch">Open tool →</span></button>`).join("");
+ grid.innerHTML=filtered.map(t=>`<button class="tool-card" type="button" data-tool="${t.id}" aria-label="Open ${escapeHtml(t.name)}"><span class="iconbox" aria-hidden="true">${escapeHtml(t.icon)}</span><span class="category mt-3">${escapeHtml(t.category==="Image"?"Images":t.category==="Developer"?"Dev Tools":t.category)}</span><h3>${escapeHtml(t.name)}</h3><p>${escapeHtml(t.description)}</p><span class="card-tagline">${escapeHtml(cardTaglines[t.id]||"Simple tools for everyday tasks")}</span><span class="launch">Open tool <span aria-hidden="true">→</span></span></button>`).join("");
  $("#resultsCount").textContent=`Showing ${filtered.length} of ${tools.length} tools`;
  $("#noResults").classList.toggle("hidden",filtered.length!==0);
 }
 
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 
-$("#categoryFilters").addEventListener("click",e=>{const b=e.target.closest("[data-category]");if(!b)return;activeCategory=b.dataset.category;document.querySelectorAll(".filter-chip").forEach(x=>x.classList.toggle("active",x===b));renderCards();});
+$("#categoryFilters").addEventListener("click",e=>{const b=e.target.closest("[data-category]");if(!b)return;activeCategory=b.dataset.category;document.querySelectorAll(".filter-chip").forEach(x=>{const selected=x===b;x.classList.toggle("active",selected);x.setAttribute("aria-pressed",String(selected));});renderCards();});
 $("#toolSearch").addEventListener("input",renderCards);
 grid.addEventListener("click",e=>{const b=e.target.closest("[data-tool]");if(b)openTool(b.dataset.tool);});
 

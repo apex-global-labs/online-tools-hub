@@ -16,9 +16,10 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - `index.html`: site header, hero, search, category filters, tool cards, workspace, about section and footer.
 - `style.css`: base layout, theme variables, responsive styling and tool UI.
 - `css/phase2.css`: phase 2 navigation/search styles, dark-mode contrast overrides and animated day/night hero scene.
+- `css/phase3-category-grid.css`: responsive category filter pills and card-grid presentation for Phase 3.
 - `app.js`: 20-tool catalogue, card filtering, workspace lifecycle and tool implementations.
 - `js/live-search.js`: autocomplete suggestions, keyboard handling, category dropdown behavior and slash shortcut.
-- `js/tools-data.json`: modular router metadata. Phase 3 branch now contains 20 entries intended to match the 20 tools in `app.js`; see verification status below.
+- `js/tools-data.json`: modular router metadata. `main` now contains 20 entries intended to match the 20 tools in `app.js`; automated consistency checks passed, while live route regression checks remain pending.
 - `js/router.js`: modular hash route parser/resolver for `#/tools/:slug`.
 - `js/router-bridge.js`: connects modular routes to existing tool launch behavior.
 - `README.md`: setup and feature overview.
@@ -35,12 +36,20 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - Phase 2 interactions (theme persistence and search keyboard navigation) were manually verified by the owner on the live site.
 
 ## Phase 3 — Router Metadata Synchronization
-- Working branch: `feature/phase-3-router-metadata-sync`.
+- Merged into `main` via PR #5 (`f1d7dac251f11ea6d817762f6d352237befc97a6`).
 - Updated `js/tools-data.json` from 8 metadata records to 20 records, retaining existing IDs and slugs and adding metadata for the other 12 catalogue tools.
 - Slugs are unique, lowercase URL-friendly strings; IDs continue to match the `app.js` tool IDs.
 - Kept `app.js`, `js/router.js`, and `js/router-bridge.js` unchanged to minimize regression risk.
-- Verification status: metadata file was written to the feature branch. Automated consistency checks and live route regression checks are still pending; do not treat this phase as fully verified until those checks pass.
-- Main branch and live site have not been intentionally changed by this phase.
+- Verification status: automated source consistency checks passed on the router-metadata branch (20 records; no missing/extra IDs, duplicate IDs/slugs, invalid slugs or title mismatches). Live route regression checks remain pending; do not treat the routing phase as fully verified until those checks pass.
+- `main` has been updated. GitHub Pages deployment and live route behavior still need verification.
+
+## Phase 3B — Category Grid & Tool Cards Layout
+- Working branch: `feature/phase-3b-category-grid-main`, based on the updated `main` branch.
+- Homepage category pills are reduced to All, Text, Images, Dev Tools and Calculators. Existing internal category values are retained to avoid changing tool implementations; the Password Generator remains available under All/search.
+- Tool cards now include a short, tool-specific tagline in addition to the icon, category, name and description.
+- Added responsive card grid breakpoints: one column on narrow phones, two on wider phones, three on tablets/small desktops, and four on wide screens. Added hover/focus and reduced-motion styling, plus dark-mode overrides.
+- `index.html`, `app.js`, and a dedicated CSS file were changed; tool implementations and router logic were not intentionally rewritten.
+- Verification status: source edits are on the feature branch. Browser/mobile regression checks are still pending; do not treat this phase as fully verified until those pass.
 
 ## Suggested verification checklist
 1. Parse `js/tools-data.json` as JSON and confirm exactly 20 entries.
@@ -60,15 +69,14 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - The longer-term goal is 25 tools. Proposed candidates have included Regex Tester, Unix Timestamp Converter, Extra Spaces Remover, Image Resizer, Image Compressor and Image Format Converter; choose the final five only after reviewing risk and scope.
 
 ## Next roadmap
-1. Complete Phase 3 metadata consistency checks and create a reviewable pull request.
-2. After owner approval and merge, verify the live site and legacy routes.
+1. Review and test the category-grid pull request, including live/preview behavior where available.
+2. Verify the live site, metadata routes, legacy routes, category filters, search, theme and mobile layout after deployment.
 3. Audit the existing 20 tools for empty/invalid inputs, error handling and Copy/Download behavior.
-4. Choose and implement five additional tools using free, browser-side processing where practical.
-5. SEO basics, accessibility pass, performance review and update this document with verified outcomes.
+4. Choose and implement five additional tools using free, browser-side processing where practical; then complete SEO, accessibility and performance reviews.
 
 ## Safe-change rules
 - Keep the current static/free hosting approach.
 - Make changes on a feature branch and merge through a pull request.
-- Never merge to `main` without the owner's approval.
+- Only merge to `main` when the owner has clearly authorized the merge and the risk has been reviewed.
 - Change only files required for the task; do not rewrite working tools during metadata synchronization.
 - Clearly separate verified behavior from assumptions or untested changes.
