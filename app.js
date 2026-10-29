@@ -59,7 +59,22 @@ window.addEventListener("popstate",()=>{
 
 document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();$("#toolSearch").focus();}});
 
-$("#themeToggle").addEventListener("click",()=>{document.documentElement.classList.toggle("dark");const dark=document.documentElement.classList.contains("dark");$("#themeToggle").textContent=dark?"☀ Day":"☾ Night";$("#themeToggle").setAttribute("aria-label",dark?"Switch to light mode":"Switch to night mode");$("#themeToggle").setAttribute("aria-pressed",String(dark));document.querySelector('meta[name="theme-color"]').content=dark?"#020617":"#ffffff";});
+// Restore the visitor's last selected theme, when storage is available.
+try {
+ const savedTheme = localStorage.getItem("toolnest-theme");
+ if (savedTheme === "dark") document.documentElement.classList.add("dark");
+ if (savedTheme === "light") document.documentElement.classList.remove("dark");
+} catch (_) { /* Private browsing or storage restrictions: use the default theme. */ }
+
+$("#themeToggle").addEventListener("click",()=>{
+ document.documentElement.classList.toggle("dark");
+ const dark=document.documentElement.classList.contains("dark");
+ $("#themeToggle").textContent=dark?"☀ Day":"☾ Night";
+ $("#themeToggle").setAttribute("aria-label",dark?"Switch to light mode":"Switch to night mode");
+ $("#themeToggle").setAttribute("aria-pressed",String(dark));
+ document.querySelector('meta[name="theme-color"]').content=dark?"#020617":"#ffffff";
+ try { localStorage.setItem("toolnest-theme", dark ? "dark" : "light"); } catch (_) { /* Theme still works for this visit. */ }
+});
 $("#themeToggle").textContent=document.documentElement.classList.contains("dark")?"☀ Day":"☾ Night";
 $("#themeToggle").setAttribute("aria-label",document.documentElement.classList.contains("dark")?"Switch to light mode":"Switch to night mode");
 $("#themeToggle").setAttribute("aria-pressed",String(document.documentElement.classList.contains("dark")));
