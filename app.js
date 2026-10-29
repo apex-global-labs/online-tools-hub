@@ -149,6 +149,9 @@ function openTool(id,updateHistory=true){
  // Automatic focus disabled to avoid unwanted scrolling.
 }
 
+// Expose the existing workspace opener to the ES-module router bridge.
+window.openTool = openTool;
+
 function toolMarkup(id){
  switch(id){
  case "case":return form(`${textarea("sourceText","Your text")}<div class="actions">${btn("upper","UPPERCASE")}${btn("lower","lowercase",false)}${btn("sentence","Sentence case",false)}${btn("title","Title Case",false)}${btn("copy","Copy result",false)}</div>${out()}<p id="stats" class="muted text-sm"></p>`);
