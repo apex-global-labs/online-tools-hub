@@ -104,11 +104,6 @@ $("#themeToggle").setAttribute("aria-pressed",String(document.documentElement.cl
 
 renderCards();
 
-// Restore a directly opened legacy #tool/:id URL after refresh or sharing.
-if(location.hash.startsWith("#tool/")){
- const initialToolId=location.hash.slice(6);
- if(tools.some(t=>t.id===initialToolId))openTool(initialToolId,false);
-}
 
 const input=(id,label,placeholder="",type="text")=>`<div><label class="field-label" for="${id}">${label}</label><input class="field" id="${id}" type="${type}" placeholder="${placeholder}"></div>`;
 const textarea=(id,label,placeholder="Enter text here...")=>`<div><label class="field-label" for="${id}">${label}</label><textarea id="${id}" class="field" placeholder="${placeholder}"></textarea></div>`;
@@ -498,4 +493,10 @@ function wireTool(id){
  bind("copy",()=>copyOutput()); bind("calculate",()=>{const a=$("#dateA").value,b=$("#dateB").value||today.toISOString().slice(0,10);if(!a){message("Choose a start date.","error");return;}const da=new Date(a+"T00:00:00Z"),db=new Date(b+"T00:00:00Z");if(Number.isNaN(+da)||Number.isNaN(+db)){message("Enter valid dates.","error");return;}if(da>new Date(today.toISOString().slice(0,10)+"T00:00:00Z")){message("Start date cannot be in the future.","error");return;}if(db<da){message("End date must be on or after the start date.","error");return;}const days=Math.round((db-da)/86400000);let years=db.getUTCFullYear()-da.getUTCFullYear(),months=db.getUTCMonth()-da.getUTCMonth(),d=db.getUTCDate()-da.getUTCDate();if(d<0){months--;d+=new Date(Date.UTC(db.getUTCFullYear(),db.getUTCMonth(),0)).getUTCDate();}if(months<0){years--;months+=12;}setOutput(`Difference: ${years} years, ${months} months, ${d} days\nTotal days: ${days.toLocaleString()}`);});
  break;
  }
+}
+
+// Restore a directly opened legacy #tool/:id URL only after all helpers are initialized.
+if(location.hash.startsWith("#tool/")){
+ const initialToolId=location.hash.slice(6);
+ if(tools.some(t=>t.id===initialToolId))openTool(initialToolId,false);
 }
