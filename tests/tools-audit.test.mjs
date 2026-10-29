@@ -57,6 +57,20 @@ test("all text-result tools expose a wired Copy action", () => {
   }
 });
 
+test("every tool workspace receives universal Copy, Download and Clear actions", () => {
+  assert.match(app, /universal-tool-actions/);
+  assert.match(app, /id="universalCopy"/);
+  assert.match(app, /id="universalDownload"/);
+  assert.match(app, /id="universalClear"/);
+  assert.match(app, /function wireUniversalActions\(id\)/);
+  assert.match(app, /bind\("universalCopy"/);
+  assert.match(app, /bind\("universalDownload"/);
+  assert.match(app, /bind\("universalClear"/);
+  assert.match(app, /toolnest-"\+id\+"-result\.txt/);
+  assert.match(app, /a\.download="toolnest-qr\.png"/);
+  assert.match(app, /panel\.querySelectorAll\("input,textarea"\)/);
+});
+
 test("QR download action is wired and guards against missing output", () => {
   assert.match(markup, /btn\("downloadQR","Download PNG",false\)/);
   assert.match(wiring, /bind\("downloadQR",\(\)=>\{const c=\$\("#qrCanvas"\);if\(!c\)/);
