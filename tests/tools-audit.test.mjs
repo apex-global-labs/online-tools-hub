@@ -80,6 +80,9 @@ test("premium QR Studio exposes custom controls, presets and guarded downloads",
   assert.match(markup, /data-qr-preset="default"/);
   assert.match(markup, /data-qr-preset="blue"/);
   assert.match(markup, /data-qr-preset="gradient"/);
+  assert.match(markup, /id="generate"[^>]*>Generate QR/);
+  assert.match(wiring, /let qr=null/);
+  assert.match(wiring, /if\(!qr\)\{qr=new QRCodeStyling\(config\);qr\.append\(qrOutput\);\}/);
   assert.match(markup, /id="qrDownloadPng"/);
   assert.match(markup, /id="qrDownloadSvg"/);
   assert.match(wiring, /qrDownloadPng.*download\("png"\)/);
