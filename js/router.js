@@ -2,9 +2,9 @@
  * ToolNest Phase 1 — minimal hash router.
  * Route format: #/tools/:slug
  *
- * This module is intentionally not connected to index.html yet. That keeps
- * the current live app (which uses #tool/:id) unchanged while the new
- * architecture is prepared and tested.
+ * The router resolves modern #/tools/:slug URLs against tools-data.json.
+ * router-bridge.js connects resolved routes to the existing tool workspace;
+ * the legacy #tool/:id links remain supported by app.js.
  */
 
 const TOOLS_DATA_URL = new URL("./tools-data.json", import.meta.url);
@@ -46,7 +46,9 @@ export async function resolveRoute(hash = window.location.hash) {
   }
 
   const tools = await loadToolsData();
-  const tool = tools.find((item) => item.slug === route.slug);
+  // Route parsing is case-insensitive, so resolve slugs consistently too.
+  const normalizedSlug = route.slug.toLowerCase();
+  const tool = tools.find((item) => item.slug.toLowerCase() === normalizedSlug);
 
   return tool
     ? { name: "tool", tool }
