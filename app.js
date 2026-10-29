@@ -8,7 +8,8 @@ const tools = [
 {id:"json",name:"JSON Formatter & Validator",category:"Developer",icon:"{}",description:"Validate JSON and format or minify it."},
 {id:"url",name:"URL Encode / Decode",category:"Developer",icon:"％",description:"Encode or decode URL components."},
 {id:"meta",name:"Meta Tag Generator",category:"Developer",icon:"⌘",description:"Generate copy-ready SEO meta tag markup."},
-{id:"csvjson",name:"CSV ↔ JSON Converter",category:"Developer",icon:"⇄",description:"Convert CSV data to JSON and JSON arrays to CSV."},
+{id:"csvjson",name:"CSV ↔ JSON Converter",category:"Developer",icon:"⇄",description:"Convert CSV data to JSON and JSON arrays to CSV."
+,{id:"uuid",name:"UUID Generator",category:"Developer",icon:"🆔",description:"Generate random version 4 UUIDs in your browser."}},
 {id:"password",name:"Password Generator",category:"Utilities",icon:"✳",description:"Create a random password with character options."},
 {id:"image64",name:"Image to Base64",category:"Image",icon:"▧",description:"Convert a local image into a Base64 data URL."},
 {id:"qr",name:"QR Code Generator",category:"Image",icon:"▦",description:"Generate a QR code for text or a URL."},
@@ -104,7 +105,7 @@ function toolMarkup(id){
  case "json":return form(`${textarea("sourceText","JSON input",'{"hello":"world"}')}<div class="actions">${btn("format","Format JSON")}${btn("minify","Minify JSON",false)}${btn("copy","Copy result",false)}</div>${out()}`);
  case "url":return form(`${textarea("sourceText","Text or URL")}<div class="actions">${btn("encode","Encode component")}${btn("decode","Decode component",false)}${btn("copy","Copy result",false)}</div>${out()}`);
 
- case "csvjson":return form(`
+ case "uuid":return form(`${input("uuidCount","Number of UUIDs (1–100)","1","number")}<div class="actions">${btn("generate","Generate UUIDs")}${btn("copy","Copy result",false)}</div>${out()}<p class="muted text-sm">Creates random version 4 UUIDs locally in your browser.</p>`)
  <p class="muted text-sm">Convert CSV data to JSON or a JSON array to CSV. All conversion happens in your browser.</p>
  ${textarea("sourceText","Paste CSV or JSON",'name,age,city\\nAlice,25,Dhaka\\nBob,30,Chattogram')}
  <div class="actions">
@@ -202,6 +203,26 @@ function wireTool(id){
  case "url":
  bind("encode",()=>setOutput(encodeURIComponent(src())));
  bind("decode",()=>{try{setOutput(decodeURIComponent(src().replace(/\+/g," ")));}catch{message("Invalid encoded URL text.","error");}});
+ bind("copy",()=>copyOutput());
+ break;
+
+ case "uuid":
+ bind("generate",()=>{
+  const raw=$("#uuidCount").value.trim();
+  const count=Number(raw);
+  if(!raw||!Number.isInteger(count)||count<1||count>100){message("Enter a whole number from 1 to 100.","error");return;}
+  const makeUuid=()=>{
+   if(typeof crypto.randomUUID==="function")return crypto.randomUUID();
+   const bytes=new Uint8Array(16);
+   crypto.getRandomValues(bytes);
+   bytes[6]=(bytes[6]&0x0f)|0x40;
+   bytes[8]=(bytes[8]&0x3f)|0x80;
+   const hex=Array.from(bytes,b=>b.toString(16).padStart(2,"0")).join("");
+   return hex.slice(0,8)+"-"+hex.slice(8,12)+"-"+hex.slice(12,16)+"-"+hex.slice(16,20)+"-"+hex.slice(20);
+  };
+  setOutput(Array.from({length:count},makeUuid).join("\n"));
+  message("Generated "+count+" UUID(s).");
+ });
  bind("copy",()=>copyOutput());
  break;
 
