@@ -109,3 +109,12 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - Supports modern `#/tools/:slug` URLs and legacy `#tool/:id` URLs; router bridge now handles unresolved routes explicitly.
 - Adds workspace-specific responsive/dark-mode/focus/reduced-motion styles and source-level regression tests.
 - Verification status: changes are on the feature branch for review. Automated tests and GitHub Actions must pass before the changes are considered verified. Live browser/mobile checks remain pending. Do not merge without the owner's explicit approval.
+
+## Phase 5 — Universal tool actions (implementation PR pending)
+- Work branch: `phase5-universal-tool-actions`.
+- Added a consistent action row to every tool workspace: Copy result, Download result, and Clear.
+- Copy uses the generated text/result; Markdown copies the visible preview text; QR Code Generator copies the QR payload text because browsers do not provide a dependable plain-text button for copying a canvas image.
+- Download saves text results as a UTF-8 `.txt` file and downloads the generated QR canvas as a PNG. Empty results show a helpful message instead of downloading a blank file.
+- Clear resets tool inputs, file selection, selections/checks, text outputs, previews, QR output, color swatch, and statistics.
+- Added responsive styling and source-level regression assertions. Existing tool-specific Convert/Generate actions remain intact; conversion buttons are kept tool-appropriate rather than forcing a meaningless Convert button onto generators or analysis tools.
+- Automated CI and live browser checks are pending. Do not claim the live site is updated until the PR is reviewed/merged and GitHub Pages deployment is confirmed.
