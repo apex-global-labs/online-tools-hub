@@ -187,7 +187,7 @@ function wireTool(id){
  break;
 
  case "duplines":
- bind("removeDuplicates",()=>{
+ const removeDuplicates=()=>{
   const lines=src().split(/\r?\n/);
   const seen=new Set();
   let removed=0;
@@ -199,9 +199,12 @@ function wireTool(id){
   });
   setOutput(result.join("\n"));
   message("Removed "+removed+" duplicate line(s).");
- });
+ };
+ bind("removeDuplicates",removeDuplicates);
+ $("#sourceText").addEventListener("input",removeDuplicates);
  bind("copy",()=>copyOutput());
  break;
+
  case "counter":
  const count=()=>{const s=src(),trim=s.trim();const summary=`Words: ${trim?trim.split(/\s+/).length:0}\nCharacters (with spaces): ${s.length}\nCharacters (without spaces): ${s.replace(/\s/g,"").length}\nSentences: ${(s.match(/[.!?]+(?=\s|$)/g)||[]).length}\nParagraphs: ${trim?trim.split(/\n\s*\n/).length:0}`;setOutput(summary);$("#stats").textContent=summary.replace(/\n/g," · ");};
  bind("count",count);
@@ -330,16 +333,24 @@ function wireTool(id){
  break;
 
  case "slug":
- bind("generate",()=>setOutput($("#sourceText").value.normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")));
+ const makeSlug=()=>setOutput($("#sourceText").value.normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,""));
+ bind("generate",makeSlug);
+ $("#sourceText").addEventListener("input",makeSlug);
  bind("copy",()=>copyOutput());
  break;
 
  case "diff":
- bind("compare",()=>{const a=$("#leftText").value.split("\n"),b=$("#rightText").value.split("\n"),n=Math.max(a.length,b.length),lines=[];for(let i=0;i<n;i++){if(a[i]===b[i])lines.push("  "+(a[i]??""));else{if(a[i]!==undefined)lines.push("- "+a[i]);if(b[i]!==undefined)lines.push("+ "+b[i]);}}setOutput(lines.join("\n"));});
+ const compareText=()=>{const a=$("#leftText").value.split("\n"),b=$("#rightText").value.split("\n"),n=Math.max(a.length,b.length),lines=[];for(let i=0;i<n;i++){if(a[i]===b[i])lines.push("  "+(a[i]??""));else{if(a[i]!==undefined)lines.push("- "+a[i]);if(b[i]!==undefined)lines.push("+ "+b[i]);}}setOutput(lines.join("\n"));};
+ bind("compare",compareText);
+ $("#leftText").addEventListener("input",compareText);
+ $("#rightText").addEventListener("input",compareText);
  break;
 
  case "markdown":
- bind("preview",()=>{const s=src();let safe=escapeHtml(s);safe=safe.replace(/^### (.*)$/gm,"<h3>$1</h3>").replace(/^## (.*)$/gm,"<h2>$1</h2>").replace(/^# (.*)$/gm,"<h1>$1</h1>").replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/\*(.+?)\*/g,"<em>$1</em>").replace(/`([^`]+)`/g,"<code>$1</code>").replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>').replace(/\n/g,"<br>");$("#markdownPreview").innerHTML=safe;});
+ const renderMarkdown=()=>{const s=src();let safe=escapeHtml(s);safe=safe.replace(/^### (.*)$/gm,"<h3>$1</h3>").replace(/^## (.*)$/gm,"<h2>$1</h2>").replace(/^# (.*)$/gm,"<h1>$1</h1>").replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/\*(.+?)\*/g,"<em>$1</em>").replace(/\x60([^\x60]+)\x60/g,"<code>$1</code>").replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>').replace(/\n/g,"<br>");$("#markdownPreview").innerHTML=safe;};
+ bind("preview",renderMarkdown);
+ $("#sourceText").addEventListener("input",renderMarkdown);
+ renderMarkdown();
  break;
 
  case "image64":
