@@ -73,9 +73,7 @@ test("unknown slug resolves to not-found", async (t) => {
   });
 });
 
-test("metadata HTTP errors are surfaced by resolveRoute", async (t) => {
+test("metadata HTTP errors reject route resolution", async (t) => {
   mockMetadata(t, fixture, { fail: true });
-  const route = await resolveRoute("#/tools/json-formatter");
-  assert.equal(route.name, "error");
-  assert.match(route.error.message, /HTTP 503/);
+  await assert.rejects(resolveRoute("#/tools/json-formatter"), /HTTP 503/);
 });
