@@ -54,5 +54,89 @@
     "category": "Image",
     "icon": "◉",
     "slug": "color-converter"
+  },
+  {
+    "id": "diff",
+    "title": "Text Diff Checker",
+    "category": "Text",
+    "icon": "⇄",
+    "slug": "text-diff-checker"
+  },
+  {
+    "id": "markdown",
+    "title": "Markdown Previewer",
+    "category": "Text",
+    "icon": "M↓",
+    "slug": "markdown-previewer"
+  },
+  {
+    "id": "url",
+    "title": "URL Encode / Decode",
+    "category": "Developer",
+    "icon": "％",
+    "slug": "url-encode-decode"
+  },
+  {
+    "id": "meta",
+    "title": "Meta Tag Generator",
+    "category": "Developer",
+    "icon": "⌘",
+    "slug": "meta-tag-generator"
+  },
+  {
+    "id": "csvjson",
+    "title": "CSV ↔ JSON Converter",
+    "category": "Developer",
+    "icon": "⇄",
+    "slug": "csv-json-converter"
+  },
+  {
+    "id": "uuid",
+    "title": "UUID Generator",
+    "category": "Developer",
+    "icon": "🆔",
+    "slug": "uuid-generator"
+  },
+  {
+    "id": "sha256",
+    "title": "SHA-256 Hash Generator",
+    "category": "Developer",
+    "icon": "#️⃣",
+    "slug": "sha-256-hash-generator"
+  },
+  {
+    "id": "password",
+    "title": "Password Generator",
+    "category": "Utilities",
+    "icon": "✳",
+    "slug": "password-generator"
+  },
+  {
+    "id": "image64",
+    "title": "Image to Base64",
+    "category": "Image",
+    "icon": "▧",
+    "slug": "image-to-base64"
+  },
+  {
+    "id": "forexcalc",
+    "title": "Forex Currency Converter",
+    "category": "Calculators",
+    "icon": "💱",
+    "slug": "forex-currency-converter"
+  },
+  {
+    "id": "counter",
+    "title": "Word & Character Counter",
+    "category": "Text",
+    "icon": "¶",
+    "slug": "word-character-counter"
+  },
+  {
+    "id": "duplines",
+    "title": "Duplicate Lines Remover",
+    "category": "Text",
+    "icon": "≡",
+    "slug": "duplicate-lines-remover"
   }
 ]

@@ -18,8 +18,8 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - `css/phase2.css`: phase 2 navigation/search styles, dark-mode contrast overrides and animated day/night hero scene.
 - `app.js`: 20-tool catalogue, card filtering, workspace lifecycle and tool implementations.
 - `js/live-search.js`: autocomplete suggestions, keyboard handling, category dropdown behavior and slash shortcut.
-- `js/tools-data.json`: metadata for 8 modular router routes; this is not the full 20-tool catalogue.
-- `js/router.js`: modular hash route parser/resolver.
+- `js/tools-data.json`: modular router metadata. Phase 3 branch now contains 20 entries intended to match the 20 tools in `app.js`; see verification status below.
+- `js/router.js`: modular hash route parser/resolver for `#/tools/:slug`.
 - `js/router-bridge.js`: connects modular routes to existing tool launch behavior.
 - `README.md`: setup and feature overview.
 
@@ -28,44 +28,47 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - Category chips and Categories dropdown.
 - Search suggestions with tool launch on click or Enter.
 - `Ctrl+K` / `Cmd+K` focuses the search field; `/` shortcut focuses search when not typing.
-- Light / Night toggle; selected theme is now saved in local storage when available.
+- Light / Night toggle; selected theme is saved in local storage when available.
 - Animated sunrise in Day mode; moonrise and softly twinkling stars in Night mode.
 - Dark-mode contrast overrides for header, hero, cards, fields, outputs and footer.
 - Modular hash router and legacy tool URL bridge.
-- 20 tool definitions in `app.js`; the metadata file currently has 8 route records, so it must not be treated as the complete tool catalogue.
-- Phase 2 UI behavior (search, category menu, Ctrl+K and theme animation) was manually checked by the owner. The latest persistence and arrow-key navigation additions have not yet been separately confirmed by the owner on the live site.
+- Phase 2 interactions (theme persistence and search keyboard navigation) were manually verified by the owner on the live site.
 
-## Phase 2 final polish in progress
-- Persist the selected Day/Night theme between page loads.
-- Support Up/Down arrow navigation through search suggestions, Escape to close, and accessible suggestion state.
-- Update documentation to reflect the actual file structure and tool count.
-- After merge/deploy, do a desktop and mobile regression pass before marking these latest changes as verified.
+## Phase 3 — Router Metadata Synchronization
+- Working branch: `feature/phase-3-router-metadata-sync`.
+- Updated `js/tools-data.json` from 8 metadata records to 20 records, retaining existing IDs and slugs and adding metadata for the other 12 catalogue tools.
+- Slugs are unique, lowercase URL-friendly strings; IDs continue to match the `app.js` tool IDs.
+- Kept `app.js`, `js/router.js`, and `js/router-bridge.js` unchanged to minimize regression risk.
+- Verification status: metadata file was written to the feature branch. Automated consistency checks and live route regression checks are still pending; do not treat this phase as fully verified until those checks pass.
+- Main branch and live site have not been intentionally changed by this phase.
 
 ## Suggested verification checklist
-1. Search for `json`, use arrow keys and Enter to launch the suggestion.
-2. Press Escape to close suggestions; click outside the search box and confirm they close.
-3. Select a category from the header dropdown and confirm the matching category chip/filter updates.
-4. Switch to Night, reload the page, and confirm Night remains selected; switch to Day, reload, and confirm Day remains selected.
-5. Verify sun/moon/stars, search text contrast, cards, tool workspace, form fields and result output in both themes.
-6. Test the same interactions at a narrow mobile width.
-7. Open QR Generator, JSON Formatter, Text Case Converter, Unit Converter and one other tool; confirm launch, close and browser Back/Forward behavior.
+1. Parse `js/tools-data.json` as JSON and confirm exactly 20 entries.
+2. Compare every metadata ID and title with the catalogue in `app.js`; confirm no missing or extra IDs.
+3. Confirm all IDs and slugs are unique and every slug matches the router's allowed pattern `[a-z0-9-]+`.
+4. Resolve each `#/tools/:slug` route against metadata and confirm the resolved ID exists in the catalogue.
+5. Test representative new and existing routes in a browser, including QR Generator, JSON Formatter, Unit Converter, Text Diff Checker and Duplicate Lines Remover.
+6. Verify legacy `#tool/:id` links and normal card launches remain functional.
+7. Check browser Back/Forward behavior and a narrow mobile viewport.
 
 ## Known constraints / follow-up items
-- `js/tools-data.json` contains 8 entries while `app.js` currently has 20 tool definitions. Keep the modular router metadata synchronized as route coverage is expanded.
-- Tailwind browser CDN is intended for prototyping; compiling CSS locally can be considered later but is not required for the current free deployment.
-- No automated browser test suite is configured. Do not describe the latest changes as fully visually verified until a live regression pass is completed.
+- No automated browser test suite is configured.
+- The router metadata is a routing index, not the source of tool implementation; tool behavior remains in `app.js`.
+- Tailwind's browser CDN is intended for prototyping; compiling CSS locally can be considered later but is not required for the current free deployment.
 - Check small-screen navigation and hero decoration for overlap.
-- Confirm whether the owner wants to expand from the current 20 tools to the 25-tool target. The previously proposed additions included Regex Tester, Unix Timestamp Converter, Extra Spaces Remover, Image Resizer, Image Compressor and Image Format Converter; avoid adding more tools until the phase plan is confirmed.
+- After Phase 3, review all 20 tools for input validation, error handling and Copy/Download behavior.
+- The longer-term goal is 25 tools. Proposed candidates have included Regex Tester, Unix Timestamp Converter, Extra Spaces Remover, Image Resizer, Image Compressor and Image Format Converter; choose the final five only after reviewing risk and scope.
 
-## Next 4–5 day roadmap (suggested, not yet implemented)
-- Day 1: verify phase 2 fixes on desktop/mobile and resolve any reported regression.
-- Day 2: synchronize router metadata with the intended route catalogue and test all routes.
-- Day 3: review the existing 20 tools for correctness, empty input, invalid input and copy/download behavior.
-- Day 4: decide and implement the next 5 tools from the agreed priority list; keep processing local where feasible.
-- Day 5: SEO basics, accessibility pass, performance review and update this document with verified outcomes.
+## Next roadmap
+1. Complete Phase 3 metadata consistency checks and create a reviewable pull request.
+2. After owner approval and merge, verify the live site and legacy routes.
+3. Audit the existing 20 tools for empty/invalid inputs, error handling and Copy/Download behavior.
+4. Choose and implement five additional tools using free, browser-side processing where practical.
+5. SEO basics, accessibility pass, performance review and update this document with verified outcomes.
 
 ## Safe-change rules
 - Keep the current static/free hosting approach.
 - Make changes on a feature branch and merge through a pull request.
-- Change only files required for the task; do not rewrite working tools during UI polish.
+- Never merge to `main` without the owner's approval.
+- Change only files required for the task; do not rewrite working tools during metadata synchronization.
 - Clearly separate verified behavior from assumptions or untested changes.
