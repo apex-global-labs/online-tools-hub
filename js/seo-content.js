@@ -103,7 +103,6 @@
       section.appendChild(faqBlock);
     }
 
-    const pageUrl = window.location.href;
     const schema = {
       "@context": "https://schema.org",
       "@type": "FAQPage",
@@ -136,6 +135,13 @@
       const id = currentToolId();
       const tool = toolMetadata.find((item) => item.id === id);
       if (tool) render(tool);
+      else {
+        section.replaceChildren();
+        section.hidden = true;
+        section.removeAttribute("data-tool-id");
+        clearSchema();
+        renderedToolId = "";
+      }
     });
   }
 
