@@ -104,6 +104,12 @@ $("#themeToggle").setAttribute("aria-pressed",String(document.documentElement.cl
 
 renderCards();
 
+// Restore a directly opened legacy #tool/:id URL after refresh or sharing.
+if(location.hash.startsWith("#tool/")){
+ const initialToolId=location.hash.slice(6);
+ if(tools.some(t=>t.id===initialToolId))openTool(initialToolId,false);
+}
+
 const input=(id,label,placeholder="",type="text")=>`<div><label class="field-label" for="${id}">${label}</label><input class="field" id="${id}" type="${type}" placeholder="${placeholder}"></div>`;
 const textarea=(id,label,placeholder="Enter text here...")=>`<div><label class="field-label" for="${id}">${label}</label><textarea id="${id}" class="field" placeholder="${placeholder}"></textarea></div>`;
 const select=(id,label,options)=>`<div><label class="field-label" for="${id}">${label}</label><select id="${id}" class="field">${options.map(o=>`<option value="${o[0]}">${o[1]}</option>`).join("")}</select></div>`;
