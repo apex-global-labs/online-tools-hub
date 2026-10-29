@@ -366,6 +366,7 @@ function wireTool(id){
  break;
 
  case "forexcalc":
+ $("#forexTo").value="BDT";
  bind("swapCurrencies",()=>{
   const from=$("#forexFrom"),to=$("#forexTo");
   const previous=from.value;
