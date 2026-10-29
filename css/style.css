@@ -1,0 +1,5 @@
+/* ToolNest Phase 1 CSS entry point.
+   Existing styles remain in /style.css during the migration so the live site
+   keeps its current appearance. In a later integration phase, index.html can
+   load this file instead of the root stylesheet. */
+@import url("../style.css");
