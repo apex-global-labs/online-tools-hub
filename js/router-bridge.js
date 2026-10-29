@@ -6,13 +6,22 @@
  */
 import { initRouter } from "./router.js";
 
-initRouter((route) => {
-  if (route.name === "tool" && route.tool) {
-    const openTool = window.openTool;
-    if (typeof openTool === "function") {
-      openTool(route.tool.id, false);
-    } else {
-      console.error("ToolNest router: the existing tool workspace is not ready.");
+function startRouterBridge() {
+  initRouter((route) => {
+    if (route.name === "tool" && route.tool) {
+      const openTool = window.openTool;
+      if (typeof openTool === "function") {
+        openTool(route.tool.id, false);
+      } else {
+        console.error("ToolNest router: the existing tool workspace is not ready.");
+      }
     }
-  }
-});
+  });
+}
+
+// DOMContentLoaded ensures the existing deferred app.js has executed first.
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", startRouterBridge, { once: true });
+} else {
+  startRouterBridge();
+}
