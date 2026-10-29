@@ -8,29 +8,50 @@
   <title>ToolNest — Free Online Tools</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/phase2.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
   <script src="app.js" defer></script>
   <script type="module" src="js/router-bridge.js"></script>
+  <script src="js/live-search.js" defer></script>
 </head>
 <body>
   <header class="sticky top-0 z-30 border-b border-slate-200/70 bg-white/85 backdrop-blur dark:border-slate-800 dark:bg-slate-950/85">
-    <nav class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4">
-      <a href="#" class="flex items-center gap-2 font-black tracking-tight text-xl"><span class="brand-mark">T</span><span>ToolNest</span></a>
-      <div class="hidden items-center gap-5 text-sm font-semibold md:flex">
-        <a href="#tools" class="nav-link">All tools</a><a href="#about" class="nav-link">About</a>
+    <nav class="site-nav mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 md:py-4">
+      <a href="#" class="flex items-center gap-2 font-black tracking-tight text-xl" aria-label="ToolNest home"><span class="brand-mark">T</span><span>ToolNest</span></a>
+      <div class="hidden items-center gap-3 text-sm font-semibold md:flex">
+        <details class="nav-categories">
+          <summary>Categories <span aria-hidden="true">⌄</span></summary>
+          <div class="category-menu">
+            <button type="button" data-nav-category="All">All tools</button>
+            <button type="button" data-nav-category="Text">Text tools</button>
+            <button type="button" data-nav-category="Image">Image tools</button>
+            <button type="button" data-nav-category="Developer">Developer / Code</button>
+            <button type="button" data-nav-category="Calculators">Calculators</button>
+            <button type="button" data-nav-category="Utilities">Utilities</button>
+          </div>
+        </details>
+        <a href="#about" class="nav-link">About</a>
       </div>
       <button id="themeToggle" class="btn-secondary" type="button" aria-label="Toggle dark mode">☾ Theme</button>
     </nav>
   </header>
 
   <main class="mx-auto max-w-7xl px-4">
-    <section id="hero" class="hero my-8 overflow-hidden rounded-3xl px-6 py-12 md:my-12 md:px-12 md:py-16">
-      <div class="relative z-10 max-w-3xl">
+    <section id="hero" class="hero my-6 overflow-hidden rounded-3xl px-6 py-12 md:my-10 md:px-12 md:py-16">
+      <div class="hero-content relative z-10 max-w-3xl">
         <span class="eyebrow">SIMPLE · FAST · FREE</span>
         <h1 class="mt-4 text-4xl font-black leading-tight tracking-tight md:text-6xl">Everyday tools.<br><span class="gradient-text">One simple place.</span></h1>
         <p class="mt-5 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300 md:text-lg">Useful online utilities for writing, coding, images, colors and calculations — right in your browser.</p>
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-          <a href="#tools" class="btn-primary">Explore tools <span aria-hidden="true">→</span></a>
+        <div class="hero-search-area">
+          <div class="search-wrap">
+            <span aria-hidden="true">⌕</span>
+            <input id="toolSearch" type="search" placeholder="Search 20+ free tools..." aria-label="Search tools" autocomplete="off" aria-controls="searchSuggestions">
+            <kbd>Ctrl K</kbd>
+          </div>
+          <div id="searchSuggestions" class="search-suggestions hidden" role="listbox" aria-label="Tool search suggestions"></div>
+        </div>
+        <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+          <a href="#tools" class="btn-primary">Explore all tools <span aria-hidden="true">→</span></a>
           <span class="self-center text-sm text-slate-500">No account needed · Browser-based processing</span>
         </div>
       </div>
@@ -40,7 +61,6 @@
     <section id="tools" class="pb-14">
       <div class="flex flex-col justify-between gap-5 md:flex-row md:items-end">
         <div><p class="eyebrow">THE TOOLBOX</p><h2 class="mt-2 text-3xl font-extrabold tracking-tight">Find your tool</h2><p class="mt-2 muted">Choose a category or search by name.</p></div>
-        <div class="search-wrap w-full md:max-w-md"><span aria-hidden="true">⌕</span><input id="toolSearch" type="search" placeholder="Search tools..." aria-label="Search tools"><kbd>Ctrl K</kbd></div>
       </div>
       <div id="categoryFilters" class="mt-6 flex flex-wrap gap-2">
         <button class="filter-chip active" data-category="All">All tools</button>
@@ -67,14 +87,13 @@
       <div><div class="feature-icon">📱</div><h3 class="mt-3 font-bold">Works on mobile</h3><p class="mt-2 text-sm muted">A responsive layout for desktop, tablet and phone screens.</p></div>
     </section>
   </main>
-  
-<footer class="border-t border-slate-200 py-8 text-center text-sm muted dark:border-slate-800">
-  <p class="text-lg font-bold" style="color:#4f46e5;">ToolNest</p>
-  <p class="mt-2">Your everyday tools, simple and free.</p>
-  <p class="mt-3">© <span id="year"></span> ToolNest. All rights reserved.</p>
-  <p class="mt-2">Useful browser-based tools for everyday tasks.</p>
-  <p class="mt-2">These tools provide general utility and are not professional security, legal, or medical advice.</p>
-</footer>
 
+  <footer class="border-t border-slate-200 py-8 text-center text-sm muted dark:border-slate-800">
+    <p class="text-lg font-bold" style="color:#4f46e5;">ToolNest</p>
+    <p class="mt-2">Your everyday tools, simple and free.</p>
+    <p class="mt-3">© <span id="year"></span> ToolNest. All rights reserved.</p>
+    <p class="mt-2">Useful browser-based tools for everyday tasks.</p>
+    <p class="mt-2">These tools provide general utility and are not professional security, legal, or medical advice.</p>
+  </footer>
 </body>
 </html>
