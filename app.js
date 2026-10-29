@@ -409,10 +409,34 @@ function wireTool(id){
  break;
  case "unit":
  const units={length:[["m","Meters",1],["km","Kilometers",1000],["cm","Centimeters",.01],["mm","Millimeters",.001],["mi","Miles",1609.344],["ft","Feet",.3048],["in","Inches",.0254]],weight:[["kg","Kilograms",1],["g","Grams",.001],["mg","Milligrams",.000001],["lb","Pounds",.45359237],["oz","Ounces",.028349523125]],temperature:[["C","Celsius"],["F","Fahrenheit"],["K","Kelvin"]]};
- const fill=()=>{const type=$("#unitType").value,opts=units[type];$("#unitFrom").innerHTML=opts.map(u=>`<option value="${u[0]}">${u[1]}</option>`).join("");$("#unitTo").innerHTML=opts.map(u=>`<option value="${u[0]}">${u[1]}</option>`).join("");if(opts.length>1)$("#unitTo").selectedIndex=1;};
+ const convertUnit=()=>{
+  const raw=$("#unitValue").value.trim();
+  if(raw===""){setOutput("");return;}
+  const type=$("#unitType").value,v=Number(raw),from=$("#unitFrom").value,to=$("#unitTo").value;
+  if(!Number.isFinite(v)){message("Enter a valid number.","error");return;}
+  let result;
+  if(type==="temperature"){
+   const c=from==="C"?v:from==="F"?(v-32)*5/9:v-273.15;
+   result=to==="C"?c:to==="F"?c*9/5+32:c+273.15;
+  }else{
+   const us=units[type],a=us.find(x=>x[0]===from),b=us.find(x=>x[0]===to);
+   result=v*a[2]/b[2];
+  }
+  setOutput(`${v} ${from} = ${Number(result.toPrecision(10))} ${to}`);
+ };
+ const fill=()=>{
+  const type=$("#unitType").value,opts=units[type];
+  $("#unitFrom").innerHTML=opts.map(u=>`<option value="${u[0]}">${u[1]}</option>`).join("");
+  $("#unitTo").innerHTML=opts.map(u=>`<option value="${u[0]}">${u[1]}</option>`).join("");
+  if(opts.length>1)$("#unitTo").selectedIndex=1;
+  convertUnit();
+ };
  $("#unitType").addEventListener("change",fill);
+ $("#unitValue").addEventListener("input",convertUnit);
+ $("#unitFrom").addEventListener("change",convertUnit);
+ $("#unitTo").addEventListener("change",convertUnit);
  fill();
- bind("convert",()=>{const type=$("#unitType").value,v=Number($("#unitValue").value),from=$("#unitFrom").value,to=$("#unitTo").value;if(!Number.isFinite(v)){message("Enter a valid number.","error");return;}let result;if(type==="temperature"){let c=from==="C"?v:from==="F"?(v-32)*5/9:v-273.15;result=to==="C"?c:to==="F"?c*9/5+32:c+273.15;}else{const us=units[type],a=us.find(x=>x[0]===from),b=us.find(x=>x[0]===to);result=v*a[2]/b[2];}setOutput(`${v} ${from} = ${Number(result.toPrecision(10))} ${to}`);});
+ bind("convert",convertUnit);
  break;
 
  case "age":
