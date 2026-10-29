@@ -71,10 +71,22 @@ test("every tool workspace receives universal Copy, Download and Clear actions",
   assert.match(app, /panel\.querySelectorAll\("input,textarea"\)/);
 });
 
-test("QR download action is wired and guards against missing output", () => {
-  assert.match(markup, /btn\("downloadQR","Download PNG",false\)/);
-  assert.match(wiring, /bind\("downloadQR",\(\)=>\{const c=\$\("#qrCanvas"\);if\(!c\)/);
+test("premium QR Studio exposes custom controls, presets and guarded downloads", () => {
+  assert.match(markup, /id="qrForeground"/);
+  assert.match(markup, /id="qrBackground"/);
+  assert.match(markup, /id="qrDotStyle"/);
+  assert.match(markup, /id="qrLogoFile"/);
+  assert.match(markup, /id="qrArtFile"/);
+  assert.match(markup, /data-qr-preset="default"/);
+  assert.match(markup, /data-qr-preset="blue"/);
+  assert.match(markup, /data-qr-preset="gradient"/);
+  assert.match(markup, /id="qrDownloadPng"/);
+  assert.match(markup, /id="qrDownloadSvg"/);
+  assert.match(wiring, /qrDownloadPng.*download\("png"\)/);
+  assert.match(wiring, /qrDownloadSvg.*download\("svg"\)/);
+  assert.match(wiring, /if\(!\$\("#qrText"\)\.value\.trim\(\)\)/);
   assert.match(wiring, /a\.download="toolnest-qr\.png"/);
+  assert.match(wiring, /getRawData\("svg"\)/);
 });
 
 test("clipboard helper handles unavailable clipboard APIs and empty results", () => {
