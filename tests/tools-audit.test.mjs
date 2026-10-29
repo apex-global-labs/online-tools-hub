@@ -68,3 +68,10 @@ test("clipboard helper handles unavailable clipboard APIs and empty results", ()
   assert.match(app, /if\(!navigator\.clipboard\?\.writeText\)/);
   assert.match(app, /Clipboard access is unavailable/);
 });
+
+test("input handlers reject invalid edge cases", () => {
+  assert.match(getBranch(wiring, "unit"), /below absolute zero/);
+  assert.match(getBranch(wiring, "age"), /Start date cannot be in the future/);
+  assert.match(getBranch(wiring, "meta"), /valid HTTP or HTTPS canonical URL/);
+  assert.match(getBranch(wiring, "image64"), /10 MB/);
+});
