@@ -18,6 +18,15 @@ const markup = app.slice(markupStart, markupEnd);
 const wireStart = app.indexOf("function wireTool(id)");
 const wiring = app.slice(wireStart);
 
+function getBranch(source, id) {
+  const marker = `case "${id}":`;
+  const start = source.indexOf(marker);
+  if (start < 0) return "";
+  const rest = source.slice(start + marker.length);
+  const next = rest.search(/\\n\\s*case "|\\n\\s*default:/);
+  return source.slice(start, next < 0 ? source.length : start + marker.length + next);
+}
+
 test("catalogue and router metadata contain the same 20 unique tool IDs", () => {
   assert.equal(catalogIds.length, 20);
   assert.equal(new Set(catalogIds).size, catalogIds.length);
@@ -35,19 +44,17 @@ test("every catalogue tool has markup and an event-wiring branch", () => {
   }
 });
 
-test("text-result tools expose a wired Copy action", () => {
-  for (const id of ["case", "slug", "diff", "markdown", "base64", "json", "url", "meta", "csvjson", "uuid", "sha256", "password", "image64", "color", "forexcalc", "unit", "age", "counter", "duplines"]) {
-    assert.ok(markup.includes(`case "${id}":`), `missing markup branch for ${id}`);
-    assert.ok(wiring.includes(`case "${id}":`), `missing wiring branch for ${id}`);
+test("all text-result tools expose a wired Copy action", () => {
+  const copyTools = ["case", "slug", "diff", "markdown", "base64", "json", "url", "meta", "csvjson", "uuid", "sha256", "password", "image64", "color", "forexcalc", "unit", "age", "counter", "duplines"];
+  for (const id of copyTools) {
+    assert.match(getBranch(markup, id), /btn\("copy"/, `${id} should show a Copy button`);
+    assert.match(getBranch(wiring, id), /bind\("copy"/, `${id} should wire its Copy button`);
   }
+  assert.match(getBranch(markup, "markdown"), /btn\("copy","Copy preview text",false\)/);
+  assert.match(getBranch(wiring, "markdown"), /bind\("copy",\(\)=>copyOutput\("markdownPreview"\)\)/);
   for (const id of ["diff", "forexcalc", "unit", "age"]) {
-    const at = markup.indexOf(`case "${id}":`);
-    const next = markup.slice(at).search(/\n\s*case "|\n\s*default:/);
-    const body = markup.slice(at, next < 0 ? undefined : at + next);
-    assert.match(body, /btn\("copy","Copy result",false\)/, `${id} should offer Copy result`);
+    assert.match(getBranch(markup, id), /btn\("copy","Copy result",false\)/);
   }
-  assert.match(markup, /btn\("copy","Copy preview text",false\)/, "Markdown preview should offer Copy preview text");
-  assert.match(wiring, /bind\("copy",\(\)=>copyOutput\("markdownPreview"\)\)/, "Markdown Copy should target the rendered preview");
 });
 
 test("QR download action is wired and guards against missing output", () => {
