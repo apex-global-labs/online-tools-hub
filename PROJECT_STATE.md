@@ -51,6 +51,16 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - `index.html`, `app.js`, and a dedicated CSS file were changed; tool implementations and router logic were not intentionally rewritten.
 - Verification status: changes are merged into `main` via PR #7 (`d657766208245b900395c8220e7f4d87e698ec1a`). Source-level checks passed, including 20 card taglines, five category labels, stylesheet linkage and responsive/dark-mode rules. Interactive browser/mobile regression checks and confirmation of the live GitHub Pages deployment remain pending.
 
+## Tool behavior audit — PR #9
+- PR: https://github.com/apex-global-labs/online-tools-hub/pull/9
+- Added Copy actions to Text Diff Checker, Markdown Previewer, Forex Currency Converter, Unit Converter, and Age & Date Difference.
+- Markdown Copy uses the rendered preview's visible text. Clipboard unavailability and empty output now produce a clear message instead of an uncaught clipboard access error.
+- Added `tests/tools-audit.test.mjs` to check the 20-tool catalogue against router metadata, confirm each tool has markup and wiring, verify Copy actions, and guard the QR PNG download behavior.
+- Added `.github/workflows/tests.yml` to run router and tool-audit tests on pull requests and pushes to `main`.
+- GitHub Actions run #1 for PR #9 completed successfully. Connector-side source checks also confirm 20 catalogue entries, 20 metadata entries with matching IDs, and all 20 tools having markup and event-wiring branches.
+- Source audit notes for follow-up hardening: the Unit Converter does not explicitly reject temperatures below absolute zero; the Age Calculator relies on the date input's maximum rather than explicitly rejecting a future start date in its handler; the Meta Tag Generator does not validate an optional canonical URL; and Image to Base64 has no file-size warning/limit. These are review findings, not claims of live-browser failures.
+- Live GitHub Pages/browser verification is still pending. The available web retrieval returned `DisabledError`, and the connected GitHub tools did not expose a confirmed Pages deployment status. Do not mark live route, visual, mobile, or clipboard behavior as verified until tested in a real browser.
+
 ## Suggested verification checklist
 1. Parse `js/tools-data.json` as JSON and confirm exactly 20 entries.
 2. Compare every metadata ID and title with the catalogue in `app.js`; confirm no missing or extra IDs.
