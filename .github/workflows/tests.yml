@@ -5,12 +5,13 @@ on:
     branches: [main]
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  test:
+  node-tests:
     name: Node regression tests
     runs-on: ubuntu-latest
     steps:
@@ -22,3 +23,32 @@ jobs:
           node-version: 22
       - name: Run regression tests
         run: node --experimental-default-type=module --test tests/*.test.mjs
+
+  browser-smoke:
+    name: Chromium browser smoke tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright
+        run: npm install --no-save playwright
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Start local static server for pull requests
+        if: github.event_name == 'pull_request'
+        run: python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/toolnest-http.log 2>&1 &
+      - name: Test the pull request in Chromium
+        if: github.event_name == 'pull_request'
+        env:
+          TOOLNEST_BASE_URL: http://127.0.0.1:4173/
+        run: node tests/browser-smoke.mjs
+      - name: Test the deployed GitHub Pages site in Chromium
+        if: github.event_name != 'pull_request'
+        env:
+          TOOLNEST_BASE_URL: https://apex-global-labs.github.io/online-tools-hub/
+        run: node tests/browser-smoke.mjs
