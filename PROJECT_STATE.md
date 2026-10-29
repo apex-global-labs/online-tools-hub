@@ -44,12 +44,12 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - `main` has been updated. GitHub Pages deployment and live route behavior still need verification.
 
 ## Phase 3B — Category Grid & Tool Cards Layout
-- Working branch: `feature/phase-3b-category-grid-main`, based on the updated `main` branch.
+- Merged into `main` via PR #7 (`d657766208245b900395c8220e7f4d87e698ec1a`); PR: https://github.com/apex-global-labs/online-tools-hub/pull/7.
 - Homepage category pills are reduced to All, Text, Images, Dev Tools and Calculators. Existing internal category values are retained to avoid changing tool implementations; the Password Generator remains available under All/search.
 - Tool cards now include a short, tool-specific tagline in addition to the icon, category, name and description.
 - Added responsive card grid breakpoints: one column on narrow phones, two on wider phones, three on tablets/small desktops, and four on wide screens. Added hover/focus and reduced-motion styling, plus dark-mode overrides.
 - `index.html`, `app.js`, and a dedicated CSS file were changed; tool implementations and router logic were not intentionally rewritten.
-- Verification status: source edits are on the feature branch. Browser/mobile regression checks are still pending; do not treat this phase as fully verified until those pass.
+- Verification status: changes are merged into `main`. Source-level checks were reviewed; interactive browser/mobile regression checks and confirmation of the live GitHub Pages deployment remain pending. Do not claim the new UI is visually or interactively verified until those checks pass.
 
 ## Suggested verification checklist
 1. Parse `js/tools-data.json` as JSON and confirm exactly 20 entries.
@@ -69,8 +69,8 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - The longer-term goal is 25 tools. Proposed candidates have included Regex Tester, Unix Timestamp Converter, Extra Spaces Remover, Image Resizer, Image Compressor and Image Format Converter; choose the final five only after reviewing risk and scope.
 
 ## Next roadmap
-1. Review and test the category-grid pull request, including live/preview behavior where available.
-2. Verify the live site, metadata routes, legacy routes, category filters, search, theme and mobile layout after deployment.
+1. Verify the live site after the Phase 3B merge: category filters, search, theme persistence, tool launches, metadata routes, legacy routes and mobile layout.
+2. Audit the existing 20 tools for input validation, error handling and Copy/Download behavior.
 3. Audit the existing 20 tools for empty/invalid inputs, error handling and Copy/Download behavior.
 4. Choose and implement five additional tools using free, browser-side processing where practical; then complete SEO, accessibility and performance reviews.
 
