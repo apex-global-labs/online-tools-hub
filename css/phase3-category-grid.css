@@ -1,7 +1,9 @@
 /* Phase 3: category filters and responsive tool-card grid */
 #categoryFilters {
   align-items: center;
+  justify-content: center;
   gap: 10px;
+  margin-inline: auto;
 }
 #categoryFilters .filter-chip {
   min-height: 42px;
@@ -27,7 +29,7 @@
 }
 .tool-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
   align-items: stretch;
 }
@@ -125,9 +127,6 @@
   background: #4f46e5;
   color: #fff;
 }
-@media (min-width: 440px) {
-  .tool-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
 @media (min-width: 768px) {
   .tool-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 }
@@ -137,7 +136,10 @@
 @media (max-width: 439px) {
   #categoryFilters { gap: 7px; }
   #categoryFilters .filter-chip { min-height: 38px; padding: 8px 12px; font-size: .82rem; }
-  .tool-grid .tool-card { min-height: 230px; padding: 18px; border-radius: 16px; }
+  .tool-grid .tool-card { min-height: 230px; padding: 14px; border-radius: 16px; }
+  .tool-grid .tool-card .iconbox { width: 40px; height: 40px; border-radius: 12px; }
+  .tool-grid .tool-card h3 { font-size: .94rem; }
+  .tool-grid .tool-card p { font-size: .82rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .tool-grid .tool-card { transition: none; }

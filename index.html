@@ -24,10 +24,11 @@
           <summary>Categories <span aria-hidden="true">⌄</span></summary>
           <div class="category-menu">
             <button type="button" data-nav-category="All">All tools</button>
-            <button type="button" data-nav-category="Text">Text</button>
-            <button type="button" data-nav-category="Image">Images</button>
+            <button type="button" data-nav-category="Text">Text Utilities</button>
+            <button type="button" data-nav-category="Image">Image Tools</button>
             <button type="button" data-nav-category="Developer">Dev Tools</button>
             <button type="button" data-nav-category="Calculators">Calculators</button>
+            <button type="button" data-nav-category="Utilities">Utilities</button>
           </div>
         </details>
         <a href="#about" class="nav-link hidden sm:inline">About</a>
@@ -63,11 +64,12 @@
         <div><p class="eyebrow">THE TOOLBOX</p><h2 class="mt-2 text-3xl font-extrabold tracking-tight">Find your tool</h2><p class="mt-2 muted">Choose a category or search by name.</p></div>
       </div>
       <div id="categoryFilters" class="mt-6 flex flex-wrap gap-2">
-        <button class="filter-chip active" data-category="All" aria-pressed="true">All</button>
-        <button class="filter-chip" data-category="Text" aria-pressed="false">Text</button>
-        <button class="filter-chip" data-category="Image" aria-pressed="false">Images</button>
+        <button class="filter-chip active" data-category="All" aria-pressed="true">All Tools</button>
+        <button class="filter-chip" data-category="Text" aria-pressed="false">Text Utilities</button>
+        <button class="filter-chip" data-category="Image" aria-pressed="false">Image Tools</button>
         <button class="filter-chip" data-category="Developer" aria-pressed="false">Dev Tools</button>
         <button class="filter-chip" data-category="Calculators" aria-pressed="false">Calculators</button>
+        <button class="filter-chip" data-category="Utilities" aria-pressed="false">Utilities</button>
       </div>
       <p id="resultsCount" class="mt-5 text-sm muted" aria-live="polite"></p>
       <div id="toolGrid" class="tool-grid mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"></div>

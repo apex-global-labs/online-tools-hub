@@ -4,139 +4,179 @@
     "title": "QR Code Generator",
     "category": "Image",
     "icon": "▦",
-    "slug": "qr-generator"
+    "slug": "qr-generator",
+    "description": "Generate a QR code for text or a URL.",
+    "tagline": "Turn text or links into QR codes"
   },
   {
     "id": "slug",
     "title": "Slug Generator",
     "category": "Text",
     "icon": "🔗",
-    "slug": "slug-generator"
+    "slug": "slug-generator",
+    "description": "Create clean, URL-friendly slugs from text.",
+    "tagline": "Turn titles into clean URLs"
   },
   {
     "id": "case",
     "title": "Text Case Converter",
     "category": "Text",
     "icon": "Aa",
-    "slug": "text-case-converter"
+    "slug": "text-case-converter",
+    "description": "Convert text case and count words, characters and lines.",
+    "tagline": "Make every word fit your style"
   },
   {
     "id": "json",
     "title": "JSON Formatter & Validator",
     "category": "Developer",
     "icon": "{}",
-    "slug": "json-formatter"
+    "slug": "json-formatter",
+    "description": "Validate JSON and format or minify it.",
+    "tagline": "Format, minify and validate JSON"
   },
   {
     "id": "base64",
     "title": "Base64 Encoder / Decoder",
     "category": "Developer",
     "icon": "64",
-    "slug": "base64-encoder-decoder"
+    "slug": "base64-encoder-decoder",
+    "description": "Encode or decode text with UTF-8 support.",
+    "tagline": "Encode and decode text quickly"
   },
   {
     "id": "unit",
     "title": "Unit Converter",
     "category": "Calculators",
     "icon": "↔",
-    "slug": "unit-converter"
+    "slug": "unit-converter",
+    "description": "Convert length, weight and temperature units.",
+    "tagline": "Convert common measurement units"
   },
   {
     "id": "age",
     "title": "Age & Date Difference",
     "category": "Calculators",
     "icon": "▦",
-    "slug": "age-date-difference"
+    "slug": "age-date-difference",
+    "description": "Calculate age or the days between two dates.",
+    "tagline": "Find ages and date differences"
   },
   {
     "id": "color",
     "title": "Color Converter",
     "category": "Image",
     "icon": "◉",
-    "slug": "color-converter"
+    "slug": "color-converter",
+    "description": "Convert HEX colors into RGB and HSL values.",
+    "tagline": "Explore HEX, RGB and HSL"
   },
   {
     "id": "diff",
     "title": "Text Diff Checker",
     "category": "Text",
     "icon": "⇄",
-    "slug": "text-diff-checker"
+    "slug": "text-diff-checker",
+    "description": "Compare two text blocks and identify changed lines.",
+    "tagline": "Spot changes between two texts"
   },
   {
     "id": "markdown",
     "title": "Markdown Previewer",
     "category": "Text",
     "icon": "M↓",
-    "slug": "markdown-previewer"
+    "slug": "markdown-previewer",
+    "description": "Preview basic Markdown safely as formatted text.",
+    "tagline": "Write and preview Markdown"
   },
   {
     "id": "url",
     "title": "URL Encode / Decode",
     "category": "Developer",
     "icon": "％",
-    "slug": "url-encode-decode"
+    "slug": "url-encode-decode",
+    "description": "Encode or decode URL components.",
+    "tagline": "Safely encode URL components"
   },
   {
     "id": "meta",
     "title": "Meta Tag Generator",
     "category": "Developer",
     "icon": "⌘",
-    "slug": "meta-tag-generator"
+    "slug": "meta-tag-generator",
+    "description": "Generate copy-ready SEO meta tag markup.",
+    "tagline": "Create SEO-ready meta markup"
   },
   {
     "id": "csvjson",
     "title": "CSV ↔ JSON Converter",
     "category": "Developer",
     "icon": "⇄",
-    "slug": "csv-json-converter"
+    "slug": "csv-json-converter",
+    "description": "Convert CSV data to JSON and JSON arrays to CSV.",
+    "tagline": "Move data between CSV and JSON"
   },
   {
     "id": "uuid",
     "title": "UUID Generator",
     "category": "Developer",
     "icon": "🆔",
-    "slug": "uuid-generator"
+    "slug": "uuid-generator",
+    "description": "Generate random version 4 UUIDs in your browser.",
+    "tagline": "Generate unique IDs instantly"
   },
   {
     "id": "sha256",
     "title": "SHA-256 Hash Generator",
     "category": "Developer",
     "icon": "#️⃣",
-    "slug": "sha-256-hash-generator"
+    "slug": "sha-256-hash-generator",
+    "description": "Create a SHA-256 hash from text in your browser.",
+    "tagline": "Create a SHA-256 text hash"
   },
   {
     "id": "password",
     "title": "Password Generator",
     "category": "Utilities",
     "icon": "✳",
-    "slug": "password-generator"
+    "slug": "password-generator",
+    "description": "Create a random password with character options.",
+    "tagline": "Build a password to your needs"
   },
   {
     "id": "image64",
     "title": "Image to Base64",
     "category": "Image",
     "icon": "▧",
-    "slug": "image-to-base64"
+    "slug": "image-to-base64",
+    "description": "Convert a local image into a Base64 data URL.",
+    "tagline": "Convert images into data URLs"
   },
   {
     "id": "forexcalc",
     "title": "Forex Currency Converter",
     "category": "Calculators",
     "icon": "💱",
-    "slug": "forex-currency-converter"
+    "slug": "forex-currency-converter",
+    "description": "Convert major currencies using automatically retrieved reference exchange rates.",
+    "tagline": "Convert currencies with reference rates"
   },
   {
     "id": "counter",
     "title": "Word & Character Counter",
     "category": "Text",
     "icon": "¶",
-    "slug": "word-character-counter"
+    "slug": "word-character-counter",
+    "description": "Count words, characters, sentences and paragraphs.",
+    "tagline": "Count words and characters"
   },
   {
     "id": "duplines",
     "title": "Duplicate Lines Remover",
     "category": "Text",
     "icon": "≡",
-    "slug": "duplicate-lines-remover"
+    "slug": "duplicate-lines-remover",
+    "description": "Remove repeated lines while preserving the first occurrence and original order.",
+    "tagline": "Clean repeated lines from text"
   }
 ]

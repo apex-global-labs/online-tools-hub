@@ -51,6 +51,15 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - `index.html`, `app.js`, and a dedicated CSS file were changed; tool implementations and router logic were not intentionally rewritten.
 - Verification status: changes are merged into `main` via PR #7 (`d657766208245b900395c8220e7f4d87e698ec1a`). Source-level checks passed, including 20 card taglines, five category labels, stylesheet linkage and responsive/dark-mode rules. Interactive browser/mobile regression checks and confirmation of the live GitHub Pages deployment remain pending.
 
+## Phase 3C — JSON-driven category grid polish
+- Work branch: `phase3-json-driven-category-grid`; PR pending.
+- Category pills are centered and now read All Tools, Text Utilities, Image Tools, Dev Tools, Calculators, and Utilities. The Categories menu includes the same extra Utilities option.
+- `js/tools-data.json` contains all 20 tools plus description and tagline fields for card display.
+- `app.js` fetches the JSON metadata to render card title, category, icon, slug, description, and tagline while retaining the existing implementation catalogue as a fallback if the fetch fails.
+- Responsive card grid is configured for two columns on mobile, three on medium screens, and four on wide desktop screens.
+- Regression checks were added for JSON-driven cards, metadata descriptions/taglines, category labels, and responsive CSS. CI verification is pending.
+- Live-browser verification remains pending; source/CI checks do not establish that the published page has deployed or renders correctly in a real browser.
+
 ## Tool behavior audit — PR #9
 - PR: https://github.com/apex-global-labs/online-tools-hub/pull/9
 - Added Copy actions to Text Diff Checker, Markdown Previewer, Forex Currency Converter, Unit Converter, and Age & Date Difference.

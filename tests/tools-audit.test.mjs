@@ -75,3 +75,22 @@ test("input handlers reject invalid edge cases", () => {
   assert.match(getBranch(wiring, "meta"), /valid HTTP or HTTPS canonical URL/);
   assert.match(getBranch(wiring, "image64"), /10 MB/);
 });
+
+test("category cards use JSON metadata with a safe local fallback", () => {
+  assert.match(app, /fetch\("js\/tools-data\.json"\)/);
+  assert.match(app, /cardTools = nextCards/);
+  assert.match(app, /\.catch\(error => \{/);
+  assert.ok(metadata.every((tool) => typeof tool.description === "string" && tool.description.length > 0));
+  assert.ok(metadata.every((tool) => typeof tool.tagline === "string" && tool.tagline.length > 0));
+});
+
+test("category labels and responsive grid match the Phase 3 layout", () => {
+  const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
+  const css = readFileSync(new URL("../css/phase3-category-grid.css", import.meta.url), "utf8");
+  for (const category of ["All Tools", "Text Utilities", "Image Tools", "Dev Tools", "Calculators", "Utilities"]) {
+    assert.ok(html.includes(category), `missing category label: ${category}`);
+  }
+  assert.match(css, /justify-content: center/);
+  assert.match(css, /grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+  assert.match(css, /grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)/);
+});
