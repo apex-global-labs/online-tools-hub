@@ -23,6 +23,7 @@ const tools = [
 ];
 
 const $ = (s,root=document)=>root.querySelector(s);
+let cardTools = tools;
 const grid=$("#toolGrid"), panel=$("#toolPanel"), workspace=$("#workspace");
 let activeCategory="All", activeTool=null;
 $("#year").textContent=new Date().getFullYear();
@@ -52,9 +53,9 @@ const cardTaglines={
 
 function renderCards(){
  const q=$("#toolSearch").value.trim().toLowerCase();
- const filtered=tools.filter(t=>(activeCategory==="All"||t.category===activeCategory)&&`${t.name} ${t.description} ${t.category}`.toLowerCase().includes(q));
- grid.innerHTML=filtered.map(t=>`<button class="tool-card" type="button" data-tool="${t.id}" aria-label="Open ${escapeHtml(t.name)}"><span class="iconbox" aria-hidden="true">${escapeHtml(t.icon)}</span><span class="category mt-3">${escapeHtml(t.category==="Image"?"Images":t.category==="Developer"?"Dev Tools":t.category)}</span><h3>${escapeHtml(t.name)}</h3><p>${escapeHtml(t.description)}</p><span class="card-tagline">${escapeHtml(cardTaglines[t.id]||"Simple tools for everyday tasks")}</span><span class="launch">Open tool <span aria-hidden="true">→</span></span></button>`).join("");
- $("#resultsCount").textContent=`Showing ${filtered.length} of ${tools.length} tools`;
+ const filtered=cardTools.filter(t=>(activeCategory==="All"||t.category===activeCategory)&&`${t.name} ${t.description} ${t.category}`.toLowerCase().includes(q));
+ grid.innerHTML=filtered.map(t=>`<button class="tool-card" type="button" data-tool="${t.id}" aria-label="Open ${escapeHtml(t.name)}"><span class="iconbox" aria-hidden="true">${escapeHtml(t.icon)}</span><span class="category mt-3">${escapeHtml(t.category==="Image"?"Images":t.category==="Developer"?"Dev Tools":t.category)}</span><h3>${escapeHtml(t.name)}</h3><p>${escapeHtml(t.description)}</p><span class="card-tagline">${escapeHtml(t.tagline||cardTaglines[t.id]||"Simple tools for everyday tasks")}</span><span class="launch">Open tool <span aria-hidden="true">→</span></span></button>`).join("");
+ $("#resultsCount").textContent=`Showing ${filtered.length} of ${cardTools.length} tools`;
  $("#noResults").classList.toggle("hidden",filtered.length!==0);
 }
 
@@ -103,6 +104,36 @@ $("#themeToggle").setAttribute("aria-label",document.documentElement.classList.c
 $("#themeToggle").setAttribute("aria-pressed",String(document.documentElement.classList.contains("dark")));
 
 renderCards();
+
+// Load display metadata from JSON. The built-in catalogue remains a fallback.
+fetch("js/tools-data.json")
+  .then(response => {
+    if (!response.ok) throw new Error("Tool metadata could not be loaded.");
+    return response.json();
+  })
+  .then(metadata => {
+    if (!Array.isArray(metadata) || metadata.length !== tools.length) {
+      throw new Error("Tool metadata is incomplete.");
+    }
+    const nextCards = metadata.map(item => {
+      const implementation = tools.find(tool => tool.id === item.id);
+      if (!implementation) throw new Error("Unknown tool metadata: " + item.id);
+      return {
+        ...implementation,
+        name: item.title || implementation.name,
+        category: item.category || implementation.category,
+        icon: item.icon || implementation.icon,
+        slug: item.slug || "",
+        description: item.description || implementation.description,
+        tagline: item.tagline || cardTaglines[item.id] || "Simple tools for everyday tasks"
+      };
+    });
+    cardTools = nextCards;
+    renderCards();
+  })
+  .catch(error => {
+    console.warn("ToolNest: using built-in card data.", error);
+  });
 
 const input=(id,label,placeholder="",type="text")=>`<div><label class="field-label" for="${id}">${label}</label><input class="field" id="${id}" type="${type}" placeholder="${placeholder}"></div>`;
 const textarea=(id,label,placeholder="Enter text here...")=>`<div><label class="field-label" for="${id}">${label}</label><textarea id="${id}" class="field" placeholder="${placeholder}"></textarea></div>`;
