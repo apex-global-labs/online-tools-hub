@@ -15,6 +15,27 @@ function startRouterBridge() {
       } else {
         console.error("ToolNest router: the existing tool workspace is not ready.");
       }
+      return;
+    }
+
+    if (route.name === "not-found") {
+      const legacy = window.location.hash.match(/^#tool\/([a-z0-9]+)$/i);
+      if (legacy && typeof window.openTool === "function") {
+        window.openTool(legacy[1], false);
+      } else {
+        window.showToolNotFound?.(route.slug || window.location.hash.replace(/^#/, ""));
+      }
+      return;
+    }
+
+    if (route.name === "error") {
+      window.showToolNotFound?.("route");
+      console.error("ToolNest router could not resolve this route.", route.error);
+      return;
+    }
+
+    if (route.name === "home" && document.body.classList.contains("tool-open")) {
+      document.getElementById("closeWorkspace")?.click();
     }
   });
 }

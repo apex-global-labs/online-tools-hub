@@ -99,3 +99,13 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - Only merge to `main` when the owner has clearly authorized the merge and the risk has been reviewed.
 - Change only files required for the task; do not rewrite working tools during metadata synchronization.
 - Clearly separate verified behavior from assumptions or untested changes.
+
+
+## Phase 4 — Universal Tool Workspace Template
+- Work branch: `phase4-universal-tool-workspace`.
+- Keeps all 20 existing tool implementations and adds a shared responsive workspace card around their current markup; no tool algorithms are intentionally rewritten.
+- Adds dynamic Home > Category > Tool breadcrumb, workspace heading/description, back-to-tools control and a styled 404 state for unknown tool IDs/slugs.
+- Adds bottom-screen toast notifications for existing success/error messages while retaining the inline accessible status message.
+- Supports modern `#/tools/:slug` URLs and legacy `#tool/:id` URLs; router bridge now handles unresolved routes explicitly.
+- Adds workspace-specific responsive/dark-mode/focus/reduced-motion styles and source-level regression tests.
+- Verification status: changes are on the feature branch for review. Automated tests and GitHub Actions must pass before the changes are considered verified. Live browser/mobile checks remain pending. Do not merge without the owner's explicit approval.

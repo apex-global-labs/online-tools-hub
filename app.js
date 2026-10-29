@@ -65,20 +65,45 @@ $("#categoryFilters").addEventListener("click",e=>{const b=e.target.closest("[da
 $("#toolSearch").addEventListener("input",renderCards);
 grid.addEventListener("click",e=>{const b=e.target.closest("[data-tool]");if(b)openTool(b.dataset.tool);});
 
-function closeTool(){
+function closeTool(updateHistory=true){
  workspace.classList.add("hidden");
  document.body.classList.remove("tool-open");
  activeTool=null;
- if(location.hash.startsWith("#tool/")||location.hash.startsWith("#/tools/")) history.pushState(null,"",location.pathname+location.search);
+ if(updateHistory&&(location.hash.startsWith("#tool/")||location.hash.startsWith("#/tools/"))) history.pushState(null,"",location.pathname+location.search);
  window.scrollTo({top:0,behavior:"smooth"});
 }
 
+function showToolNotFound(slug=""){
+ activeTool=null;
+ document.body.classList.add("tool-open");
+ workspace.classList.remove("hidden");
+ $("#workspaceTitle").textContent="404 — Tool Not Found";
+ $("#workspaceDescription").textContent="We couldn’t find that tool. It may have moved or the URL may be incorrect.";
+ $("#workspaceBreadcrumb").innerHTML='<button type="button" class="breadcrumb-home" data-workspace-home>Home</button><span aria-hidden="true">›</span><span aria-current="page">Tool not found</span>';
+ $("#toolMessage").textContent="";
+ $("#toolPanel").innerHTML='<div class="workspace-main-card workspace-not-found"><span class="not-found-code">404</span><h2>Tool not found</h2><p class="muted">The requested tool '+(slug?'<code>'+escapeHtml(slug)+'</code>':'')+' isn’t available in ToolNest.</p><button type="button" class="btn-primary" data-workspace-home>Back to all tools</button></div>';
+ $("#toolPanel").querySelectorAll("[data-workspace-home]").forEach(button=>button.addEventListener("click",()=>closeTool()));
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+window.openTool=openTool;
+window.showToolNotFound=showToolNotFound;
 $("#closeWorkspace").addEventListener("click",closeTool);
 
 window.addEventListener("popstate",()=>{
- const id=location.hash.startsWith("#tool/")?location.hash.slice(6):"";
- if(id&&tools.some(t=>t.id===id))openTool(id,false);
- else closeTool();
+ const hash=location.hash;
+ if(hash.startsWith("#tool/")){
+  const id=hash.slice(6);
+  if(tools.some(t=>t.id===id))openTool(id,false);else showToolNotFound(id);
+  return;
+ }
+ if(hash.startsWith("#/tools/")){
+  const slug=hash.slice(8).replace(/\/$/,"").toLowerCase();
+  const item=cardTools.find(t=>t.slug===slug);
+  if(item&&tools.some(t=>t.id===item.id))openTool(item.id,false);else showToolNotFound(slug);
+  return;
+ }
+ closeTool(false);
 });
 
 document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();$("#toolSearch").focus();}});
@@ -139,10 +164,23 @@ const input=(id,label,placeholder="",type="text")=>`<div><label class="field-lab
 const textarea=(id,label,placeholder="Enter text here...")=>`<div><label class="field-label" for="${id}">${label}</label><textarea id="${id}" class="field" placeholder="${placeholder}"></textarea></div>`;
 const select=(id,label,options)=>`<div><label class="field-label" for="${id}">${label}</label><select id="${id}" class="field">${options.map(o=>`<option value="${o[0]}">${o[1]}</option>`).join("")}</select></div>`;
 const btn=(id,label,primary=true)=>`<button id="${id}" type="button" class="${primary?"btn-primary":"btn-secondary"}">${label}</button>`;
-const out=(id="output")=>`<div><label class="field-label">Result</label><div id="${id}" class="output"></div></div>`;
+const out=(id="output")=>`<div class="result-section"><label class="field-label" for="${id}">Result</label><div id="${id}" class="output" role="region" aria-live="polite" tabindex="0"></div></div>`;
 const form=(content)=>`<div class="tool-form">${content}</div>`;
 
-function message(text,type="success"){$("#toolMessage").textContent=text;$("#toolMessage").className=`mt-4 text-sm ${type}`;}
+let toastTimer;
+function showToast(text,type="success"){
+ const toast=$("#toastNotice");
+ if(!toast)return;
+ toast.textContent=text;
+ toast.className=`toolnest-toast is-visible ${type==="error"?"is-error":"is-success"}`;
+ clearTimeout(toastTimer);
+ toastTimer=setTimeout(()=>toast.classList.remove("is-visible"),2600);
+}
+function message(text,type="success"){
+ $("#toolMessage").textContent=text;
+ $("#toolMessage").className=`mt-4 text-sm ${type}`;
+ if(text)showToast(text,type);
+}
 function setOutput(text,id="output"){const el=$("#"+id);if(el)el.textContent=text;}
 
 function copyOutput(id="output"){
@@ -160,16 +198,24 @@ function bind(id,fn){
 
 function openTool(id,updateHistory=true){
  activeTool=tools.find(t=>t.id===id);
- if(!activeTool)return;
+ if(!activeTool){showToolNotFound(id);return;}
  document.body.classList.add("tool-open");
  $("#workspaceTitle").textContent=activeTool.name;
  $("#workspaceDescription").textContent=activeTool.description;
  $("#toolMessage").textContent="";
  $("#toolMessage").className="mt-4 text-sm";
+ const meta=cardTools.find(t=>t.id===id)||activeTool;
+ const category=meta.category==="Developer"?"Dev Tools":meta.category==="Image"?"Image Tools":meta.category||"Tools";
+ $("#workspaceBreadcrumb").innerHTML='<button type="button" class="breadcrumb-home" data-workspace-home>Home</button><span aria-hidden="true">›</span><span>'+escapeHtml(category)+'</span><span aria-hidden="true">›</span><span aria-current="page">'+escapeHtml(activeTool.name)+'</span>';
+ $("#workspaceBreadcrumb").querySelector("[data-workspace-home]").addEventListener("click",()=>closeTool());
  workspace.classList.remove("hidden");
- panel.innerHTML=toolMarkup(id);
+ panel.innerHTML='<div class="workspace-main-card">'+toolMarkup(id)+'</div>';
  wireTool(id);
- if(updateHistory&&location.hash!==`#tool/${id}`)history.pushState({tool:id},"",`#tool/${id}`);
+ if(updateHistory){
+  const slug=meta.slug;
+  const nextHash=slug?`#/tools/${slug}`:`#tool/${id}`;
+  if(location.hash!==nextHash)history.pushState({tool:id},"",nextHash);
+ }
  window.scrollTo({top:0,behavior:"instant"});
  // Automatic focus disabled to avoid unwanted scrolling.
 }
