@@ -16,3 +16,223 @@ body.tool-open .tool-form{max-width:900px;gap:18px}
 body.tool-open .tool-form textarea{min-height:180px}
 body.tool-open .output{min-height:90px}
 #closeWorkspace{white-space:nowrap}
+
+/* ===== Online Tools Hub: Professional Design Upgrade ===== */
+
+:root {
+  --brand: #4f46e5;
+  --brand-hover: #4338ca;
+  --surface: #ffffff;
+  --page-bg: #f6f8fc;
+  --text-main: #172033;
+  --text-muted: #64748b;
+  --card-border: #e5eaf3;
+  --card-shadow: 0 8px 28px rgba(31, 41, 55, 0.06);
+}
+
+body {
+  background: var(--page-bg);
+  color: var(--text-main);
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  line-height: 1.65;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  transition: background-color 0.2s ease,
+              border-color 0.2s ease,
+              box-shadow 0.2s ease,
+              transform 0.2s ease;
+}
+
+.tool-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: var(--card-shadow);
+  text-align: left;
+}
+
+.tool-card:hover {
+  transform: translateY(-4px);
+  border-color: #c7d2fe;
+  box-shadow: 0 16px 36px rgba(79, 70, 229, 0.12);
+}
+
+.tool-card:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(99, 102, 241, 0.35);
+  outline-offset: 3px;
+}
+
+.iconbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #eef2ff;
+  color: var(--brand);
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.tool-card h3 {
+  margin-top: 10px;
+  color: var(--text-main);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.tool-card p {
+  margin-top: 8px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.launch {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--brand);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.field {
+  width: 100%;
+  border: 1px solid #dbe2ee;
+  border-radius: 12px;
+  background: #fff;
+  padding: 12px 14px;
+  color: var(--text-main);
+}
+
+.field:focus {
+  border-color: var(--brand);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-main);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.btn-primary {
+  border: 1px solid var(--brand);
+  border-radius: 11px;
+  background: var(--brand);
+  color: #fff;
+  padding: 11px 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--brand-hover);
+}
+
+.btn-secondary {
+  border: 1px solid var(--card-border);
+  border-radius: 11px;
+  background: #fff;
+  color: var(--text-main);
+  padding: 11px 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: #c7d2fe;
+  background: #eef2ff;
+}
+
+.output {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  border: 1px solid var(--card-border);
+  border-radius: 13px;
+  background: #f8faff;
+  padding: 16px;
+  min-height: 64px;
+}
+
+#toolSearch {
+  border: 1px solid #dbe2ee;
+  border-radius: 14px;
+  background: #fff;
+  padding: 14px 16px;
+}
+
+#toolSearch:focus {
+  border-color: var(--brand);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.filter-chip {
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+.filter-chip.active {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
+}
+
+#workspace {
+  border: 1px solid var(--card-border);
+  background: #fff;
+  box-shadow: var(--card-shadow);
+}
+
+@media (max-width: 640px) {
+  .tool-card {
+    padding: 18px;
+    border-radius: 15px;
+  }
+
+  .tool-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .iconbox {
+    width: 42px;
+    height: 42px;
+    font-size: 19px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 10px 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
