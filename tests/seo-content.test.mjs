@@ -11,8 +11,8 @@ const css = readFileSync(new URL("../css/phase6-seo-content.css", import.meta.ur
 test("all 20 tools have complete, tool-specific SEO content", () => {
   assert.equal(metadata.length, 20);
   const catalogueStart = app.indexOf("const tools = [");
-  const catalogueEnd = app.indexOf("\\n];", catalogueStart);
-  const catalogue = [...app.slice(catalogueStart, catalogueEnd).matchAll(/\\{id:"([^"]+)",name:"([^"]+)"/g)];
+  const catalogueEnd = app.indexOf("\n];", catalogueStart);
+  const catalogue = [...app.slice(catalogueStart, catalogueEnd).matchAll(/\{id:"([^"]+)",name:"([^"]+)"/g)];
   assert.equal(catalogue.length, metadata.length);
   for (const tool of metadata) {
     const catalogueEntry = catalogue.find((entry) => entry[1] === tool.id);
