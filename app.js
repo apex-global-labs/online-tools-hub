@@ -209,8 +209,9 @@ function openTool(id,updateHistory=true){
  $("#workspaceBreadcrumb").innerHTML='<button type="button" class="breadcrumb-home" data-workspace-home>Home</button><span aria-hidden="true">›</span><span>'+escapeHtml(category)+'</span><span aria-hidden="true">›</span><span aria-current="page">'+escapeHtml(activeTool.name)+'</span>';
  $("#workspaceBreadcrumb").querySelector("[data-workspace-home]").addEventListener("click",()=>closeTool());
  workspace.classList.remove("hidden");
- panel.innerHTML='<div class="workspace-main-card">'+toolMarkup(id)+'</div>';
+ panel.innerHTML='<div class="workspace-main-card">'+toolMarkup(id)+'<div class="actions universal-tool-actions" aria-label="Common tool actions"><button id="universalCopy" type="button" class="btn-secondary">Copy result</button><button id="universalDownload" type="button" class="btn-secondary">Download result</button><button id="universalClear" type="button" class="btn-secondary">Clear</button></div></div>';
  wireTool(id);
+ wireUniversalActions(id);
  if(updateHistory){
   const slug=meta.slug;
   const nextHash=slug?`#/tools/${slug}`:`#tool/${id}`;
@@ -218,6 +219,66 @@ function openTool(id,updateHistory=true){
  }
  window.scrollTo({top:0,behavior:"instant"});
  // Automatic focus disabled to avoid unwanted scrolling.
+}
+
+function wireUniversalActions(id){
+ const resultText=()=>{
+  const output=$("#output");
+  if(output?.textContent.trim())return output.textContent;
+  const preview=$("#markdownPreview");
+  if(preview?.innerText?.trim())return preview.innerText;
+  return "";
+ };
+ bind("universalCopy",()=>{
+  const canvas=$("#qrCanvas");
+  if(canvas){
+   const value=$("#qrText")?.value.trim()||"";
+   if(!value){message("Generate a QR code first.","error");return;}
+   if(!navigator.clipboard?.writeText){message("Clipboard access is unavailable. Select and copy the QR text manually.","error");return;}
+   navigator.clipboard.writeText(value).then(()=>message("QR content copied.")).catch(()=>message("Clipboard access was blocked. Copy the QR text manually.","error"));
+   return;
+  }
+  const text=resultText();
+  if(!text.trim()){message("There is no result to copy yet.","error");return;}
+  if(!navigator.clipboard?.writeText){message("Clipboard access is unavailable. Select and copy the result manually.","error");return;}
+  navigator.clipboard.writeText(text).then(()=>message("Copied to clipboard.")).catch(()=>message("Clipboard access was blocked. Select and copy the result manually.","error"));
+ });
+ bind("universalDownload",()=>{
+  const canvas=$("#qrCanvas");
+  if(canvas){
+   try{const a=document.createElement("a");a.href=canvas.toDataURL("image/png");a.download="toolnest-qr.png";a.click();message("QR code downloaded.");}
+   catch{message("Could not download the QR image.","error");}
+   return;
+  }
+  const text=resultText();
+  if(!text.trim()){message("Generate a result before downloading.","error");return;}
+  const blob=new Blob([text],{type:"text/plain;charset=utf-8"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download="toolnest-"+id+"-result.txt";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  message("Result downloaded as a text file.");
+ });
+ bind("universalClear",()=>{
+  panel.querySelectorAll("input,textarea").forEach(el=>{
+   if(el.type==="checkbox"||el.type==="radio")el.checked=el.defaultChecked;
+   else if(el.type==="file")el.value="";
+   else if(el.type!=="button"&&el.type!=="submit")el.value="";
+  });
+  panel.querySelectorAll("select").forEach(el=>{el.selectedIndex=0;});
+  panel.querySelectorAll(".output").forEach(el=>{el.textContent="";});
+  const preview=$("#markdownPreview");if(preview)preview.innerHTML="";
+  ["imagePreview","qrOutput"].forEach(selector=>{const el=$("#"+selector);if(el)el.innerHTML="";});
+  const swatch=$("#colorSwatch");if(swatch)swatch.style.background="";
+  const stats=$("#stats");if(stats)stats.textContent="";
+  $("#toolMessage").textContent="";
+  $("#toolMessage").className="mt-4 text-sm";
+  message("Tool cleared.");
+ });
 }
 
 function toolMarkup(id){
