@@ -1,5 +1,5 @@
-/* Phase 2: autocomplete, category dropdown and slash shortcut.
-   Existing app.js remains the source of truth for tool filtering and launching. */
+/* Phase 2: autocomplete, category dropdown and keyboard shortcuts.
+   Existing app.js remains the source of truth for filtering and tool launching. */
 (() => {
   const input = document.getElementById("toolSearch");
   const suggestions = document.getElementById("searchSuggestions");
@@ -9,6 +9,8 @@
   const closeSuggestions = () => {
     suggestions.classList.add("hidden");
     suggestions.replaceChildren();
+    input.setAttribute("aria-expanded", "false");
+    input.removeAttribute("aria-activedescendant");
   };
 
   const showSuggestions = () => {
@@ -19,23 +21,27 @@
       return;
     }
 
-    const cards = [...grid.querySelectorAll(".tool-card")];
-    const matches = cards.slice(0, 7);
-    if (!matches.length) {
+    const cards = [...grid.querySelectorAll(".tool-card")].slice(0, 7);
+    if (!cards.length) {
       const empty = document.createElement("div");
       empty.className = "search-empty";
       empty.textContent = "No matching tools found. Try another keyword.";
       suggestions.append(empty);
       suggestions.classList.remove("hidden");
+      input.setAttribute("aria-expanded", "true");
       return;
     }
 
-    for (const card of matches) {
+    cards.forEach((card, index) => {
       const button = document.createElement("button");
       button.type = "button";
+      button.id = "search-option-" + index;
       button.className = "search-suggestion";
+      button.setAttribute("role", "option");
+      button.setAttribute("aria-selected", "false");
       const icon = document.createElement("span");
       icon.className = "search-suggestion-icon";
+      icon.setAttribute("aria-hidden", "true");
       icon.textContent = card.querySelector(".iconbox")?.textContent?.trim() || "↗";
       const copy = document.createElement("span");
       const title = document.createElement("span");
@@ -50,20 +56,51 @@
         closeSuggestions();
       });
       suggestions.append(button);
-    }
+    });
     suggestions.classList.remove("hidden");
+    input.setAttribute("aria-expanded", "true");
+  };
+
+  const moveFocus = (direction) => {
+    const options = [...suggestions.querySelectorAll(".search-suggestion")];
+    if (!options.length || suggestions.classList.contains("hidden")) return;
+    const current = options.indexOf(document.activeElement);
+    const next = current < 0
+      ? (direction > 0 ? 0 : options.length - 1)
+      : (current + direction + options.length) % options.length;
+    options.forEach((option, index) => option.setAttribute("aria-selected", String(index === next)));
+    options[next].focus();
   };
 
   input.addEventListener("input", showSuggestions);
   input.addEventListener("focus", showSuggestions);
   input.addEventListener("keydown", event => {
     if (event.key === "Escape") closeSuggestions();
+    if (event.key === "ArrowDown" && !suggestions.classList.contains("hidden")) {
+      event.preventDefault();
+      moveFocus(1);
+    }
+    if (event.key === "ArrowUp" && !suggestions.classList.contains("hidden")) {
+      event.preventDefault();
+      moveFocus(-1);
+    }
     if (event.key === "Enter") {
       const first = suggestions.querySelector(".search-suggestion");
       if (first && !suggestions.classList.contains("hidden")) {
         event.preventDefault();
         first.click();
       }
+    }
+  });
+
+  suggestions.addEventListener("keydown", event => {
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      event.preventDefault();
+      moveFocus(event.key === "ArrowDown" ? 1 : -1);
+    }
+    if (event.key === "Escape") {
+      closeSuggestions();
+      input.focus();
     }
   });
 
