@@ -397,7 +397,7 @@ function wireTool(id){
  break;
 
  case "image64":
- $("#imageFile").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;if(!f.type.startsWith("image/")){message("Please choose an image file.","error");return;}const r=new FileReader();r.onload=()=>{setOutput(String(r.result));$("#imagePreview").innerHTML=`<img class="mb-4 max-h-64 rounded-xl border border-slate-200 object-contain" alt="Selected image preview" src="${r.result}">`;message("Image converted.");};r.onerror=()=>message("Could not read this image.","error");r.readAsDataURL(f);});
+ $("#imageFile").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;if(!f.type.startsWith("image/")){message("Please choose an image file.","error");return;}if(f.size>10*1024*1024){message("Please choose an image smaller than 10 MB.","error");e.target.value="";return;}const r=new FileReader();r.onload=()=>{setOutput(String(r.result));$("#imagePreview").innerHTML=`<img class="mb-4 max-h-64 rounded-xl border border-slate-200 object-contain" alt="Selected image preview" src="${r.result}">`;message("Image converted.");};r.onerror=()=>message("Could not read this image.","error");r.readAsDataURL(f);});
  bind("copy",()=>copyOutput());
  break;
 
@@ -408,7 +408,7 @@ function wireTool(id){
  break;
 
  case "meta":
- bind("generate",()=>{const title=$("#pageTitle").value.trim(),desc=$("#pageDescription").value.trim(),url=$("#pageUrl").value.trim();if(!title||!desc){message("Enter both a title and description.","error");return;}const safe=s=>s.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");setOutput(`<title>${safe(title)}</title>\n<meta name="description" content="${safe(desc)}">`+(url?`\n<link rel="canonical" href="${safe(url)}">`:""));});
+ bind("generate",()=>{const title=$("#pageTitle").value.trim(),desc=$("#pageDescription").value.trim(),url=$("#pageUrl").value.trim();if(!title||!desc){message("Enter both a title and description.","error");return;}let canonical="";if(url){try{const parsed=new URL(url);if(!["http:","https:"].includes(parsed.protocol)||!parsed.hostname)throw new Error("invalid URL");canonical=parsed.href;}catch{message("Enter a valid HTTP or HTTPS canonical URL.","error");return;}}const safe=s=>s.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");setOutput(`<title>${safe(title)}</title>\n<meta name="description" content="${safe(desc)}">`+(canonical?`\n<link rel="canonical" href="${safe(canonical)}">`:""));});
  bind("copy",()=>copyOutput());
  break;
 
@@ -460,7 +460,7 @@ function wireTool(id){
   let result;
   if(type==="temperature"){
    const c=from==="C"?v:from==="F"?(v-32)*5/9:v-273.15;
-   result=to==="C"?c:to==="F"?c*9/5+32:c+273.15;
+   if(c < -273.15){message("Temperature cannot be below absolute zero (-273.15 °C).","error");return;}result=to==="C"?c:to==="F"?c*9/5+32:c+273.15;
   }else{
    const us=units[type],a=us.find(x=>x[0]===from),b=us.find(x=>x[0]===to);
    result=v*a[2]/b[2];
@@ -486,7 +486,7 @@ function wireTool(id){
  const today=new Date();
  $("#dateA").max=today.toISOString().slice(0,10);
  $("#dateB").value=today.toISOString().slice(0,10);
- bind("copy",()=>copyOutput()); bind("calculate",()=>{const a=$("#dateA").value,b=$("#dateB").value||today.toISOString().slice(0,10);if(!a){message("Choose a start date.","error");return;}const da=new Date(a+"T00:00:00Z"),db=new Date(b+"T00:00:00Z");if(Number.isNaN(+da)||Number.isNaN(+db)){message("Enter valid dates.","error");return;}if(db<da){message("End date must be on or after the start date.","error");return;}const days=Math.round((db-da)/86400000);let years=db.getUTCFullYear()-da.getUTCFullYear(),months=db.getUTCMonth()-da.getUTCMonth(),d=db.getUTCDate()-da.getUTCDate();if(d<0){months--;d+=new Date(Date.UTC(db.getUTCFullYear(),db.getUTCMonth(),0)).getUTCDate();}if(months<0){years--;months+=12;}setOutput(`Difference: ${years} years, ${months} months, ${d} days\nTotal days: ${days.toLocaleString()}`);});
+ bind("copy",()=>copyOutput()); bind("calculate",()=>{const a=$("#dateA").value,b=$("#dateB").value||today.toISOString().slice(0,10);if(!a){message("Choose a start date.","error");return;}const da=new Date(a+"T00:00:00Z"),db=new Date(b+"T00:00:00Z");if(Number.isNaN(+da)||Number.isNaN(+db)){message("Enter valid dates.","error");return;}if(da>new Date(today.toISOString().slice(0,10)+"T00:00:00Z")){message("Start date cannot be in the future.","error");return;}if(db<da){message("End date must be on or after the start date.","error");return;}const days=Math.round((db-da)/86400000);let years=db.getUTCFullYear()-da.getUTCFullYear(),months=db.getUTCMonth()-da.getUTCMonth(),d=db.getUTCDate()-da.getUTCDate();if(d<0){months--;d+=new Date(Date.UTC(db.getUTCFullYear(),db.getUTCMonth(),0)).getUTCDate();}if(months<0){years--;months+=12;}setOutput(`Difference: ${years} years, ${months} months, ${d} days\nTotal days: ${days.toLocaleString()}`);});
  break;
  }
 }

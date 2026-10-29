@@ -58,7 +58,7 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - Added `tests/tools-audit.test.mjs` to check the 20-tool catalogue against router metadata, confirm each tool has markup and wiring, verify Copy actions, and guard the QR PNG download behavior.
 - Added `.github/workflows/tests.yml` to run router and tool-audit tests on pull requests and pushes to `main`.
 - GitHub Actions run #1 for PR #9 completed successfully. Connector-side source checks also confirm 20 catalogue entries, 20 metadata entries with matching IDs, and all 20 tools having markup and event-wiring branches.
-- Source audit notes for follow-up hardening: the Unit Converter does not explicitly reject temperatures below absolute zero; the Age Calculator relies on the date input's maximum rather than explicitly rejecting a future start date in its handler; the Meta Tag Generator does not validate an optional canonical URL; and Image to Base64 has no file-size warning/limit. These are review findings, not claims of live-browser failures.
+- Source audit identified four edge cases; follow-up PR #10 (https://github.com/apex-global-labs/online-tools-hub/pull/10) adds explicit guards for temperatures below absolute zero, future start dates, non-HTTP(S) canonical URLs, and image files larger than 10 MB. Regression tests cover these guards. These fixes are source-tested and do not replace live-browser testing.
 - Live GitHub Pages/browser verification is still pending. The available web retrieval returned `DisabledError`, and the connected GitHub tools did not expose a confirmed Pages deployment status. Do not mark live route, visual, mobile, or clipboard behavior as verified until tested in a real browser.
 
 ## Suggested verification checklist
