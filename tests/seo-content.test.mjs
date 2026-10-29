@@ -44,7 +44,7 @@ test("SEO renderer is loaded with its stylesheet and uses the shared tool metada
 
 test("FAQ accordion is semantic and JSON-LD is generated from visible FAQ data", () => {
   assert.match(renderer, /document\.createElement\("details"\)/);
-  assert.match(renderer, /document\.createElement\("summary"\)/);
+  assert.match(renderer, /makeElement\("summary"/);
   assert.match(renderer, /"@type": "FAQPage"/);
   assert.match(renderer, /"@type": "Question"/);
   assert.match(renderer, /"@type": "Answer"/);
