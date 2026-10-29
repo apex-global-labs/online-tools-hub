@@ -94,3 +94,23 @@ test("category labels and responsive grid match the Phase 3 layout", () => {
   assert.match(css, /grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
   assert.match(css, /grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)/);
 });
+
+test("Phase 4 workspace template includes breadcrumb, status toast and dedicated workspace styling", () => {
+  const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
+  const css = readFileSync(new URL("../css/phase4-workspace.css", import.meta.url), "utf8");
+  assert.match(html, /id="workspaceBreadcrumb"/);
+  assert.match(html, /id="toastNotice"/);
+  assert.match(html, /aria-label="Breadcrumb"/);
+  assert.match(css, /\.workspace-main-card/);
+  assert.match(css, /\.toolnest-toast/);
+  assert.match(css, /prefers-reduced-motion/);
+});
+
+test("workspace supports slug routes, legacy ID routes and a visible 404 state", () => {
+  assert.match(app, /window\.showToolNotFound=showToolNotFound/);
+  assert.match(app, /404 — Tool Not Found/);
+  assert.match(app, /#\/tools\/\$\{slug\}/);
+  assert.match(app, /#tool\/\$\{id\}/);
+  assert.match(app, /function showToast\(/);
+  assert.match(app, /toastTimer=setTimeout/);
+});
