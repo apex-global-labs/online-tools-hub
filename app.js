@@ -1,4 +1,3 @@
-
 const tools = [
 {id:"case",name:"Text Case Converter",category:"Text",icon:"Aa",description:"Convert text case and count words, characters and lines."},
 {id:"slug",name:"Slug Generator",category:"Text",icon:"🔗",description:"Create clean, URL-friendly slugs from text."},
@@ -137,7 +136,7 @@ function wireTool(id){
  break;
 
  case "base64":
- bind("encode",()=>setOutput(btoa(unescape(encodeURIComponent(src()))));
+ bind("encode",()=>setOutput(btoa(unescape(encodeURIComponent(src())))));
  bind("decode",()=>{try{setOutput(decodeURIComponent(escape(atob(src().trim()))));message("Decoded successfully.");}catch{message("Invalid Base64 input or unsupported data.","error");}});
  bind("copy",()=>copyOutput());
  break;
