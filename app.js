@@ -17,7 +17,8 @@ const tools = [
 {id:"color",name:"Color Converter",category:"Image",icon:"◉",description:"Convert HEX colors into RGB and HSL values."},
 {id:"unit",name:"Unit Converter",category:"Calculators",icon:"↔",description:"Convert length, weight and temperature units."},
 {id:"age",name:"Age & Date Difference",category:"Calculators",icon:"▦",description:"Calculate age or the days between two dates."},
-{id:"counter",name:"Word & Character Counter",category:"Text",icon:"¶",description:"Count words, characters, sentences and paragraphs."}
+{id:"counter",name:"Word & Character Counter",category:"Text",icon:"¶",description:"Count words, characters, sentences and paragraphs."},
+{id:"duplines",name:"Duplicate Lines Remover",category:"Text",icon:"≡",description:"Remove repeated lines while preserving the first occurrence and original order."}
 ];
 
 const $ = (s,root=document)=>root.querySelector(s);
@@ -101,6 +102,7 @@ function openTool(id,updateHistory=true){
 function toolMarkup(id){
  switch(id){
  case "case":return form(`${textarea("sourceText","Your text")}<div class="actions">${btn("upper","UPPERCASE")}${btn("lower","lowercase",false)}${btn("sentence","Sentence case",false)}${btn("title","Title Case",false)}${btn("copy","Copy result",false)}</div>${out()}<p id="stats" class="muted text-sm"></p>`);
+ case "duplines":return form(`${textarea("sourceText","Paste text with repeated lines")}<div class="actions">${btn("removeDuplicates","Remove duplicate lines")}${btn("copy","Copy result",false)}</div>${out()}<p class="muted text-sm">Keeps the first occurrence of each exact non-empty line and preserves line order. Blank lines are left unchanged.</p>`);
  case "counter":return form(`${textarea("sourceText","Your text")}<div class="actions">${btn("count","Count text")}${btn("copy","Copy summary",false)}</div>${out()}<p id="stats" class="muted text-sm"></p>`);
  case "base64":return form(`${textarea("sourceText","Text to encode or decode")}<div class="actions">${btn("encode","Encode Base64")}${btn("decode","Decode Base64",false)}${btn("copy","Copy result",false)}</div>${out()}`);
  case "json":return form(`${textarea("sourceText","JSON input",'{"hello":"world"}')}<div class="actions">${btn("format","Format JSON")}${btn("minify","Minify JSON",false)}${btn("copy","Copy result",false)}</div>${out()}`);
@@ -182,6 +184,22 @@ function wireTool(id){
  $("#sourceText").addEventListener("input",()=>{const s=src();$("#stats").textContent=`${s.trim()?s.trim().split(/\s+/).length:0} words · ${s.length} characters · ${s.length?s.split(/\n/).length:0} lines`;});
  break;
 
+ case "duplines":
+ bind("removeDuplicates",()=>{
+  const lines=src().split(/\r?\n/);
+  const seen=new Set();
+  let removed=0;
+  const result=lines.filter(line=>{
+   if(line.trim()==="")return true;
+   if(seen.has(line)){removed++;return false;}
+   seen.add(line);
+   return true;
+  });
+  setOutput(result.join("\n"));
+  message("Removed "+removed+" duplicate line(s).");
+ });
+ bind("copy",()=>copyOutput());
+ break;
  case "counter":
  const count=()=>{const s=src(),trim=s.trim();const summary=`Words: ${trim?trim.split(/\s+/).length:0}\nCharacters (with spaces): ${s.length}\nCharacters (without spaces): ${s.replace(/\s/g,"").length}\nSentences: ${(s.match(/[.!?]+(?=\s|$)/g)||[]).length}\nParagraphs: ${trim?trim.split(/\n\s*\n/).length:0}`;setOutput(summary);$("#stats").textContent=summary.replace(/\n/g," · ");};
  bind("count",count);
