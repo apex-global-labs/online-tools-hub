@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Free online tools for text, developers, images, colors and everyday calculations. Fast, simple and browser-based.">
+  <title>ToolNest — Free Online Tools</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="sticky top-0 z-30 border-b border-slate-200/70 bg-white/85 backdrop-blur dark:border-slate-800 dark:bg-slate-950/85">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4">
+      <a href="#" class="flex items-center gap-2 font-black tracking-tight text-xl"><span class="brand-mark">T</span><span>ToolNest</span></a>
+      <div class="hidden items-center gap-5 text-sm font-semibold md:flex">
+        <a href="#tools" class="nav-link">All tools</a><a href="#about" class="nav-link">About</a>
+      </div>
+      <button id="themeToggle" class="btn-secondary" type="button" aria-label="Toggle dark mode">☾ Theme</button>
+    </nav>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4">
+    <section class="hero my-8 overflow-hidden rounded-3xl px-6 py-12 md:my-12 md:px-12 md:py-16">
+      <div class="relative z-10 max-w-3xl">
+        <span class="eyebrow">SIMPLE · FAST · FREE</span>
+        <h1 class="mt-4 text-4xl font-black leading-tight tracking-tight md:text-6xl">Everyday tools.<br><span class="gradient-text">One simple place.</span></h1>
+        <p class="mt-5 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300 md:text-lg">Useful online utilities for writing, coding, images, colors and calculations — right in your browser.</p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a href="#tools" class="btn-primary">Explore tools <span aria-hidden="true">→</span></a>
+          <span class="self-center text-sm text-slate-500">No account needed · Browser-based processing</span>
+        </div>
+      </div>
+      <div class="hero-orb orb-one"></div><div class="hero-orb orb-two"></div>
+    </section>
+
+    <section id="tools" class="pb-14">
+      <div class="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+        <div><p class="eyebrow">THE TOOLBOX</p><h2 class="mt-2 text-3xl font-extrabold tracking-tight">Find your tool</h2><p class="mt-2 muted">Choose a category or search by name.</p></div>
+        <div class="search-wrap w-full md:max-w-md"><span aria-hidden="true">⌕</span><input id="toolSearch" type="search" placeholder="Search tools..." aria-label="Search tools"><kbd>Ctrl K</kbd></div>
+      </div>
+      <div id="categoryFilters" class="mt-6 flex flex-wrap gap-2">
+        <button class="filter-chip active" data-category="All">All tools</button>
+        <button class="filter-chip" data-category="Text">Text</button>
+        <button class="filter-chip" data-category="Image">Image</button>
+        <button class="filter-chip" data-category="Developer">Developer / Code</button>
+        <button class="filter-chip" data-category="Calculators">Calculators</button>
+        <button class="filter-chip" data-category="Utilities">Utilities</button>
+      </div>
+      <p id="resultsCount" class="mt-5 text-sm muted" aria-live="polite"></p>
+      <div id="toolGrid" class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"></div>
+      <div id="noResults" class="hidden rounded-2xl border border-dashed border-slate-300 p-10 text-center dark:border-slate-700"><p class="font-bold">No tools found</p><p class="mt-1 muted">Try a different search or category.</p></div>
+    </section>
+
+    <section id="workspace" class="workspace mb-14 hidden rounded-3xl border border-slate-200 p-5 dark:border-slate-800 md:p-8">
+      <div class="mb-6 flex items-start justify-between gap-4"><div><p class="eyebrow">TOOL WORKSPACE</p><h2 id="workspaceTitle" class="mt-2 text-2xl font-extrabold"></h2><p id="workspaceDescription" class="mt-1 muted"></p></div><button id="closeWorkspace" class="btn-secondary" type="button">Close ✕</button></div>
+      <div id="toolPanel"></div>
+      <p id="toolMessage" class="mt-4 text-sm" aria-live="polite"></p>
+    </section>
+
+    <section id="about" class="mb-14 grid gap-6 rounded-3xl bg-slate-100 p-6 dark:bg-slate-900 md:grid-cols-3 md:p-8">
+      <div><div class="feature-icon">⚡</div><h3 class="mt-3 font-bold">Quick and simple</h3><p class="mt-2 text-sm muted">Straightforward interfaces for everyday tasks.</p></div>
+      <div><div class="feature-icon">🔒</div><h3 class="mt-3 font-bold">Browser-based</h3><p class="mt-2 text-sm muted">Most conversions happen locally in your browser. Avoid uploading private data to unknown websites.</p></div>
+      <div><div class="feature-icon">📱</div><h3 class="mt-3 font-bold">Works on mobile</h3><p class="mt-2 text-sm muted">A responsive layout for desktop, tablet and phone screens.</p></div>
+    </section>
+  </main>
+  <footer class="border-t border-slate-200 py-8 text-center text-sm muted dark:border-slate-800">
+    <p>© <span id="year"></span> ToolNest. Built for helpful everyday tasks.</p>
+    <p class="mt-2">This site provides utilities, not professional security, legal or medical advice.</p>
+  </footer>
+</body>
+</html>
