@@ -16,6 +16,7 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - `index.html`: site header, hero, search, category filters, tool cards, workspace, about section and footer.
 - `style.css`: base layout, theme variables, responsive styling and tool UI.
 - `css/phase2.css`: phase 2 navigation/search styles, dark-mode contrast overrides and animated day/night hero scene.
+- `css/phase3-category-grid.css`: responsive category filter pills and card-grid presentation for Phase 3.
 - `app.js`: 20-tool catalogue, card filtering, workspace lifecycle and tool implementations.
 - `js/live-search.js`: autocomplete suggestions, keyboard handling, category dropdown behavior and slash shortcut.
 - `js/tools-data.json`: modular router metadata. Phase 3 branch now contains 20 entries intended to match the 20 tools in `app.js`; see verification status below.
@@ -42,6 +43,14 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - Verification status: metadata file was written to the feature branch. Automated consistency checks and live route regression checks are still pending; do not treat this phase as fully verified until those checks pass.
 - Main branch and live site have not been intentionally changed by this phase.
 
+## Phase 3B — Category Grid & Tool Cards Layout
+- Working branch: `feature/phase-3-category-grid` (based on `feature/phase-3-router-metadata-sync`; dependent on PR #5).
+- Homepage category pills are reduced to All, Text, Images, Dev Tools and Calculators. Existing internal category values are retained to avoid changing tool implementations; the Password Generator remains available under All/search.
+- Tool cards now include a short, tool-specific tagline in addition to the icon, category, name and description.
+- Added responsive card grid breakpoints: one column on narrow phones, two on wider phones, three on tablets/small desktops, and four on wide screens. Added hover/focus and reduced-motion styling, plus dark-mode overrides.
+- `index.html`, `app.js`, and a dedicated CSS file were changed; tool implementations and router logic were not intentionally rewritten.
+- Verification status: source edits are on the feature branch. Browser/mobile regression checks are still pending; do not treat this phase as fully verified until those pass.
+
 ## Suggested verification checklist
 1. Parse `js/tools-data.json` as JSON and confirm exactly 20 entries.
 2. Compare every metadata ID and title with the catalogue in `app.js`; confirm no missing or extra IDs.
@@ -60,11 +69,11 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - The longer-term goal is 25 tools. Proposed candidates have included Regex Tester, Unix Timestamp Converter, Extra Spaces Remover, Image Resizer, Image Compressor and Image Format Converter; choose the final five only after reviewing risk and scope.
 
 ## Next roadmap
-1. Complete Phase 3 metadata consistency checks and create a reviewable pull request.
-2. After owner approval and merge, verify the live site and legacy routes.
-3. Audit the existing 20 tools for empty/invalid inputs, error handling and Copy/Download behavior.
-4. Choose and implement five additional tools using free, browser-side processing where practical.
-5. SEO basics, accessibility pass, performance review and update this document with verified outcomes.
+1. Complete browser checks for PR #5 metadata routes and the dependent category-grid branch.
+2. Review both pull requests and merge only with owner approval.
+3. Verify the live site, legacy routes, category filters, search, theme and mobile layout after approved merge.
+4. Audit the existing 20 tools for empty/invalid inputs, error handling and Copy/Download behavior.
+5. Choose and implement five additional tools using free, browser-side processing where practical; then complete SEO, accessibility and performance reviews.
 
 ## Safe-change rules
 - Keep the current static/free hosting approach.
