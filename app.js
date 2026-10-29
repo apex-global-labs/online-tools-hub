@@ -31,7 +31,16 @@ function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":
 $("#categoryFilters").addEventListener("click",e=>{const b=e.target.closest("[data-category]");if(!b)return;activeCategory=b.dataset.category;document.querySelectorAll(".filter-chip").forEach(x=>x.classList.toggle("active",x===b));renderCards();});
 $("#toolSearch").addEventListener("input",renderCards);
 grid.addEventListener("click",e=>{const b=e.target.closest("[data-tool]");if(b)openTool(b.dataset.tool);});
-$("#closeWorkspace").addEventListener("click",()=>workspace.classList.add("hidden"));
+function closeTool(){
+ workspace.classList.add("hidden");document.body.classList.remove("tool-open");activeTool=null;
+ if(location.hash.startsWith("#tool/")) history.pushState(null,"",location.pathname+location.search);
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+$("#closeWorkspace").addEventListener("click",closeTool);
+window.addEventListener("popstate",()=>{
+ const id=location.hash.startsWith("#tool/")?location.hash.slice(6):"";
+ if(id&&tools.some(t=>t.id===id))openTool(id,false);else closeTool();
+});
 document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();$("#toolSearch").focus();}});
 $("#themeToggle").addEventListener("click",()=>{document.documentElement.classList.toggle("dark");const dark=document.documentElement.classList.contains("dark");$("#themeToggle").textContent=dark?"☀ Light":"☾ Theme";document.querySelector('meta[name="theme-color"]').content=dark?"#020617":"#ffffff";});
 renderCards();
@@ -46,10 +55,14 @@ function message(text,type="success"){$("#toolMessage").textContent=text;$("#too
 function setOutput(text,id="output"){const el=$("#"+id);if(el)el.textContent=text;}
 function copyOutput(id="output"){const el=$("#"+id);if(!el||!el.textContent){message("There is no result to copy yet.","error");return;}navigator.clipboard.writeText(el.textContent).then(()=>message("Copied to clipboard.")).catch(()=>message("Clipboard access was blocked. Select and copy the result manually.","error"));}
 function bind(id,fn){const el=$("#"+id);if(el)el.addEventListener("click",()=>{try{fn();}catch(e){message(e.message||"Something went wrong.","error");}});}
-function openTool(id){
+function openTool(id,updateHistory=true){
  activeTool=tools.find(t=>t.id===id);if(!activeTool)return;
+ document.body.classList.add("tool-open");
  $("#workspaceTitle").textContent=activeTool.name;$("#workspaceDescription").textContent=activeTool.description;$("#toolMessage").textContent="";$("#toolMessage").className="mt-4 text-sm";
- workspace.classList.remove("hidden");panel.innerHTML=toolMarkup(id);wireTool(id);workspace.scrollIntoView({behavior:"smooth",block:"start"});
+ workspace.classList.remove("hidden");panel.innerHTML=toolMarkup(id);wireTool(id);
+ if(updateHistory&&location.hash!==`#tool/${id}`)history.pushState({tool:id},"",`#tool/${id}`);
+ window.scrollTo({top:0,behavior:"instant"});
+ const firstField=panel.querySelector("input:not([type=checkbox]), textarea, select");if(firstField)firstField.focus({preventScroll:true});
 }
 function toolMarkup(id){
  switch(id){
