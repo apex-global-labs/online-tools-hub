@@ -59,7 +59,10 @@ window.addEventListener("popstate",()=>{
 
 document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();$("#toolSearch").focus();}});
 
-$("#themeToggle").addEventListener("click",()=>{document.documentElement.classList.toggle("dark");const dark=document.documentElement.classList.contains("dark");$("#themeToggle").textContent=dark?"☀ Light":"☾ Theme";document.querySelector('meta[name="theme-color"]').content=dark?"#020617":"#ffffff";});
+$("#themeToggle").addEventListener("click",()=>{document.documentElement.classList.toggle("dark");const dark=document.documentElement.classList.contains("dark");$("#themeToggle").textContent=dark?"☀ Day":"☾ Night";$("#themeToggle").setAttribute("aria-label",dark?"Switch to light mode":"Switch to night mode");$("#themeToggle").setAttribute("aria-pressed",String(dark));document.querySelector('meta[name="theme-color"]').content=dark?"#020617":"#ffffff";});
+$("#themeToggle").textContent=document.documentElement.classList.contains("dark")?"☀ Day":"☾ Night";
+$("#themeToggle").setAttribute("aria-label",document.documentElement.classList.contains("dark")?"Switch to light mode":"Switch to night mode");
+$("#themeToggle").setAttribute("aria-pressed",String(document.documentElement.classList.contains("dark")));
 
 renderCards();
 
