@@ -23,7 +23,7 @@ function getBranch(source, id) {
   const start = source.indexOf(marker);
   if (start < 0) return "";
   const rest = source.slice(start + marker.length);
-  const next = rest.search(/\\n\\s*case "|\\n\\s*default:/);
+  const next = rest.search(/\s+case "[a-z0-9]+":|\s+default:/);
   return source.slice(start, next < 0 ? source.length : start + marker.length + next);
 }
 
