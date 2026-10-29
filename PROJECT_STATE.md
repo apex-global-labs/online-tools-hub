@@ -130,3 +130,15 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - Phase 4 live verification remains incomplete: test modern direct slug route, browser Back/Forward, breadcrumb/home navigation, toast and unknown-route 404 behavior. Owner reported the Escape-key behavior is broken; defer fixing it until a later dedicated task.
 - Next action: finish live verification one step at a time, beginning with browser Back from an open tool. Do not start Phase 6 until the owner decides to proceed after the outstanding checks or explicitly accepts deferring them.
 - No browser automation was run by the assistant; distinguish GitHub CI/deployment success from actual browser behavior.
+
+## Phase 6 — Below-the-tool SEO content and FAQ (in progress)
+- Work branch: `phase6-seo-content-faq`; changes are not merged into `main`.
+- Adds a unique SEO description, three usage steps, feature bullets and three tool-specific FAQs for each of the 20 tools in `js/tools-data.json` (60 FAQ entries total).
+- Adds `js/seo-content.js`, which loads the metadata and renders the current tool's guide, features and semantic `details/summary` FAQ accordion below the existing tool workspace. Existing tool algorithms and action handlers are not intentionally changed.
+- Adds dynamic FAQPage JSON-LD based on the same FAQ data displayed to visitors; the schema is cleared when leaving the tool workspace.
+- Adds `css/phase6-seo-content.css` for responsive, dark-mode-aware styling and loads the new assets from `index.html`.
+- Adds `tests/seo-content.test.mjs` to check completeness of the 20 SEO records, renderer integration, FAQ schema generation, safe text rendering and responsive styles.
+- Important SEO limitation: this site is a static single-page app with hash-based tool routes. Client-rendered SEO content and JSON-LD are useful enhancements, but they do not provide the same crawl/indexing guarantees as separately rendered HTML pages. FAQ rich-result display is controlled by Google and is not guaranteed.
+- Verification status: source changes are committed to the feature branch. Automated PR CI and real-browser verification are pending. Test modern and legacy routes, confirm the SEO section appears below the workspace, check accordion behavior and dark/mobile layouts, and validate the rendered FAQPage JSON-LD before considering merge.
+- Do not merge this phase without the owner's explicit approval.
+- QA follow-up: initial PR CI exposed two regression-test assertion issues (test-source escaping and checking for a directly-created `summary` element when the renderer uses the safe `makeElement` helper). Both test assertions were corrected. The latest PR CI run #24 then passed.

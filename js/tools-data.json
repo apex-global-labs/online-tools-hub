@@ -6,7 +6,34 @@
     "icon": "▦",
     "slug": "qr-generator",
     "description": "Generate a QR code for text or a URL.",
-    "tagline": "Turn text or links into QR codes"
+    "tagline": "Turn text or links into QR codes",
+    "seo": {
+      "description": "Generate a QR code for text or a URL. Use this free browser-based qr code generator to work with your content quickly without creating an account.",
+      "steps": [
+        "Enter text or paste a complete URL in the input field.",
+        "Select Generate QR Code to create the code preview.",
+        "Use Download to save the QR image as a PNG file."
+      ],
+      "features": [
+        "You can create QR codes for links, contact details or short text without creating an account.",
+        "Converts text and URLs into QR codes.",
+        "Generates the code in your browser after the page loads."
+      ],
+      "faqs": [
+        {
+          "question": "Can I create a QR code for a website?",
+          "answer": "Yes. Paste the complete website address, including https://, then generate the QR code."
+        },
+        {
+          "question": "Is my text uploaded to ToolNest?",
+          "answer": "The QR code is generated in your browser; ToolNest does not receive the text you enter."
+        },
+        {
+          "question": "How can I save the QR image?",
+          "answer": "Generate the code first, then use Download result to save it as a PNG image."
+        }
+      ]
+    }
   },
   {
     "id": "slug",
@@ -15,7 +42,34 @@
     "icon": "🔗",
     "slug": "slug-generator",
     "description": "Create clean, URL-friendly slugs from text.",
-    "tagline": "Turn titles into clean URLs"
+    "tagline": "Turn titles into clean URLs",
+    "seo": {
+      "description": "Create clean, URL-friendly slugs from text. Use this free browser-based slug generator to work with your content quickly without creating an account.",
+      "steps": [
+        "Enter a title or phrase in the text box.",
+        "Review the generated lowercase slug in the result area.",
+        "Copy the result and use it in a page or post URL."
+      ],
+      "features": [
+        "Creates readable, lowercase URL slugs.",
+        "Replaces spaces and punctuation with hyphens.",
+        "Processes text locally in your browser."
+      ],
+      "faqs": [
+        {
+          "question": "What is a URL slug?",
+          "answer": "A slug is the readable part of a URL that identifies a page, usually written in lowercase with hyphens."
+        },
+        {
+          "question": "Does this tool support non-English scripts?",
+          "answer": "This version creates ASCII slugs, so characters outside the supported Latin range may be omitted."
+        },
+        {
+          "question": "Can I use the result directly on my website?",
+          "answer": "Yes, after checking that it is readable, accurate and unique for the page."
+        }
+      ]
+    }
   },
   {
     "id": "case",
@@ -24,7 +78,34 @@
     "icon": "Aa",
     "slug": "text-case-converter",
     "description": "Convert text case and count words, characters and lines.",
-    "tagline": "Make every word fit your style"
+    "tagline": "Make every word fit your style",
+    "seo": {
+      "description": "Convert text case and count words, characters and lines. Use this free browser-based text case converter to work with your content quickly without creating an account.",
+      "steps": [
+        "Paste or type your text into the input box.",
+        "Choose the case style you want, such as UPPERCASE or lowercase.",
+        "Review the converted text and copy the result."
+      ],
+      "features": [
+        "Supports several common text case styles.",
+        "Keeps the original input available while you try different styles.",
+        "Includes word, character and line information where available."
+      ],
+      "faqs": [
+        {
+          "question": "Which text styles can I convert?",
+          "answer": "The tool provides uppercase, lowercase, sentence case and title case options."
+        },
+        {
+          "question": "Does it rewrite or translate my text?",
+          "answer": "No. It changes letter casing only; it does not rewrite, translate or correct the text."
+        },
+        {
+          "question": "Is my text sent to a server?",
+          "answer": "No. Text case conversion runs in your browser."
+        }
+      ]
+    }
   },
   {
     "id": "json",
@@ -33,7 +114,34 @@
     "icon": "{}",
     "slug": "json-formatter",
     "description": "Validate JSON and format or minify it.",
-    "tagline": "Format, minify and validate JSON"
+    "tagline": "Format, minify and validate JSON",
+    "seo": {
+      "description": "Validate JSON and format or minify it. Use this free browser-based json formatter & validator to work with your content quickly without creating an account.",
+      "steps": [
+        "Paste your JSON data into the input area.",
+        "Choose Format JSON to indent it, or Minify JSON to remove unnecessary whitespace.",
+        "If the input is valid, review and copy or download the result."
+      ],
+      "features": [
+        "Checks JSON syntax before formatting.",
+        "Creates readable indented JSON or compact minified JSON.",
+        "Processes the supplied text in your browser."
+      ],
+      "faqs": [
+        {
+          "question": "What does JSON validation check?",
+          "answer": "It checks whether the input follows JSON syntax, including quotes, commas, brackets and braces."
+        },
+        {
+          "question": "Does minifying JSON change its values?",
+          "answer": "No. Minifying removes unnecessary whitespace while preserving the parsed data values."
+        },
+        {
+          "question": "Why is my JSON invalid?",
+          "answer": "Common causes include single-quoted strings, trailing commas, unquoted property names or mismatched brackets."
+        }
+      ]
+    }
   },
   {
     "id": "base64",
@@ -42,7 +150,34 @@
     "icon": "64",
     "slug": "base64-encoder-decoder",
     "description": "Encode or decode text with UTF-8 support.",
-    "tagline": "Encode and decode text quickly"
+    "tagline": "Encode and decode text quickly",
+    "seo": {
+      "description": "Encode or decode text with UTF-8 support. Use this free browser-based base64 encoder / decoder to work with your content quickly without creating an account.",
+      "steps": [
+        "Enter the text you want to encode or decode.",
+        "Choose Encode Base64 or Decode Base64.",
+        "Review the output, then copy or download it."
+      ],
+      "features": [
+        "Supports UTF-8 text encoding and decoding.",
+        "Offers separate encode and decode actions.",
+        "Runs in your browser without a ToolNest account."
+      ],
+      "faqs": [
+        {
+          "question": "Is Base64 a form of encryption?",
+          "answer": "No. Base64 is an encoding format, not encryption, and it does not protect sensitive information."
+        },
+        {
+          "question": "Can I encode non-English text?",
+          "answer": "Yes. This tool uses UTF-8 handling for text."
+        },
+        {
+          "question": "Why might decoding fail?",
+          "answer": "The input may not be valid Base64 or may not represent valid UTF-8 text."
+        }
+      ]
+    }
   },
   {
     "id": "unit",
@@ -51,7 +186,34 @@
     "icon": "↔",
     "slug": "unit-converter",
     "description": "Convert length, weight and temperature units.",
-    "tagline": "Convert common measurement units"
+    "tagline": "Convert common measurement units",
+    "seo": {
+      "description": "Convert length, weight and temperature units. Use this free browser-based unit converter to work with your content quickly without creating an account.",
+      "steps": [
+        "Choose Length, Weight or Temperature.",
+        "Enter the value and select the source and target units.",
+        "Read the converted value in the result area."
+      ],
+      "features": [
+        "Converts common length, weight and temperature units.",
+        "Updates the result as you change values or units.",
+        "Runs locally in your browser."
+      ],
+      "faqs": [
+        {
+          "question": "Which measurement types are supported?",
+          "answer": "This version converts common length, weight and temperature units."
+        },
+        {
+          "question": "Why is a temperature below absolute zero rejected?",
+          "answer": "Absolute zero is the lower physical limit for temperature, so values below it are invalid."
+        },
+        {
+          "question": "Are the results rounded?",
+          "answer": "The displayed result is rounded to a practical precision; the conversion uses standard unit factors."
+        }
+      ]
+    }
   },
   {
     "id": "age",
@@ -60,7 +222,34 @@
     "icon": "▦",
     "slug": "age-date-difference",
     "description": "Calculate age or the days between two dates.",
-    "tagline": "Find ages and date differences"
+    "tagline": "Find ages and date differences",
+    "seo": {
+      "description": "Calculate age or the days between two dates. Use this free browser-based age & date difference to work with your content quickly without creating an account.",
+      "steps": [
+        "Choose the starting date.",
+        "Choose an ending date, or keep the default current date.",
+        "Select Calculate and review the date difference."
+      ],
+      "features": [
+        "Shows years, months and days between dates.",
+        "Also reports the total number of days.",
+        "Checks for invalid or reversed date ranges."
+      ],
+      "faqs": [
+        {
+          "question": "Can I calculate my age?",
+          "answer": "Yes. Enter your birth date as the starting date and use today's date as the ending date."
+        },
+        {
+          "question": "Can the ending date be earlier than the starting date?",
+          "answer": "No. The ending date must be the same as or later than the starting date."
+        },
+        {
+          "question": "Are my dates stored?",
+          "answer": "No. The date calculation is performed in your browser."
+        }
+      ]
+    }
   },
   {
     "id": "color",
@@ -69,7 +258,34 @@
     "icon": "◉",
     "slug": "color-converter",
     "description": "Convert HEX colors into RGB and HSL values.",
-    "tagline": "Explore HEX, RGB and HSL"
+    "tagline": "Explore HEX, RGB and HSL",
+    "seo": {
+      "description": "Convert HEX colors into RGB and HSL values. Use this free browser-based color converter to work with your content quickly without creating an account.",
+      "steps": [
+        "Choose a color with the picker or enter a HEX value.",
+        "Select Convert if needed to calculate the color formats.",
+        "Copy the HEX, RGB or HSL values from the result."
+      ],
+      "features": [
+        "Accepts common 3-digit and 6-digit HEX values.",
+        "Converts HEX to RGB and HSL.",
+        "Displays a color swatch for visual reference."
+      ],
+      "faqs": [
+        {
+          "question": "Which HEX formats are accepted?",
+          "answer": "The converter accepts 3-digit and 6-digit hexadecimal color values, with or without the # symbol."
+        },
+        {
+          "question": "What do RGB and HSL represent?",
+          "answer": "RGB represents red, green and blue channels; HSL represents hue, saturation and lightness."
+        },
+        {
+          "question": "Why is my HEX value invalid?",
+          "answer": "Check that it contains only hexadecimal characters and has exactly three or six digits."
+        }
+      ]
+    }
   },
   {
     "id": "diff",
@@ -78,7 +294,34 @@
     "icon": "⇄",
     "slug": "text-diff-checker",
     "description": "Compare two text blocks and identify changed lines.",
-    "tagline": "Spot changes between two texts"
+    "tagline": "Spot changes between two texts",
+    "seo": {
+      "description": "Compare two text blocks and identify changed lines. Use this free browser-based text diff checker to work with your content quickly without creating an account.",
+      "steps": [
+        "Paste the original text into the first box.",
+        "Paste the revised text into the second box.",
+        "Choose Compare and review the marked line differences."
+      ],
+      "features": [
+        "Compares two text blocks line by line.",
+        "Highlights added and removed lines with simple markers.",
+        "Useful for reviewing drafts, notes and code snippets."
+      ],
+      "faqs": [
+        {
+          "question": "What does the Text Diff Checker compare?",
+          "answer": "It compares two pasted text blocks line by line and marks lines that differ."
+        },
+        {
+          "question": "Does it ignore spaces and capitalization?",
+          "answer": "No. The current comparison treats spacing and letter case as part of the text."
+        },
+        {
+          "question": "Are my texts uploaded?",
+          "answer": "No. The comparison runs locally in your browser."
+        }
+      ]
+    }
   },
   {
     "id": "markdown",
@@ -87,7 +330,34 @@
     "icon": "M↓",
     "slug": "markdown-previewer",
     "description": "Preview basic Markdown safely as formatted text.",
-    "tagline": "Write and preview Markdown"
+    "tagline": "Write and preview Markdown",
+    "seo": {
+      "description": "Preview basic Markdown safely as formatted text. Use this free browser-based markdown previewer to work with your content quickly without creating an account.",
+      "steps": [
+        "Type or paste Markdown into the editor.",
+        "Review the formatted preview beside or below your input.",
+        "Copy the visible preview text or clear the editor to start again."
+      ],
+      "features": [
+        "Previews common Markdown headings and emphasis.",
+        "Supports basic links and inline code.",
+        "Escapes input text before rendering the preview."
+      ],
+      "faqs": [
+        {
+          "question": "Does the previewer support all Markdown syntax?",
+          "answer": "It supports a basic subset, including headings, emphasis, links and inline code."
+        },
+        {
+          "question": "Can I preview web links?",
+          "answer": "Yes. Basic HTTP and HTTPS Markdown links can be displayed in the preview."
+        },
+        {
+          "question": "Is my draft saved automatically?",
+          "answer": "No. The preview exists in the current browser session unless you copy or save your text."
+        }
+      ]
+    }
   },
   {
     "id": "url",
@@ -96,7 +366,34 @@
     "icon": "％",
     "slug": "url-encode-decode",
     "description": "Encode or decode URL components.",
-    "tagline": "Safely encode URL components"
+    "tagline": "Safely encode URL components",
+    "seo": {
+      "description": "Encode or decode URL components. Use this free browser-based url encode / decode to work with your content quickly without creating an account.",
+      "steps": [
+        "Paste the text or encoded component.",
+        "Choose Encode component or Decode component.",
+        "Review the result and copy it for use in your URL or application."
+      ],
+      "features": [
+        "Encodes and decodes URL components.",
+        "Helps handle spaces and reserved characters in URL data.",
+        "Processes text in your browser."
+      ],
+      "faqs": [
+        {
+          "question": "Is URL encoding the same as Base64?",
+          "answer": "No. URL encoding percent-encodes reserved characters so data can be used safely in a URL component."
+        },
+        {
+          "question": "Should I encode an entire web address?",
+          "answer": "Usually not. Encode the specific URL component you need; encoding the whole address can also encode separators."
+        },
+        {
+          "question": "Why does decoding show an error?",
+          "answer": "The input may contain an incomplete or invalid percent-encoding sequence."
+        }
+      ]
+    }
   },
   {
     "id": "meta",
@@ -105,7 +402,34 @@
     "icon": "⌘",
     "slug": "meta-tag-generator",
     "description": "Generate copy-ready SEO meta tag markup.",
-    "tagline": "Create SEO-ready meta markup"
+    "tagline": "Create SEO-ready meta markup",
+    "seo": {
+      "description": "Generate copy-ready SEO meta tag markup. Use this free browser-based meta tag generator to work with your content quickly without creating an account.",
+      "steps": [
+        "Enter your page title and meta description.",
+        "Optionally provide a valid HTTP or HTTPS canonical URL.",
+        "Choose Generate and copy the HTML markup into your page head."
+      ],
+      "features": [
+        "Generates a title tag and meta description.",
+        "Supports an optional canonical URL.",
+        "Validates the canonical URL protocol before generating markup."
+      ],
+      "faqs": [
+        {
+          "question": "Where should I add the generated meta tags?",
+          "answer": "Place the generated title, description and optional canonical link tags inside the head element of the relevant HTML page."
+        },
+        {
+          "question": "Does a meta description guarantee better rankings?",
+          "answer": "No. It helps describe a page, but it does not guarantee a ranking improvement or a specific search snippet."
+        },
+        {
+          "question": "Is a canonical URL required?",
+          "answer": "No. It is optional here; use it when you have a preferred canonical address for the page."
+        }
+      ]
+    }
   },
   {
     "id": "csvjson",
@@ -114,7 +438,34 @@
     "icon": "⇄",
     "slug": "csv-json-converter",
     "description": "Convert CSV data to JSON and JSON arrays to CSV.",
-    "tagline": "Move data between CSV and JSON"
+    "tagline": "Move data between CSV and JSON",
+    "seo": {
+      "description": "Convert CSV data to JSON and JSON arrays to CSV. Use this free browser-based csv ↔ json converter to work with your content quickly without creating an account.",
+      "steps": [
+        "Paste CSV data with a header row, or paste a JSON array of objects.",
+        "Choose CSV to JSON or JSON to CSV.",
+        "Review the converted data and copy or download the result."
+      ],
+      "features": [
+        "Supports CSV-to-JSON and JSON-to-CSV conversion.",
+        "Uses the first CSV row as column headers.",
+        "Handles quoted CSV cells and JSON values in the converter."
+      ],
+      "faqs": [
+        {
+          "question": "How should my CSV data be structured?",
+          "answer": "Use the first row for column names, followed by rows with corresponding values."
+        },
+        {
+          "question": "Can I convert one JSON object?",
+          "answer": "The JSON-to-CSV option expects an array of objects rather than a single object."
+        },
+        {
+          "question": "How are nested JSON values handled?",
+          "answer": "Nested values are represented as JSON text within the corresponding CSV cell."
+        }
+      ]
+    }
   },
   {
     "id": "uuid",
@@ -123,7 +474,34 @@
     "icon": "🆔",
     "slug": "uuid-generator",
     "description": "Generate random version 4 UUIDs in your browser.",
-    "tagline": "Generate unique IDs instantly"
+    "tagline": "Generate unique IDs instantly",
+    "seo": {
+      "description": "Generate random version 4 UUIDs in your browser. Use this free browser-based uuid generator to work with your content quickly without creating an account.",
+      "steps": [
+        "Enter the number of UUIDs to generate, from 1 to 100.",
+        "Choose Generate UUIDs.",
+        "Copy or download the generated identifiers."
+      ],
+      "features": [
+        "Generates version 4 UUIDs.",
+        "Allows multiple identifiers in one generation.",
+        "Uses browser cryptographic randomness when available."
+      ],
+      "faqs": [
+        {
+          "question": "What is a UUID?",
+          "answer": "A UUID is a 128-bit identifier commonly used to identify records, resources and objects."
+        },
+        {
+          "question": "Are these UUIDs sequential?",
+          "answer": "No. The generator creates version 4 UUIDs using browser cryptographic randomness."
+        },
+        {
+          "question": "Can I generate several UUIDs at once?",
+          "answer": "Yes. Choose a quantity from 1 to 100 before generating."
+        }
+      ]
+    }
   },
   {
     "id": "sha256",
@@ -132,7 +510,34 @@
     "icon": "#️⃣",
     "slug": "sha-256-hash-generator",
     "description": "Create a SHA-256 hash from text in your browser.",
-    "tagline": "Create a SHA-256 text hash"
+    "tagline": "Create a SHA-256 text hash",
+    "seo": {
+      "description": "Create a SHA-256 hash from text in your browser. Use this free browser-based sha-256 hash generator to work with your content quickly without creating an account.",
+      "steps": [
+        "Enter the text you want to hash.",
+        "Choose Generate SHA-256.",
+        "Review and copy the 64-character hexadecimal digest."
+      ],
+      "features": [
+        "Uses the browser Web Crypto API.",
+        "Produces a 256-bit digest shown as hexadecimal text.",
+        "The same input produces the same digest."
+      ],
+      "faqs": [
+        {
+          "question": "Can a SHA-256 hash be reversed?",
+          "answer": "No. SHA-256 is designed as a one-way hash function, not a reversible encoding."
+        },
+        {
+          "question": "Will the same text always produce the same hash?",
+          "answer": "Yes. The same exact input produces the same SHA-256 digest."
+        },
+        {
+          "question": "Why does SHA-256 require HTTPS?",
+          "answer": "The browser Web Crypto API is restricted to secure contexts in supported browsers."
+        }
+      ]
+    }
   },
   {
     "id": "password",
@@ -141,7 +546,34 @@
     "icon": "✳",
     "slug": "password-generator",
     "description": "Create a random password with character options.",
-    "tagline": "Build a password to your needs"
+    "tagline": "Build a password to your needs",
+    "seo": {
+      "description": "Create a random password with character options. Use this free browser-based password generator to work with your content quickly without creating an account.",
+      "steps": [
+        "Choose a password length between 8 and 128 characters.",
+        "Select the character groups to include.",
+        "Choose Generate and copy or download the result securely to your own device."
+      ],
+      "features": [
+        "Supports uppercase, lowercase, numbers and symbols.",
+        "Lets you choose a password length from 8 to 128 characters.",
+        "Uses the browser cryptographic random number generator."
+      ],
+      "faqs": [
+        {
+          "question": "Can I choose which characters appear?",
+          "answer": "Yes. Select uppercase, lowercase, numbers and symbols before generating the password."
+        },
+        {
+          "question": "Is the generated password stored by ToolNest?",
+          "answer": "No. Password generation happens in your browser and ToolNest does not store the generated result."
+        },
+        {
+          "question": "What is the supported password length?",
+          "answer": "You can choose a length from 8 to 128 characters."
+        }
+      ]
+    }
   },
   {
     "id": "image64",
@@ -150,7 +582,34 @@
     "icon": "▧",
     "slug": "image-to-base64",
     "description": "Convert a local image into a Base64 data URL.",
-    "tagline": "Convert images into data URLs"
+    "tagline": "Convert images into data URLs",
+    "seo": {
+      "description": "Convert a local image into a Base64 data URL. Use this free browser-based image to base64 to work with your content quickly without creating an account.",
+      "steps": [
+        "Choose an image file from your device.",
+        "Wait for the image to be read and converted.",
+        "Copy or download the resulting data URL as needed."
+      ],
+      "features": [
+        "Converts local image files to Base64 data URLs.",
+        "Shows an image preview after conversion.",
+        "Accepts image files up to 10 MB."
+      ],
+      "faqs": [
+        {
+          "question": "What is an image data URL?",
+          "answer": "A data URL combines an image media type and its Base64-encoded data in one text string."
+        },
+        {
+          "question": "Which image files can I convert?",
+          "answer": "Choose a file recognized by your browser as an image; files larger than 10 MB are rejected."
+        },
+        {
+          "question": "Is my image uploaded?",
+          "answer": "No. The selected file is read locally by your browser."
+        }
+      ]
+    }
   },
   {
     "id": "forexcalc",
@@ -159,7 +618,34 @@
     "icon": "💱",
     "slug": "forex-currency-converter",
     "description": "Convert major currencies using automatically retrieved reference exchange rates.",
-    "tagline": "Convert currencies with reference rates"
+    "tagline": "Convert currencies with reference rates",
+    "seo": {
+      "description": "Convert major currencies using automatically retrieved reference exchange rates. Use this free browser-based forex currency converter to work with your content quickly without creating an account.",
+      "steps": [
+        "Enter the amount you want to convert.",
+        "Choose the source and target currencies.",
+        "Select Convert currency and review the converted amount and rate update time."
+      ],
+      "features": [
+        "Supports many currency pairs provided by the rate service.",
+        "Shows the reference exchange rate and its update timestamp.",
+        "Fetches rates when you request a conversion."
+      ],
+      "faqs": [
+        {
+          "question": "Are these live trading prices?",
+          "answer": "No. The tool displays reference exchange rates from its rate provider; they may differ from trading or payment prices."
+        },
+        {
+          "question": "Why might a currency conversion fail?",
+          "answer": "The rate service may be unavailable, the pair may not be supported, or your connection may be offline."
+        },
+        {
+          "question": "Are bank fees included?",
+          "answer": "No. Bank, card, transfer and exchange-provider fees are not included."
+        }
+      ]
+    }
   },
   {
     "id": "counter",
@@ -168,7 +654,34 @@
     "icon": "¶",
     "slug": "word-character-counter",
     "description": "Count words, characters, sentences and paragraphs.",
-    "tagline": "Count words and characters"
+    "tagline": "Count words and characters",
+    "seo": {
+      "description": "Count words, characters, sentences and paragraphs. Use this free browser-based word & character counter to work with your content quickly without creating an account.",
+      "steps": [
+        "Paste or type text into the input area.",
+        "Choose Count text to calculate the statistics.",
+        "Review the counts and copy the summary if needed."
+      ],
+      "features": [
+        "Counts words and characters.",
+        "Also reports sentence and paragraph counts where available.",
+        "Processes text locally in your browser."
+      ],
+      "faqs": [
+        {
+          "question": "How does the tool count words?",
+          "answer": "Words are identified by separating the text at whitespace boundaries."
+        },
+        {
+          "question": "Are spaces included in the character count?",
+          "answer": "Spaces and line breaks are included in the text length counted by this tool."
+        },
+        {
+          "question": "Can I count a long document?",
+          "answer": "You can paste text into the input; very large documents may be limited by your browser and device memory."
+        }
+      ]
+    }
   },
   {
     "id": "duplines",
@@ -177,6 +690,33 @@
     "icon": "≡",
     "slug": "duplicate-lines-remover",
     "description": "Remove repeated lines while preserving the first occurrence and original order.",
-    "tagline": "Clean repeated lines from text"
+    "tagline": "Clean repeated lines from text",
+    "seo": {
+      "description": "Remove repeated lines while preserving the first occurrence and original order. Use this free browser-based duplicate lines remover to work with your content quickly without creating an account.",
+      "steps": [
+        "Paste text containing repeated lines into the input area.",
+        "Choose Remove duplicate lines.",
+        "Review the cleaned text and copy or download the result."
+      ],
+      "features": [
+        "Keeps the first occurrence of each repeated line.",
+        "Preserves the original order of remaining lines.",
+        "Runs in your browser without uploading the text."
+      ],
+      "faqs": [
+        {
+          "question": "Does it preserve the original line order?",
+          "answer": "Yes. The first occurrence of each exact line stays in its original position."
+        },
+        {
+          "question": "Are blank lines removed?",
+          "answer": "No. Blank lines are left unchanged by the current tool."
+        },
+        {
+          "question": "Are uppercase and lowercase lines considered duplicates?",
+          "answer": "No. Lines are compared exactly, including letter case and spacing."
+        }
+      ]
+    }
   }
 ]

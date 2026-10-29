@@ -1,0 +1,39 @@
+/* Phase 6: below-the-tool SEO content */
+.tool-seo-content {
+  max-width: 900px;
+  margin: 2rem auto 0;
+  padding: clamp(1.1rem, 3vw, 2rem);
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  background: var(--panel);
+  color: var(--text);
+  line-height: 1.75;
+}
+.tool-seo-content[hidden] { display: none !important; }
+.tool-seo-intro { margin: 0 0 1.65rem; color: var(--muted); }
+.tool-seo-block + .tool-seo-block { margin-top: 1.8rem; }
+.tool-seo-heading { margin: 0 0 .85rem; font-size: 1.15rem; font-weight: 800; line-height: 1.35; letter-spacing: -.015em; }
+.tool-seo-steps, .tool-seo-features { margin: 0; padding-left: 1.35rem; color: var(--muted); }
+.tool-seo-steps li, .tool-seo-features li { padding: .22rem 0 .22rem .2rem; }
+.tool-seo-steps li::marker { color: #6366f1; font-weight: 800; }
+.tool-seo-features li::marker { color: #6366f1; }
+.tool-seo-accordion { display: grid; gap: .65rem; }
+.tool-seo-faq-item { overflow: hidden; border: 1px solid var(--line); border-radius: .85rem; background: var(--bg); }
+.tool-seo-faq-item summary { position: relative; padding: .95rem 3rem .95rem 1rem; color: var(--text); font-weight: 700; cursor: pointer; list-style: none; }
+.tool-seo-faq-item summary::-webkit-details-marker { display: none; }
+.tool-seo-faq-item summary::after { content: "+"; position: absolute; top: 50%; right: 1rem; transform: translateY(-50%); color: #6366f1; font-size: 1.35rem; font-weight: 500; }
+.tool-seo-faq-item[open] summary::after { content: "−"; }
+.tool-seo-faq-item summary:focus-visible { outline: 3px solid #818cf8; outline-offset: -3px; }
+.tool-seo-answer { padding: 0 1rem 1rem; color: var(--muted); }
+.tool-seo-answer p { margin: 0; }
+.dark .tool-seo-content { border-color: #334155; background: #0b1220; }
+.dark .tool-seo-faq-item { border-color: #334155; background: #020617; }
+@media (max-width: 640px) {
+  .tool-seo-content { margin-top: 1.25rem; border-radius: 1rem; padding: 1rem; }
+  .tool-seo-heading { font-size: 1.05rem; }
+  .tool-seo-faq-item summary { padding: .85rem 2.7rem .85rem .85rem; }
+  .tool-seo-answer { padding: 0 .85rem .85rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tool-seo-faq-item * { scroll-behavior: auto; }
+}
