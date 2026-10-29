@@ -1,0 +1,58 @@
+[
+  {
+    "id": "qr",
+    "title": "QR Code Generator",
+    "category": "Image",
+    "icon": "▦",
+    "slug": "qr-generator"
+  },
+  {
+    "id": "slug",
+    "title": "Slug Generator",
+    "category": "Text",
+    "icon": "🔗",
+    "slug": "slug-generator"
+  },
+  {
+    "id": "case",
+    "title": "Text Case Converter",
+    "category": "Text",
+    "icon": "Aa",
+    "slug": "text-case-converter"
+  },
+  {
+    "id": "json",
+    "title": "JSON Formatter & Validator",
+    "category": "Developer",
+    "icon": "{}",
+    "slug": "json-formatter"
+  },
+  {
+    "id": "base64",
+    "title": "Base64 Encoder / Decoder",
+    "category": "Developer",
+    "icon": "64",
+    "slug": "base64-encoder-decoder"
+  },
+  {
+    "id": "unit",
+    "title": "Unit Converter",
+    "category": "Calculators",
+    "icon": "↔",
+    "slug": "unit-converter"
+  },
+  {
+    "id": "age",
+    "title": "Age & Date Difference",
+    "category": "Calculators",
+    "icon": "▦",
+    "slug": "age-date-difference"
+  },
+  {
+    "id": "color",
+    "title": "Color Converter",
+    "category": "Image",
+    "icon": "◉",
+    "slug": "color-converter"
+  }
+]
