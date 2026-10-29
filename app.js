@@ -8,8 +8,8 @@ const tools = [
 {id:"json",name:"JSON Formatter & Validator",category:"Developer",icon:"{}",description:"Validate JSON and format or minify it."},
 {id:"url",name:"URL Encode / Decode",category:"Developer",icon:"％",description:"Encode or decode URL components."},
 {id:"meta",name:"Meta Tag Generator",category:"Developer",icon:"⌘",description:"Generate copy-ready SEO meta tag markup."},
-{id:"csvjson",name:"CSV ↔ JSON Converter",category:"Developer",icon:"⇄",description:"Convert CSV data to JSON and JSON arrays to CSV."
-,{id:"uuid",name:"UUID Generator",category:"Developer",icon:"🆔",description:"Generate random version 4 UUIDs in your browser."}},
+{id:"csvjson",name:"CSV ↔ JSON Converter",category:"Developer",icon:"⇄",description:"Convert CSV data to JSON and JSON arrays to CSV."},
+{id:"uuid",name:"UUID Generator",category:"Developer",icon:"🆔",description:"Generate random version 4 UUIDs in your browser."},
 {id:"password",name:"Password Generator",category:"Utilities",icon:"✳",description:"Create a random password with character options."},
 {id:"image64",name:"Image to Base64",category:"Image",icon:"▧",description:"Convert a local image into a Base64 data URL."},
 {id:"qr",name:"QR Code Generator",category:"Image",icon:"▦",description:"Generate a QR code for text or a URL."},
@@ -105,7 +105,8 @@ function toolMarkup(id){
  case "json":return form(`${textarea("sourceText","JSON input",'{"hello":"world"}')}<div class="actions">${btn("format","Format JSON")}${btn("minify","Minify JSON",false)}${btn("copy","Copy result",false)}</div>${out()}`);
  case "url":return form(`${textarea("sourceText","Text or URL")}<div class="actions">${btn("encode","Encode component")}${btn("decode","Decode component",false)}${btn("copy","Copy result",false)}</div>${out()}`);
 
- case "uuid":return form(`${input("uuidCount","Number of UUIDs (1–100)","1","number")}<div class="actions">${btn("generate","Generate UUIDs")}${btn("copy","Copy result",false)}</div>${out()}<p class="muted text-sm">Creates random version 4 UUIDs locally in your browser.</p>`)
+ case "uuid":return form(`${input("uuidCount","Number of UUIDs (1–100)","1","number")}<div class="actions">${btn("generate","Generate UUIDs")}${btn("copy","Copy result",false)}</div>${out()}<p class="muted text-sm">Creates random version 4 UUIDs locally in your browser.</p>`);
+ case "csvjson":return form(`
  <p class="muted text-sm">Convert CSV data to JSON or a JSON array to CSV. All conversion happens in your browser.</p>
  ${textarea("sourceText","Paste CSV or JSON",'name,age,city\\nAlice,25,Dhaka\\nBob,30,Chattogram')}
  <div class="actions">
@@ -116,7 +117,6 @@ function toolMarkup(id){
  ${out()}
  <p class="muted text-sm">CSV → JSON uses the first row as column headers. JSON → CSV expects an array of objects.</p>
  `);
-
  case "password":return form(`<div class="grid gap-4 sm:grid-cols-2">${input("length","Password length (8–128)","16","number")}</div><div class="checkrow"><label><input id="upperOpt" type="checkbox" checked> Uppercase</label><label><input id="lowerOpt" type="checkbox" checked> Lowercase</label><label><input id="numberOpt" type="checkbox" checked> Numbers</label><label><input id="symbolOpt" type="checkbox" checked> Symbols</label></div><div class="actions">${btn("generate","Generate password")}${btn("copy","Copy password",false)}</div>${out()}`);
  case "slug":return form(`${input("sourceText","Text to convert","My Awesome Page Title")}<div class="actions">${btn("generate","Generate slug")}${btn("copy","Copy slug",false)}</div>${out()}`);
  case "diff":return form(`<div class="grid gap-4 md:grid-cols-2">${textarea("leftText","Original text")}${textarea("rightText","New text")}</div><div class="actions">${btn("compare","Compare text")}</div>${out()}`);
