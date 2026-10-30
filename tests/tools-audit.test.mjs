@@ -174,6 +174,7 @@ test("Phase 10 image tools validate local file type and size and support downloa
     assert.match(getBranch(wiring, id), /10 MB/);
     assert.match(getBranch(wiring, id), /image\/png/);
     assert.match(getBranch(wiring, id), /toBlob/);
+    assert.match(getBranch(wiring, id), /URL\.revokeObjectURL/);
     assert.match(getBranch(wiring, id), /clearImage/);
     assert.match(getBranch(markup, id), /btn\("clearImage"/);
   }
@@ -183,6 +184,7 @@ test("Phase 10 image tools validate local file type and size and support downloa
 
 test("Phase 10 text utilities provide guarded timestamp, whitespace and HTML entity actions", () => {
   assert.match(getBranch(wiring, "timestamp"), /supported date range/);
+  assert.match(getBranch(wiring, "imageresize"), /40 megapixels/);
   assert.match(getBranch(wiring, "whitespace"), /removeBlankWhitespaceLines/);
   assert.match(getBranch(wiring, "htmlentities"), /createElement\("textarea"\)/);
 });
