@@ -26,6 +26,7 @@ test("Image Format Converter handles JPEG transparency and verifies export MIME"
  assert.match(app,/ctx\.fillStyle="#fff"/);
  assert.match(app,/blob\.type!==format/);
  assert.match(app,/canvas\.toBlob/);
+ assert.match(app,/formatSourceUrl=null;\$\("#formatFile"\)\.value=""/);
 });
 test("Base64 to Image checks encoded size and actual image signatures",()=>{
  assert.match(app,/15\*1024\*1024/);
@@ -35,6 +36,7 @@ test("Base64 to Image checks encoded size and actual image signatures",()=>{
  assert.match(app,/0x57&&bytes\[9\]===0x45/);
  assert.match(app,/0x47,0x49,0x46,0x38/);
  assert.ok(app.includes('decodedDataUrl="data:"+mime+";base64,"'));
+ assert.match(app,/Decoded image exceeds the safe 40-megapixel limit/);
 });
 test("Phase 14 assets are linked and browser processing remains local",()=>{
  assert.match(html,/phase14-image-tools\.css/);
