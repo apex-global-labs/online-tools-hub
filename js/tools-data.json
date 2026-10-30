@@ -1568,7 +1568,7 @@
       "description": "Shorten long website URLs into easy-to-share links. Add an optional custom alias and copy the result with ToolNest's free URL shortener.",
       "steps": [
         "Paste a complete website URL beginning with https:// or http://.",
-        "Optionally enter a custom alias using 1–16 letters or numbers.",
+        "Optionally enter a custom alias using 3–16 letters, numbers, hyphens or underscores.",
         "Select Shorten URL, then copy the short link after it is created."
       ],
       "features": [
@@ -1587,7 +1587,7 @@
         },
         {
           "question": "Is URL shortening free?",
-          "answer": "The integrated provider currently offers anonymous free use subject to rate limits. Availability, limits and provider terms may change."
+          "answer": "The integrated provider currently offers anonymous free use (currently 20 requests per minute and 1,000 per day) subject to provider rate limits. Availability, limits and provider terms may change."
         },
         {
           "question": "Does ToolNest store the URLs I shorten?",
