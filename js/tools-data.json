@@ -8,7 +8,7 @@
     "description": "Generate a QR code for text or a URL.",
     "tagline": "Turn text or links into QR codes",
     "seo": {
-      "description": "Generate a QR code for text or a URL. Use this free browser-based qr code generator to work with your content quickly without creating an account.",
+      "description": "Create QR codes for website links, plain text or contact details. Customize the design, preview the result and download a scannable PNG.",
       "steps": [
         "Enter text or paste a complete URL in the input field.",
         "Select Generate QR Code to create the code preview.",
@@ -32,7 +32,8 @@
           "question": "How can I save the QR image?",
           "answer": "Generate the code first, then use Download result to save it as a PNG image."
         }
-      ]
+      ],
+      "tips": "Keep strong contrast between the QR pattern and its background. Scan the downloaded image with another device before printing or sharing it."
     }
   },
   {
@@ -44,7 +45,7 @@
     "description": "Create clean, URL-friendly slugs from text.",
     "tagline": "Turn titles into clean URLs",
     "seo": {
-      "description": "Create clean, URL-friendly slugs from text. Use this free browser-based slug generator to work with your content quickly without creating an account.",
+      "description": "Turn page titles into lowercase, URL-friendly slugs. Clean up spaces and punctuation, then copy a readable path for posts and web pages.",
       "steps": [
         "Enter a title or phrase in the text box.",
         "Review the generated lowercase slug in the result area.",
@@ -68,7 +69,8 @@
           "question": "Can I use the result directly on my website?",
           "answer": "Yes, after checking that it is readable, accurate and unique for the page."
         }
-      ]
+      ],
+      "tips": "Keep slugs short, descriptive and stable. Before changing a published URL, plan a redirect from the old address."
     }
   },
   {
@@ -80,7 +82,7 @@
     "description": "Convert text case and count words, characters and lines.",
     "tagline": "Make every word fit your style",
     "seo": {
-      "description": "Convert text case and count words, characters and lines. Use this free browser-based text case converter to work with your content quickly without creating an account.",
+      "description": "Change text to uppercase, lowercase, sentence case or title case. Convert drafts quickly while keeping the original text available.",
       "steps": [
         "Paste or type your text into the input box.",
         "Choose the case style you want, such as UPPERCASE or lowercase.",
@@ -104,7 +106,8 @@
           "question": "Is my text sent to a server?",
           "answer": "No. Text case conversion runs in your browser."
         }
-      ]
+      ],
+      "tips": "Review names, abbreviations and product codes after changing case because capitalization can carry meaning."
     }
   },
   {
@@ -116,7 +119,7 @@
     "description": "Validate JSON and format or minify it.",
     "tagline": "Format, minify and validate JSON",
     "seo": {
-      "description": "Validate JSON and format or minify it. Use this free browser-based json formatter & validator to work with your content quickly without creating an account.",
+      "description": "Format JSON with readable indentation, minify it for compact storage, and check syntax errors before using data in an app or API.",
       "steps": [
         "Paste your JSON data into the input area.",
         "Choose Format JSON to indent it, or Minify JSON to remove unnecessary whitespace.",
@@ -140,7 +143,8 @@
           "question": "Why is my JSON invalid?",
           "answer": "Common causes include single-quoted strings, trailing commas, unquoted property names or mismatched brackets."
         }
-      ]
+      ],
+      "tips": "Use double quotes for JSON keys and string values. Standard JSON does not allow comments or trailing commas."
     }
   },
   {
@@ -152,7 +156,7 @@
     "description": "Encode or decode text with UTF-8 support.",
     "tagline": "Encode and decode text quickly",
     "seo": {
-      "description": "Encode or decode text with UTF-8 support. Use this free browser-based base64 encoder / decoder to work with your content quickly without creating an account.",
+      "description": "Encode or decode text as Base64 with UTF-8 support. Convert multilingual text and inspect the result directly in your browser.",
       "steps": [
         "Enter the text you want to encode or decode.",
         "Choose Encode Base64 or Decode Base64.",
@@ -176,7 +180,8 @@
           "question": "Why might decoding fail?",
           "answer": "The input may not be valid Base64 or may not represent valid UTF-8 text."
         }
-      ]
+      ],
+      "tips": "Base64 is an encoding format, not encryption. Do not use it to conceal passwords or protect private information."
     }
   },
   {
@@ -188,7 +193,7 @@
     "description": "Convert length, weight and temperature units.",
     "tagline": "Convert common measurement units",
     "seo": {
-      "description": "Convert length, weight and temperature units. Use this free browser-based unit converter to work with your content quickly without creating an account.",
+      "description": "Convert common length, weight and temperature measurements between metric and imperial units with an instant browser-based result.",
       "steps": [
         "Choose Length, Weight or Temperature.",
         "Enter the value and select the source and target units.",
@@ -212,7 +217,8 @@
           "question": "Are the results rounded?",
           "answer": "The displayed result is rounded to a practical precision; the conversion uses standard unit factors."
         }
-      ]
+      ],
+      "tips": "Check both selected units before using a converted measurement in technical, construction or safety-related work."
     }
   },
   {
@@ -224,7 +230,7 @@
     "description": "Calculate age or the days between two dates.",
     "tagline": "Find ages and date differences",
     "seo": {
-      "description": "Calculate age or the days between two dates. Use this free browser-based age & date difference to work with your content quickly without creating an account.",
+      "description": "Calculate age in years, months and days, or find the number of days between two dates with a simple date difference calculator.",
       "steps": [
         "Choose the starting date.",
         "Choose an ending date, or keep the default current date.",
@@ -248,7 +254,8 @@
           "question": "Are my dates stored?",
           "answer": "No. The date calculation is performed in your browser."
         }
-      ]
+      ],
+      "tips": "Check the date format and the intended time zone when comparing records created near midnight or across regions."
     }
   },
   {
@@ -260,7 +267,7 @@
     "description": "Convert HEX colors into RGB and HSL values.",
     "tagline": "Explore HEX, RGB and HSL",
     "seo": {
-      "description": "Convert HEX colors into RGB and HSL values. Use this free browser-based color converter to work with your content quickly without creating an account.",
+      "description": "Convert HEX color codes to RGB and HSL values, preview the selected color and copy the format needed for your design or CSS.",
       "steps": [
         "Choose a color with the picker or enter a HEX value.",
         "Select Convert if needed to calculate the color formats.",
@@ -284,7 +291,8 @@
           "question": "Why is my HEX value invalid?",
           "answer": "Check that it contains only hexadecimal characters and has exactly three or six digits."
         }
-      ]
+      ],
+      "tips": "Check text-to-background contrast and accessibility in the actual design before finalizing a color palette."
     }
   },
   {
@@ -296,7 +304,7 @@
     "description": "Compare two text blocks and identify changed lines.",
     "tagline": "Spot changes between two texts",
     "seo": {
-      "description": "Compare two text blocks and identify changed lines. Use this free browser-based text diff checker to work with your content quickly without creating an account.",
+      "description": "Compare two text versions line by line to spot additions and removals in drafts, notes or code snippets before you publish changes.",
       "steps": [
         "Paste the original text into the first box.",
         "Paste the revised text into the second box.",
@@ -320,7 +328,8 @@
           "question": "Are my texts uploaded?",
           "answer": "No. The comparison runs locally in your browser."
         }
-      ]
+      ],
+      "tips": "Keep line breaks consistent in both versions. Whitespace changes may appear as differences in the comparison."
     }
   },
   {
@@ -332,7 +341,7 @@
     "description": "Preview basic Markdown safely as formatted text.",
     "tagline": "Write and preview Markdown",
     "seo": {
-      "description": "Preview basic Markdown safely as formatted text. Use this free browser-based markdown previewer to work with your content quickly without creating an account.",
+      "description": "Write basic Markdown and preview headings, emphasis, links and inline code as formatted content while you edit your draft.",
       "steps": [
         "Type or paste Markdown into the editor.",
         "Review the formatted preview beside or below your input.",
@@ -356,7 +365,8 @@
           "question": "Is my draft saved automatically?",
           "answer": "No. The preview exists in the current browser session unless you copy or save your text."
         }
-      ]
+      ],
+      "tips": "Preview the result before publishing, especially links and any Markdown syntax outside the tool's supported subset."
     }
   },
   {
@@ -368,7 +378,7 @@
     "description": "Encode or decode URL components.",
     "tagline": "Safely encode URL components",
     "seo": {
-      "description": "Encode or decode URL components. Use this free browser-based url encode / decode to work with your content quickly without creating an account.",
+      "description": "Percent-encode or decode URL components so spaces and reserved characters are handled correctly in query values and web links.",
       "steps": [
         "Paste the text or encoded component.",
         "Choose Encode component or Decode component.",
@@ -392,7 +402,8 @@
           "question": "Why does decoding show an error?",
           "answer": "The input may contain an incomplete or invalid percent-encoding sequence."
         }
-      ]
+      ],
+      "tips": "Encode only the query value or path component you need. Encoding an entire URL can also encode its structural separators."
     }
   },
   {
@@ -404,7 +415,7 @@
     "description": "Generate copy-ready SEO meta tag markup.",
     "tagline": "Create SEO-ready meta markup",
     "seo": {
-      "description": "Generate copy-ready SEO meta tag markup. Use this free browser-based meta tag generator to work with your content quickly without creating an account.",
+      "description": "Create HTML title, meta description and optional canonical tags for a page. Copy the generated markup into your document head.",
       "steps": [
         "Enter your page title and meta description.",
         "Optionally provide a valid HTTP or HTTPS canonical URL.",
@@ -428,7 +439,8 @@
           "question": "Is a canonical URL required?",
           "answer": "No. It is optional here; use it when you have a preferred canonical address for the page."
         }
-      ]
+      ],
+      "tips": "Write a unique title and description that accurately match the page. Meta tags help describe content but cannot guarantee rankings."
     }
   },
   {
@@ -440,7 +452,7 @@
     "description": "Convert CSV data to JSON and JSON arrays to CSV.",
     "tagline": "Move data between CSV and JSON",
     "seo": {
-      "description": "Convert CSV data to JSON and JSON arrays to CSV. Use this free browser-based csv ↔ json converter to work with your content quickly without creating an account.",
+      "description": "Convert CSV rows to JSON objects or JSON arrays back to CSV. Check headers and quoted cells before copying or downloading data.",
       "steps": [
         "Paste CSV data with a header row, or paste a JSON array of objects.",
         "Choose CSV to JSON or JSON to CSV.",
@@ -464,7 +476,8 @@
           "question": "How are nested JSON values handled?",
           "answer": "Nested values are represented as JSON text within the corresponding CSV cell."
         }
-      ]
+      ],
+      "tips": "Keep column names consistent and check commas, quotes and embedded line breaks before converting important data."
     }
   },
   {
@@ -476,7 +489,7 @@
     "description": "Generate random version 4 UUIDs in your browser.",
     "tagline": "Generate unique IDs instantly",
     "seo": {
-      "description": "Generate random version 4 UUIDs in your browser. Use this free browser-based uuid generator to work with your content quickly without creating an account.",
+      "description": "Generate one or multiple random version 4 UUIDs using browser cryptographic randomness, then copy or download the identifiers.",
       "steps": [
         "Enter the number of UUIDs to generate, from 1 to 100.",
         "Choose Generate UUIDs.",
@@ -500,7 +513,8 @@
           "question": "Can I generate several UUIDs at once?",
           "answer": "Yes. Choose a quantity from 1 to 100 before generating."
         }
-      ]
+      ],
+      "tips": "UUIDs can identify records and resources, but they should not be used as passwords, access tokens or secret credentials."
     }
   },
   {
@@ -512,7 +526,7 @@
     "description": "Create a SHA-256 hash from text in your browser.",
     "tagline": "Create a SHA-256 text hash",
     "seo": {
-      "description": "Create a SHA-256 hash from text in your browser. Use this free browser-based sha-256 hash generator to work with your content quickly without creating an account.",
+      "description": "Generate a 64-character SHA-256 digest from text with the browser Web Crypto API. Hash the same input consistently in your browser.",
       "steps": [
         "Enter the text you want to hash.",
         "Choose Generate SHA-256.",
@@ -536,7 +550,8 @@
           "question": "Why does SHA-256 require HTTPS?",
           "answer": "The browser Web Crypto API is restricted to secure contexts in supported browsers."
         }
-      ]
+      ],
+      "tips": "A plain SHA-256 hash is not a password-storage method. Passwords require a dedicated password-hashing algorithm."
     }
   },
   {
@@ -548,7 +563,7 @@
     "description": "Create a random password with character options.",
     "tagline": "Build a password to your needs",
     "seo": {
-      "description": "Create a random password with character options. Use this free browser-based password generator to work with your content quickly without creating an account.",
+      "description": "Create a random password with a chosen length and character groups. Generate it locally with the browser's cryptographic random source.",
       "steps": [
         "Choose a password length between 8 and 128 characters.",
         "Select the character groups to include.",
@@ -572,7 +587,8 @@
           "question": "What is the supported password length?",
           "answer": "You can choose a length from 8 to 128 characters."
         }
-      ]
+      ],
+      "tips": "Use a different password for each account and store it in a trusted password manager. Avoid reusing generated passwords."
     }
   },
   {
@@ -584,7 +600,7 @@
     "description": "Convert a local image into a Base64 data URL.",
     "tagline": "Convert images into data URLs",
     "seo": {
-      "description": "Convert a local image into a Base64 data URL. Use this free browser-based image to base64 to work with your content quickly without creating an account.",
+      "description": "Convert a local image into a Base64 data URL, preview the selected file and copy or download the encoded result without uploading it.",
       "steps": [
         "Choose an image file from your device.",
         "Wait for the image to be read and converted.",
@@ -608,7 +624,8 @@
           "question": "Is my image uploaded?",
           "answer": "No. The selected file is read locally by your browser."
         }
-      ]
+      ],
+      "tips": "Base64 text can be much larger than the original image. Use a data URL only when embedding image data is appropriate."
     }
   },
   {
@@ -620,7 +637,7 @@
     "description": "Convert major currencies using automatically retrieved reference exchange rates.",
     "tagline": "Convert currencies with reference rates",
     "seo": {
-      "description": "Convert major currencies using automatically retrieved reference exchange rates. Use this free browser-based forex currency converter to work with your content quickly without creating an account.",
+      "description": "Convert amounts between supported currencies using reference exchange rates. Check the rate timestamp; results are not live trading quotes.",
       "steps": [
         "Enter the amount you want to convert.",
         "Choose the source and target currencies.",
@@ -644,7 +661,8 @@
           "question": "Are bank fees included?",
           "answer": "No. Bank, card, transfer and exchange-provider fees are not included."
         }
-      ]
+      ],
+      "tips": "Treat displayed rates as reference values. Banks and payment providers may apply different rates, spreads or fees."
     }
   },
   {
@@ -656,7 +674,7 @@
     "description": "Count words, characters, sentences and paragraphs.",
     "tagline": "Count words and characters",
     "seo": {
-      "description": "Count words, characters, sentences and paragraphs. Use this free browser-based word & character counter to work with your content quickly without creating an account.",
+      "description": "Count words, characters, sentences and paragraphs in text. Check writing length for drafts, assignments and content requirements.",
       "steps": [
         "Paste or type text into the input area.",
         "Choose Count text to calculate the statistics.",
@@ -680,7 +698,8 @@
           "question": "Can I count a long document?",
           "answer": "You can paste text into the input; very large documents may be limited by your browser and device memory."
         }
-      ]
+      ],
+      "tips": "Word counts can differ between editors for hyphens, symbols and some languages. Use one counting method consistently."
     }
   },
   {
@@ -692,7 +711,7 @@
     "description": "Remove repeated lines while preserving the first occurrence and original order.",
     "tagline": "Clean repeated lines from text",
     "seo": {
-      "description": "Remove repeated lines while preserving the first occurrence and original order. Use this free browser-based duplicate lines remover to work with your content quickly without creating an account.",
+      "description": "Remove repeated lines from text while keeping the first occurrence and original order. Choose how blank lines and letter case are handled.",
       "steps": [
         "Paste text containing repeated lines into the input area.",
         "Choose Remove duplicate lines.",
@@ -716,7 +735,8 @@
           "question": "Are uppercase and lowercase lines considered duplicates?",
           "answer": "No. Lines are compared exactly, including letter case and spacing."
         }
-      ]
+      ],
+      "tips": "Review the output before copying, especially when repeated lines may represent meaningful records or data entries."
     }
   },
   {
@@ -728,7 +748,7 @@
     "description": "Convert Unix timestamps to dates and dates to Unix time.",
     "tagline": "Translate timestamps into readable dates",
     "seo": {
-      "description": "Convert Unix timestamps in seconds or milliseconds to readable dates, or convert a local date and time back to Unix time. This free tool runs in your browser.",
+      "description": "Convert Unix timestamps in seconds or milliseconds to readable dates, or turn a date and time into a Unix timestamp in your browser.",
       "steps": [
         "Enter a Unix timestamp and choose seconds or milliseconds.",
         "Select Convert timestamp to view the corresponding date and time.",
@@ -752,7 +772,8 @@
           "question": "Does this tool use my local time zone?",
           "answer": "Timestamp values represent UTC time. When converting a local date and time, your browser applies its current time zone."
         }
-      ]
+      ],
+      "tips": "Confirm whether the source timestamp uses seconds or milliseconds. Choosing the wrong unit changes the resulting date."
     }
   },
   {
@@ -764,7 +785,7 @@
     "description": "Clean repeated spaces and unwanted blank lines from text.",
     "tagline": "Tidy spacing in seconds",
     "seo": {
-      "description": "Remove repeated spaces and tidy line spacing in text. Choose whether to trim line edges or remove blank lines. Text is processed locally in your browser.",
+      "description": "Clean up repeated spaces and line spacing in text. Choose whether to trim line edges or remove blank lines before copying the result.",
       "steps": [
         "Paste or type text into the input box.",
         "Choose whether to trim each line or remove blank lines.",
@@ -788,7 +809,8 @@
           "question": "Is my text uploaded?",
           "answer": "No. The cleanup runs locally in your browser."
         }
-      ]
+      ],
+      "tips": "Review code and alignment-sensitive text after cleanup because spaces can be meaningful in some file formats."
     }
   },
   {
@@ -800,7 +822,7 @@
     "description": "Encode special characters as HTML entities or decode entities to text.",
     "tagline": "Convert special characters safely",
     "seo": {
-      "description": "Encode special characters into HTML entities or decode HTML entities back into readable text. This free browser-based developer utility processes content locally.",
+      "description": "Encode special characters as HTML entities or decode entities back to text. Process markup safely in your browser without uploading content.",
       "steps": [
         "Paste text containing special characters or HTML entities.",
         "Choose Encode HTML or Decode HTML.",
@@ -824,7 +846,8 @@
           "question": "Does it support numeric entities?",
           "answer": "Yes. The browser's HTML character-reference parser supports common named and numeric references."
         }
-      ]
+      ],
+      "tips": "Entity encoding is not a complete HTML sanitizer. Use context-appropriate escaping and safe rendering for untrusted content."
     }
   },
   {
@@ -836,7 +859,7 @@
     "description": "Resize a local image to custom pixel dimensions.",
     "tagline": "Set image dimensions in pixels",
     "seo": {
-      "description": "Resize a local PNG, JPEG or WebP image to custom pixel dimensions while optionally keeping its aspect ratio. Images are processed in your browser.",
+      "description": "Resize local PNG, JPEG or WebP images to custom pixel dimensions. Keep the aspect ratio, preview the result and download it in your browser.",
       "steps": [
         "Choose a PNG, JPEG or WebP image under 10 MB.",
         "Enter the target width and height in pixels and choose whether to keep the aspect ratio.",
@@ -860,7 +883,8 @@
           "question": "What image sizes are supported?",
           "answer": "This version accepts PNG, JPEG and WebP files up to 10 MB and limits output dimensions to 4096 by 4096 pixels."
         }
-      ]
+      ],
+      "tips": "Keep the aspect ratio enabled when resizing photos to avoid distortion. Choose dimensions that suit the final display."
     }
   },
   {
@@ -872,7 +896,7 @@
     "description": "Reduce image file size with adjustable quality settings.",
     "tagline": "Make image files lighter",
     "seo": {
-      "description": "Compress a local JPEG, PNG or WebP image into JPEG or WebP with an adjustable quality setting. Processing stays in your browser.",
+      "description": "Compress local JPEG, PNG or WebP images into smaller JPEG or WebP files. Adjust output quality and preview the result before download.",
       "steps": [
         "Choose a PNG, JPEG or WebP image under 10 MB.",
         "Choose JPEG or WebP output and adjust the quality slider.",
@@ -896,7 +920,8 @@
           "question": "Is the original image changed?",
           "answer": "No. The tool creates a new downloadable file and leaves your original file unchanged."
         }
-      ]
+      ],
+      "tips": "Keep an original copy and compare the compressed image at its intended display size before replacing the source file."
     }
   },
   {
@@ -908,7 +933,7 @@
     "description": "Generate placeholder Lorem Ipsum text with adjustable paragraphs and sentences.",
     "tagline": "Create realistic placeholder paragraphs",
     "seo": {
-      "description": "Generate placeholder Lorem Ipsum text for website layouts, mockups and design drafts. Choose the number of paragraphs and sentences, then copy or download the generated text. Processing stays in your browser.",
+      "description": "Generate placeholder Lorem Ipsum paragraphs and sentences for website layouts, mockups and design drafts. Choose the amount of text to create.",
       "steps": [
         "Choose how many paragraphs you need, from 1 to 10.",
         "Select 1 to 8 sentences per paragraph and decide whether to use the classic Lorem ipsum opening.",
@@ -932,7 +957,8 @@
           "question": "Is the generated text uploaded?",
           "answer": "No. The text is generated locally in your browser and is not uploaded to ToolNest."
         }
-      ]
+      ],
+      "tips": "Use placeholder text only while testing layouts. Replace it with accurate, useful and accessible content before publishing."
     }
   },
   {
@@ -944,7 +970,7 @@
     "description": "Calculate a percentage of a number, find what percentage one value represents of another, or measure percentage increase and decrease. This free percentage calculator works instantly in your browser.",
     "tagline": "Work out percentages and percentage changes",
     "seo": {
-      "description": "Use this free percentage calculator to find a percentage of a value, calculate what percent one number is of another, or compare an original and new value. It performs the calculation locally in your browser and explains the result clearly.",
+      "description": "Calculate a percentage of a value, find what percent one number is of another, or compare values to measure percentage change.",
       "steps": [
         "Choose a percentage calculation type.",
         "Enter the two values requested by the selected calculation.",
@@ -968,7 +994,8 @@
           "question": "Can I use this calculator offline?",
           "answer": "Yes. The calculation runs locally in your browser and does not need an exchange-rate service or account."
         }
-      ]
+      ],
+      "tips": "Choose the right calculation: percentage of a value, percentage share and percentage change answer different questions."
     }
   },
   {
@@ -980,7 +1007,7 @@
     "description": "Estimate compound interest using an initial principal, annual interest rate, investment period and compounding frequency. View the future value and interest earned with this browser-based calculator.",
     "tagline": "Estimate how savings grow with compounding",
     "seo": {
-      "description": "Estimate the future value of a principal amount with this compound interest calculator. Choose an annual interest rate, time period and compounding frequency to see the estimated final balance and compound interest earned. Calculations run in your browser.",
+      "description": "Estimate compound growth from a starting amount, annual interest rate, time period and compounding frequency with a clear breakdown.",
       "steps": [
         "Enter the initial principal and choose a currency.",
         "Enter the annual interest rate and time in years.",
@@ -1004,7 +1031,8 @@
           "question": "Does this include tax, fees or extra deposits?",
           "answer": "No. This estimate assumes a fixed rate and principal with no additional deposits, withdrawals, fees or taxes."
         }
-      ]
+      ],
+      "tips": "Treat the result as an estimate. Real accounts may include fees, taxes, changing rates or deposits not represented here."
     }
   },
   {
@@ -1016,7 +1044,7 @@
     "description": "Estimate a fixed-rate monthly loan instalment (EMI), total repayment and total interest from a loan amount, annual interest rate and tenure. Calculations run locally in your browser.",
     "tagline": "Understand monthly instalments and loan cost",
     "seo": {
-      "description": "Estimate the monthly instalment for a fixed-rate reducing-balance loan. Enter a loan amount, annual interest rate and tenure to calculate monthly EMI, total interest and total repayment. This browser-based calculator provides an estimate, not a lender quote.",
+      "description": "Estimate monthly loan EMI, total interest and repayment for a fixed-rate reducing-balance loan. Results are estimates, not lender quotes.",
       "steps": [
         "Enter the loan amount and choose the currency.",
         "Enter the annual interest rate and tenure in months.",
@@ -1040,7 +1068,8 @@
           "question": "What happens if the interest rate is zero?",
           "answer": "The loan amount is divided evenly across the selected number of monthly instalments, with no interest added."
         }
-      ]
+      ],
+      "tips": "Compare this estimate with the lender's official repayment schedule, including fees, insurance and any rate changes."
     }
   },
   {
@@ -1052,7 +1081,7 @@
     "description": "Convert square metres, square feet, square yards, acres, hectares and square kilometres.",
     "tagline": "Convert common area measurements",
     "seo": {
-      "description": "Convert area measurements between square metres, square feet, square yards, acres, hectares and square kilometres with accurate standard conversion factors. Calculations run locally in your browser.",
+      "description": "Convert area between square metres, square feet, square yards, acres, hectares and square kilometres using standard unit factors.",
       "steps": [
         "Enter a non-negative area value.",
         "Choose the source and destination area units.",
@@ -1076,7 +1105,8 @@
           "question": "Is my input sent to a server?",
           "answer": "No. Area conversion is calculated in your browser."
         }
-      ]
+      ],
+      "tips": "Confirm the unit shown on the source document before converting. Local naming conventions can differ."
     }
   },
   {
@@ -1088,7 +1118,7 @@
     "description": "Convert shotok, katha, bigha, acre and square feet using clearly stated Bangladesh conventions.",
     "tagline": "Convert common Bangladesh land units",
     "seo": {
-      "description": "Convert Bangladesh land measurements including shotok or decimal, katha, bigha, acre and square feet. The calculator clearly states its assumed local conversion standards and runs in your browser.",
+      "description": "Convert Bangladesh land measurements such as shotok, katha, bigha, acre and square feet using clearly stated local conventions.",
       "steps": [
         "Enter the land area and choose its current unit.",
         "Choose the unit you want to convert into.",
@@ -1112,7 +1142,8 @@
           "question": "Does the converter replace a land survey?",
           "answer": "No. It is a reference calculator and does not replace official survey, deed review or local land-record guidance."
         }
-      ]
+      ],
+      "tips": "Land-unit conventions can vary locally. Verify the applicable standard against the deed and local land office before a transaction."
     }
   },
   {
@@ -1124,7 +1155,7 @@
     "description": "Convert a date and time between UTC and popular international time zones.",
     "tagline": "Compare dates and times around the world",
     "seo": {
-      "description": "Convert a selected local date and time between popular international time zones using built-in IANA time-zone rules. Daylight-saving transitions are handled in your browser without an external time API.",
+      "description": "Convert a date and time between international time zones with browser IANA rules, including daylight-saving changes where applicable.",
       "steps": [
         "Choose the date and time as it occurs in the source time zone.",
         "Select the source and destination time zones.",
@@ -1148,7 +1179,8 @@
           "question": "Is an internet time service required?",
           "answer": "No external time API is called. Conversion uses the browser's built-in internationalization support."
         }
-      ]
+      ],
+      "tips": "Always select the relevant date. UTC offsets can change during the year when daylight-saving rules apply."
     }
   },
   {
@@ -1160,7 +1192,7 @@
     "description": "Convert numbers into words in English or Bangla, including negative values and decimals.",
     "tagline": "Write numbers in English or বাংলা",
     "seo": {
-      "description": "Convert numeric values into written words in English or Bangla. Supports negative numbers and up to two decimal places, with browser-local processing and no external API.",
+      "description": "Convert numbers into written English or Bangla words, including negative values and up to two decimal places, in your browser.",
       "steps": [
         "Enter a whole number or a value with up to two decimal places.",
         "Choose English or বাংলা as the output language.",
@@ -1184,7 +1216,8 @@
           "question": "Does it support Bangla output?",
           "answer": "Yes. Select বাংলা to receive the number words in Bangla."
         }
-      ]
+      ],
+      "tips": "For formal documents, check spelling and the required number-word convention before using the generated wording."
     }
   },
   {
@@ -1196,7 +1229,7 @@
     "description": "Crop a local PNG, JPEG or WebP image by entering pixel coordinates. Preview and download the cropped image without uploading it.",
     "tagline": "Crop images with pixel precision",
     "seo": {
-      "description": "Crop images online with ToolNest Image Cropper. Choose a local PNG, JPEG or WebP file, set the crop position and dimensions in pixels, preview the result and download it directly in your browser.",
+      "description": "Crop local PNG, JPEG or WebP images with pixel-based coordinates. Preview the crop area and download the result without uploading files.",
       "steps": [
         "Choose a PNG, JPEG or WebP image from your device.",
         "Enter the left, top, width and height values for the crop area.",
@@ -1220,7 +1253,8 @@
           "question": "Which formats can I export?",
           "answer": "You can export PNG, JPEG or WebP when the browser supports the selected format."
         }
-      ]
+      ],
+      "tips": "Use the preview to confirm crop boundaries and keep a copy of the original image before exporting."
     }
   },
   {
@@ -1232,7 +1266,7 @@
     "description": "Convert local PNG, JPEG and WebP images between common web formats.",
     "tagline": "Convert PNG, JPG and WebP",
     "seo": {
-      "description": "Convert image formats online with ToolNest. Change local PNG, JPEG and WebP files to another common format, preview the converted result and download it without uploading your image to a server.",
+      "description": "Convert local PNG, JPEG and WebP images between common formats, adjust quality and download a preview processed in your browser.",
       "steps": [
         "Choose a PNG, JPEG or WebP image from your device.",
         "Select PNG, JPEG or WebP as the target format and adjust quality if needed.",
@@ -1256,7 +1290,8 @@
           "question": "Why might a format fail?",
           "answer": "Some browsers may not support exporting every format. The tool checks the actual output type and reports unsupported exports."
         }
-      ]
+      ],
+      "tips": "Choose PNG when transparency matters, JPEG for widely compatible photos, and WebP when the target platform supports it."
     }
   },
   {
@@ -1268,7 +1303,7 @@
     "description": "Decode supported Base64 image data and preview or download the image.",
     "tagline": "Preview images from Base64",
     "seo": {
-      "description": "Turn Base64 image data into a viewable image with ToolNest Base64 to Image. Paste an image data URL or raw Base64, preview the decoded image and download it locally in your browser.",
+      "description": "Decode image data URLs or raw Base64 into a previewable PNG, JPEG, WebP or GIF image, then download the decoded file locally.",
       "steps": [
         "Paste an image data URL or raw Base64 text into the input.",
         "The tool checks the actual image file signature before displaying it.",
@@ -1292,7 +1327,8 @@
           "question": "Is the Base64 sent to a server?",
           "answer": "No. Decoding and previewing happen locally in your browser."
         }
-      ]
+      ],
+      "tips": "Large Base64 strings are difficult to inspect and share. Use data URLs only where embedding image data is appropriate."
     }
   },
   {
@@ -1304,7 +1340,7 @@
     "description": "Create a robots.txt file with crawler rules and a sitemap location.",
     "tagline": "Draft crawler rules for your site",
     "seo": {
-      "description": "Create a robots.txt file with clear crawler rules and an optional sitemap location. This free browser-based generator validates paths and produces plain text without uploading your settings.",
+      "description": "Draft a robots.txt file with crawler rules and an optional sitemap URL. Review and download the text; publishing remains your responsibility.",
       "steps": [
         "Add one disallow path per line, or leave the field empty to allow crawling by default.",
         "Optionally enter the absolute HTTP or HTTPS URL of your XML sitemap.",
@@ -1328,7 +1364,8 @@
           "question": "Can this tool submit the file to search engines?",
           "answer": "No. It creates the file text only; you must publish it on your own website."
         }
-      ]
+      ],
+      "tips": "Robots.txt is a crawler directive, not a privacy barrier. Never rely on it to protect confidential pages."
     }
   },
   {
@@ -1340,7 +1377,7 @@
     "description": "Build an XML sitemap from a list of website URLs.",
     "tagline": "Turn page URLs into sitemap XML",
     "seo": {
-      "description": "Build an XML sitemap from a list of public page URLs. This free browser-based generator validates HTTP and HTTPS addresses, removes duplicates and creates sitemap XML without sending your URL list to a server.",
+      "description": "Generate XML sitemap markup from public page URLs, validate addresses, remove duplicates and download the sitemap for your website.",
       "steps": [
         "Paste one complete website URL per line into the input area.",
         "Select Generate XML sitemap to validate and normalize the addresses.",
@@ -1364,7 +1401,8 @@
           "question": "How many URLs can I add?",
           "answer": "This version accepts up to 500 URLs in one sitemap. Larger websites should use a sitemap workflow that can create sitemap indexes."
         }
-      ]
+      ],
+      "tips": "Include canonical, indexable URLs only. A sitemap helps search engines discover pages but does not guarantee indexing."
     }
   },
   {
@@ -1376,7 +1414,7 @@
     "description": "Create reusable linear and radial CSS gradient backgrounds.",
     "tagline": "Design a gradient and copy its CSS",
     "seo": {
-      "description": "Create linear and radial CSS gradient backgrounds with two custom colors. Preview the result and copy a ready-to-use CSS background declaration using this free browser-based CSS gradient generator.",
+      "description": "Create linear or radial CSS gradients with custom colors, preview the background and copy a ready-to-use CSS declaration.",
       "steps": [
         "Choose a linear or radial gradient type.",
         "Select two colors and, for a linear gradient, set an angle from 0 to 360 degrees.",
@@ -1400,7 +1438,8 @@
           "question": "Can I use the generated CSS in my website?",
           "answer": "Yes. Copy the background declaration into a CSS rule and adjust it to match your design."
         }
-      ]
+      ],
+      "tips": "Check text contrast against the gradient at different screen sizes before using it as a page background."
     }
   },
   {
@@ -1412,7 +1451,7 @@
     "description": "Find your public IP or look up public IP geolocation and network details.",
     "tagline": "Check IP address, approximate location and network details",
     "seo": {
-      "description": "Find your public IP address or look up a public IPv4 or IPv6 address. View approximate country, region, city, ISP, ASN and timezone details with clear privacy and accuracy notes.",
+      "description": "Find your public IP or look up public IPv4 and IPv6 details, including approximate location, ISP, ASN and timezone when available.",
       "steps": [
         "Choose Find My IP to check the public IP address visible to the lookup provider, or enter an IPv4/IPv6 address.",
         "Select Look Up IP and wait for the public geolocation service to respond.",
@@ -1438,7 +1477,8 @@
           "question": "Why can the city or coordinates be wrong?",
           "answer": "VPNs, mobile networks, proxies, ISP routing and database coverage can cause an IP location estimate to point to a nearby or different area. Coordinates are approximate."
         }
-      ]
+      ],
+      "tips": "IP geolocation is approximate and may show an ISP gateway or VPN exit point rather than a person's actual location."
     }
   }
 ]
