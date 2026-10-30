@@ -3,7 +3,7 @@
  "use strict";
  function isIPv4(value){
   const parts=value.split(".");
-  return parts.length===4&&parts.every(part=>/^\\d{1,3}$/.test(part)&&Number(part)>=0&&Number(part)<=255&&(part==="0"||!part.startsWith("0")));
+  return parts.length===4&&parts.every(part=>/^\d{1,3}$/.test(part)&&Number(part)>=0&&Number(part)<=255&&(part==="0"||!part.startsWith("0")));
  }
  function isIPv6(value){
   if(!value||value.includes("%")||!value.includes(":")||value.includes(":::"))return false;
