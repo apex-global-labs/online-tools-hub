@@ -57,11 +57,17 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Unit Converter
 - Age & Date Difference
 - Unix Timestamp Converter
+- Percentage Calculator
+- Compound Interest Calculator
+- EMI / Loan Calculator
 
 ### Utilities
 - Password Generator
 
-## Calculator notes\n- Percentage, compound-interest and EMI calculations run locally in the browser. They are educational estimates, not financial advice or a lender quote. Compound interest assumes a single initial amount with no additional deposits; EMI assumes a fixed rate, monthly end-of-period payments and excludes fees, taxes and insurance.\n\n## Run locally
+## Calculator notes
+- Percentage, compound-interest and EMI calculations run locally in the browser. They are educational estimates, not financial advice or a lender quote. Compound interest assumes a single initial amount with no additional deposits; EMI assumes a fixed rate, monthly end-of-period payments and excludes fees, taxes and insurance.
+
+## Run locally
 Open `index.html` in a modern browser while connected to the internet. Tailwind CSS and `qr-code-styling` are loaded from CDNs. QR generation requires the QR library CDN to load.
 
 ## Deploy with GitHub Pages
