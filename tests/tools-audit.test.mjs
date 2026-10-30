@@ -83,7 +83,9 @@ test("QR Studio supports default/custom modes, five palettes, five shapes, high 
   assert.match(markup, /data-qr-palette="royal"/);
   for (const shape of ["square","dots","rounded","classy","extra-rounded"]) assert.ok(markup.includes('value="'+shape+'"'));
   assert.match(markup, /id="qrBlendFile"/);
-  assert.match(markup, /id="qrBlendOpacity"/);
+  assert.match(markup, /id="qrBlendOpacity"[^>]*min="20" max="60" value="50"/);
+  assert.match(markup, /qrBlendValue">50%/);
+  assert.match(wiring, /qrBlendOpacity.*value="50"/);
   assert.match(markup, /id="qrCanvas"/);
   assert.match(markup, /id="generate"[^>]*>Generate QR/);
   assert.match(markup, /id="qrDownloadPng"/);
