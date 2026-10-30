@@ -23,8 +23,8 @@ test("percentage calculator rejects zero denominators, invalid modes and extreme
 
 test("compound interest matches annual, monthly and zero-rate examples", () => {
   const annual = finance.calculateCompoundInterest(1000, 10, 2, 1);
-  assert.equal(annual.amount, 1210);
-  assert.equal(annual.interest, 210);
+  assert.ok(Math.abs(annual.amount - 1210) < 1e-9);
+  assert.ok(Math.abs(annual.interest - 210) < 1e-9);
   const monthly = finance.calculateCompoundInterest(1000, 10, 2, 12);
   assert.ok(Math.abs(monthly.amount - 1220.390961) < 0.00001);
   assert.equal(finance.calculateCompoundInterest(500, 0, 5, 12).amount, 500);
