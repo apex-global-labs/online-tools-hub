@@ -9,20 +9,24 @@ Last updated: 2026-10-31
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Current verified production baseline after Phase 8A: `7a514e47f115ef07c91d25979d9085d38a791c09`
+- Current verified production baseline after Phase 8B PDF Splitter: `6f63d13955aaff18f84c0ecd60b215e6276f5286`
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no backend or application build step.
-- Catalogue: **41 unique tools**; `app.js` and `js/tools-data.json` are synchronized.
-- No paid service or backend is used. Advanced PDF Merger loads `pdf-lib` from a public CDN only when the tool is used.
+- Catalogue: **42 unique tools**; `app.js` and `js/tools-data.json` are synchronized.
+- No paid service or backend is used. Advanced PDF Merger and PDF Splitter use browser-side `pdf-lib`; PDF Splitter loads JSZip from a public CDN only when multiple outputs need a ZIP.
 
-## Phase 8B — PDF Splitter (implementation in progress on feature branch)
+## Phase 8B — PDF Splitter (merged and deployed; live browser verification pending)
 
-- Development branch: `feature/phase-8b-pdf-splitter`, created from the verified `main` baseline `300ff4b0c5aeae1f5afdca8bf8b2e46fec6daa78`.
-- First Phase 8B tool: **PDF Splitter**. Added the tool workspace registration, browser-side module, responsive CSS, dedicated SEO guide, directory entry, sitemap URL, keyword-map row and README catalogue entry on the feature branch.
-- Intended behavior: load one PDF locally, select individual pages or a range such as `1-3,5`, export each selected page as a separate PDF, and package multiple outputs as ZIP.
-- Uses the existing `pdf-lib@1.17.1` browser dependency and lazy-loads JSZip only when multiple page outputs need a ZIP. No PDF is uploaded to ToolNest.
-- Safety limits: 30 MB per input PDF and 300 pages per job.
-- Automated regression suite passed: **101 tests passed, 0 failed** in workflow **41118228617**. Existing JavaScript syntax checks passed. The CI workflow now also includes a direct syntax check for `js/pdf-splitter.js`; its updated run is pending. PR #53 remains open and the feature is not yet deployed. The owner reports that the live Advanced PDF Merger was manually tested and works; the exact scenario checklist was not recorded, so do not infer that every large-file or edge-case scenario was tested. This tool is **not complete or deployed** until those checks pass.
-- Current branch catalogue target: 42 tools, 42 individual guides and 44 sitemap URLs. Production `main` remains at 41 tools, 41 guides and 43 sitemap URLs until merge.
+- PR #53 merged into `main` at production commit `6f63d13955aaff18f84c0ecd60b215e6276f5286`.
+- Added the 42nd tool, **PDF Splitter**, with a dedicated responsive workspace, browser-side processing module and standalone SEO guide.
+- Features: upload one PDF, select individual pages, apply ranges such as `1-3,5`, export each selected page as its own PDF, and download multiple outputs together as a ZIP archive. One output downloads directly as a PDF.
+- Uses the existing `pdf-lib@1.17.1` dependency and lazy-loads JSZip only when multiple outputs need a ZIP. PDF documents are not uploaded to ToolNest; there is no backend or paid service.
+- Safety limits: 30 MB per input PDF and 300 pages per job. Large documents may still be constrained by device memory.
+- SEO integration: unique title and meta description, Open Graph/Twitter metadata, WebApplication/BreadcrumbList/FAQPage structured data, three visible FAQs, directory link, sitemap entry and keyword-map row.
+- Catalogue after merge: **42 tools**, **42 individual SEO guides**, **44 sitemap URLs**.
+- PR CI workflow **41118335314** passed: **101 tests, 101 passed, 0 failed**; JavaScript syntax checks passed including `js/pdf-splitter.js`.
+- Post-merge `main` regression workflow **41118407200** passed: **101 tests, 101 passed, 0 failed**.
+- GitHub Pages build and deployment workflow **41118406061** completed successfully for commit `6f63d13955aaff18f84c0ecd60b215e6276f5286`.
+- **Manual live-browser verification remains pending:** test page selection, range extraction, single-PDF download, multi-output ZIP integrity, and Android memory behavior with real PDF files. Do not mark every feature browser-verified until these checks are performed.
 
 ## Phase 8A — Advanced PDF Merger (merged and deployed; owner-reported live check passed)
 
@@ -35,7 +39,7 @@ Last updated: 2026-10-31
 - Regression workflow **41115562344** completed successfully: **93 tests passed, 0 failed**; JavaScript syntax checks passed, including `js/pdf-merge.js`.
 - GitHub Pages deployment workflow **41115562715** completed successfully for the merge commit.
 - **Live verification:** the owner reports manually testing the deployed tool and confirming that it works. The exact test cases and devices were not recorded; further edge-case QA (large files, password-protected PDFs, mobile memory limits and downloaded-file reopening) remains advisable.
-- Not included in this sub-phase: separate per-page file downloads, PDF thumbnails, PDF Splitter as a standalone tool, Image to PDF, PDF to Image, PDF to Word and Word to PDF. These remain candidates for subsequent Phase 8 work.
+- Not included in this sub-phase: standalone per-page export (added as PDF Splitter in Phase 8B), PDF thumbnails, Image to PDF, PDF to Image, PDF to Word and Word to PDF. These remain candidates for subsequent Phase 8 work.
 
 ## Phase 7 — Speed & Performance SEO (completed and deployed)
 
@@ -141,15 +145,16 @@ Last updated: 2026-10-31
 
 - `index.html`: homepage, navigation, search, tool grid and workspace.
 - `app.js`: catalogue, tool rendering, interactions and tool implementations.
-- `js/tools-data.json`: 41 tool metadata records, descriptions, routes and per-tool SEO content.
+- `js/tools-data.json`: 42 tool metadata records, descriptions, routes and per-tool SEO content.
 - `js/router.js` and `js/router-bridge.js`: modern hash routes and legacy route compatibility.
 - `js/ip-tools.js` / `css/ip-tools.css`: IP validation, special-use classification and lookup presentation.
 - `js/pdf-merge.js` / `css/pdf-merge.css`: on-demand browser-side PDF merging, page selection/order/rotation and responsive controls.
+- `js/pdf-splitter.js` / `css/pdf-splitter.css`: browser-side page extraction, individual PDF exports and ZIP downloads.
 - `js/phase15-developer-seo.js`: local robots.txt, XML sitemap and CSS gradient generators.
 - `js/advanced-converters.js`, `js/finance-calculators.js`: reusable converter and calculator helpers.
 - `js/seo-content.js`: tool guides, FAQs and dynamic FAQPage JSON-LD.
 - `tests/`: Node regression tests run by GitHub Actions.
-- `tools/`: static SEO guide directory and 41 individual crawlable pages (Phase 3 deployed; Advanced PDF Merger added in Phase 8A).
+- `tools/`: static SEO guide directory and 42 individual crawlable pages (Phase 3 deployed; Advanced PDF Merger added in Phase 8A; PDF Splitter added in Phase 8B).
 - `sitemap.xml`: canonical homepage, directory and individual tool guide URLs; no repository-level robots file is published because this is a path-prefixed GitHub Pages project site.
 
 ## Known limitations and release cautions
