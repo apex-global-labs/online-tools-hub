@@ -233,7 +233,7 @@ test("Phase 12 finance calculators are registered, have markup and safe event wi
 
 test("Advanced PDF Merger is registered with browser-side page controls and guarded file handling", () => {
   assert.ok(catalogIds.includes("pdfmerge"));
-  assert.match(getBranch(markup, "pdfmerge"), /id="pdfMergeFiles"/);
+  assert.match(getBranch(markup, "pdfmerge"), /id="pdfMergeFiles"/);\n  assert.match(getBranch(markup, "pdfmerge"), /id="pdfMergeUpload"/);
   assert.match(getBranch(markup, "pdfmerge"), /id="pdfMergeRun"/);
   assert.match(getBranch(markup, "pdfmerge"), /id="pdfMergeDownload"/);
   assert.match(getBranch(markup, "pdfmerge"), /id="pdfMergeClear"/);
@@ -246,7 +246,7 @@ test("Advanced PDF Merger is registered with browser-side page controls and guar
   assert.match(module, /parsePageRange/);
   assert.match(module, /rotate-page/);
   assert.match(module, /page-up/);
-  assert.match(module, /file-up/);
+  assert.match(module, /file-up/);\n  assert.match(module, /dataTransfer\?\.files/);
   assert.match(module, /MAX_PAGES_PER_FILE = 500/);
   assert.match(module, /MAX_TOTAL_PAGES = 2000/);
   assert.match(module, /application\/pdf/);
