@@ -311,6 +311,7 @@ function wireUniversalActions(id){
   if(id==="percentage")$("#percentageMode")?.dispatchEvent(new Event("change"));
   if(id==="gradient"&&$("#gradientPreview"))$("#gradientPreview").style.background="";
   panel.querySelectorAll(".output").forEach(el=>{if(el.dataset.downloadUrl)URL.revokeObjectURL(el.dataset.downloadUrl);delete el.dataset.downloadUrl;delete el.dataset.downloadName;el.textContent="";});
+  if(id==="iptools"){const results=$("#ipLookupResults");if(results){results.replaceChildren();results.hidden=true;}const status=$("#ipLookupStatus");if(status){status.textContent="Ready. Enter a public IP address or choose Find My IP.";status.className="ip-lookup-status muted";}}
   const preview=$("#markdownPreview");if(preview)preview.innerHTML="";
   ["imagePreview","qrOutput"].forEach(selector=>{const el=$("#"+selector);if(el)el.innerHTML="";});
   const swatch=$("#colorSwatch");if(swatch)swatch.style.background="";
@@ -446,21 +447,24 @@ function wireTool(id){
  case "iptools": {
   const status=$("#ipLookupStatus"),results=$("#ipLookupResults"),lookupButton=$("#lookupIp"),myButton=$("#myIp");
   const render=(data)=>{
-   const rows=[["IP address",data.ip],["IP version",data.type],["Continent",data.continent],["Country",data.flag?.emoji?data.flag.emoji+" ":""] .concat(data.country||"").join(""),["Region / State",data.region],["City",data.city],["Postal area",data.postal],["Approximate coordinates",Number.isFinite(data.latitude)&&Number.isFinite(data.longitude)?data.latitude.toFixed(4)+", "+data.longitude.toFixed(4):""],["ISP",data.connection?.isp],["Organization",data.connection?.org],["ASN",data.connection?.asn? "AS"+data.connection.asn:""],["Network domain",data.connection?.domain],["Time zone",data.timezone?.id],["UTC offset",data.timezone?.utc]];
+   const rows=[["IP address",data.ip],["IP version",data.type],["Address type",ToolNestIP.classifyIpAddress(data.ip)],["Continent",data.continent],["Country",(data.flag?.emoji?data.flag.emoji+" ":"")+(data.country||"")],["Region / State",data.region],["City",data.city],["Postal area",data.postal],["Approximate coordinates",Number.isFinite(data.latitude)&&Number.isFinite(data.longitude)?data.latitude.toFixed(4)+", "+data.longitude.toFixed(4):""],["ISP",data.connection?.isp],["Organization",data.connection?.org],["ASN",data.connection?.asn?"AS"+data.connection.asn:""],["Network domain",data.connection?.domain],["Time zone",data.timezone?.id],["UTC offset",data.timezone?.utc]];
    results.replaceChildren();
    const heading=document.createElement("h3");heading.className="ip-lookup-heading";heading.textContent="IP lookup results";results.append(heading);
    const grid=document.createElement("dl");grid.className="ip-lookup-grid";
    rows.forEach(([label,value])=>{const wrap=document.createElement("div");wrap.className="ip-lookup-item";const dt=document.createElement("dt");dt.textContent=label;const dd=document.createElement("dd");dd.textContent=value===null||value===undefined||value===""?"Not available":String(value);wrap.append(dt,dd);grid.append(wrap);});
    results.append(grid);
+   setOutput(rows.map(([label,value])=>label+": "+(value===null||value===undefined||value===""?"Not available":String(value))).join("\n")+"\n\nLocation and coordinates are approximate network estimates.");
    const note=document.createElement("p");note.className="ip-lookup-note";note.textContent="Location and coordinates are approximate network estimates, not a person's physical location.";results.append(note);
    results.hidden=false;
   };
   const lookup=async(value)=>{
    const ip=value.trim();
    if(ip&&!ToolNestIP.isValidIpAddress(ip)){status.textContent="Enter a valid IPv4 or IPv6 address.";status.className="ip-lookup-status is-error";return;}
+   if(ip&&ToolNestIP.classifyIpAddress(ip)==="Private / special-use"){status.textContent="This is a private or special-use IP address. It is not publicly geolocatable, so no external lookup was sent.";status.className="ip-lookup-status is-error";setOutput("IP address: "+ip+"\nAddress type: Private / special-use\nPublic geolocation: Not available.");results.hidden=true;return;}
    lookupButton.disabled=true;myButton.disabled=true;status.textContent=ip?"Looking up "+ip+"…":"Checking the public IP address…";status.className="ip-lookup-status muted";results.hidden=true;results.replaceChildren();
    try{
-    const url="https://ipwho.is/"+(ip?encodeURIComponent(ip):"");
+    const fields="ip,type,continent,country,country_code,region,region_code,city,postal,latitude,longitude,flag.emoji,connection.isp,connection.org,connection.asn,connection.domain,timezone.id,timezone.utc";
+    const url="https://ipwho.is/"+(ip?encodeURIComponent(ip):"")+"?fields="+encodeURIComponent(fields);
     const response=await fetch(url,{headers:{Accept:"application/json"},cache:"no-store"});
     if(response.status===429)throw new Error("The free lookup service has reached its daily request limit. Please try again later.");
     if(!response.ok)throw new Error("The lookup service returned HTTP "+response.status+". Please try again later.");
