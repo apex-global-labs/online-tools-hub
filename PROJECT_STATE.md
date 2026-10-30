@@ -153,3 +153,10 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - All image processing stays in the visitor's browser; uploaded artwork is not sent to a server.
 - Important limitation: high error correction does not guarantee that every blended QR will scan. Users must scan-test the exported image; image blending is intentionally subtle.
 - Automated tests and deployment verification are pending. Do not claim live behavior is verified until CI, Pages deployment, and owner browser checks are complete.
+
+
+## QR image visibility adjustment (2026-10-30)
+- Increased Custom Mode image blend slider range from 4–20% to 20–60%, with 50% as the default.
+- Clear/reset now returns blend visibility to 50%.
+- Added an on-screen warning that stronger artwork visibility can reduce QR scan reliability and that downloaded PNGs should be tested with a phone camera.
+- QR foreground pattern remains drawn above the artwork; error correction remains H. High visibility is not a guarantee of scanability.
