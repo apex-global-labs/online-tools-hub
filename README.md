@@ -32,7 +32,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Theme preference is saved when browser storage is available
 - Responsive layout and reduced-motion support for the decorative scene
 
-## Tool catalogue (39)
+## Tool catalogue (40)
 
 ### Text
 - Text Case Converter
