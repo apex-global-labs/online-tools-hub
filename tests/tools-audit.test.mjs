@@ -28,10 +28,10 @@ function getBranch(source, id) {
   return source.slice(start, next < 0 ? source.length : start + marker.length + next);
 }
 
-test("catalogue and router metadata contain the same 26 unique tool IDs", () => {
-  assert.equal(catalogIds.length, 26);
+test("catalogue and router metadata contain the same 29 unique tool IDs", () => {
+  assert.equal(catalogIds.length, 29);
   assert.equal(new Set(catalogIds).size, catalogIds.length);
-  assert.equal(metadata.length, 26);
+  assert.equal(metadata.length, 29);
   assert.equal(new Set(metadata.map((tool) => tool.id)).size, metadata.length);
   assert.deepEqual([...metadata.map((tool) => tool.id)].sort(), [...catalogIds].sort());
   assert.equal(new Set(metadata.map((tool) => tool.slug)).size, metadata.length);
@@ -157,7 +157,7 @@ test("workspace supports slug routes, legacy ID routes and a visible 404 state",
 });
 
 test("Phase 10 tools remain complete after Phase 11 adds a new text utility", () => {
-  const newIds = ["timestamp", "whitespace", "htmlentities", "imageresize", "imagecompress"];
+  const newIds = ["timestamp", "whitespace", "htmlentities", "imageresize", "imagecompress", "percentage", "compound", "emi"];
   assert.equal(catalogIds.length, 26);
   assert.equal(metadata.length, 26);
   for (const id of newIds) {
@@ -212,4 +212,20 @@ test("text counters count Unicode code points and whitespace cleaner accepts whi
   assert.match(getBranch(wiring, "counter"), /Array\.from\(s\.replace/);
   assert.match(getBranch(wiring, "case"), /Array\.from\(s\)\.length/);
   assert.match(getBranch(wiring, "whitespace"), /if\(!source\.length\)/);
+});
+
+test("Phase 12 finance calculators are registered, have markup and safe event wiring", () => {
+  for (const id of ["percentage", "compound", "emi"]) {
+    assert.ok(catalogIds.includes(id), "catalogue should include " + id);
+    assert.match(getBranch(markup, id), /btn\(/);
+    assert.ok(wiring.includes('case "' + id + '":'), "wiring should include " + id);
+    assert.ok(metadata.some(tool => tool.id === id && tool.seo?.faqs?.length === 3), "SEO metadata should include " + id);
+  }
+  assert.match(getBranch(markup, "percentage"), /percentageMode/);
+  assert.match(getBranch(markup, "compound"), /compoundFrequency/);
+  assert.match(getBranch(markup, "emi"), /emiMonths/);
+  assert.match(getBranch(wiring, "percentage"), /ToolNestFinance\.calculatePercentage/);
+  assert.match(getBranch(wiring, "compound"), /ToolNestFinance\.calculateCompoundInterest/);
+  assert.match(getBranch(wiring, "emi"), /ToolNestFinance\.calculateEmi/);
+  assert.match(app, /js\/finance-calculators\.js/);
 });
