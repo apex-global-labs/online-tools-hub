@@ -26,6 +26,7 @@ jobs:
           node --check js/advanced-converters.js
           node --check js/finance-calculators.js
           node --check js/phase15-developer-seo.js
+          node --check js/phase15-developer-seo.js
           node --experimental-default-type=module --check js/router.js
           node --check js/live-search.js
           node --check js/seo-content.js
