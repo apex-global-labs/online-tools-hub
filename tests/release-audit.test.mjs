@@ -20,12 +20,15 @@ test("homepage has useful title, description, canonical URL and social metadata"
   }
 });
 
-test("XML sitemap contains only the canonical static homepage URL", () => {
-  assert.match(sitemap, /^<\?xml version="1\.0" encoding="UTF-8"\?>/);
+test("XML sitemap lists the homepage, directory and all 40 canonical tool guide pages", () => {
+  assert.match(sitemap, /^<\\?xml version="1\\.0" encoding="UTF-8"\\?>/);
   assert.ok(sitemap.includes("<loc>" + siteUrl + "</loc>"));
-  assert.match(sitemap, /<lastmod>2026-10-30<\/lastmod>/);
-  assert.doesNotMatch(sitemap, /#\/tools\//);
-  assert.equal((sitemap.match(/<url>/g) || []).length, 1);
+  assert.ok(sitemap.includes("<loc>" + siteUrl + "tools/</loc>"));
+  assert.equal((sitemap.match(/<url>/g) || []).length, 42);
+  assert.doesNotMatch(sitemap, /#\\/tools\\//);
+  for (const tool of JSON.parse(read("../js/tools-data.json"))) {
+    assert.ok(sitemap.includes("<loc>" + siteUrl + "tools/" + tool.slug + "/</loc>"), "missing sitemap URL for " + tool.id);
+  }
 });
 
 test("CI regression suite runs syntax checks for IP and router bridge runtime files", () => {

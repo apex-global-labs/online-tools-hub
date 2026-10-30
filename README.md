@@ -21,8 +21,8 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `js/ip-tools.js` — IPv4/IPv6 validation and special-use range classification
 - `css/ip-tools.css` — responsive IP lookup results and status styling
 - `css/phase13-converters.css` — responsive styling for advanced converters
-- `robots.txt` and `sitemap.xml` — root-level crawl guidance and the canonical homepage sitemap
-- `sitemap.xml` — canonical homepage sitemap for the GitHub Pages project site
+- `tools/` — static, individually crawlable tool guide pages and the tool-guide directory
+- `sitemap.xml` — homepage, tool directory and 40 canonical tool-page URLs
 - `PROJECT_STATE.md` — current status, verification notes and next-step roadmap
 
 ## Current UI features
@@ -95,10 +95,10 @@ A static, browser-based multi-tool website. No backend or build step is required
 
 ## Search engine crawl files
 
-- `sitemap.xml` lists the canonical homepage only. The current tool workspaces use hash-based routes inside one static HTML page; hash fragments are not separate crawlable URLs and are intentionally excluded from the sitemap.
+- `sitemap.xml` lists the canonical homepage, the tool-guide directory and 40 individual static tool-guide URLs. Each guide has a unique title, meta description, canonical URL, visible instructions, features, FAQs and structured data. Interactive workspaces still open through the existing hash-based app routes; hash fragments are not listed as separate pages.
 - This is a GitHub Pages project site published under `/online-tools-hub/`. A `robots.txt` stored in this repository would be served at the project subpath, not the origin root (`https://apex-global-labs.github.io/robots.txt`) where host-wide crawl rules are expected. No repository-level `robots.txt` is provided; do not describe one as present.
 - The homepage has a canonical URL plus Open Graph and Twitter title/description metadata. A social preview image is not yet configured.
-- Search engines decide independently whether and how to crawl, index, and display the site. Separate crawlable tool pages and their sitemap entries are planned for the individual-page SEO phase.
+- Search engines decide independently whether and how to crawl, index, and display the site. Inclusion in a sitemap does not guarantee indexing or rankings.
 
 ## Run locally
 Open `index.html` in a modern browser while connected to the internet. Tailwind CSS and `qr-code-styling` are loaded from CDNs. QR generation requires the QR library CDN to load.

@@ -9,10 +9,17 @@ Last updated: 2026-10-30
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Current verified main baseline before this SEO branch: `a893cf9507146544d4da5b602854c1a20db5cf15`
+- Current verified main baseline before Phase 3: `016513e746d7e5420706a90cab3717fd07780c80`
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no backend or application build step.
 - Catalogue: **40 unique tools**; `app.js` and `js/tools-data.json` are synchronized.
 - No paid service or new runtime dependency is introduced by Phase 17.
+
+## Phase 2 — Technical SEO Fix (completed and deployed)
+
+- PR #41 merged into `main` at commit `016513e746d7e5420706a90cab3717fd07780c80`.
+- Corrected crawl documentation and clarified why a repository-level `robots.txt` is not published for this path-prefixed GitHub Pages project site.
+- Verified regression tests and GitHub Pages build/deployment both completed successfully for the merge commit.
+- This phase changed documentation and regression coverage; it did not yet create independent crawlable tool pages.
 
 ## Phase 16 — Standalone IP Tools module (merged)
 
@@ -40,6 +47,13 @@ Last updated: 2026-10-30
 - Manual browser verification is still required for representative tools, IP lookups, image previews/downloads, QR scanability, Copy/Clear behavior, routes, responsive layouts, themes and browser-console/network errors.
 - Do not describe the project as fully browser-QA-passed until those checks have actually been completed.
 
+## Phase 3 — Individual Crawlable Tool Pages (in progress)
+
+- Working branch: `seo/phase3-crawlable-tool-pages` (based on main commit `016513e746d7e5420706a90cab3717fd07780c80`).
+- Planned implementation: 40 static tool guide pages under `tools/<slug>/`, a directory at `tools/`, unique canonical and social metadata, visible per-tool instructions/features/FAQs, structured data, homepage discovery link and a 42-URL XML sitemap (homepage + directory + 40 guides).
+- Interactive tool implementations remain in the existing app and are reached through the existing hash router; guide pages must not duplicate or replace tool logic.
+- Completion depends on source review, CI regression tests, GitHub Pages deployment and separate live URL/browser verification.
+
 ## Current application structure
 
 - `index.html`: homepage, navigation, search, tool grid and workspace.
@@ -51,12 +65,13 @@ Last updated: 2026-10-30
 - `js/advanced-converters.js`, `js/finance-calculators.js`: reusable converter and calculator helpers.
 - `js/seo-content.js`: tool guides, FAQs and dynamic FAQPage JSON-LD.
 - `tests/`: Node regression tests run by GitHub Actions.
-- `sitemap.xml`: canonical homepage sitemap; no repository-level robots file is published because this is a path-prefixed GitHub Pages project site.
+- `tools/`: static SEO guide directory and individual crawlable pages (Phase 3 implementation in progress).
+- `sitemap.xml`: canonical homepage, directory and individual tool guide URLs; no repository-level robots file is published because this is a path-prefixed GitHub Pages project site.
 
 ## Known limitations and release cautions
 
 - No automated real-browser end-to-end suite is currently part of the active CI workflow. A historical browser-test PR exists but is not merged; do not assume it runs.
-- Hash-based tool routes share one HTML document. The homepage sitemap does not make each hash route an independently rendered page.
+- Interactive tool workspaces continue to use hash-based routes; static SEO guide pages are separate HTML documents and link to the corresponding interactive workspace.
 - Third-party browser resources include Tailwind and qr-code-styling CDNs. Currency conversion and IP lookup call external services; those tools are not fully offline.
 - IP geolocation is approximate and depends on the external provider's availability and data coverage.
 - QR image blending can reduce scan reliability; exported QR images should be scan-tested.
