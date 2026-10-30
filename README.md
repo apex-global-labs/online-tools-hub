@@ -8,7 +8,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/phase2.css` — search/navigation styling, dark-mode contrast and animated sun/moon scene
 - `app.js` — tool catalogue, filters, workspace rendering, theme toggle and tool implementations
 - `js/live-search.js` — search autocomplete, keyboard navigation, category menu behavior and slash shortcut
-- `js/tools-data.json` — metadata for all 25 tools used by the modular hash router
+- `js/tools-data.json` — metadata for all 26 tools used by the modular hash router
 - `js/router.js` — route parsing/resolution
 - `js/router-bridge.js` — bridge from modular routes to the existing tool workspace
 - `css/phase10-image-tools.css` — responsive previews for the image utilities
@@ -23,7 +23,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Theme preference is saved when browser storage is available
 - Responsive layout and reduced-motion support for the decorative scene
 
-## Tool catalogue (25)
+## Tool catalogue (26)
 
 ### Text
 - Text Case Converter
@@ -33,6 +33,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Word & Character Counter
 - Duplicate Lines Remover
 - Extra Spaces Remover
+- Lorem Ipsum Generator
 
 ### Developer
 - Base64 Encoder / Decoder

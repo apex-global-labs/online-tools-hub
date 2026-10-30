@@ -898,5 +898,41 @@
         }
       ]
     }
+  },
+  {
+    "id": "loremipsum",
+    "title": "Lorem Ipsum Generator",
+    "category": "Text",
+    "icon": "¶",
+    "slug": "lorem-ipsum-generator",
+    "description": "Generate placeholder Lorem Ipsum text with adjustable paragraphs and sentences.",
+    "tagline": "Create realistic placeholder paragraphs",
+    "seo": {
+      "description": "Generate placeholder Lorem Ipsum text for website layouts, mockups and design drafts. Choose the number of paragraphs and sentences, then copy or download the generated text. Processing stays in your browser.",
+      "steps": [
+        "Choose how many paragraphs you need, from 1 to 10.",
+        "Select 1 to 8 sentences per paragraph and decide whether to use the classic Lorem ipsum opening.",
+        "Select Generate Lorem Ipsum, then copy or download the result."
+      ],
+      "features": [
+        "Creates multiple paragraphs with adjustable sentence counts.",
+        "Can begin with the familiar Lorem ipsum opening or generate varied placeholder sentences.",
+        "Generates text locally in your browser without sending your input to a server."
+      ],
+      "faqs": [
+        {
+          "question": "What is Lorem Ipsum used for?",
+          "answer": "Lorem Ipsum is placeholder text used to preview typography, spacing and page layouts before final copy is ready."
+        },
+        {
+          "question": "Can I choose the amount of text?",
+          "answer": "Yes. You can generate 1 to 10 paragraphs and choose 1 to 8 sentences in each paragraph."
+        },
+        {
+          "question": "Is the generated text uploaded?",
+          "answer": "No. The text is generated locally in your browser and is not uploaded to ToolNest."
+        }
+      ]
+    }
   }
 ]

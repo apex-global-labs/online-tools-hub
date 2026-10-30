@@ -5,6 +5,16 @@ Last updated: 2026-10-30
 
 > **Authoritative status note (2026-10-30):** This section is the current source of truth. Older handover notes and phase descriptions further below are historical records; where they say work is pending or unmerged, this current status supersedes that wording.
 
+
+## Phase 11 — Text & Writing Tools (feature branch)
+- Work branch: `phase11-text-writing`; based on the latest Phase 10 documentation commit.
+- Phase 11 adds **Lorem Ipsum Generator** as the 26th tool. Existing Text Diff Checker, Word & Character Counter, Text Case Converter and Extra Spaces Remover are retained; no duplicate versions are introduced.
+- Text Case Converter and Word & Character Counter now count Unicode code points for character totals, so supplementary Unicode characters are not counted as two characters.
+- Extra Spaces Remover accepts whitespace-only input and cleans it instead of treating it as missing input.
+- Lorem Ipsum Generator supports 1–10 paragraphs, 1–8 sentences per paragraph, an optional classic opening, and local generation.
+- Unicode ↔ Bijoy conversion is explicitly out of scope.
+- Regression coverage and metadata/catalogue synchronization are included. CI, merge, Pages deployment and real-browser QA must be recorded only after their respective checks complete.
+
 ## Current production status — verified through PR #24
 
 - Production branch: `main`; current production HEAD after PR #24: `74186010ad190ba582b4d0ac1e373c45d7ca1766`.
@@ -34,9 +44,9 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - `style.css`: base layout, theme variables, responsive styling and tool UI.
 - `css/phase2.css`: phase 2 navigation/search styles, dark-mode contrast overrides and animated day/night hero scene.
 - `css/phase3-category-grid.css`: responsive category filter pills and card-grid presentation for Phase 3.
-- `app.js`: 25-tool catalogue, card filtering, workspace lifecycle and tool implementations.
+- `app.js`: 26-tool catalogue, card filtering, workspace lifecycle and tool implementations.
 - `js/live-search.js`: autocomplete suggestions, keyboard handling, category dropdown behavior and slash shortcut.
-- `js/tools-data.json`: modular router metadata. `main` now contains 25 entries intended to match the 20 tools in `app.js`; automated consistency checks passed, while live route regression checks remain pending.
+- `js/tools-data.json`: modular router metadata. `main` now contains 26 entries intended to match the 20 tools in `app.js`; automated consistency checks passed, while live route regression checks remain pending.
 - `js/router.js`: modular hash route parser/resolver for `#/tools/:slug`.
 - `js/router-bridge.js`: connects modular routes to existing tool launch behavior.
 - `README.md`: setup and feature overview.

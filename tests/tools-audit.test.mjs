@@ -28,10 +28,10 @@ function getBranch(source, id) {
   return source.slice(start, next < 0 ? source.length : start + marker.length + next);
 }
 
-test("catalogue and router metadata contain the same 25 unique tool IDs", () => {
-  assert.equal(catalogIds.length, 25);
+test("catalogue and router metadata contain the same 26 unique tool IDs", () => {
+  assert.equal(catalogIds.length, 26);
   assert.equal(new Set(catalogIds).size, catalogIds.length);
-  assert.equal(metadata.length, 25);
+  assert.equal(metadata.length, 26);
   assert.equal(new Set(metadata.map((tool) => tool.id)).size, metadata.length);
   assert.deepEqual([...metadata.map((tool) => tool.id)].sort(), [...catalogIds].sort());
   assert.equal(new Set(metadata.map((tool) => tool.slug)).size, metadata.length);
@@ -46,7 +46,7 @@ test("every catalogue tool has markup and an event-wiring branch", () => {
 });
 
 test("all text-result tools expose a wired Copy action", () => {
-  const copyTools = ["case", "slug", "diff", "markdown", "base64", "json", "url", "meta", "csvjson", "uuid", "sha256", "password", "image64", "color", "forexcalc", "unit", "age", "counter", "duplines", "timestamp", "whitespace", "htmlentities"];
+  const copyTools = ["case", "slug", "diff", "markdown", "base64", "json", "url", "meta", "csvjson", "uuid", "sha256", "password", "image64", "color", "forexcalc", "unit", "age", "counter", "duplines", "timestamp", "whitespace", "htmlentities", "loremipsum"];
   for (const id of copyTools) {
     assert.match(getBranch(markup, id), /btn\("copy"/, `${id} should show a Copy button`);
     assert.match(getBranch(wiring, id), /bind\("copy"/, `${id} should wire its Copy button`);
@@ -156,10 +156,10 @@ test("workspace supports slug routes, legacy ID routes and a visible 404 state",
   assert.match(app, /toastTimer=setTimeout/);
 });
 
-test("Phase 10 adds five complete tools with unique metadata, markup and event wiring", () => {
+test("Phase 10 tools remain complete after Phase 11 adds a new text utility", () => {
   const newIds = ["timestamp", "whitespace", "htmlentities", "imageresize", "imagecompress"];
-  assert.equal(catalogIds.length, 25);
-  assert.equal(metadata.length, 25);
+  assert.equal(catalogIds.length, 26);
+  assert.equal(metadata.length, 26);
   for (const id of newIds) {
     assert.ok(catalogIds.includes(id), "catalogue should include " + id);
     assert.ok(markup.includes('case "' + id + '":'), "markup should include " + id);
@@ -193,4 +193,23 @@ test("app.js passes the Node JavaScript syntax check", () => {
   const file = new URL("../app.js", import.meta.url).pathname;
   const result = spawnSync(process.execPath, ["--check", file], { encoding: "utf8" });
   assert.equal(result.status, 0, result.stderr || result.stdout || "app.js syntax check failed");
+});
+
+test("Phase 11 Lorem Ipsum Generator is registered, validated and wired for copy", () => {
+  assert.ok(catalogIds.includes("loremipsum"));
+  assert.match(getBranch(markup, "loremipsum"), /id="loremParagraphs"/);
+  assert.match(getBranch(markup, "loremipsum"), /id="loremSentences"/);
+  assert.match(getBranch(markup, "loremipsum"), /id="loremStartStandard"/);
+  assert.match(getBranch(wiring, "loremipsum"), /paragraphs<1\|\|paragraphs>10/);
+  assert.match(getBranch(wiring, "loremipsum"), /sentences<1\|\|sentences>8/);
+  assert.match(getBranch(wiring, "loremipsum"), /bind\("generateLorem"/);
+  assert.match(getBranch(wiring, "loremipsum"), /bind\("copy"/);
+  assert.ok(metadata.some(tool => tool.id === "loremipsum" && tool.seo?.faqs?.length === 3));
+});
+
+test("text counters count Unicode code points and whitespace cleaner accepts whitespace-only input", () => {
+  assert.match(getBranch(wiring, "counter"), /Array\.from\(s\)\.length/);
+  assert.match(getBranch(wiring, "counter"), /Array\.from\(s\.replace/);
+  assert.match(getBranch(wiring, "case"), /Array\.from\(s\)\.length/);
+  assert.match(getBranch(wiring, "whitespace"), /if\(!source\.length\)/);
 });
