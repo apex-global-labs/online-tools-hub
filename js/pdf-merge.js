@@ -292,11 +292,23 @@
     const mergeButton = $("#pdfMergeRun");
     const downloadButton = $("#pdfMergeDownload");
     const clearButton = $("#pdfMergeClear");
+    const dropZone = $("#pdfMergeUpload");
     if (!input || !list || !mergeButton || !downloadButton || !clearButton) return;
     input.addEventListener("change", () => {
       addFiles(input.files);
       input.value = "";
     });
+    if (dropZone) {
+      ["dragenter", "dragover"].forEach((name) => dropZone.addEventListener(name, (event) => {
+        event.preventDefault();
+        dropZone.classList.add("is-dragging");
+      }));
+      ["dragleave", "drop"].forEach((name) => dropZone.addEventListener(name, (event) => {
+        event.preventDefault();
+        dropZone.classList.remove("is-dragging");
+      }));
+      dropZone.addEventListener("drop", (event) => addFiles(event.dataTransfer?.files));
+    }
     list.addEventListener("change", (event) => {
       const checkbox = event.target.closest('[data-action="toggle-page"]');
       if (!checkbox) return;
