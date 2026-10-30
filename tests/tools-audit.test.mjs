@@ -28,10 +28,10 @@ function getBranch(source, id) {
   return source.slice(start, next < 0 ? source.length : start + marker.length + next);
 }
 
-test("catalogue and router metadata contain the same 33 unique tool IDs", () => {
-  assert.equal(catalogIds.length, 33);
+test("catalogue and router metadata contain the same 36 unique tool IDs", () => {
+  assert.equal(catalogIds.length, 36);
   assert.equal(new Set(catalogIds).size, catalogIds.length);
-  assert.equal(metadata.length, 33);
+  assert.equal(metadata.length, 36);
   assert.equal(new Set(metadata.map((tool) => tool.id)).size, metadata.length);
   assert.deepEqual([...metadata.map((tool) => tool.id)].sort(), [...catalogIds].sort());
   assert.equal(new Set(metadata.map((tool) => tool.slug)).size, metadata.length);
