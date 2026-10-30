@@ -6,14 +6,16 @@ Last updated: 2026-10-30
 > **Authoritative status note (2026-10-30):** This section is the current source of truth. Older handover notes and phase descriptions further below are historical records; where they say work is pending or unmerged, this current status supersedes that wording.
 
 
-## Phase 15 — Developer & SEO Tools (in progress)
-- Work branch: `phase15-developer-seo-tools`; implementation is being prepared for review and is not merged to production.
+## Phase 15 — Developer & SEO Tools (merged)
+- Merged through [PR #36](https://github.com/apex-global-labs/online-tools-hub/pull/36); production merge commit: `dd7b13767b310c6bf12267ed401792db05876dfb`.
 - Adds three non-duplicate browser-local utilities: **Robots.txt Generator**, **XML Sitemap Generator** and **CSS Gradient Generator**. Existing **Meta Tag Generator**, JSON Formatter, CSV ↔ JSON Converter and HTML Entity Encoder / Decoder are retained.
 - Robots.txt output is plain text only; the UI explains that robots.txt is not access control and does not publish the file.
-- XML sitemap generation accepts up to 500 unique absolute HTTP/HTTPS URLs, rejects unsupported protocols and credentials, and escapes XML content.
-- CSS Gradient Generator creates validated linear/radial CSS with two selected colors and a bounded angle.
-- Pure helpers are isolated in `js/phase15-developer-seo.js`; new catalogue metadata includes unique slugs, descriptions, How to Use steps, features and FAQs.
-- Automated regression coverage is included in `tests/phase15-developer-seo.test.mjs` and the catalogue audit; CI verification is pending. Real-browser QA remains pending until manually checked on the deployed site.
+- XML sitemap generation accepts up to 500 absolute HTTP/HTTPS URLs, rejects unsupported protocols, credentials and URL fragments, removes duplicates, and escapes XML content.
+- CSS Gradient Generator creates validated linear/radial CSS using two HEX colors and a bounded angle, with a preview.
+- Pure helpers are isolated in `js/phase15-developer-seo.js`; metadata includes unique IDs/slugs, SEO descriptions, How to Use steps, features and FAQs. Named downloads are `robots.txt` and `sitemap.xml`.
+- CI run [41043213351](https://github.com/apex-global-labs/online-tools-hub/actions/runs/41043213351) passed: **64 tests, 64 passed, 0 failed**. JavaScript syntax checks, including the Phase 15 helper, passed.
+- Catalogue total: **39 unique tools**. README and search placeholder are updated. No paid service, backend or new runtime dependency was added.
+- **Real-browser QA remains pending** for the three Phase 15 tools and the Phase 14 image tools. Do not claim manual browser verification until the deployed site is tested.
 
 ## Phase 14 — Image & Media Tools (merged)
 - Work branch: `phase14-image-media-tools`; merged through [PR #34](https://github.com/apex-global-labs/online-tools-hub/pull/34).
