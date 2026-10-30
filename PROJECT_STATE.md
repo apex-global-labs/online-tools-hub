@@ -32,10 +32,10 @@ Last updated: 2026-10-30
 - Initial findings and branch changes:
   1. The production page loads `js/ip-tools.js` and `js/router-bridge.js`, but neither file had a dedicated CI syntax check. A new release-audit test runs Node syntax checks for both and is included in the existing `tests/*.test.mjs` suite.
   2. The homepage description did not describe the complete 40-tool catalogue, and canonical/Open Graph/Twitter metadata were absent. These have been added.
-  3. Root-level `robots.txt` and `sitemap.xml` were absent. Both are now added on this branch. The sitemap intentionally lists the canonical homepage only because tool workspaces use hash routes within one static HTML document.
+  3. A sitemap was absent. A canonical homepage sitemap is now added. A repository-level `robots.txt` was deliberately omitted: this GitHub Pages project site is path-prefixed, so a file in the repository cannot serve the origin-root robots path crawlers expect.
   4. The previous project-state summary incorrectly described Phase 14 / 36 tools as the current production release. This authoritative section supersedes that historical text.
-- Files changed on this branch: `index.html`, `README.md`, `PROJECT_STATE.md`, `robots.txt`, `sitemap.xml`, and `tests/release-audit.test.mjs`.
-- The existing GitHub Actions workflow is unchanged; its existing test command automatically discovers the new release-audit test file.
+- Files changed on this branch: `index.html`, `README.md`, `PROJECT_STATE.md`, `sitemap.xml`, and `tests/release-audit.test.mjs`.
+- The existing GitHub Actions workflow now syntax-checks `js/ip-tools.js` and `js/router-bridge.js`; its existing test command automatically discovers the new release-audit test file.
 - Phase 17 branch CI and deployment checks are pending.
 - Manual browser verification is still required for representative tools, IP lookups, image previews/downloads, QR scanability, Copy/Clear behavior, routes, responsive layouts, themes and browser-console/network errors.
 - Do not describe the project as fully browser-QA-passed until those checks have actually been completed.
@@ -51,7 +51,7 @@ Last updated: 2026-10-30
 - `js/advanced-converters.js`, `js/finance-calculators.js`: reusable converter and calculator helpers.
 - `js/seo-content.js`: tool guides, FAQs and dynamic FAQPage JSON-LD.
 - `tests/`: Node regression tests run by GitHub Actions.
-- `robots.txt` and `sitemap.xml`: search-engine crawl guidance for the published homepage.
+- `sitemap.xml`: canonical homepage sitemap; no repository-level robots file is published because this is a path-prefixed GitHub Pages project site.
 
 ## Known limitations and release cautions
 
