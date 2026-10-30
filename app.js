@@ -19,7 +19,12 @@ const tools = [
 {id:"unit",name:"Unit Converter",category:"Calculators",icon:"↔",description:"Convert length, weight and temperature units."},
 {id:"age",name:"Age & Date Difference",category:"Calculators",icon:"▦",description:"Calculate age or the days between two dates."},
 {id:"counter",name:"Word & Character Counter",category:"Text",icon:"¶",description:"Count words, characters, sentences and paragraphs."},
-{id:"duplines",name:"Duplicate Lines Remover",category:"Text",icon:"≡",description:"Remove repeated lines while preserving the first occurrence and original order."}
+{id:"duplines",name:"Duplicate Lines Remover",category:"Text",icon:"≡",description:"Remove repeated lines while preserving the first occurrence and original order."},
+{id:"timestamp",name:"Unix Timestamp Converter",category:"Calculators",icon:"◷",description:"Convert Unix timestamps to dates and dates to Unix time."},
+{id:"whitespace",name:"Extra Spaces Remover",category:"Text",icon:"↔",description:"Clean repeated spaces and unwanted blank lines from text."},
+{id:"htmlentities",name:"HTML Entity Encoder / Decoder",category:"Developer",icon:"</>",description:"Encode special characters as HTML entities or decode entities to text."},
+{id:"imageresize",name:"Image Resizer",category:"Image",icon:"↗",description:"Resize a local image to custom pixel dimensions."},
+{id:"imagecompress",name:"Image Compressor",category:"Image",icon:"▤",description:"Reduce image file size with adjustable quality settings."}
 ];
 
 const $ = (s,root=document)=>root.querySelector(s);
@@ -48,7 +53,12 @@ const cardTaglines={
  unit:"Convert common measurement units",
  age:"Find ages and date differences",
  counter:"Count words and characters",
- duplines:"Clean repeated lines from text"
+ duplines:"Clean repeated lines from text",
+ timestamp:"Translate timestamps into readable dates",
+ whitespace:"Tidy spacing in seconds",
+ htmlentities:"Convert special characters safely",
+ imageresize:"Set image dimensions in pixels",
+ imagecompress:"Make image files lighter"
 };
 
 function renderCards(){
@@ -250,6 +260,8 @@ function wireUniversalActions(id){
    catch{message("Could not download the QR image.","error");}
    return;
   }
+  const output=$("#output");
+  if(output?.dataset.downloadUrl){const a=document.createElement("a");a.href=output.dataset.downloadUrl;a.download=output.dataset.downloadName||"toolnest-image.png";a.click();message("Image download started.");return;}
   const text=resultText();
   if(!text.trim()){message("Generate a result before downloading.","error");return;}
   const blob=new Blob([text],{type:"text/plain;charset=utf-8"});
@@ -266,13 +278,14 @@ function wireUniversalActions(id){
  bind("universalClear",()=>{
   // QR Studio keeps artwork and render state in local variables; use its own reset handler.
   if(id==="qr"){ $("#qrClear")?.click(); return; }
+  if(id==="imageresize"||id==="imagecompress"){ $("#clearImage")?.click(); return; }
   panel.querySelectorAll("input,textarea").forEach(el=>{
    if(el.type==="checkbox"||el.type==="radio")el.checked=el.defaultChecked;
    else if(el.type==="file")el.value="";
    else if(el.type!=="button"&&el.type!=="submit")el.value="";
   });
   panel.querySelectorAll("select").forEach(el=>{el.selectedIndex=0;});
-  panel.querySelectorAll(".output").forEach(el=>{el.textContent="";});
+  panel.querySelectorAll(".output").forEach(el=>{if(el.dataset.downloadUrl)URL.revokeObjectURL(el.dataset.downloadUrl);delete el.dataset.downloadUrl;delete el.dataset.downloadName;el.textContent="";});
   const preview=$("#markdownPreview");if(preview)preview.innerHTML="";
   ["imagePreview","qrOutput"].forEach(selector=>{const el=$("#"+selector);if(el)el.innerHTML="";});
   const swatch=$("#colorSwatch");if(swatch)swatch.style.background="";
@@ -339,6 +352,11 @@ function toolMarkup(id){
  case "forexcalc":return form(`${input("forexAmount","Amount","100","number")}<div class="grid gap-4 sm:grid-cols-2">${select("forexFrom","From currency",[["USD","USD — US Dollar"],["BDT","BDT — Bangladeshi Taka"],["EUR","EUR — Euro"],["GBP","GBP — British Pound"],["JPY","JPY — Japanese Yen"],["AUD","AUD — Australian Dollar"],["CAD","CAD — Canadian Dollar"],["CHF","CHF — Swiss Franc"],["NZD","NZD — New Zealand Dollar"],["INR","INR — Indian Rupee"],["SGD","SGD — Singapore Dollar"],["CNY","CNY — Chinese Yuan"],["PKR","PKR — Pakistani Rupee"],["AED","AED — UAE Dirham"],["SAR","SAR — Saudi Riyal"],["MYR","MYR — Malaysian Ringgit"],["THB","THB — Thai Baht"],["TRY","TRY — Turkish Lira"],["ZAR","ZAR — South African Rand"],["HKD","HKD — Hong Kong Dollar"]])}${select("forexTo","To currency",[["USD","USD — US Dollar"],["BDT","BDT — Bangladeshi Taka"],["EUR","EUR — Euro"],["GBP","GBP — British Pound"],["JPY","JPY — Japanese Yen"],["AUD","AUD — Australian Dollar"],["CAD","CAD — Canadian Dollar"],["CHF","CHF — Swiss Franc"],["NZD","NZD — New Zealand Dollar"],["INR","INR — Indian Rupee"],["SGD","SGD — Singapore Dollar"],["CNY","CNY — Chinese Yuan"],["PKR","PKR — Pakistani Rupee"],["AED","AED — UAE Dirham"],["SAR","SAR — Saudi Riyal"],["MYR","MYR — Malaysian Ringgit"],["THB","THB — Thai Baht"],["TRY","TRY — Turkish Lira"],["ZAR","ZAR — South African Rand"],["HKD","HKD — Hong Kong Dollar"]])}</div><div class="actions">${btn("convertCurrency","Convert currency")}${btn("swapCurrencies","Swap currencies",false)}${btn("copy","Copy result",false)}</div>${out()}<p class="muted text-sm">Uses reference exchange rates retrieved online; rates are generally updated daily and may differ from your broker's executable Forex quotes. For information only, not trading advice. Rate source: <a href="https://www.exchangerate-api.com/docs/free" target="_blank" rel="noopener noreferrer">ExchangeRate-API</a>.</p>`);
  case "unit":return form(`${select("unitType","Conversion type",[["length","Length"],["weight","Weight"],["temperature","Temperature"]])}<div class="grid gap-4 sm:grid-cols-3">${input("unitValue","Value","1","number")}${select("unitFrom","From",[])}${select("unitTo","To",[])}</div><div class="actions">${btn("convert","Convert")}${btn("copy","Copy result",false)}</div>${out()}`);
  case "age":return form(`<div class="grid gap-4 sm:grid-cols-2">${input("dateA","Date of birth / start date","","date")}${input("dateB","End date (blank = today)","","date")}</div><div class="actions">${btn("calculate","Calculate")}${btn("copy","Copy result",false)}</div>${out()}`);
+ case "timestamp":return form(input("timestampValue","Unix timestamp","1760000000")+select("timestampUnit","Timestamp unit",[["seconds","Seconds"],["milliseconds","Milliseconds"]])+input("localDateTime","Local date and time","","datetime-local") + '<div class="actions">' + btn("convertTimestamp","Convert timestamp") + btn("convertDate","Convert date",false) + btn("copy","Copy result",false) + '</div>' + out() + '<p class="muted text-sm">Unix timestamps represent UTC time. Local date conversion uses your browser time zone.</p>');
+ case "whitespace":return form(textarea("sourceText","Text to clean")+'<div class="checkrow"><label><input id="trimWhitespaceLines" type="checkbox" checked> Trim each line</label><label><input id="removeBlankWhitespaceLines" type="checkbox"> Remove blank lines</label></div><div class="actions">' + btn("cleanWhitespace","Clean text") + btn("copy","Copy result",false) + '</div>' + out());
+ case "htmlentities":return form(textarea("sourceText","Text or HTML entities")+'<div class="actions">' + btn("encodeEntities","Encode HTML") + btn("decodeEntities","Decode HTML",false) + btn("copy","Copy result",false) + '</div>' + out() + '<p class="muted text-sm">Decoded content is returned as plain text; it is not executed as HTML.</p>');
+ case "imageresize":return form('<div><label class="field-label" for="resizeFile">Choose image (PNG, JPEG or WebP; max 10 MB)</label><input class="field" id="resizeFile" type="file" accept="image/png,image/jpeg,image/webp"></div><div class="grid gap-4 sm:grid-cols-2">' + input("resizeWidth","Width (px)","800","number") + input("resizeHeight","Height (px)","600","number") + '</div><label><input id="resizeKeepRatio" type="checkbox" checked> Keep aspect ratio</label>' + select("resizeFormat","Output format",[["image/png","PNG"],["image/jpeg","JPEG"],["image/webp","WebP"]]) + '<div class="actions">' + btn("resizeImage","Resize image") + btn("clearImage","Clear image",false) + '</div>' + out() + '<div id="imageResultPreview" class="image-tool-preview" hidden></div><p class="muted text-sm">Images are processed locally. Maximum output dimension: 4096 × 4096 pixels.</p>');
+ case "imagecompress":return form('<div><label class="field-label" for="compressFile">Choose image (PNG, JPEG or WebP; max 10 MB)</label><input class="field" id="compressFile" type="file" accept="image/png,image/jpeg,image/webp"></div>' + select("compressFormat","Output format",[["image/webp","WebP"],["image/jpeg","JPEG"]]) + '<label class="field-label" for="compressQuality">Quality: <output id="compressQualityValue">75%</output></label><input class="field" id="compressQuality" type="range" min="10" max="95" value="75"><div class="actions">' + btn("compressImage","Compress image") + btn("clearImage","Clear image",false) + '</div>' + out() + '<div id="imageResultPreview" class="image-tool-preview" hidden></div><p class="muted text-sm">Lower quality can reduce file size but may reduce image detail. Review the preview before downloading.</p>');
  default:return `<p class="muted">Tool not found.</p>`;
  }
 }
@@ -383,6 +401,160 @@ function csvCell(value){
 function wireTool(id){
  const src=()=>$("#sourceText")?.value??"";
  switch(id){
+
+ case "timestamp": {
+ const timestampDate=ms=>new Date(ms);
+ bind("convertTimestamp",()=>{
+  const raw=$("#timestampValue").value.trim(),value=Number(raw),unit=$("#timestampUnit").value;
+  if(!raw||!Number.isFinite(value)){message("Enter a valid numeric timestamp.","error");return;}
+  const ms=unit==="seconds"?value*1000:value;
+  if(!Number.isFinite(ms)||Math.abs(ms)>8640000000000000){message("Timestamp is outside the supported date range.","error");return;}
+  const date=timestampDate(ms);
+  if(Number.isNaN(date.getTime())){message("Could not interpret this timestamp.","error");return;}
+  setOutput("UTC: "+date.toISOString()+"\nLocal time: "+date.toLocaleString()+"\nUnix seconds: "+Math.floor(ms/1000)+"\nUnix milliseconds: "+ms);
+ });
+ bind("convertDate",()=>{
+  const raw=$("#localDateTime").value;
+  if(!raw){message("Choose a local date and time first.","error");return;}
+  const ms=new Date(raw).getTime();
+  if(!Number.isFinite(ms)){message("Enter a valid local date and time.","error");return;}
+  $("#timestampValue").value=String(Math.floor(ms/1000));
+  $("#timestampUnit").value="seconds";
+  setOutput("UTC: "+new Date(ms).toISOString()+"\nLocal time: "+new Date(ms).toLocaleString()+"\nUnix seconds: "+Math.floor(ms/1000)+"\nUnix milliseconds: "+ms);
+ });
+ bind("copy",()=>copyOutput());
+ break;
+ }
+
+ case "whitespace": {
+ const cleanWhitespace=()=>{
+  const source=src();
+  if(!source.trim()){setOutput("");message("Enter some text to clean.","error");return;}
+  let lines=source.split(/\r?\n/);
+  if($("#trimWhitespaceLines").checked)lines=lines.map(line=>line.replace(/[ \t]+/g," ").trim());
+  else lines=lines.map(line=>line.replace(/[ \t]{2,}/g," "));
+  if($("#removeBlankWhitespaceLines").checked)lines=lines.filter(line=>line.trim()!=="");
+  setOutput(lines.join("\n"));
+  message("Text spacing cleaned.");
+ };
+ bind("cleanWhitespace",cleanWhitespace);
+ bind("copy",()=>copyOutput());
+ break;
+ }
+
+ case "htmlentities": {
+ bind("encodeEntities",()=>{
+  if(!src()){setOutput("");message("Enter text to encode.","error");return;}
+  const area=document.createElement("textarea");
+  area.textContent=src();
+  setOutput(area.innerHTML);
+ });
+ bind("decodeEntities",()=>{
+  if(!src()){setOutput("");message("Enter HTML entities to decode.","error");return;}
+  const area=document.createElement("textarea");
+  area.innerHTML=src();
+  setOutput(area.value);
+ });
+ bind("copy",()=>copyOutput());
+ break;
+ }
+
+ case "imageresize": {
+ let resizeUrl=null;
+ const clearResize=()=>{
+  if(resizeUrl)URL.revokeObjectURL(resizeUrl);
+  resizeUrl=null;
+  const output=$("#output");if(output){output.textContent="";delete output.dataset.downloadUrl;delete output.dataset.downloadName;}
+  $("#imageResultPreview").replaceChildren();$("#imageResultPreview").hidden=true;
+  $("#resizeFile").value="";$("#resizeWidth").value="800";$("#resizeHeight").value="600";$("#resizeKeepRatio").checked=true;$("#resizeFormat").value="image/png";
+  message("Image resizer cleared.");
+ };
+ bind("resizeImage",()=>{
+  const file=$("#resizeFile").files[0];
+  if(!file){message("Choose an image first.","error");return;}
+  if(!["image/png","image/jpeg","image/webp"].includes(file.type)){message("Choose a PNG, JPEG or WebP image.","error");return;}
+  if(file.size>10*1024*1024){message("Image must be smaller than 10 MB.","error");return;}
+  let width=Number($("#resizeWidth").value),height=Number($("#resizeHeight").value);
+  if(!Number.isInteger(width)||!Number.isInteger(height)||width<1||height<1||width>4096||height>4096){message("Width and height must be whole numbers from 1 to 4096.","error");return;}
+  const sourceUrl=URL.createObjectURL(file),img=new Image();
+  img.onload=()=>{
+   URL.revokeObjectURL(sourceUrl);
+   const ratio=img.naturalWidth/img.naturalHeight;
+   if(img.naturalWidth>12000||img.naturalHeight>12000||img.naturalWidth*img.naturalHeight>40000000){message("Source image dimensions are too large to process safely (maximum 40 megapixels).","error");return;}
+   if($("#resizeKeepRatio").checked){
+    if(width/height>ratio)width=Math.max(1,Math.round(height*ratio));
+    else height=Math.max(1,Math.round(width/ratio));
+   }
+   if(width>4096||height>4096){message("Result dimensions cannot exceed 4096 pixels.","error");return;}
+   const canvas=document.createElement("canvas");canvas.width=width;canvas.height=height;
+   const ctx=canvas.getContext("2d");
+   if(!ctx){message("Canvas is unavailable in this browser.","error");return;}
+   const format=$("#resizeFormat").value;
+   if(format==="image/jpeg"){ctx.fillStyle="#ffffff";ctx.fillRect(0,0,width,height);}
+   ctx.drawImage(img,0,0,width,height);
+   canvas.toBlob(blob=>{
+    if(!blob){message("Could not create the resized image.","error");return;}
+    if(resizeUrl)URL.revokeObjectURL(resizeUrl);
+    resizeUrl=URL.createObjectURL(blob);
+    const output=$("#output");output.dataset.downloadUrl=resizeUrl;output.dataset.downloadName="toolnest-resized-image."+(blob.type==="image/png"?"png":blob.type==="image/jpeg"?"jpg":"webp");
+    setOutput("Resized image: "+width+" × "+height+" px\nOriginal size: "+(file.size/1024).toFixed(1)+" KB\nNew size: "+(blob.size/1024).toFixed(1)+" KB");
+    const preview=$("#imageResultPreview");preview.replaceChildren();const image=document.createElement("img");image.src=resizeUrl;image.alt="Resized image preview";preview.append(image);preview.hidden=false;
+    message("Image resized. Use Download result to save it.");
+   },format,0.92);
+  };
+  img.onerror=()=>{URL.revokeObjectURL(sourceUrl);message("Could not read this image file.","error");};
+  img.src=sourceUrl;
+ });
+ bind("copy",()=>copyOutput());
+ bind("clearImage",clearResize);
+ break;
+ }
+
+ case "imagecompress": {
+ let compressedUrl=null;
+ const clearCompress=()=>{
+  if(compressedUrl)URL.revokeObjectURL(compressedUrl);
+  compressedUrl=null;
+  const output=$("#output");if(output){output.textContent="";delete output.dataset.downloadUrl;delete output.dataset.downloadName;}
+  $("#imageResultPreview").replaceChildren();$("#imageResultPreview").hidden=true;
+  $("#compressFile").value="";$("#compressFormat").value="image/webp";$("#compressQuality").value="75";$("#compressQualityValue").textContent="75%";
+  message("Image compressor cleared.");
+ };
+ $("#compressQuality").addEventListener("input",()=>{$("#compressQualityValue").textContent=$("#compressQuality").value+"%";});
+ bind("compressImage",()=>{
+  const file=$("#compressFile").files[0];
+  if(!file){message("Choose an image first.","error");return;}
+  if(!["image/png","image/jpeg","image/webp"].includes(file.type)){message("Choose a PNG, JPEG or WebP image.","error");return;}
+  if(file.size>10*1024*1024){message("Image must be smaller than 10 MB.","error");return;}
+  const sourceUrl=URL.createObjectURL(file),img=new Image();
+  img.onload=()=>{
+   URL.revokeObjectURL(sourceUrl);
+   if(img.naturalWidth>4096||img.naturalHeight>4096){message("Image dimensions must not exceed 4096 pixels per side.","error");return;}
+   const format=$("#compressFormat").value,quality=Number($("#compressQuality").value)/100;
+   const canvas=document.createElement("canvas");canvas.width=img.naturalWidth;canvas.height=img.naturalHeight;
+   const ctx=canvas.getContext("2d");
+   if(!ctx){message("Canvas is unavailable in this browser.","error");return;}
+   if(format==="image/jpeg"){ctx.fillStyle="#ffffff";ctx.fillRect(0,0,canvas.width,canvas.height);}
+   ctx.drawImage(img,0,0);
+   canvas.toBlob(blob=>{
+    if(!blob){message("Could not compress this image.","error");return;}
+    if(compressedUrl)URL.revokeObjectURL(compressedUrl);
+    compressedUrl=URL.createObjectURL(blob);
+    const output=$("#output");output.dataset.downloadUrl=compressedUrl;output.dataset.downloadName="toolnest-compressed-image."+(blob.type==="image/webp"?"webp":blob.type==="image/jpeg"?"jpg":"png");
+    const saved=((file.size-blob.size)/file.size*100);
+    setOutput("Original: "+(file.size/1024).toFixed(1)+" KB\nCompressed: "+(blob.size/1024).toFixed(1)+" KB\nSize change: "+(saved>=0?saved.toFixed(1)+"% smaller":Math.abs(saved).toFixed(1)+"% larger")+"\nDimensions: "+img.naturalWidth+" × "+img.naturalHeight+" px");
+    const preview=$("#imageResultPreview");preview.replaceChildren();const image=document.createElement("img");image.src=compressedUrl;image.alt="Compressed image preview";preview.append(image);preview.hidden=false;
+    message("Image compressed. Review the preview before downloading.");
+   },format,quality);
+  };
+  img.onerror=()=>{URL.revokeObjectURL(sourceUrl);message("Could not read this image file.","error");};
+  img.src=sourceUrl;
+ });
+ bind("copy",()=>copyOutput());
+ bind("clearImage",clearCompress);
+ break;
+ }
+
  case "case":
  bind("upper",()=>setOutput(src().toUpperCase()));
  bind("lower",()=>setOutput(src().toLowerCase()));

@@ -1,0 +1,5 @@
+/* Phase 10: responsive previews for local image utilities */
+.image-tool-preview { margin-top:1rem; padding:1rem; border:1px solid var(--line); border-radius:1rem; background:var(--panel); }
+.image-tool-preview img { display:block; max-width:100%; max-height:520px; width:auto; height:auto; margin-inline:auto; object-fit:contain; border-radius:.65rem; }
+.dark .image-tool-preview { background:#0b1220; border-color:#334155; }
+#resizeKeepRatio { accent-color:#4f46e5; }

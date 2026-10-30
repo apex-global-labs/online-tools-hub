@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
 
 const app = readFileSync(new URL("../app.js", import.meta.url), "utf8");
 const metadata = JSON.parse(readFileSync(new URL("../js/tools-data.json", import.meta.url), "utf8"));
@@ -27,10 +28,10 @@ function getBranch(source, id) {
   return source.slice(start, next < 0 ? source.length : start + marker.length + next);
 }
 
-test("catalogue and router metadata contain the same 20 unique tool IDs", () => {
-  assert.equal(catalogIds.length, 20);
+test("catalogue and router metadata contain the same 25 unique tool IDs", () => {
+  assert.equal(catalogIds.length, 25);
   assert.equal(new Set(catalogIds).size, catalogIds.length);
-  assert.equal(metadata.length, 20);
+  assert.equal(metadata.length, 25);
   assert.equal(new Set(metadata.map((tool) => tool.id)).size, metadata.length);
   assert.deepEqual([...metadata.map((tool) => tool.id)].sort(), [...catalogIds].sort());
   assert.equal(new Set(metadata.map((tool) => tool.slug)).size, metadata.length);
@@ -45,7 +46,7 @@ test("every catalogue tool has markup and an event-wiring branch", () => {
 });
 
 test("all text-result tools expose a wired Copy action", () => {
-  const copyTools = ["case", "slug", "diff", "markdown", "base64", "json", "url", "meta", "csvjson", "uuid", "sha256", "password", "image64", "color", "forexcalc", "unit", "age", "counter", "duplines"];
+  const copyTools = ["case", "slug", "diff", "markdown", "base64", "json", "url", "meta", "csvjson", "uuid", "sha256", "password", "image64", "color", "forexcalc", "unit", "age", "counter", "duplines", "timestamp", "whitespace", "htmlentities"];
   for (const id of copyTools) {
     assert.match(getBranch(markup, id), /btn\("copy"/, `${id} should show a Copy button`);
     assert.match(getBranch(wiring, id), /bind\("copy"/, `${id} should wire its Copy button`);
@@ -153,4 +154,43 @@ test("workspace supports slug routes, legacy ID routes and a visible 404 state",
   assert.match(app, /#tool\/\$\{id\}/);
   assert.match(app, /function showToast\(/);
   assert.match(app, /toastTimer=setTimeout/);
+});
+
+test("Phase 10 adds five complete tools with unique metadata, markup and event wiring", () => {
+  const newIds = ["timestamp", "whitespace", "htmlentities", "imageresize", "imagecompress"];
+  assert.equal(catalogIds.length, 25);
+  assert.equal(metadata.length, 25);
+  for (const id of newIds) {
+    assert.ok(catalogIds.includes(id), "catalogue should include " + id);
+    assert.ok(markup.includes('case "' + id + '":'), "markup should include " + id);
+    assert.ok(wiring.includes('case "' + id + '":'), "event wiring should include " + id);
+    assert.ok(metadata.some(tool => tool.id === id && tool.seo?.faqs?.length >= 3), "SEO metadata should include " + id);
+  }
+  assert.equal(new Set(metadata.map(tool => tool.slug)).size, 25);
+});
+
+test("Phase 10 image tools validate local file type and size and support downloadable output", () => {
+  for (const id of ["imageresize", "imagecompress"]) {
+    assert.match(getBranch(wiring, id), /10 MB/);
+    assert.match(getBranch(wiring, id), /image\/png/);
+    assert.match(getBranch(wiring, id), /toBlob/);
+    assert.match(getBranch(wiring, id), /URL\.revokeObjectURL/);
+    assert.match(getBranch(wiring, id), /clearImage/);
+    assert.match(getBranch(markup, id), /btn\("clearImage"/);
+  }
+  assert.match(app, /output\?\.dataset\.downloadUrl/);
+  assert.match(app, /Image download started/);
+});
+
+test("Phase 10 text utilities provide guarded timestamp, whitespace and HTML entity actions", () => {
+  assert.match(getBranch(wiring, "timestamp"), /supported date range/);
+  assert.match(getBranch(wiring, "imageresize"), /40 megapixels/);
+  assert.match(getBranch(wiring, "whitespace"), /removeBlankWhitespaceLines/);
+  assert.match(getBranch(wiring, "htmlentities"), /createElement\("textarea"\)/);
+});
+
+test("app.js passes the Node JavaScript syntax check", () => {
+  const file = new URL("../app.js", import.meta.url).pathname;
+  const result = spawnSync(process.execPath, ["--check", file], { encoding: "utf8" });
+  assert.equal(result.status, 0, result.stderr || result.stdout || "app.js syntax check failed");
 });
