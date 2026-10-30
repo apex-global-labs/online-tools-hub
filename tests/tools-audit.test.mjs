@@ -158,8 +158,8 @@ test("workspace supports slug routes, legacy ID routes and a visible 404 state",
 
 test("Phase 10 tools remain complete after Phase 11 adds a new text utility", () => {
   const newIds = ["timestamp", "whitespace", "htmlentities", "imageresize", "imagecompress", "percentage", "compound", "emi"];
-  assert.equal(catalogIds.length, 26);
-  assert.equal(metadata.length, 26);
+  assert.equal(catalogIds.length, 29);
+  assert.equal(metadata.length, 29);
   for (const id of newIds) {
     assert.ok(catalogIds.includes(id), "catalogue should include " + id);
     assert.ok(markup.includes('case "' + id + '":'), "markup should include " + id);
