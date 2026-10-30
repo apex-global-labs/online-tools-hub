@@ -9,7 +9,7 @@ Last updated: 2026-10-30
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Main baseline before Phase 17: `c9415fb826b401add76a59e8533e74b1651132e6`
+- Current verified main baseline before this SEO branch: `a893cf9507146544d4da5b602854c1a20db5cf15`
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no backend or application build step.
 - Catalogue: **40 unique tools**; `app.js` and `js/tools-data.json` are synchronized.
 - No paid service or new runtime dependency is introduced by Phase 17.
@@ -25,9 +25,9 @@ Last updated: 2026-10-30
 - Latest GitHub Pages build/deployment workflow **41045986248** completed successfully for the same main commit.
 - Live visual and interaction checks still require real-browser verification.
 
-## Phase 17 — Final QA & Release Audit (in progress)
+## Phase 17 — Final QA & Release Audit (completed and merged)
 
-- Work branch: `phase17-final-qa-audit`; based on the verified `main` baseline above.
+- Merged into `main` via PR #39; production baseline is commit `a893cf9507146544d4da5b602854c1a20db5cf15`.
 - Scope: final release audit and low-risk fixes only; no new utility tools.
 - Initial findings and branch changes:
   1. The production page loads `js/ip-tools.js` and `js/router-bridge.js`, but neither file had a dedicated CI syntax check. A new release-audit test runs Node syntax checks for both and is included in the existing `tests/*.test.mjs` suite.
@@ -252,3 +252,13 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - Production baseline: main catalog and router metadata both contain 40 unique tools; `ip-tools` route and IP helper/style assets are present on main.
 - Deployment/live QA: GitHub Pages deployment and real-browser interaction could not be independently verified in this session. The live-site fetch was unavailable. Do not claim the feature is visibly live until the site is checked in a browser.
 - Manual browser QA still recommended: Find My IP; public IPv4 and IPv6 lookup; invalid/hostname input; private/special-use IP rejection without API request; Copy/Download/Clear; mobile and desktop layouts; day/night themes; console/network errors.
+
+
+## Phase 2 — Technical SEO Fix (work in progress)
+- Work branch: `seo/phase2-technical-seo-fixes`; based on the Phase 17 production baseline above.
+- Corrected the README crawl-file documentation: removed the duplicate heading and the inaccurate claim that a repository-level `robots.txt` exists.
+- Documented why a project-site repository cannot provide the host-root `robots.txt` endpoint, why hash-based tool routes are not separate sitemap URLs, and that a social preview image is not configured yet.
+- Added a regression test to prevent the crawl documentation from becoming contradictory again.
+- The homepage's existing title, meta description, canonical URL, Open Graph and Twitter text metadata were retained; no unverified social-image URL or ineffective project-subpath robots file was added.
+- Individual crawlable tool pages and their sitemap entries remain Phase 3 work. Do not add hash-fragment URLs to the sitemap.
+- CI and PR review are pending. No production deployment has occurred from this branch.
