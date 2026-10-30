@@ -9,7 +9,7 @@ Last updated: 2026-10-30
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Current verified production baseline after Phase 3: `0c36bde797deaa9d1bf97fab7cc76d5f377b0482`
+- Current verified production baseline after Phase 3 documentation: `dace8363101d8c983e109112d002c7467b692653`
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no backend or application build step.
 - Catalogue: **40 unique tools**; `app.js` and `js/tools-data.json` are synchronized.
 - No paid service or new runtime dependency is introduced by Phase 17.
@@ -61,6 +61,19 @@ Last updated: 2026-10-30
   - Repository source audit: 40 guide HTML files, 42 unique sitemap URLs, all 40 guide URLs resolve to a corresponding repository file.
 - **Manual real-browser verification remains pending.** The project has no active automated browser E2E suite; verify representative guide URLs, mobile layout, internal links and tool launch in a real browser before claiming browser QA complete.
 - Sitemap inclusion does not guarantee Google indexing, search visibility or rankings. Search Console indexing status has not yet been confirmed.
+
+## Phase 4 — On-Page SEO Optimization (in progress)
+
+- Working branch: `seo/phase4-on-page-optimization`, based on production commit `dace8363101d8c983e109112d002c7467b692653`.
+- Rewrote the meta descriptions for all 40 tools with distinct, natural, page-specific summaries (121–142 characters); synchronized each description across the source catalogue, HTML meta description, Open Graph, Twitter and WebApplication JSON-LD.
+- Added one practical, tool-specific usage/safety/accuracy tip to each of the 40 static guides; retained the existing how-to steps, features, visible FAQs, FAQ structured data, canonical URLs and related-tool links.
+- Replaced repeated generic hero copy with each tool's concise functional description.
+- Corrected the homepage heading hierarchy: the dynamic workspace title is now H2, leaving the homepage hero as its single primary H1.
+- Improved the tool-directory description and social preview metadata.
+- Added regression coverage for unique concise metadata, social description consistency, practical tips, exactly one H1 per guide, FAQ visibility and image alt text when images are present.
+- Regression workflow **41098279543** completed successfully: **82 tests, 82 passed, 0 failed**; JavaScript syntax checks passed.
+- PR #44 is open and mergeable; source diff and representative guides were reviewed. GitHub Pages deployment will run after merge.
+- Manual browser verification and Search Console indexing checks remain separate follow-up tasks.
 
 ## Current application structure
 
