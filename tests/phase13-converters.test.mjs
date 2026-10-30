@@ -88,8 +88,8 @@ test("all four new tools are registered with unique slugs and complete SEO metad
     assert.match(app, new RegExp('case "' + id + '":return'));
     assert.match(app, new RegExp('case "' + id + '": \\{'));
   }
-  assert.equal(new Set(metadata.map(item => item.id)).size, 42);
-  assert.equal(new Set(metadata.map(item => item.slug)).size, 42);
+  assert.equal(new Set(metadata.map(item => item.id)).size, 43);
+  assert.equal(new Set(metadata.map(item => item.slug)).size, 43);
 });
 
 test("Phase 13 helper and stylesheet are loaded before app interactions", () => {
