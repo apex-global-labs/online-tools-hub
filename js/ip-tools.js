@@ -35,7 +35,7 @@
    return "Public IPv6";
   }
   const p=value.split(".").map(Number),a=p[0],b=p[1];
-  if(a===10||a===127||a===0||(a===169&&b===254)||(a===172&&b>=16&&b<=31)||(a===192&&(b===168||b===0||b===2))||(a===100&&b>=64&&b<=127)||(a===198&&(b===18||b===19||b===51))||(a===203&&b===0)||a>=224)return "Private / special-use";
+  if(a===10||a===127||a===0||(a===169&&b===254)||(a===172&&b>=16&&b<=31)||(a===192&&(b===168||b===0||b===2))||(a===100&&b>=64&&b<=127)||(a===198&&((b===18||b===19)||(b===51&&p[2]===100)))||(a===203&&b===0&&p[2]===113)||a>=224)return "Private / special-use";
   return "Public IPv4";
  }
  const api={isIPv4,isIPv6,isValidIpAddress,classifyIpAddress};
