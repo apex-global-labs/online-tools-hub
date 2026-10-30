@@ -359,67 +359,6 @@ function toolMarkup(id){
 
  case "meta":return form(`${input("pageTitle","Page title","My useful website")}${textarea("pageDescription","Meta description","A short and helpful description of this page.")}${input("pageUrl","Canonical URL","https://example.com","url")}<div class="actions">${btn("generate","Generate tags")}${btn("copy","Copy tags",false)}</div>${out()}`);
  case "color":return form(`<div class="grid gap-4 sm:grid-cols-2">${input("hex","HEX color","#6366f1")}<div><label class="field-label" for="colorPicker">Pick a color</label><input class="field h-12" id="colorPicker" type="color" value="#6366f1"></div></div><div class="actions">${btn("convert","Convert color")}${btn("copy","Copy values",false)}</div><div id="colorSwatch" class="h-16 rounded-xl border border-slate-200"></div>${out()}`);
- case "percentage": {
- bind("copy",()=>copyOutput());
- const mode=$("#percentageMode"),firstLabel=$("#percentageFirstLabel"),secondLabel=$("#percentageSecondLabel");
- const updateLabels=()=>{
-  const labels={
-   of:["Percentage (%)","Number"],
-   what:["Part","Whole"],
-   change:["Original value","New value"]
-  }[mode.value];
-  firstLabel.textContent=labels[0];secondLabel.textContent=labels[1];
-  $("#percentageFirst").placeholder=mode.value==="of"?"15":mode.value==="what"?"45":"100";
-  $("#percentageSecond").placeholder=mode.value==="of"?"200":mode.value==="what"?"300":"120";
- };
- mode.addEventListener("change",updateLabels);updateLabels();
- bind("calculatePercentage",()=>{
-  const rawA=$("#percentageFirst").value.trim(),rawB=$("#percentageSecond").value.trim();
-  if(rawA===""||rawB===""){message("Enter both values before calculating.","error");return;}
-  try{
-   const result=ToolNestFinance.calculatePercentage(mode.value,Number(rawA),Number(rawB));
-   const fmt=value=>Number(value.toFixed(8)).toLocaleString("en-US");
-   if(result.mode==="of")setOutput(fmt(result.percentage)+"% of "+fmt(result.base)+" = "+fmt(result.result));
-   else if(result.mode==="what")setOutput(fmt(result.part)+" is "+fmt(result.result)+"% of "+fmt(result.whole));
-   else{
-    const direction=result.result>0?"increase":result.result<0?"decrease":"no change";
-    setOutput("Original value: "+fmt(result.original)+"\nNew value: "+fmt(result.current)+"\nDifference: "+fmt(result.difference)+"\nPercentage change: "+fmt(Math.abs(result.result))+"% "+direction);
-   }
-   message("Percentage calculated.");
-  }catch(error){message(error.message,"error");}
- });
- break;
- }
- case "compound": {
- bind("copy",()=>copyOutput());
- bind("calculateCompound",()=>{
-  const raw=$("#compoundPrincipal").value.trim(),rate=$("#compoundRate").value.trim(),years=$("#compoundYears").value.trim();
-  if(!raw||!rate||!years){message("Enter principal, annual rate and time.","error");return;}
-  try{
-   const result=ToolNestFinance.calculateCompoundInterest(Number(raw),Number(rate),Number(years),$("#compoundFrequency").value);
-   const currency=$("#compoundCurrency").value;
-   const fmt=value=>new Intl.NumberFormat("en-US",{style:"currency",currency,minimumFractionDigits:2,maximumFractionDigits:2}).format(value);
-   setOutput("Future value: "+fmt(result.amount)+"\nInitial principal: "+fmt(result.principal)+"\nCompound interest earned: "+fmt(result.interest)+"\nAnnual interest rate: "+result.annualRate+"%\nTime: "+result.years+" years\nCompounding: "+$("#compoundFrequency").selectedOptions[0].textContent);
-   message("Compound interest calculated.");
-  }catch(error){message(error.message,"error");}
- });
- break;
- }
- case "emi": {
- bind("copy",()=>copyOutput());
- bind("calculateEmi",()=>{
-  const raw=$("#emiPrincipal").value.trim(),rate=$("#emiRate").value.trim(),months=$("#emiMonths").value.trim();
-  if(!raw||!rate||!months){message("Enter loan amount, annual rate and tenure.","error");return;}
-  try{
-   const result=ToolNestFinance.calculateEmi(Number(raw),Number(rate),Number(months));
-   const currency=$("#emiCurrency").value;
-   const fmt=value=>new Intl.NumberFormat("en-US",{style:"currency",currency,minimumFractionDigits:2,maximumFractionDigits:2}).format(value);
-   setOutput("Monthly EMI: "+fmt(result.monthlyPayment)+"\nLoan amount: "+fmt(result.principal)+"\nTotal interest: "+fmt(result.totalInterest)+"\nTotal repayment: "+fmt(result.totalPayment)+"\nTenure: "+result.months+" months\nAnnual interest rate: "+result.annualRate+"%");
-   message("EMI calculated.");
-  }catch(error){message(error.message,"error");}
- });
- break;
- }
  case "forexcalc":return form(`${input("forexAmount","Amount","100","number")}<div class="grid gap-4 sm:grid-cols-2">${select("forexFrom","From currency",[["USD","USD — US Dollar"],["BDT","BDT — Bangladeshi Taka"],["EUR","EUR — Euro"],["GBP","GBP — British Pound"],["JPY","JPY — Japanese Yen"],["AUD","AUD — Australian Dollar"],["CAD","CAD — Canadian Dollar"],["CHF","CHF — Swiss Franc"],["NZD","NZD — New Zealand Dollar"],["INR","INR — Indian Rupee"],["SGD","SGD — Singapore Dollar"],["CNY","CNY — Chinese Yuan"],["PKR","PKR — Pakistani Rupee"],["AED","AED — UAE Dirham"],["SAR","SAR — Saudi Riyal"],["MYR","MYR — Malaysian Ringgit"],["THB","THB — Thai Baht"],["TRY","TRY — Turkish Lira"],["ZAR","ZAR — South African Rand"],["HKD","HKD — Hong Kong Dollar"]])}${select("forexTo","To currency",[["USD","USD — US Dollar"],["BDT","BDT — Bangladeshi Taka"],["EUR","EUR — Euro"],["GBP","GBP — British Pound"],["JPY","JPY — Japanese Yen"],["AUD","AUD — Australian Dollar"],["CAD","CAD — Canadian Dollar"],["CHF","CHF — Swiss Franc"],["NZD","NZD — New Zealand Dollar"],["INR","INR — Indian Rupee"],["SGD","SGD — Singapore Dollar"],["CNY","CNY — Chinese Yuan"],["PKR","PKR — Pakistani Rupee"],["AED","AED — UAE Dirham"],["SAR","SAR — Saudi Riyal"],["MYR","MYR — Malaysian Ringgit"],["THB","THB — Thai Baht"],["TRY","TRY — Turkish Lira"],["ZAR","ZAR — South African Rand"],["HKD","HKD — Hong Kong Dollar"]])}</div><div class="actions">${btn("convertCurrency","Convert currency")}${btn("swapCurrencies","Swap currencies",false)}${btn("copy","Copy result",false)}</div>${out()}<p class="muted text-sm">Uses reference exchange rates retrieved online; rates are generally updated daily and may differ from your broker's executable Forex quotes. For information only, not trading advice. Rate source: <a href="https://www.exchangerate-api.com/docs/free" target="_blank" rel="noopener noreferrer">ExchangeRate-API</a>.</p>`);
  case "unit":return form(`${select("unitType","Conversion type",[["length","Length"],["weight","Weight"],["temperature","Temperature"]])}<div class="grid gap-4 sm:grid-cols-3">${input("unitValue","Value","1","number")}${select("unitFrom","From",[])}${select("unitTo","To",[])}</div><div class="actions">${btn("convert","Convert")}${btn("copy","Copy result",false)}</div>${out()}`);
  case "age":return form(`<div class="grid gap-4 sm:grid-cols-2">${input("dateA","Date of birth / start date","","date")}${input("dateB","End date (blank = today)","","date")}</div><div class="actions">${btn("calculate","Calculate")}${btn("copy","Copy result",false)}</div>${out()}`);
@@ -954,6 +893,67 @@ function wireTool(id){
  bind("copy",()=>copyOutput());
  break;
 
+ case "percentage": {
+ bind("copy",()=>copyOutput());
+ const mode=$("#percentageMode"),firstLabel=$("#percentageFirstLabel"),secondLabel=$("#percentageSecondLabel");
+ const updateLabels=()=>{
+  const labels={
+   of:["Percentage (%)","Number"],
+   what:["Part","Whole"],
+   change:["Original value","New value"]
+  }[mode.value];
+  firstLabel.textContent=labels[0];secondLabel.textContent=labels[1];
+  $("#percentageFirst").placeholder=mode.value==="of"?"15":mode.value==="what"?"45":"100";
+  $("#percentageSecond").placeholder=mode.value==="of"?"200":mode.value==="what"?"300":"120";
+ };
+ mode.addEventListener("change",updateLabels);updateLabels();
+ bind("calculatePercentage",()=>{
+  const rawA=$("#percentageFirst").value.trim(),rawB=$("#percentageSecond").value.trim();
+  if(rawA===""||rawB===""){message("Enter both values before calculating.","error");return;}
+  try{
+   const result=ToolNestFinance.calculatePercentage(mode.value,Number(rawA),Number(rawB));
+   const fmt=value=>Number(value.toFixed(8)).toLocaleString("en-US");
+   if(result.mode==="of")setOutput(fmt(result.percentage)+"% of "+fmt(result.base)+" = "+fmt(result.result));
+   else if(result.mode==="what")setOutput(fmt(result.part)+" is "+fmt(result.result)+"% of "+fmt(result.whole));
+   else{
+    const direction=result.result>0?"increase":result.result<0?"decrease":"no change";
+    setOutput("Original value: "+fmt(result.original)+"\nNew value: "+fmt(result.current)+"\nDifference: "+fmt(result.difference)+"\nPercentage change: "+fmt(Math.abs(result.result))+"% "+direction);
+   }
+   message("Percentage calculated.");
+  }catch(error){message(error.message,"error");}
+ });
+ break;
+ }
+ case "compound": {
+ bind("copy",()=>copyOutput());
+ bind("calculateCompound",()=>{
+  const raw=$("#compoundPrincipal").value.trim(),rate=$("#compoundRate").value.trim(),years=$("#compoundYears").value.trim();
+  if(!raw||!rate||!years){message("Enter principal, annual rate and time.","error");return;}
+  try{
+   const result=ToolNestFinance.calculateCompoundInterest(Number(raw),Number(rate),Number(years),$("#compoundFrequency").value);
+   const currency=$("#compoundCurrency").value;
+   const fmt=value=>new Intl.NumberFormat("en-US",{style:"currency",currency,minimumFractionDigits:2,maximumFractionDigits:2}).format(value);
+   setOutput("Future value: "+fmt(result.amount)+"\nInitial principal: "+fmt(result.principal)+"\nCompound interest earned: "+fmt(result.interest)+"\nAnnual interest rate: "+result.annualRate+"%\nTime: "+result.years+" years\nCompounding: "+$("#compoundFrequency").selectedOptions[0].textContent);
+   message("Compound interest calculated.");
+  }catch(error){message(error.message,"error");}
+ });
+ break;
+ }
+ case "emi": {
+ bind("copy",()=>copyOutput());
+ bind("calculateEmi",()=>{
+  const raw=$("#emiPrincipal").value.trim(),rate=$("#emiRate").value.trim(),months=$("#emiMonths").value.trim();
+  if(!raw||!rate||!months){message("Enter loan amount, annual rate and tenure.","error");return;}
+  try{
+   const result=ToolNestFinance.calculateEmi(Number(raw),Number(rate),Number(months));
+   const currency=$("#emiCurrency").value;
+   const fmt=value=>new Intl.NumberFormat("en-US",{style:"currency",currency,minimumFractionDigits:2,maximumFractionDigits:2}).format(value);
+   setOutput("Monthly EMI: "+fmt(result.monthlyPayment)+"\nLoan amount: "+fmt(result.principal)+"\nTotal interest: "+fmt(result.totalInterest)+"\nTotal repayment: "+fmt(result.totalPayment)+"\nTenure: "+result.months+" months\nAnnual interest rate: "+result.annualRate+"%");
+   message("EMI calculated.");
+  }catch(error){message(error.message,"error");}
+ });
+ break;
+ }
  case "forexcalc":
  $("#forexTo").value="BDT";
  bind("copy",()=>copyOutput()); bind("swapCurrencies",()=>{
