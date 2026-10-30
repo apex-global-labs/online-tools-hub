@@ -9,7 +9,7 @@ Last updated: 2026-10-30
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Current verified main baseline before Phase 3: `016513e746d7e5420706a90cab3717fd07780c80`
+- Current verified production baseline after Phase 3: `0c36bde797deaa9d1bf97fab7cc76d5f377b0482`
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no backend or application build step.
 - Catalogue: **40 unique tools**; `app.js` and `js/tools-data.json` are synchronized.
 - No paid service or new runtime dependency is introduced by Phase 17.
@@ -47,13 +47,20 @@ Last updated: 2026-10-30
 - Manual browser verification is still required for representative tools, IP lookups, image previews/downloads, QR scanability, Copy/Clear behavior, routes, responsive layouts, themes and browser-console/network errors.
 - Do not describe the project as fully browser-QA-passed until those checks have actually been completed.
 
-## Phase 3 — Individual Crawlable Tool Pages (in progress)
+## Phase 3 — Individual Crawlable Tool Pages (completed and deployed)
 
-- Working branch: `seo/phase3-crawlable-tool-pages` (based on main commit `016513e746d7e5420706a90cab3717fd07780c80`).
-- Implemented on the feature branch: 40 static tool guide pages under `tools/<slug>/`, a directory at `tools/`, unique canonical and social metadata, visible per-tool instructions/features/FAQs, WebApplication/BreadcrumbList/FAQPage structured data, a homepage discovery link and a 42-URL XML sitemap (homepage + directory + 40 guides).
-- Added regression coverage for every guide page, canonical URL, directory link, structured-data block and sitemap entry. CI and deployment are pending.
-- Interactive tool implementations remain in the existing app and are reached through the existing hash router; guide pages must not duplicate or replace tool logic.
-- Completion depends on source review, CI regression tests, GitHub Pages deployment and separate live URL/browser verification.
+- PR #42 merged into `main` at commit `0c36bde797deaa9d1bf97fab7cc76d5f377b0482`.
+- Added **40 individual static HTML tool-guide pages** under `tools/<slug>/` plus the `tools/` directory page.
+- Each guide includes a unique page title, meta description, canonical URL, Open Graph/Twitter title and description, visible how-to instructions, key features, FAQs, and WebApplication/BreadcrumbList/FAQPage structured data.
+- Added a homepage discovery link to the guide directory. Each guide links to its existing interactive tool workspace through the current hash router; tool implementations were not duplicated or replaced.
+- Updated `sitemap.xml` to **42 unique URLs**: homepage + tool directory + 40 individual guides. A source/tree audit confirmed all 40 guide files are represented in the sitemap.
+- Verification:
+  - Phase 3 PR regression workflow **41095180965**: success.
+  - Post-merge `main` regression workflow **41095307954**: success.
+  - GitHub Pages build/deployment workflow **41095305191**: success for the Phase 3 merge commit.
+  - Repository source audit: 40 guide HTML files, 42 unique sitemap URLs, all 40 guide URLs resolve to a corresponding repository file.
+- **Manual real-browser verification remains pending.** The project has no active automated browser E2E suite; verify representative guide URLs, mobile layout, internal links and tool launch in a real browser before claiming browser QA complete.
+- Sitemap inclusion does not guarantee Google indexing, search visibility or rankings. Search Console indexing status has not yet been confirmed.
 
 ## Current application structure
 
@@ -66,7 +73,7 @@ Last updated: 2026-10-30
 - `js/advanced-converters.js`, `js/finance-calculators.js`: reusable converter and calculator helpers.
 - `js/seo-content.js`: tool guides, FAQs and dynamic FAQPage JSON-LD.
 - `tests/`: Node regression tests run by GitHub Actions.
-- `tools/`: static SEO guide directory and individual crawlable pages (Phase 3 implementation in progress).
+- `tools/`: static SEO guide directory and 40 individual crawlable pages (Phase 3 deployed).
 - `sitemap.xml`: canonical homepage, directory and individual tool guide URLs; no repository-level robots file is published because this is a path-prefixed GitHub Pages project site.
 
 ## Known limitations and release cautions
