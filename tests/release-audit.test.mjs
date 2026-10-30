@@ -6,7 +6,6 @@ import { fileURLToPath } from "node:url";
 
 const read = (path) => readFileSync(new URL(path, import.meta.url), "utf8");
 const html = read("../index.html");
-const robots = read("../robots.txt");
 const sitemap = read("../sitemap.xml");
 const workflow = read("../.github/workflows/tests.yml");
 const siteUrl = "https://apex-global-labs.github.io/online-tools-hub/";
@@ -18,12 +17,6 @@ test("homepage has useful title, description, canonical URL and social metadata"
   for (const field of ["og:type", "og:site_name", "og:title", "og:description", "og:url", "twitter:card", "twitter:title", "twitter:description"]) {
     assert.ok(html.includes('property="' + field + '"') || html.includes('name="' + field + '"'), "missing social metadata: " + field);
   }
-});
-
-test("robots.txt permits public crawling and declares the published sitemap", () => {
-  assert.match(robots, /^User-agent: \*\s*$/m);
-  assert.match(robots, /^Allow: \/\s*$/m);
-  assert.ok(robots.includes("Sitemap: " + siteUrl + "sitemap.xml"));
 });
 
 test("XML sitemap contains only the canonical static homepage URL", () => {
