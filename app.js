@@ -19,7 +19,7 @@ const tools = [
 {id:"unit",name:"Unit Converter",category:"Calculators",icon:"↔",description:"Convert length, weight and temperature units."},
 {id:"age",name:"Age & Date Difference",category:"Calculators",icon:"▦",description:"Calculate age or the days between two dates."},
 {id:"counter",name:"Word & Character Counter",category:"Text",icon:"¶",description:"Count words, characters, sentences and paragraphs."},
-{id:"duplines",name:"Duplicate Lines Remover",category:"Text",icon:"≡",description:"Remove repeated lines while preserving the first occurrence and original order."}
+{id:"duplines",name:"Duplicate Lines Remover",category:"Text",icon:"≡",description:"Remove repeated lines while preserving the first occurrence and original order."},
 {id:"timestamp",name:"Unix Timestamp Converter",category:"Calculators",icon:"◷",description:"Convert Unix timestamps to dates and dates to Unix time."},
 {id:"whitespace",name:"Extra Spaces Remover",category:"Text",icon:"↔",description:"Clean repeated spaces and unwanted blank lines from text."},
 {id:"htmlentities",name:"HTML Entity Encoder / Decoder",category:"Developer",icon:"</>",description:"Encode special characters as HTML entities or decode entities to text."},
