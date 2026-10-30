@@ -198,7 +198,7 @@ test("app.js passes the Node JavaScript syntax check", () => {
 test("Phase 11 Lorem Ipsum Generator is registered, validated and wired for copy", () => {
   assert.ok(catalogIds.includes("loremipsum"));
   assert.match(getBranch(markup, "loremipsum"), /id="loremParagraphs"/);
-  assert.match(getBranch(markup, "loremipsum"), /id="loremSentences"/);
+  assert.match(getBranch(markup, "loremipsum"), /select\("loremSentences"/);
   assert.match(getBranch(markup, "loremipsum"), /id="loremStartStandard"/);
   assert.match(getBranch(wiring, "loremipsum"), /paragraphs<1\|\|paragraphs>10/);
   assert.match(getBranch(wiring, "loremipsum"), /sentences<1\|\|sentences>8/);
