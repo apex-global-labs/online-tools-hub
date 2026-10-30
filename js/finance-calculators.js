@@ -20,6 +20,11 @@
     return number;
   }
 
+  function boundedResult(value) {
+    if (!Number.isFinite(value) || Math.abs(value) > MAX_AMOUNT) throw new RangeError("The result is outside the supported range.");
+    return value;
+  }
+
   function boundedRate(value) {
     const rate = finiteNumber(value, "Percentage");
     if (rate < 0 || rate > MAX_RATE) throw new RangeError("Annual interest rate must be between 0% and 1000%.");
@@ -31,20 +36,20 @@
     const b = boundedAmount(second, "Second value");
     if (mode === "of") {
       const result = (a / 100) * b;
-      if (!Number.isFinite(result)) throw new RangeError("The result is outside the supported range.");
+      boundedResult(result);
       return { mode, percentage: a, base: b, result };
     }
     if (mode === "what") {
       if (b === 0) throw new RangeError("The whole value cannot be zero.");
       const result = (a / b) * 100;
-      if (!Number.isFinite(result)) throw new RangeError("The result is outside the supported range.");
+      boundedResult(result);
       return { mode, part: a, whole: b, result };
     }
     if (mode === "change") {
       if (a === 0) throw new RangeError("The original value cannot be zero when calculating percentage change.");
       const difference = b - a;
       const result = (difference / Math.abs(a)) * 100;
-      if (!Number.isFinite(result)) throw new RangeError("The result is outside the supported range.");
+      boundedResult(result);
       return { mode, original: a, current: b, difference, result };
     }
     throw new RangeError("Choose a valid percentage calculation.");
