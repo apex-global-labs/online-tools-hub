@@ -294,6 +294,7 @@ function wireUniversalActions(id){
    else if(el.type!=="button"&&el.type!=="submit")el.value="";
   });
   panel.querySelectorAll("select").forEach(el=>{el.selectedIndex=0;});
+  if(id==="percentage")$("#percentageMode")?.dispatchEvent(new Event("change"));
   panel.querySelectorAll(".output").forEach(el=>{if(el.dataset.downloadUrl)URL.revokeObjectURL(el.dataset.downloadUrl);delete el.dataset.downloadUrl;delete el.dataset.downloadName;el.textContent="";});
   const preview=$("#markdownPreview");if(preview)preview.innerHTML="";
   ["imagePreview","qrOutput"].forEach(selector=>{const el=$("#"+selector);if(el)el.innerHTML="";});
