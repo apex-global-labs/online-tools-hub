@@ -302,14 +302,7 @@ function toolMarkup(id){
  switch(id){
  case "case":return form(`${textarea("sourceText","Your text")}<div class="actions">${btn("upper","UPPERCASE")}${btn("lower","lowercase",false)}${btn("sentence","Sentence case",false)}${btn("title","Title Case",false)}${btn("copy","Copy result",false)}</div>${out()}<p id="stats" class="muted text-sm"></p>`);
  case "duplines":return form(`${textarea("sourceText","Paste text with repeated lines")}<div class="actions">${btn("removeDuplicates","Remove duplicate lines")}${btn("copy","Copy result",false)}</div>${out()}<p class="muted text-sm">Keeps the first occurrence of each exact non-empty line and preserves line order. Blank lines are left unchanged.</p>`);
- case "counter":
- const count=()=>{const s=src(),trim=s.trim();const summary="Words: "+(trim?trim.split(/\s+/).length:0)+"\nCharacters (with spaces): "+Array.from(s).length+"\nCharacters (without spaces): "+Array.from(s.replace(/\s/g,"")).length+"\nSentences: "+(s.match(/[.!?]+(?=\s|$)/g)||[]).length+"\nParagraphs: "+(trim?trim.split(/\n\s*\n/).length:0);setOutput(summary);$("#stats").textContent=summary.replace(/\n/g," · ");};
- bind("count",count);
- bind("copy",()=>copyOutput());
- $("#sourceText").addEventListener("input",count);
- count();
- break;
-
+ case "counter":return form(`${textarea("sourceText","Your text")}<div class="actions">${btn("count","Count text")}${btn("copy","Copy summary",false)}</div>${out()}<p id="stats" class="muted text-sm"></p>`);
  case "base64":return form(`${textarea("sourceText","Text to encode or decode")}<div class="actions">${btn("encode","Encode Base64")}${btn("decode","Decode Base64",false)}${btn("copy","Copy result",false)}</div>${out()}`);
  case "json":return form(`${textarea("sourceText","JSON input",'{"hello":"world"}')}<div class="actions">${btn("format","Format JSON")}${btn("minify","Minify JSON",false)}${btn("copy","Copy result",false)}</div>${out()}`);
  case "url":return form(`${textarea("sourceText","Text or URL")}<div class="actions">${btn("encode","Encode component")}${btn("decode","Decode component",false)}${btn("copy","Copy result",false)}</div>${out()}`);
@@ -594,7 +587,7 @@ function wireTool(id){
  bind("sentence",()=>setOutput(src().toLowerCase().replace(/(^\s*\p{L}|[.!?]\s+\p{L})/gu,m=>m.toUpperCase())));
  bind("title",()=>setOutput(src().toLowerCase().replace(/\b\p{L}/gu,m=>m.toUpperCase())));
  bind("copy",()=>copyOutput());
- const updateCaseStats=()=>{const s=src(),trimmed=s.trim();$("#stats").textContent=(trimmed?trimmed.split(/\s+/).length:0)+" words · "+Array.from(s).length+" characters · "+(s?s.split(/\r?\n/).length:0)+" lines;};
+ const updateCaseStats=()=>{const s=src(),trimmed=s.trim();$("#stats").textContent=(trimmed?trimmed.split(/\s+/).length:0)+" words · "+Array.from(s).length+" characters · "+(s?s.split(/\r?\n/).length:0)+" lines";};
  $("#sourceText").addEventListener("input",updateCaseStats);
  updateCaseStats();
  break;
@@ -619,13 +612,12 @@ function wireTool(id){
  break;
 
  case "counter":
- const count=()=>{const s=src(),trim=s.trim();const summary=`Words: ${trim?trim.split(/\s+/).length:0}\nCharacters (with spaces): ${s.length}\nCharacters (without spaces): ${s.replace(/\s/g,"").length}\nSentences: ${(s.match(/[.!?]+(?=\s|$)/g)||[]).length}\nParagraphs: ${trim?trim.split(/\n\s*\n/).length:0}`;setOutput(summary);$("#stats").textContent=summary.replace(/\n/g," · ");};
+ const count=()=>{const s=src(),trim=s.trim();const summary="Words: "+(trim?trim.split(/\s+/).length:0)+"\nCharacters (with spaces): "+Array.from(s).length+"\nCharacters (without spaces): "+Array.from(s.replace(/\s/g,"")).length+"\nSentences: "+(s.match(/[.!?]+(?=\s|$)/g)||[]).length+"\nParagraphs: "+(trim?trim.split(/\n\s*\n/).length:0);setOutput(summary);$("#stats").textContent=summary.replace(/\n/g," · ");};
  bind("count",count);
  bind("copy",()=>copyOutput());
  $("#sourceText").addEventListener("input",count);
  count();
  break;
-
  case "base64":
  bind("encode",()=>setOutput(btoa(unescape(encodeURIComponent(src())))));
  bind("decode",()=>{try{setOutput(decodeURIComponent(escape(atob(src().trim()))));message("Decoded successfully.");}catch{message("Invalid Base64 input or unsupported data.","error");}});
