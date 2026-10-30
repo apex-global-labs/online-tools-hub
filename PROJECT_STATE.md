@@ -13,7 +13,7 @@ Last updated: 2026-10-30
 - XML sitemap generation accepts up to 500 unique absolute HTTP/HTTPS URLs, rejects unsupported protocols and credentials, and escapes XML content.
 - CSS Gradient Generator creates validated linear/radial CSS with two selected colors and a bounded angle.
 - Pure helpers are isolated in `js/phase15-developer-seo.js`; new catalogue metadata includes unique slugs, descriptions, How to Use steps, features and FAQs.
-- Automated regression coverage is being added. Real-browser QA remains pending until manually checked on the deployed site.
+- Automated regression coverage is included in `tests/phase15-developer-seo.test.mjs` and the catalogue audit; CI verification is pending. Real-browser QA remains pending until manually checked on the deployed site.
 
 ## Phase 14 — Image & Media Tools (merged)
 - Work branch: `phase14-image-media-tools`; merged through [PR #34](https://github.com/apex-global-labs/online-tools-hub/pull/34).
