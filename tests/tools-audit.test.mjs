@@ -71,27 +71,31 @@ test("every tool workspace receives universal Copy, Download and Clear actions",
   assert.match(app, /panel\.querySelectorAll\("input,textarea"\)/);
 });
 
-test("premium QR Studio exposes custom controls, presets and guarded downloads", () => {
-  assert.match(markup, /id="qrForeground"/);
-  assert.match(markup, /id="qrBackground"/);
-  assert.match(markup, /id="qrDotStyle"/);
-  assert.match(markup, /id="qrLogoFile"/);
-  assert.match(markup, /id="qrArtFile"/);
-  assert.match(markup, /data-qr-preset="default"/);
-  assert.match(markup, /data-qr-preset="blue"/);
-  assert.match(markup, /data-qr-preset="gradient"/);
+test("QR Studio supports default/custom modes, five palettes, five shapes, high correction and image blending", () => {
+  assert.match(markup, /id="qrDefaultMode"/);
+  assert.match(markup, /id="qrCustomMode"/);
+  assert.match(markup, /id="qrCustomPanel"/);
+  assert.match(markup, /input\("qrText","Text or URL"/);
+  assert.match(markup, /data-qr-palette="classic"/);
+  assert.match(markup, /data-qr-palette="ocean"/);
+  assert.match(markup, /data-qr-palette="emerald"/);
+  assert.match(markup, /data-qr-palette="sunset"/);
+  assert.match(markup, /data-qr-palette="royal"/);
+  for (const shape of ["square","dots","rounded","classy","extra-rounded"]) assert.ok(markup.includes('value="'+shape+'"'));
+  assert.match(markup, /id="qrBlendFile"/);
+  assert.match(markup, /id="qrBlendOpacity"/);
+  assert.match(markup, /id="qrCanvas"/);
   assert.match(markup, /id="generate"[^>]*>Generate QR/);
-  assert.match(wiring, /let qr=null/);
-  assert.match(wiring, /if\(!qr\)\{qr=new QRCodeStyling\(config\);qr\.append\(qrOutput\);\}/);
   assert.match(markup, /id="qrDownloadPng"/);
   assert.match(markup, /id="qrDownloadSvg"/);
-  assert.match(wiring, /qrDownloadPng.*download\("png"\)/);
-  assert.match(wiring, /qrDownloadSvg.*download\("svg"\)/);
-  assert.match(wiring, /if\(!\$\("#qrText"\)\.value\.trim\(\)\)/);
-  assert.match(wiring, /a\.download="toolnest-qr\.png"/);
-  assert.match(wiring, /getRawData\("svg"\)/);
+  assert.match(wiring, /errorCorrectionLevel:"H"/);
+  assert.match(wiring, /QRCodeStyling/);
+  assert.match(wiring, /ctx\.drawImage\(art/);
+  assert.match(wiring, /ctx\.globalAlpha=opacity/);
+  assert.match(wiring, /qr\.download\(\{name:"toolnest-qr",extension:"svg"\}\)/);
+  assert.match(wiring, /canvas\.toBlob/);
+  assert.match(wiring, /function\s+drawCanvas|const drawCanvas=/);
 });
-
 test("clipboard helper handles unavailable clipboard APIs and empty results", () => {
   assert.match(app, /if\(!el\|\|!text\.trim\(\)\)/);
   assert.match(app, /if\(!navigator\.clipboard\?\.writeText\)/);

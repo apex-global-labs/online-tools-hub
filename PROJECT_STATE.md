@@ -142,3 +142,14 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - Verification status: source changes are committed to the feature branch. Automated PR CI and real-browser verification are pending. Test modern and legacy routes, confirm the SEO section appears below the workspace, check accordion behavior and dark/mobile layouts, and validate the rendered FAQPage JSON-LD before considering merge.
 - Do not merge this phase without the owner's explicit approval.
 - QA follow-up: initial PR CI exposed two regression-test assertion issues (test-source escaping and checking for a directly-created `summary` element when the renderer uses the safe `makeElement` helper). Both test assertions were corrected. The latest PR CI run #24 then passed.
+
+
+## Phase 8 — QR Studio Default / Custom Mode and Image Blend (2026-10-30)
+- Work branch: `phase8-qr-custom-blend`; changes are being prepared for review.
+- Reworks the QR Generator into a simple Default Mode and an advanced Custom Mode.
+- Default Mode uses a black-and-white square QR; Custom Mode offers five named color palettes and five dot shapes.
+- Adds optional local image blending beneath the QR pattern using the Canvas API with adjustable low opacity; PNG output includes the blended artwork.
+- Uses `qr-code-styling` with error correction level H. SVG export remains a clean vector QR without the Canvas-only artwork blend.
+- All image processing stays in the visitor's browser; uploaded artwork is not sent to a server.
+- Important limitation: high error correction does not guarantee that every blended QR will scan. Users must scan-test the exported image; image blending is intentionally subtle.
+- Automated tests and deployment verification are pending. Do not claim live behavior is verified until CI, Pages deployment, and owner browser checks are complete.

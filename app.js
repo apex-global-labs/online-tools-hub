@@ -308,16 +308,30 @@ function toolMarkup(id){
  case "diff":return form(`<div class="grid gap-4 md:grid-cols-2">${textarea("leftText","Original text")}${textarea("rightText","New text")}</div><div class="actions">${btn("compare","Compare text")}${btn("copy","Copy result",false)}</div>${out()}`);
  case "markdown":return form(`${textarea("sourceText","Markdown input","# Hello\\n\\nWrite **bold** text, *italic* text, and a [link](https://example.com).")}<div class="actions">${btn("preview","Preview Markdown")}${btn("copy","Copy preview text",false)}</div><div><label class="field-label">Preview</label><div id="markdownPreview"></div></div>`);
  case "image64":return form(`<div><label class="field-label" for="imageFile">Choose an image</label><input class="field" id="imageFile" type="file" accept="image/*"></div><div id="imagePreview"></div>${out()}<div class="actions">${btn("copy","Copy data URL",false)}</div><p class="muted text-sm">Large images create very long strings. Conversion stays in this browser.</p>`);
- case "qr":return form(`<div class="qr-studio">
-<div class="qr-studio-intro"><span class="qr-studio-kicker">TOOLNEST STUDIO</span><h3>Design your QR code</h3><p>Personalize colors, patterns and your logo. Everything runs in your browser.</p></div>
-<div class="field-group">${input("qrText","Text or URL","https://example.com")}</div>
-<div class="qr-fields-grid"><div class="field-group"><label class="field-label" for="qrForeground">Foreground color</label><div class="qr-color-control"><input id="qrForeground" type="color" value="#111827"><span>QR pattern</span></div></div><div class="field-group"><label class="field-label" for="qrBackground">Background color</label><div class="qr-color-control"><input id="qrBackground" type="color" value="#ffffff"><span>QR canvas</span></div></div></div>
-<div class="field-group"><label class="field-label" for="qrDotStyle">Dot style</label><select class="field" id="qrDotStyle"><option value="square">Square</option><option value="dots">Dots</option><option value="rounded">Rounded</option></select></div>
-<div class="field-group"><label class="field-label" for="qrLogoFile">Center logo / image <span class="qr-optional">Optional</span></label><input class="field" id="qrLogoFile" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml"><p class="muted text-sm">PNG, JPG, WebP or SVG · up to 5 MB</p><div id="qrLogoPreview" class="qr-upload-preview" hidden></div></div>
-<div class="field-group"><label class="field-label" for="qrArtFile">Background artwork <span class="qr-optional">Optional</span></label><input class="field" id="qrArtFile" type="file" accept="image/png,image/jpeg,image/webp"><p class="muted text-sm">Artwork appears around the QR preview and is included in PNG export.</p><div id="qrArtPreview" class="qr-upload-preview" hidden></div></div>
-<div class="field-group"><label class="field-label">Quick styles</label><div class="qr-presets"><button type="button" class="btn-secondary qr-preset" data-qr-preset="default">Default</button><button type="button" class="btn-secondary qr-preset" data-qr-preset="blue">Modern Blue</button><button type="button" class="btn-secondary qr-preset" data-qr-preset="gradient">Gradient Art</button></div></div>
-<div class="qr-preview-panel"><div class="qr-preview-heading"><div><h4>Live preview</h4><p class="muted text-sm">Press Generate QR to create or refresh the code.</p></div><span class="qr-live-indicator">LIVE</span></div><div id="qrPreviewStage" class="qr-preview-stage"><div id="qrOutput" aria-label="Generated QR code preview"></div></div><p class="muted text-sm qr-scan-note">Keep strong contrast for reliable scanning. Test your QR before printing.</p></div>
-<div class="actions qr-download-actions"><button type="button" class="btn-primary" id="generate">Generate QR</button><button type="button" class="btn-primary" id="qrDownloadPng">Download PNG</button><button type="button" class="btn-secondary" id="qrDownloadSvg">Download SVG</button><button type="button" class="btn-secondary" id="qrClear">Clear</button></div><p id="qrStatus" class="qr-status" role="status" aria-live="polite"></p></div>`);
+ case "qr":return form(`
+<div class="qr-studio">
+ <div class="qr-studio-intro"><span class="qr-studio-kicker">TOOLNEST QR STUDIO</span><h3>Make your QR code</h3><p>Start with a clean black-and-white QR, or switch to Custom Mode for colors, patterns and image blending. Processing stays in your browser.</p></div>
+ <div class="qr-mode-switch" role="group" aria-label="QR design mode"><button type="button" class="btn-primary" id="qrDefaultMode" aria-pressed="true">Default Mode</button><button type="button" class="btn-secondary" id="qrCustomMode" aria-pressed="false">Custom Mode</button></div>
+ <div class="field-group">${input("qrText","Text or URL","https://example.com")}</div>
+ <div id="qrCustomPanel" hidden>
+  <div class="field-group"><label class="field-label">Color palettes</label><div class="qr-presets">
+   <button type="button" class="qr-palette" data-qr-palette="classic"><span style="background:#111827"></span>Classic Dark</button>
+   <button type="button" class="qr-palette" data-qr-palette="ocean"><span style="background:#1d4ed8"></span>Ocean Blue</button>
+   <button type="button" class="qr-palette" data-qr-palette="emerald"><span style="background:#047857"></span>Emerald Green</button>
+   <button type="button" class="qr-palette" data-qr-palette="sunset"><span style="background:#c2410c"></span>Sunset Orange</button>
+   <button type="button" class="qr-palette" data-qr-palette="royal"><span style="background:#6d28d9"></span>Royal Purple</button>
+  </div></div>
+  <div class="qr-fields-grid">
+   <div class="field-group"><label class="field-label" for="qrForeground">QR color</label><div class="qr-color-control"><input id="qrForeground" type="color" value="#111827"><span>Foreground</span></div></div>
+   <div class="field-group"><label class="field-label" for="qrBackground">Background color</label><div class="qr-color-control"><input id="qrBackground" type="color" value="#ffffff"><span>Background</span></div></div>
+  </div>
+  <div class="field-group"><label class="field-label" for="qrDotStyle">QR dot shape</label><select class="field" id="qrDotStyle"><option value="square">Square</option><option value="dots">Dots</option><option value="rounded">Rounded</option><option value="classy">Classy</option><option value="extra-rounded">Extra-Rounded</option></select></div>
+  <div class="field-group"><label class="field-label" for="qrBlendFile">Image-to-QR Blend <span class="qr-optional">Optional</span></label><input class="field" id="qrBlendFile" type="file" accept="image/png,image/jpeg,image/webp"><p class="muted text-sm">Upload artwork or a logo. It is softly blended beneath the QR pattern in the PNG preview/export.</p><div id="qrBlendPreview" class="qr-upload-preview" hidden></div><label class="qr-range-label" for="qrBlendOpacity">Image visibility <output id="qrBlendValue">12%</output></label><input class="field" id="qrBlendOpacity" type="range" min="4" max="20" value="12"></div>
+ </div>
+ <div class="qr-preview-panel"><div class="qr-preview-heading"><div><h4>QR preview</h4><p class="muted text-sm">Generate after entering your text or URL.</p></div><span class="qr-live-indicator">READY</span></div><div id="qrPreviewStage" class="qr-preview-stage"><canvas id="qrCanvas" width="1200" height="1200" aria-label="Generated QR code preview"></canvas><div id="qrOutput" hidden></div></div><p class="muted text-sm qr-scan-note">High error correction (H) is enabled. Image blending is intentionally subtle; always scan-test before sharing or printing.</p></div>
+ <div class="actions qr-download-actions"><button type="button" class="btn-primary" id="generate">Generate QR</button><button type="button" class="btn-primary" id="qrDownloadPng">Download PNG</button><button type="button" class="btn-secondary" id="qrDownloadSvg">Download SVG</button><button type="button" class="btn-secondary" id="qrClear">Clear</button></div><p id="qrStatus" class="qr-status" role="status" aria-live="polite"></p>
+</div>`);
+
  case "meta":return form(`${input("pageTitle","Page title","My useful website")}${textarea("pageDescription","Meta description","A short and helpful description of this page.")}${input("pageUrl","Canonical URL","https://example.com","url")}<div class="actions">${btn("generate","Generate tags")}${btn("copy","Copy tags",false)}</div>${out()}`);
  case "color":return form(`<div class="grid gap-4 sm:grid-cols-2">${input("hex","HEX color","#6366f1")}<div><label class="field-label" for="colorPicker">Pick a color</label><input class="field h-12" id="colorPicker" type="color" value="#6366f1"></div></div><div class="actions">${btn("convert","Convert color")}${btn("copy","Copy values",false)}</div><div id="colorSwatch" class="h-16 rounded-xl border border-slate-200"></div>${out()}`);
  case "forexcalc":return form(`${input("forexAmount","Amount","100","number")}<div class="grid gap-4 sm:grid-cols-2">${select("forexFrom","From currency",[["USD","USD — US Dollar"],["BDT","BDT — Bangladeshi Taka"],["EUR","EUR — Euro"],["GBP","GBP — British Pound"],["JPY","JPY — Japanese Yen"],["AUD","AUD — Australian Dollar"],["CAD","CAD — Canadian Dollar"],["CHF","CHF — Swiss Franc"],["NZD","NZD — New Zealand Dollar"],["INR","INR — Indian Rupee"],["SGD","SGD — Singapore Dollar"],["CNY","CNY — Chinese Yuan"],["PKR","PKR — Pakistani Rupee"],["AED","AED — UAE Dirham"],["SAR","SAR — Saudi Riyal"],["MYR","MYR — Malaysian Ringgit"],["THB","THB — Thai Baht"],["TRY","TRY — Turkish Lira"],["ZAR","ZAR — South African Rand"],["HKD","HKD — Hong Kong Dollar"]])}${select("forexTo","To currency",[["USD","USD — US Dollar"],["BDT","BDT — Bangladeshi Taka"],["EUR","EUR — Euro"],["GBP","GBP — British Pound"],["JPY","JPY — Japanese Yen"],["AUD","AUD — Australian Dollar"],["CAD","CAD — Canadian Dollar"],["CHF","CHF — Swiss Franc"],["NZD","NZD — New Zealand Dollar"],["INR","INR — Indian Rupee"],["SGD","SGD — Singapore Dollar"],["CNY","CNY — Chinese Yuan"],["PKR","PKR — Pakistani Rupee"],["AED","AED — UAE Dirham"],["SAR","SAR — Saudi Riyal"],["MYR","MYR — Malaysian Ringgit"],["THB","THB — Thai Baht"],["TRY","TRY — Turkish Lira"],["ZAR","ZAR — South African Rand"],["HKD","HKD — Hong Kong Dollar"]])}</div><div class="actions">${btn("convertCurrency","Convert currency")}${btn("swapCurrencies","Swap currencies",false)}${btn("copy","Copy result",false)}</div>${out()}<p class="muted text-sm">Uses reference exchange rates retrieved online; rates are generally updated daily and may differ from your broker's executable Forex quotes. For information only, not trading advice. Rate source: <a href="https://www.exchangerate-api.com/docs/free" target="_blank" rel="noopener noreferrer">ExchangeRate-API</a>.</p>`);
@@ -549,25 +563,110 @@ function wireTool(id){
  break;
 
  case "qr": {
- const qrStatus=$("#qrStatus"),qrOutput=$("#qrOutput"),qrStage=$("#qrPreviewStage");
- const presets={default:{fg:"#111827",bg:"#ffffff",dot:"square",gradient:false},blue:{fg:"#1d4ed8",bg:"#eff6ff",dot:"rounded",gradient:false},gradient:{fg:"#7c3aed",bg:"#ffffff",dot:"dots",gradient:true}};
- let logoData,artData,gradientMode=false,renderTimer;
- const say=(text,error=false)=>{qrStatus.textContent=text;qrStatus.classList.toggle("is-error",error);};
- const readImage=file=>new Promise((resolve,reject)=>{if(!file)return resolve(undefined);if(!file.type.startsWith("image/"))return reject(new Error("Choose a valid image file."));if(file.size>5*1024*1024)return reject(new Error("Image must be smaller than 5 MB."));const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(new Error("Could not read the image."));reader.readAsDataURL(file);});
- const options=()=>({width:1000,height:1000,type:"svg",data:$("#qrText").value.trim(),margin:32,qrOptions:{errorCorrectionLevel:"H"},image:logoData,imageOptions:{hideBackgroundDots:true,imageSize:.2,margin:8,crossOrigin:"anonymous"},dotsOptions:gradientMode?{type:$("#qrDotStyle").value,gradient:{type:"linear",rotation:0,colorStops:[{offset:0,color:$("#qrForeground").value},{offset:1,color:"#06b6d4"}]}}:{type:$("#qrDotStyle").value,color:$("#qrForeground").value},backgroundOptions:{color:$("#qrBackground").value},cornersSquareOptions:{color:$("#qrForeground").value,type:"extra-rounded"},cornersDotOptions:{color:$("#qrForeground").value,type:"dot"}});
- let qr=null;
- const render=()=>{if(!$("#qrText").value.trim())return say("Enter text or a URL to create your QR code.",true);if(typeof QRCodeStyling!=="function")return say("QR generator library did not load. Check your internet connection, then reload this page.",true);try{const config=options();if(!qr){qr=new QRCodeStyling(config);qr.append(qrOutput);}else{qr.update(config);}qrStage.style.backgroundImage=artData?"url('"+artData+"')":"none";qrStage.style.backgroundColor=$("#qrBackground").value;say("QR code generated successfully.");}catch(e){console.error("ToolNest QR generation failed:",e);say("QR generation failed. Check the text or URL and try again.",true);}};
- const schedule=()=>{clearTimeout(renderTimer);renderTimer=setTimeout(render,180);};
- const showUpload=(box,data,alt)=>{box.replaceChildren();box.hidden=!data;if(data){const img=document.createElement("img");img.src=data;img.alt=alt;box.append(img);}};
- const download=async ext=>{if(!$("#qrText").value.trim())return say("Enter text or a URL before downloading.",true);if(!qr)render();if(!qr)return;if(typeof QRCodeStyling!=="function")return say("QR generator library did not load. Reload and try again.",true);try{qr.update(options());if(ext==="svg"||!artData){await qr.download({name:"toolnest-qr",extension:ext});}else{const blob=await qr.getRawData("svg"),svgUrl=URL.createObjectURL(blob);try{const qrImg=new Image();qrImg.src=svgUrl;await new Promise((res,rej)=>{qrImg.onload=res;qrImg.onerror=()=>rej(new Error("Could not prepare QR image."));});const artImg=new Image();artImg.src=artData;await new Promise((res,rej)=>{artImg.onload=res;artImg.onerror=()=>rej(new Error("Could not load artwork."));});const canvas=document.createElement("canvas");canvas.width=1200;canvas.height=1200;const ctx=canvas.getContext("2d");ctx.drawImage(artImg,0,0,1200,1200);const pad=90,size=1020;ctx.fillStyle=$("#qrBackground").value;ctx.fillRect(pad,pad,size,size);ctx.drawImage(qrImg,pad,pad,size,size);const png=await new Promise((res,rej)=>canvas.toBlob(b=>b?res(b):rej(new Error("PNG export failed.")),"image/png"));const url=URL.createObjectURL(png),a=document.createElement("a");a.href=url;a.download="toolnest-qr.png";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}finally{URL.revokeObjectURL(svgUrl);}}say(ext==="png"&&artData?"High-resolution PNG with artwork is ready.":ext.toUpperCase()+" download started.");}catch(e){console.error(e);say(e.message||"Download failed. Please try again.",true);}};
- $("#generate").addEventListener("click",render);$("#qrText").addEventListener("input",schedule);
- ["qrForeground","qrBackground","qrDotStyle"].forEach(id=>$("#"+id).addEventListener("input",render));
- $("#qrLogoFile").addEventListener("change",async()=>{try{logoData=await readImage($("#qrLogoFile").files[0]);showUpload($("#qrLogoPreview"),logoData,"Logo preview");render();}catch(e){$("#qrLogoFile").value="";say(e.message,true);}});
- $("#qrArtFile").addEventListener("change",async()=>{try{artData=await readImage($("#qrArtFile").files[0]);showUpload($("#qrArtPreview"),artData,"Background artwork preview");render();}catch(e){$("#qrArtFile").value="";say(e.message,true);}});
- document.querySelectorAll("[data-qr-preset]").forEach(b=>b.addEventListener("click",()=>{const p=presets[b.dataset.qrPreset];if(!p)return;$("#qrForeground").value=p.fg;$("#qrBackground").value=p.bg;$("#qrDotStyle").value=p.dot;gradientMode=p.gradient;render();}));
- $("#qrDownloadPng").addEventListener("click",()=>download("png"));$("#qrDownloadSvg").addEventListener("click",()=>download("svg"));
- $("#qrClear").addEventListener("click",()=>{$("#qrText").value="";$("#qrLogoFile").value="";$("#qrArtFile").value="";logoData=undefined;artData=undefined;gradientMode=false;$("#qrForeground").value="#111827";$("#qrBackground").value="#ffffff";$("#qrDotStyle").value="square";showUpload($("#qrLogoPreview"),undefined,"Logo preview");showUpload($("#qrArtPreview"),undefined,"Artwork preview");qrStage.style.backgroundImage="none";qrOutput.replaceChildren();say("QR settings cleared.");});
- render();break;
+ const status=$("#qrStatus"),canvas=$("#qrCanvas"),ctx=canvas.getContext("2d"),customPanel=$("#qrCustomPanel");
+ const palettes={
+  classic:{fg:"#111827",bg:"#ffffff"},ocean:{fg:"#1d4ed8",bg:"#eff6ff"},emerald:{fg:"#047857",bg:"#ecfdf5"},sunset:{fg:"#c2410c",bg:"#fff7ed"},royal:{fg:"#6d28d9",bg:"#f5f3ff"}
+ };
+ let customMode=false,blendData=null,qr=null,renderToken=0;
+ const say=(text,error=false)=>{status.textContent=text;status.classList.toggle("is-error",error);};
+ const readImage=file=>new Promise((resolve,reject)=>{
+  if(!file)return resolve(null);
+  if(!/^image\/(png|jpeg|webp)$/.test(file.type))return reject(new Error("Choose a PNG, JPG or WebP image."));
+  if(file.size>5*1024*1024)return reject(new Error("Image must be smaller than 5 MB."));
+  const reader=new FileReader();reader.onload=()=>resolve(String(reader.result));reader.onerror=()=>reject(new Error("Could not read the image."));reader.readAsDataURL(file);
+ });
+ const config=()=>({
+  width:1200,height:1200,type:"svg",data:$("#qrText").value.trim(),margin:48,
+  qrOptions:{errorCorrectionLevel:"H"},
+  dotsOptions:{type:customMode?$("#qrDotStyle").value:"square",color:customMode?$("#qrForeground").value:"#111111"},
+  backgroundOptions:{color:blendData&&customMode?"rgba(255,255,255,0)":(customMode?$("#qrBackground").value:"#ffffff")},
+  cornersSquareOptions:{type:customMode?"extra-rounded":"square",color:customMode?$("#qrForeground").value:"#111111"},
+  cornersDotOptions:{type:"square",color:customMode?$("#qrForeground").value:"#111111"}
+ });
+ const imageFromData=data=>new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>reject(new Error("Could not prepare the QR artwork."));img.src=data;});
+ const drawCanvas=async()=>{
+  const token=++renderToken;
+  if(!$("#qrText").value.trim()){say("Enter text or a URL first.",true);return false;}
+  if(typeof QRCodeStyling!=="function"){say("QR library did not load. Check your connection and reload.",true);return false;}
+  try{
+   const settings=config();
+   if(!qr){qr=new QRCodeStyling(settings);}else{qr.update(settings);}
+   const svgBlob=await qr.getRawData("svg");
+   const svgUrl=URL.createObjectURL(svgBlob);
+   try{
+    const qrImg=await imageFromData(svgUrl);
+    if(token!==renderToken)return false;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle=customMode?$("#qrBackground").value:"#ffffff";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    if(blendData&&customMode){
+     const art=await imageFromData(blendData);
+     if(token!==renderToken)return false;
+     const opacity=Number($("#qrBlendOpacity").value)/100;
+     ctx.globalAlpha=opacity;
+     const scale=Math.max(canvas.width/art.width,canvas.height/art.height);
+     const w=art.width*scale,h=art.height*scale;
+     ctx.drawImage(art,(canvas.width-w)/2,(canvas.height-h)/2,w,h);
+     ctx.globalAlpha=1;
+    }
+    ctx.drawImage(qrImg,0,0,canvas.width,canvas.height);
+   }finally{URL.revokeObjectURL(svgUrl);}
+   say("QR code generated. Scan-test it before use.");
+   return true;
+  }catch(error){ctx.globalAlpha=1;console.error("ToolNest QR error:",error);say(error.message||"QR generation failed.",true);return false;}
+ };
+ const setMode=mode=>{
+  customMode=mode;customPanel.hidden=!mode;
+  $("#qrDefaultMode").className=mode?"btn-secondary":"btn-primary";
+  $("#qrCustomMode").className=mode?"btn-primary":"btn-secondary";
+  $("#qrDefaultMode").setAttribute("aria-pressed",String(!mode));
+  $("#qrCustomMode").setAttribute("aria-pressed",String(mode));
+  drawCanvas();
+ };
+ $("#qrDefaultMode").addEventListener("click",()=>setMode(false));
+ $("#qrCustomMode").addEventListener("click",()=>setMode(true));
+ $("#generate").addEventListener("click",drawCanvas);
+ $("#qrText").addEventListener("input",()=>{if($("#qrText").value.trim())drawCanvas();});
+ ["qrForeground","qrBackground","qrDotStyle","qrBlendOpacity"].forEach(id=>$("#"+id).addEventListener("input",()=>{
+  if(id==="qrBlendOpacity")$("#qrBlendValue").textContent=$("#qrBlendOpacity").value+"%";
+  if(customMode)drawCanvas();
+ }));
+ document.querySelectorAll("[data-qr-palette]").forEach(button=>button.addEventListener("click",()=>{
+  const palette=palettes[button.dataset.qrPalette];if(!palette)return;
+  $("#qrForeground").value=palette.fg;$("#qrBackground").value=palette.bg;drawCanvas();
+ }));
+ $("#qrBlendFile").addEventListener("change",async()=>{
+  try{
+   blendData=await readImage($("#qrBlendFile").files[0]);
+   const box=$("#qrBlendPreview");box.replaceChildren();box.hidden=!blendData;
+   if(blendData){const img=document.createElement("img");img.src=blendData;img.alt="Selected QR blend artwork";box.append(img);}
+   if(customMode)drawCanvas();else say("Image selected. Switch to Custom Mode to blend it into your QR.");
+  }catch(error){$("#qrBlendFile").value="";blendData=null;say(error.message,true);}
+ });
+ const download=async extension=>{
+  if(!$("#qrText").value.trim()){say("Enter text or a URL before downloading.",true);return;}
+  const ready=await drawCanvas();if(!ready)return;
+  try{
+   if(extension==="png"){
+    const blob=await new Promise((resolve,reject)=>canvas.toBlob(value=>value?resolve(value):reject(new Error("PNG export failed.")),"image/png"));
+    const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="toolnest-qr.png";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+   }else{
+    qr.update(config());
+    await qr.download({name:"toolnest-qr",extension:"svg"});
+   }
+   say(extension.toUpperCase()+" download started.");
+  }catch(error){say(error.message||"Download failed.",true);}
+ };
+ $("#qrDownloadPng").addEventListener("click",()=>download("png"));
+ $("#qrDownloadSvg").addEventListener("click",()=>download("svg"));
+ $("#qrClear").addEventListener("click",()=>{
+  $("#qrText").value="";$("#qrBlendFile").value="";blendData=null;customMode=false;
+  $("#qrForeground").value="#111827";$("#qrBackground").value="#ffffff";$("#qrDotStyle").value="square";$("#qrBlendOpacity").value="12";$("#qrBlendValue").textContent="12%";
+  $("#qrBlendPreview").replaceChildren();$("#qrBlendPreview").hidden=true;
+  ctx.clearRect(0,0,canvas.width,canvas.height);setMode(false);say("QR Studio cleared.");
+ });
+ say("Enter text or a URL, then select Generate QR.");
+ break;
  }
 
  case "meta":
