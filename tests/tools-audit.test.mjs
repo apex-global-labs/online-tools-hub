@@ -98,6 +98,11 @@ test("QR Studio supports default/custom modes, five palettes, five shapes, high 
   assert.match(wiring, /canvas\.toBlob/);
   assert.match(wiring, /function\s+drawCanvas|const drawCanvas=/);
 });
+test("universal Clear delegates QR Studio to its state-aware reset handler", () => {
+  assert.match(app, /if\(id===\"qr\"\)\{\s*\$\(\"#qrClear\"\)\?\.click\(\);\s*return;\s*\}/);
+  assert.match(getBranch(wiring, "qr"), /\$\(\"#qrClear\"\)\.addEventListener\(\"click\"/);
+});
+
 test("clipboard helper handles unavailable clipboard APIs and empty results", () => {
   assert.match(app, /if\(!el\|\|!text\.trim\(\)\)/);
   assert.match(app, /if\(!navigator\.clipboard\?\.writeText\)/);
