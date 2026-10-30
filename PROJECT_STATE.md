@@ -239,11 +239,15 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 
 
 ## Standalone IP Tools module — 2026-10-30
-- Work branch: `feature/advanced-ip-tools`; isolated from the production `main` branch.
+- Work branch: `feature/advanced-ip-tools`; merged into `main` through PR #37.
 - Adds one dedicated `IP Address Finder & Lookup` utility; no other Phase 16 tools are included.
 - Supports public IPv4/IPv6 lookups and a Find My IP action, with input validation, local private/special-use range checks, approximate geolocation, ISP, organization, ASN and timezone fields when returned by the provider.
 - Uses the IPWHOIS.io free HTTPS endpoint with an explicit `fields` allowlist. Provider documentation states 1,000 requests/day per website domain and commercial use is allowed; the free tier does not include VPN/proxy/Tor security flags and has no uptime SLA.
 - Privacy: browser sends the queried IP directly to IPWHOIS.io; ToolNest does not proxy it through its own server or intentionally store it. The provider may process request data under its own policy. A private/special-use address is detected locally and is not sent for geolocation.
 - Accuracy: city/postal/coordinates are approximate network estimates only; no household, street-address or exact GPS claims.
 - Adds helper validation tests and updates prior hard-coded catalogue-count regression expectations from 39 to 40.
-- Status at handover: implementation committed on feature branch; automated CI, PR review, merge, Pages deployment and live browser verification are still pending. Do not claim the tool is live or complete until these checks pass.
+- Merge: PR #37 — https://github.com/apex-global-labs/online-tools-hub/pull/37; squash merge commit `e435fd6c35d4f62f538e2172a97999fa5e5f7a32`.
+- Automated verification: regression workflow run #41045292098 passed; JavaScript syntax check passed; 70 tests passed, 0 failed. The first CI attempt exposed IPv4 digit-pattern and stale 39-tool count assertions; both were corrected and the rerun passed.
+- Production baseline: main catalog and router metadata both contain 40 unique tools; `ip-tools` route and IP helper/style assets are present on main.
+- Deployment/live QA: GitHub Pages deployment and real-browser interaction could not be independently verified in this session. The live-site fetch was unavailable. Do not claim the feature is visibly live until the site is checked in a browser.
+- Manual browser QA still recommended: Find My IP; public IPv4 and IPv6 lookup; invalid/hostname input; private/special-use IP rejection without API request; Copy/Download/Clear; mobile and desktop layouts; day/night themes; console/network errors.
