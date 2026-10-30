@@ -466,7 +466,7 @@ function wireTool(id){
   resizeUrl=null;
   const output=$("#output");if(output){output.textContent="";delete output.dataset.downloadUrl;delete output.dataset.downloadName;}
   $("#imageResultPreview").replaceChildren();$("#imageResultPreview").hidden=true;
-  $("#resizeFile").value="";$("#resizeWidth").value="800";$("#resizeHeight").value="600";
+  $("#resizeFile").value="";$("#resizeWidth").value="800";$("#resizeHeight").value="600";$("#resizeKeepRatio").checked=true;$("#resizeFormat").value="image/png";
   message("Image resizer cleared.");
  };
  bind("resizeImage",()=>{
@@ -480,6 +480,7 @@ function wireTool(id){
   img.onload=()=>{
    URL.revokeObjectURL(sourceUrl);
    const ratio=img.naturalWidth/img.naturalHeight;
+   if(img.naturalWidth>12000||img.naturalHeight>12000||img.naturalWidth*img.naturalHeight>40000000){message("Source image dimensions are too large to process safely (maximum 40 megapixels).","error");return;}
    if($("#resizeKeepRatio").checked){
     if(width/height>ratio)width=Math.max(1,Math.round(height*ratio));
     else height=Math.max(1,Math.round(width/ratio));
@@ -516,7 +517,7 @@ function wireTool(id){
   compressedUrl=null;
   const output=$("#output");if(output){output.textContent="";delete output.dataset.downloadUrl;delete output.dataset.downloadName;}
   $("#imageResultPreview").replaceChildren();$("#imageResultPreview").hidden=true;
-  $("#compressFile").value="";$("#compressQuality").value="75";$("#compressQualityValue").textContent="75%";
+  $("#compressFile").value="";$("#compressFormat").value="image/webp";$("#compressQuality").value="75";$("#compressQualityValue").textContent="75%";
   message("Image compressor cleared.");
  };
  $("#compressQuality").addEventListener("input",()=>{$("#compressQualityValue").textContent=$("#compressQuality").value+"%";});
