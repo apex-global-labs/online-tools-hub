@@ -297,7 +297,7 @@ function wireUniversalActions(id){
   if(id==="imageresize"||id==="imagecompress"){ $("#clearImage")?.click(); return; }
   if(id==="imagecrop"){ $("#clearCrop")?.click(); return; }
   if(id==="imageformat"){ $("#clearFormat")?.click(); return; }
-  if(id==="base64image"){ $("#universalClear")?.click(); return; }
+  if(id==="base64image"){ $("#clearBase64Image")?.click(); return; }
   panel.querySelectorAll("input,textarea").forEach(el=>{
    if(el.type==="checkbox"||el.type==="radio")el.checked=el.defaultChecked;
    else if(el.type==="file")el.value="";
