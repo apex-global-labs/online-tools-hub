@@ -1,9 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createRequire } from "node:module";
+import "../js/finance-calculators.js";
 
-const require = createRequire(import.meta.url);
-const finance = require("../js/finance-calculators.js");
+const finance = globalThis.ToolNestFinance;
 
 test("percentage calculator covers percent-of, what-percent and percentage change", () => {
   assert.equal(finance.calculatePercentage("of", 15, 200).result, 30);
@@ -26,7 +25,7 @@ test("compound interest matches annual, monthly and zero-rate examples", () => {
   assert.equal(annual.amount, 1210);
   assert.equal(annual.interest, 210);
   const monthly = finance.calculateCompoundInterest(1000, 10, 2, 12);
-  assert.ok(Math.abs(monthly.amount - 1219.391084) < 0.00001);
+  assert.ok(Math.abs(monthly.amount - 1220.390961) < 0.00001);
   assert.equal(finance.calculateCompoundInterest(500, 0, 5, 12).amount, 500);
 });
 
