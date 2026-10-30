@@ -14,6 +14,16 @@ Last updated: 2026-10-31
 - Catalogue: **42 unique tools**; `app.js` and `js/tools-data.json` are synchronized.
 - No paid service or backend is used. Advanced PDF Merger and PDF Splitter use browser-side `pdf-lib`; PDF Splitter loads JSZip from a public CDN only when multiple outputs need a ZIP.
 
+
+## Phase 8C — Free URL Shortener (implementation branch; not yet released)
+
+- Feature branch: `feature/free-url-shortener`, based on the current `main` commit `37ac0cb4007a47d0fc176356a3b186fa825debe5`.
+- Adds a 43rd tool in the proposed branch: **URL Shortener**, with an optional custom alias, short-link output, copy/open actions, URL validation and a clear action.
+- The static GitHub Pages site has no backend. Link creation is delegated directly from the visitor's browser to Spoo.me's free anonymous shortening endpoint; ToolNest does not store the submitted destination URL.
+- Spoo.me's published legacy endpoint currently documents a limit of 5 created links per minute and 50 per day for anonymous requests. The service, its terms, availability and limits are controlled by the provider and may change.
+- Short links use the provider's domain, not a ToolNest-branded domain. Own-domain redirects, link management and analytics are not included.
+- The branch includes a dedicated SEO guide, directory and sitemap entries, keyword-map row, regression tests and user-facing disclosure about third-party processing. Automated CI and live browser/API verification are pending; do not mark this feature complete or deployed yet.
+
 ## Phase 8B — PDF Splitter (merged and deployed; live browser verification pending)
 
 - PR #53 merged into `main` at production commit `6f63d13955aaff18f84c0ecd60b215e6276f5286`.
