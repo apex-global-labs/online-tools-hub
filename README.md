@@ -84,6 +84,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Password Generator
 - Time Zone Converter
 - Number to Words Converter (English and Bangla)
+- Advanced PDF Merger — merge PDF files with page selection, file/page ordering and rotation
 - IP Address Finder & Lookup
 
 ### IP Address Finder & Lookup
