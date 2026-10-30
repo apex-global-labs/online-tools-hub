@@ -34,7 +34,7 @@ Last updated: 2026-10-30
   2. The homepage description did not describe the complete 40-tool catalogue, and canonical/Open Graph/Twitter metadata were absent. These have been added.
   3. A sitemap was absent. A canonical homepage sitemap is now added. A repository-level `robots.txt` was deliberately omitted: this GitHub Pages project site is path-prefixed, so a file in the repository cannot serve the origin-root robots path crawlers expect.
   4. The previous project-state summary incorrectly described Phase 14 / 36 tools as the current production release. This authoritative section supersedes that historical text.
-- Files changed on this branch: `index.html`, `README.md`, `PROJECT_STATE.md`, `sitemap.xml`, and `tests/release-audit.test.mjs`.
+- The complete Phase 17 change list is recorded in PR #39.
 - The existing GitHub Actions workflow now syntax-checks `js/ip-tools.js` and `js/router-bridge.js`; its existing test command automatically discovers the new release-audit test file.
 - Phase 17 branch CI and deployment checks are pending.
 - Manual browser verification is still required for representative tools, IP lookups, image previews/downloads, QR scanability, Copy/Clear behavior, routes, responsive layouts, themes and browser-console/network errors.
