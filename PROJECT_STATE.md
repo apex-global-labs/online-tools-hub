@@ -73,14 +73,15 @@ Last updated: 2026-10-30
 - The change is documentation and test-only; it does not alter runtime code, tool behavior, canonical URLs, router or sitemap. A new Pages deployment is not required to publish the keyword research document to the repository, and no new deployment is claimed for this phase.
 - Manual browser QA and Search Console indexing/performance checks remain separate follow-up tasks; this phase's completion does not imply that Google has indexed the pages or that rankings/traffic have improved.
 
-## SEO Phase 6 — Sitemap & Crawling Optimization (in progress)
+## SEO Phase 6 — Sitemap & Crawling Optimization (implementation complete; external validation pending)
 
 - Audited the existing production sitemap, homepage discovery link, tool-guide directory and representative individual guide pages before making changes.
 - The existing sitemap already contains 42 unique canonical URLs: homepage, tool directory and all 40 static tool guides. Hash-based interactive workspace URLs are intentionally excluded.
 - The project-site path is `/online-tools-hub/`; a repository-root `robots.txt` cannot publish the origin-root robots policy expected by crawlers. The existing documentation correctly records this GitHub Pages limitation. No misleading or ineffective robots file was added.
 - Added `tests/seo-crawl-integrity.test.mjs` to enforce exact sitemap coverage, unique canonical URLs, repository file existence, index/follow directives, one H1 per guide, homepage/directory discovery links and guide-to-workspace links.
-- Changes are on branch `seo/phase6-sitemap-crawl-integrity`. CI and pull-request review are pending; do not mark Phase 6 complete until the regression workflow passes and the change is reviewed/merged.
-- Search Console sitemap submission, indexing status and live HTTP/browser verification remain separate checks; repository tests cannot establish Google indexing or external crawler access.
+- Regression workflow passed: Node regression tests completed successfully on 2026-10-30 at 18:00 UTC.
+- PR #48 was reviewed and squash-merged into `main` at commit `c6ab61ecd51e6dbe093f092cd54bd68ba12668b2` on 2026-10-30 at 18:01:30 UTC.
+- Source-code implementation and automated verification are complete. Search Console sitemap submission, indexing status and live HTTP/browser verification remain separate follow-up checks; repository tests cannot establish Google indexing or external crawler access.
 
 ## Phase 4 — On-Page SEO Optimization (completed and deployed)
 
