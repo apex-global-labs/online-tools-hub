@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
 
 const app = readFileSync(new URL("../app.js", import.meta.url), "utf8");
 const metadata = JSON.parse(readFileSync(new URL("../js/tools-data.json", import.meta.url), "utf8"));
@@ -184,4 +185,10 @@ test("Phase 10 text utilities provide guarded timestamp, whitespace and HTML ent
   assert.match(getBranch(wiring, "timestamp"), /supported date range/);
   assert.match(getBranch(wiring, "whitespace"), /removeBlankWhitespaceLines/);
   assert.match(getBranch(wiring, "htmlentities"), /createElement\("textarea"\)/);
+});
+
+test("app.js passes the Node JavaScript syntax check", () => {
+  const file = new URL("../app.js", import.meta.url).pathname;
+  const result = spawnSync(process.execPath, ["--check", file], { encoding: "utf8" });
+  assert.equal(result.status, 0, result.stderr || result.stdout || "app.js syntax check failed");
 });
