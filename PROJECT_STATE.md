@@ -20,7 +20,7 @@ Last updated: 2026-10-31
 - Feature branch: `feature/free-url-shortener`, based on the current `main` commit `37ac0cb4007a47d0fc176356a3b186fa825debe5`.
 - Adds a 43rd tool in the proposed branch: **URL Shortener**, with an optional custom alias, short-link output, copy/open actions, URL validation and a clear action.
 - The static GitHub Pages site has no backend. Link creation is delegated directly from the visitor's browser to Spoo.me's free anonymous shortening endpoint; ToolNest does not store the submitted destination URL.
-- Spoo.me's published legacy endpoint currently documents a limit of 5 created links per minute and 50 per day for anonymous requests. The service, its terms, availability and limits are controlled by the provider and may change.
+- Spoo.me's current API v1 documents anonymous limits of 20 requests per minute and 1,000 per day. No API key is required for anonymous shortening; anonymous links are not attached to an account and cannot be managed later through the API. The service, its terms, availability and limits are controlled by the provider and may change.
 - Short links use the provider's domain, not a ToolNest-branded domain. Own-domain redirects, link management and analytics are not included.
 - The branch includes a dedicated SEO guide, directory and sitemap entries, keyword-map row, regression tests and user-facing disclosure about third-party processing. Automated CI and live browser/API verification are pending; do not mark this feature complete or deployed yet.
 
