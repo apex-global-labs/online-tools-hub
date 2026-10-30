@@ -13,7 +13,9 @@ test("accepts only complete public HTTP and HTTPS URLs", () => {
 test("custom aliases are optional and limited to 1–16 alphanumeric characters", () => {
   assert.equal(validateAlias(""), "");
   assert.equal(validateAlias("ToolNest42"), "ToolNest42");
-  for (const value of ["has space", "a-b", "alias_name", "a".repeat(17), "বাংলা"]) assert.throws(() => validateAlias(value));
+  for (const value of ["ab", "has space", "a.b", "a".repeat(17), "বাংলা"]) assert.throws(() => validateAlias(value));
+  assert.equal(validateAlias("a-b"), "a-b");
+  assert.equal(validateAlias("alias_name"), "alias_name");
 });
 
 test("uses the documented free provider form endpoint and returns HTTPS links", async () => {
@@ -22,14 +24,14 @@ test("uses the documented free provider form endpoint and returns HTTPS links", 
     captured = { url, options };
     return { ok:true, status:200, json:async()=>({short_url:"https://spoo.me/sample42",original_url:"https://example.com/long"}) };
   });
-  assert.equal(captured.url,"https://spoo.me/");
+  assert.equal(captured.url,"https://spoo.me/api/v1/shorten");
   assert.equal(captured.options.method,"POST");
-  assert.equal(captured.options.body.get("url"),"https://example.com/long");
-  assert.equal(captured.options.body.get("alias"),"sample42");
+  assert.equal(captured.options.headers["Content-Type"],"application/json");
+  assert.deepEqual(JSON.parse(captured.options.body),{long_url:"https://example.com/long",alias:"sample42"});
   assert.equal(result.shortUrl,"https://spoo.me/sample42");
 });
 
 test("reports provider rate limits and rejects malformed API responses", async () => {
   await assert.rejects(createShortUrl("https://example.com","",async()=>({ok:false,status:429,json:async()=>({})})),/rate-limited/);
-  await assert.rejects(createShortUrl("https://example.com","",async()=>({ok:true,status:200,json:async()=>({short_url:"javascript:alert(1)"})})),/invalid link/);
+  await assert.rejects(createShortUrl("https://example.com","",async()=>({ok:true,status:201,json:async()=>({short_url:"javascript:alert(1)"})})),/invalid link/);
 });
