@@ -8,8 +8,8 @@ const renderer = readFileSync(new URL("../js/seo-content.js", import.meta.url), 
 const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const css = readFileSync(new URL("../css/phase6-seo-content.css", import.meta.url), "utf8");
 
-test("all 26 tools have complete, tool-specific SEO content", () => {
-  assert.equal(metadata.length, 26);
+test("all 29 tools have complete, tool-specific SEO content", () => {
+  assert.equal(metadata.length, 29);
   const catalogueStart = app.indexOf("const tools = [");
   const catalogueEnd = app.indexOf("\n];", catalogueStart);
   const catalogue = [...app.slice(catalogueStart, catalogueEnd).matchAll(/\{id:"([^"]+)",name:"([^"]+)"/g)];
@@ -60,4 +60,17 @@ test("SEO accordion styles include responsive and dark-mode support", () => {
   assert.match(css, /\.tool-seo-faq-item/);
   assert.match(css, /\.dark \.tool-seo-content/);
   assert.match(css, /@media \(max-width: 640px\)/);
+});
+
+test("Phase 12 calculator SEO content is specific and includes finance assumptions", () => {
+  for (const id of ["percentage", "compound", "emi"]) {
+    const tool = metadata.find((item) => item.id === id);
+    assert.ok(tool, "missing calculator metadata: " + id);
+    assert.ok(tool.seo.description.length >= 80);
+    assert.equal(tool.seo.steps.length, 3);
+    assert.equal(tool.seo.features.length, 3);
+    assert.equal(tool.seo.faqs.length, 3);
+  }
+  assert.match(metadata.find((item) => item.id === "compound").seo.description, /compounding frequency/i);
+  assert.match(metadata.find((item) => item.id === "emi").seo.description, /monthly payment/i);
 });
