@@ -6,6 +6,17 @@ Last updated: 2026-10-30
 > **Authoritative status note (2026-10-30):** This section is the current source of truth. Older handover notes and phase descriptions further below are historical records; where they say work is pending or unmerged, this current status supersedes that wording.
 
 
+## Phase 14 — Image & Media Tools (merged)
+- Work branch: `phase14-image-media-tools`; merged through [PR #34](https://github.com/apex-global-labs/online-tools-hub/pull/34).
+- Production merge commit: `29e7887e340b111480feccdf53ddfc3eb7db15e5`.
+- Adds **Image Cropper**, **Image Format Converter** and **Base64 to Image**. Catalogue total: **36 tools**. Existing Image to Base64, Image Resizer and Image Compressor were retained; no duplicate tools were added.
+- Image Cropper accepts local PNG/JPEG/WebP files up to 10 MB, supports pixel-coordinate crop rectangles, validates crop bounds, and exports PNG/JPEG/WebP. Crop output is limited to 4096 × 4096; source image safety is bounded at 40 megapixels and 12,000 px per side.
+- Image Format Converter supports PNG/JPEG/WebP output, quality selection for JPEG/WebP, and validates the browser's actual output MIME type. Transparent pixels are filled white for JPEG because JPEG has no transparency support. Source images are bounded to 4096 px per side and 40 megapixels.
+- Base64 to Image accepts image data URLs or raw Base64, verifies actual PNG/JPEG/WebP/GIF file signatures, rejects mismatched/unsupported data, limits encoded input to 15 MB and decoded images to 10 MB, and guards against images above 40 megapixels / 12,000 px per side.
+- All three tools process data locally in the browser; no image upload endpoint, backend, paid service or new third-party runtime dependency was added. Includes tool-specific SEO metadata, FAQ content, responsive styles and Phase 14 regression tests.
+- PR regression workflow **41041421984** passed: **57 tests, 57 passed, 0 failed**. JavaScript syntax checks passed.
+- GitHub Pages deployment after the merge is being verified separately. Real-browser QA remains pending; do not claim preview, clipboard, download, Clear, mobile layout or theme behavior is browser-tested until manually checked.
+ 
 ## Phase 13 — Advanced Converters & Math Tools (merged)
 - Work branch: `phase13-advanced-converters`; merged through [PR #33](https://github.com/apex-global-labs/online-tools-hub/pull/33).
 - Production merge commit: `651551d57ce958386228cd356b53812f8a648200`.
@@ -46,22 +57,16 @@ Last updated: 2026-10-30
 
 ## Current production status — 2026-10-30
 
-- Production branch: `main`; latest application release is Phase 13, merged through [PR #33](https://github.com/apex-global-labs/online-tools-hub/pull/33), commit `651551d57ce958386228cd356b53812f8a648200`.
-- Phase 6 SEO content, QR Studio, Phase 9 audit, Phase 10 additions, Phase 11 Text & Writing Tools, Phase 12 Calculator & Finance Tools and Phase 13 Advanced Converters are merged.
-- Catalogue status: **33 tools**. `app.js` and `js/tools-data.json` contain matching unique tool IDs; all 33 have tool-specific SEO metadata and unique slugs.
-- Phase 10 added Unix Timestamp Converter, Extra Spaces Remover, HTML Entity Encoder / Decoder, Image Resizer and Image Compressor.
-- Phase 11 added Lorem Ipsum Generator and improved Unicode-aware character totals in Text Case Converter and Word & Character Counter, plus whitespace-only cleanup in Extra Spaces Remover. Existing text tools were retained without duplicates.
-- Phase 12 added Percentage Calculator, Compound Interest Calculator and EMI / Loan Calculator. Formulas are local, bounded and covered by automated tests; no live rates are used by these three calculators.
-- Phase 13 added Area Converter, Bangladesh Land Unit Converter, Time Zone Converter and Number to Words Converter (English and Bangla). Conversion helpers are browser-local; Bangladesh land-unit assumptions are stated in the UI, and IANA daylight-saving transitions are handled.
-- Unicode ↔ Bijoy conversion is explicitly excluded.
-- Phase 12 PR regression run **41035773406** and post-merge `main` regression run **41035951034** passed: **40/40 tests**.
-- Phase 13 PR regression run **41039526675** and post-merge `main` regression run **41039590292** passed: **52/52 tests**; JavaScript syntax checks passed.
-- GitHub Pages build/deployment workflow **41039589834** built the site artifact successfully; final deployment completion remains separately verified.
-- GitHub Pages build/deployment run **41035949638** completed successfully after the Phase 12 merge.
-- No new backend, paid service or third-party runtime dependency was added for Phase 12.
-- **Real-browser interaction QA remains pending for all 29 tools.** CI and deployment do not prove actual clipboard/download/Clear behavior, responsive layout, Day/Night rendering, route interactions or browser-console behavior.
+- Production branch: `main`; latest application release is Phase 14, merged through [PR #34](https://github.com/apex-global-labs/online-tools-hub/pull/34), commit `29e7887e340b111480feccdf53ddfc3eb7db15e5`.
+- Catalogue status: **36 tools**. `app.js` and `js/tools-data.json` contain matching unique tool IDs; all 36 have tool-specific SEO metadata and unique slugs.
+- Phases 6–14 are merged, including QR Studio, image utilities, text tools, calculators, advanced converters and the three Phase 14 image/media tools.
+- Phase 14 adds Image Cropper, Image Format Converter and Base64 to Image. Existing Image to Base64, Image Resizer and Image Compressor remain in place without duplicates.
+- Phase 14 PR regression run **41041421984** passed: **57/57 tests**, with JavaScript syntax checks passing.
+- Phase 13 PR regression run **41039526675** and post-merge `main` run **41039590292** passed: **52/52 tests**. The latest Pages deployment run for the pre-Phase-14 production state, **41039728937**, completed successfully.
+- Phase 14 Pages deployment is triggered by the merge and must be confirmed before calling the new tools live.
+- Browser QA remains pending for all 36 tools. Automated tests and successful deployment do not prove actual browser behavior for image preview, image download, Copy/Clear, responsive layout, Day/Night rendering, route navigation or browser-console errors.
 - Phase 4 Escape-key issue remains deferred.
-
+ 
 ## Project goal
 Build a modern, fast, mobile-friendly multi-utility website with a light/night theme, search and category navigation, and browser-side processing where practical. Keep hosting free using GitHub Pages. The owner is a beginner, so changes should be incremental, easy to verify, and avoid breaking working tools.
 
