@@ -57,6 +57,7 @@
     const summary = $("#pdfMergeSummary");
     const mergeButton = $("#pdfMergeRun");
     const downloadButton = $("#pdfMergeDownload");
+    const fileInput = $("#pdfMergeFiles");
     if (!list || !summary || !mergeButton || !downloadButton) return;
 
     if (!state.items.length) {
@@ -89,6 +90,8 @@
     const files = state.items.length;
     const pages = state.items.reduce((sum, item) => sum + item.pages.length, 0);
     summary.textContent = files + " PDF file(s) · " + pages + " total page(s) · " + selectedCount() + " selected · " + (totalBytes() / 1024 / 1024).toFixed(2) + " MB";
+    if (fileInput) fileInput.disabled = state.busy;
+    list.querySelectorAll("button,input").forEach((control) => { control.disabled = state.busy; });
     mergeButton.disabled = state.busy || selectedCount() === 0;
     downloadButton.disabled = state.busy || !state.resultUrl;
     if (state.busy) mergeButton.textContent = "Processing…";
@@ -272,6 +275,7 @@
   }
 
   function clear() {
+    if (state.busy) { status("Wait for the current PDF task to finish before clearing.", "error"); return; }
     if (state.resultUrl) URL.revokeObjectURL(state.resultUrl);
     state.items = [];
     state.resultUrl = null;
