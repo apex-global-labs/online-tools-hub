@@ -13,6 +13,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `js/router-bridge.js` — bridge from modular routes to the existing tool workspace
 - `css/phase10-image-tools.css` — responsive previews for the image utilities
 - `css/phase14-image-tools.css` — cropper, format-converter and Base64 image preview refinements
+- `css/phase15-developer-seo.css` — CSS gradient preview styling
 - `css/phase12-calculators.css` — responsive finance calculator refinements
 - `js/finance-calculators.js` — bounded, reusable percentage, compound-interest and EMI formula helpers
 - `js/advanced-converters.js` — local area, Bangladesh land-unit, time-zone and number-to-words helpers
