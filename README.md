@@ -89,7 +89,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Number to Words Converter (English and Bangla)
 - Advanced PDF Merger — merge PDF files with page selection, file/page ordering and rotation
 - PDF Splitter — export selected PDF pages as separate files or a ZIP archive
-- URL Shortener — create shareable short links with an optional custom alias through Spoo.me's free API
+- URL Shortener — create shareable short links with an optional custom alias through Spoo.me's free API v1 (no API key required)
 - IP Address Finder & Lookup
 - URL Shortener
 
@@ -108,7 +108,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Search engines decide independently whether and how to crawl, index, and display the site. Inclusion in a sitemap does not guarantee indexing or rankings.
 
 ## Run locally
-Open `index.html` in a modern browser while connected to the internet. Tailwind CSS and `qr-code-styling` are loaded from CDNs. PDF tools load `pdf-lib` on demand; PDF Splitter loads JSZip only when downloading multiple page files as a ZIP. URL Shortener sends submitted destination URLs directly to Spoo.me; anonymous API use is currently limited to 5 links per minute and 50 per day.
+Open `index.html` in a modern browser while connected to the internet. Tailwind CSS and `qr-code-styling` are loaded from CDNs. PDF tools load `pdf-lib` on demand; PDF Splitter loads JSZip only when downloading multiple page files as a ZIP. URL Shortener sends submitted destination URLs directly to Spoo.me; anonymous API use is currently limited to 20 requests per minute and 1,000 per day.
 
 ## Deploy with GitHub Pages
 1. Open repository **Settings → Pages**.
