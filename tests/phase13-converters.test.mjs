@@ -55,7 +55,7 @@ test("number-to-words validates range, precision and language", () => {
 test("time-zone converter applies the source offset and formats the destination", () => {
   const result = tools.convertTimeZone("2026-01-15T12:00", "Asia/Dhaka", "UTC");
   assert.equal(result.utc, "2026-01-15T06:00:00.000Z");
-  assert.match(result.display, /15\/01\/2026|15\/01\/2026/);
+  assert.match(result.display, /15 January 2026/);
   assert.equal(result.ambiguous, false);
 });
 
