@@ -426,7 +426,7 @@ function wireTool(id){
  break;
  }
 
- case "whitespace": { {
+ case "whitespace": {
  const cleanWhitespace=()=>{
   const source=src();
   if(!source.trim()){setOutput("");message("Enter some text to clean.","error");return;}
@@ -442,7 +442,7 @@ function wireTool(id){
  break;
  }
 
- case "htmlentities": { {
+ case "htmlentities": {
  bind("encodeEntities",()=>{
   if(!src()){setOutput("");message("Enter text to encode.","error");return;}
   const area=document.createElement("textarea");
@@ -459,7 +459,7 @@ function wireTool(id){
  break;
  }
 
- case "imageresize": { {
+ case "imageresize": {
  let resizeUrl=null;
  const clearResize=()=>{
   if(resizeUrl)URL.revokeObjectURL(resizeUrl);
@@ -510,7 +510,7 @@ function wireTool(id){
  break;
  }
 
- case "imagecompress": { {
+ case "imagecompress": {
  let compressedUrl=null;
  const clearCompress=()=>{
   if(compressedUrl)URL.revokeObjectURL(compressedUrl);
