@@ -400,7 +400,7 @@ function toolMarkup(id){
  case "pdfmerge":return form(`
 <div class="pdf-merge-tool">
  <div class="pdf-merge-intro"><span class="pdf-merge-kicker">TOOLNEST DOCUMENT STUDIO</span><h3>Advanced PDF Merger</h3><p>Add multiple PDF files, arrange their order, choose individual pages, rotate pages and create one custom PDF. Files are processed locally in your browser.</p></div>
- <div class="pdf-merge-upload"><label class="field-label" for="pdfMergeFiles">Choose PDF files</label><input class="field" id="pdfMergeFiles" type="file" accept="application/pdf,.pdf" multiple><p class="muted text-sm">Up to 20 files · 50 MB per file · 200 MB total. Password-protected or damaged PDFs may not open.</p></div>
+ <div class="pdf-merge-upload" id="pdfMergeUpload"><label class="field-label" for="pdfMergeFiles">Choose PDF files</label><input class="field" id="pdfMergeFiles" type="file" accept="application/pdf,.pdf" multiple><p class="muted text-sm">Up to 20 files · 50 MB per file · 200 MB total. Password-protected or damaged PDFs may not open.</p></div>
  <div class="pdf-merge-summary" id="pdfMergeSummary" role="status" aria-live="polite">No PDF files added yet.</div>
  <div class="pdf-merge-list" id="pdfMergeList"><div class="pdf-merge-empty">Your PDF files and page controls will appear here.</div></div>
  <div class="pdf-merge-actions actions"><button type="button" class="btn-primary" id="pdfMergeRun" disabled>Merge Selected Pages</button><button type="button" class="btn-secondary" id="pdfMergeDownload" disabled>Download Merged PDF</button><button type="button" class="btn-secondary" id="pdfMergeClear">Clear All</button></div>
