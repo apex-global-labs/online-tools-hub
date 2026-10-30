@@ -62,16 +62,16 @@ Last updated: 2026-10-30
 - **Manual real-browser verification remains pending.** The project has no active automated browser E2E suite; verify representative guide URLs, mobile layout, internal links and tool launch in a real browser before claiming browser QA complete.
 - Sitemap inclusion does not guarantee Google indexing, search visibility or rankings. Search Console indexing status has not yet been confirmed.
 
-## SEO Phase 5 — Keyword Research & Search Intent Mapping (in progress)
+## SEO Phase 5 — Keyword Research & Search Intent Mapping (completed and merged)
 
-- Work branch: `seo/phase5-keyword-research`, based on latest verified `main` commit `e1ef843e5231ff8e7839412880150b3dd051ea8c`.
-- Audited the current 40-tool catalogue in `js/tools-data.json` and the 40 existing guide URL slugs; no tool URLs or runtime behavior are changed in this phase.
-- Added `SEO_KEYWORD_MAP.md`: one distinct primary keyword and exact target URL for each guide, plus secondary terms, long-tail query ideas, inferred intent, editorial priority and page-specific content guidance.
-- Documented close-topic ownership boundaries to reduce cannibalization across converters, image operations, Base64 directions, text tools, date/time tools and crawler files.
-- Research is qualitative. Search volume and keyword difficulty are explicitly **not measured**; no unsupported numeric estimates are used.
+- PR #46 merged into `main` at commit `2a70024660607d57d59efb3f533129d9a9a03027`; source changes are now part of the production branch.
+- Added `SEO_KEYWORD_MAP.md` covering all 40 existing tool-guide pages: one distinct primary keyword and exact target URL per guide, secondary terms, long-tail query ideas, inferred search intent, editorial priority and page-specific content guidance.
+- Documented close-topic ownership boundaries to reduce keyword cannibalization across converters, image operations, Base64 directions, text tools, date/time tools and crawler files.
+- Research is qualitative. Search volume and keyword difficulty are explicitly **not measured**; no unsupported numeric estimates are used. Revisit priorities with actual Search Console query data as it becomes available.
 - Added `tests/seo-keyword-map.test.mjs` to verify 40 rows, unique primary keywords, unique target URLs, exact slug-to-URL mapping, research caveats and cannibalization guidance.
-- Google Search Central guidance and qualitative review of current online-tool directories informed query wording; these sources do not establish volume or ranking difficulty.
-- Phase completion, CI, PR review, merge and post-merge deployment verification remain pending until checks pass.
+- PR regression workflow **41100077523** completed successfully (**success**).
+- The change is documentation and test-only; it does not alter runtime code, tool behavior, canonical URLs, router or sitemap. A new Pages deployment is not required to publish the keyword research document to the repository, and no new deployment is claimed for this phase.
+- Manual browser QA and Search Console indexing/performance checks remain separate follow-up tasks; this phase's completion does not imply that Google has indexed the pages or that rankings/traffic have improved.
 
 ## Phase 4 — On-Page SEO Optimization (completed and deployed)
 
