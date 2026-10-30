@@ -1271,7 +1271,7 @@
       "description": "Turn Base64 image data into a viewable image with ToolNest Base64 to Image. Paste an image data URL or raw Base64, preview the decoded image and download it locally in your browser.",
       "steps": [
         "Paste an image data URL or raw Base64 text into the input.",
-        "If you use raw Base64, select the image type only as a reference; the tool checks the actual file signature.",
+        "The tool checks the actual image file signature before displaying it.",
         "Decode the image, inspect its preview and download it."
       ],
       "features": [
