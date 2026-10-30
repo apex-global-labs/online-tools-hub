@@ -36,7 +36,7 @@ Last updated: 2026-10-30
   4. The previous project-state summary incorrectly described Phase 14 / 36 tools as the current production release. This authoritative section supersedes that historical text.
 - The complete Phase 17 change list is recorded in PR #39.
 - The existing GitHub Actions workflow now syntax-checks `js/ip-tools.js` and `js/router-bridge.js`; its existing test command automatically discovers the new release-audit test file.
-- Phase 17 branch CI and deployment checks are pending.
+- PR #39 regression workflow **41049822027** passed: **75 tests, 75 passed, 0 failed**; JavaScript syntax checks passed. GitHub Pages deployment for these changes will occur only after merge.
 - Manual browser verification is still required for representative tools, IP lookups, image previews/downloads, QR scanability, Copy/Clear behavior, routes, responsive layouts, themes and browser-console/network errors.
 - Do not describe the project as fully browser-QA-passed until those checks have actually been completed.
 
