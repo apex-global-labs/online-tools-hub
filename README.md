@@ -8,7 +8,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/phase2.css` — search/navigation styling, dark-mode contrast and animated sun/moon scene
 - `app.js` — tool catalogue, filters, workspace rendering, theme toggle and tool implementations
 - `js/live-search.js` — search autocomplete, keyboard navigation, category menu behavior and slash shortcut
-- `js/tools-data.json` — metadata for all 26 tools used by the modular hash router
+- `js/tools-data.json` — metadata for all 29 tools used by the modular hash router
 - `js/router.js` — route parsing/resolution
 - `js/router-bridge.js` — bridge from modular routes to the existing tool workspace
 - `css/phase10-image-tools.css` — responsive previews for the image utilities
@@ -23,7 +23,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Theme preference is saved when browser storage is available
 - Responsive layout and reduced-motion support for the decorative scene
 
-## Tool catalogue (26)
+## Tool catalogue (29)
 
 ### Text
 - Text Case Converter
@@ -61,7 +61,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 ### Utilities
 - Password Generator
 
-## Run locally
+## Calculator notes\n- Percentage, compound-interest and EMI calculations run locally in the browser. They are educational estimates, not financial advice or a lender quote. Compound interest assumes a single initial amount with no additional deposits; EMI assumes a fixed rate, monthly end-of-period payments and excludes fees, taxes and insurance.\n\n## Run locally
 Open `index.html` in a modern browser while connected to the internet. Tailwind CSS and `qr-code-styling` are loaded from CDNs. QR generation requires the QR library CDN to load.
 
 ## Deploy with GitHub Pages
