@@ -718,5 +718,185 @@
         }
       ]
     }
+  },
+  {
+    "id": "timestamp",
+    "title": "Unix Timestamp Converter",
+    "category": "Calculators",
+    "icon": "◷",
+    "slug": "unix-timestamp-converter",
+    "description": "Convert Unix timestamps to dates and dates to Unix time.",
+    "tagline": "Translate timestamps into readable dates",
+    "seo": {
+      "description": "Convert Unix timestamps in seconds or milliseconds to readable dates, or convert a local date and time back to Unix time. This free tool runs in your browser.",
+      "steps": [
+        "Enter a Unix timestamp and choose seconds or milliseconds.",
+        "Select Convert timestamp to view the corresponding date and time.",
+        "Or choose a local date and time, then select Convert date to get seconds and milliseconds."
+      ],
+      "features": [
+        "Supports Unix timestamps in seconds and milliseconds.",
+        "Converts local date and time values back to Unix timestamps.",
+        "Validates numeric input and supported JavaScript date range."
+      ],
+      "faqs": [
+        {
+          "question": "What is a Unix timestamp?",
+          "answer": "A Unix timestamp counts elapsed seconds since 1 January 1970 UTC. Some systems store milliseconds instead."
+        },
+        {
+          "question": "Should I choose seconds or milliseconds?",
+          "answer": "Most Unix timestamps use seconds and are around 10 digits; JavaScript timestamps commonly use milliseconds and are around 13 digits."
+        },
+        {
+          "question": "Does this tool use my local time zone?",
+          "answer": "Timestamp values represent UTC time. When converting a local date and time, your browser applies its current time zone."
+        }
+      ]
+    }
+  },
+  {
+    "id": "whitespace",
+    "title": "Extra Spaces Remover",
+    "category": "Text",
+    "icon": "↔",
+    "slug": "extra-spaces-remover",
+    "description": "Clean repeated spaces and unwanted blank lines from text.",
+    "tagline": "Tidy spacing in seconds",
+    "seo": {
+      "description": "Remove repeated spaces and tidy line spacing in text. Choose whether to trim line edges or remove blank lines. Text is processed locally in your browser.",
+      "steps": [
+        "Paste or type text into the input box.",
+        "Choose whether to trim each line or remove blank lines.",
+        "Select Clean text, then copy or download the cleaned result."
+      ],
+      "features": [
+        "Collapses repeated spaces and tabs within each line.",
+        "Optionally trims spaces at the start and end of each line.",
+        "Optionally removes blank lines while preserving the remaining order."
+      ],
+      "faqs": [
+        {
+          "question": "Does this tool change words?",
+          "answer": "No. It only adjusts whitespace characters according to the selected options."
+        },
+        {
+          "question": "Can I keep blank lines?",
+          "answer": "Yes. Leave Remove blank lines unchecked to preserve empty lines."
+        },
+        {
+          "question": "Is my text uploaded?",
+          "answer": "No. The cleanup runs locally in your browser."
+        }
+      ]
+    }
+  },
+  {
+    "id": "htmlentities",
+    "title": "HTML Entity Encoder / Decoder",
+    "category": "Developer",
+    "icon": "</>",
+    "slug": "html-entity-encoder-decoder",
+    "description": "Encode special characters as HTML entities or decode entities to text.",
+    "tagline": "Convert special characters safely",
+    "seo": {
+      "description": "Encode special characters into HTML entities or decode HTML entities back into readable text. This free browser-based developer utility processes content locally.",
+      "steps": [
+        "Paste text containing special characters or HTML entities.",
+        "Choose Encode HTML or Decode HTML.",
+        "Review and copy the converted output."
+      ],
+      "features": [
+        "Encodes characters such as ampersands, angle brackets and quotes.",
+        "Decodes common named and numeric HTML character references.",
+        "Uses a browser text-area context rather than inserting decoded markup into the page."
+      ],
+      "faqs": [
+        {
+          "question": "Why encode HTML characters?",
+          "answer": "Encoding characters such as angle brackets helps display them as text instead of having them interpreted as markup."
+        },
+        {
+          "question": "Does decoding HTML execute scripts?",
+          "answer": "No. The tool reads decoded text from a textarea value and does not insert it as active page markup."
+        },
+        {
+          "question": "Does it support numeric entities?",
+          "answer": "Yes. The browser's HTML character-reference parser supports common named and numeric references."
+        }
+      ]
+    }
+  },
+  {
+    "id": "imageresize",
+    "title": "Image Resizer",
+    "category": "Image",
+    "icon": "↗",
+    "slug": "image-resizer",
+    "description": "Resize a local image to custom pixel dimensions.",
+    "tagline": "Set image dimensions in pixels",
+    "seo": {
+      "description": "Resize a local PNG, JPEG or WebP image to custom pixel dimensions while optionally keeping its aspect ratio. Images are processed in your browser.",
+      "steps": [
+        "Choose a PNG, JPEG or WebP image under 10 MB.",
+        "Enter the target width and height in pixels and choose whether to keep the aspect ratio.",
+        "Select Resize image, preview the result and download it."
+      ],
+      "features": [
+        "Processes images locally in the browser.",
+        "Supports PNG, JPEG and WebP output.",
+        "Limits target dimensions to 4096 pixels per side."
+      ],
+      "faqs": [
+        {
+          "question": "Are my images uploaded?",
+          "answer": "No. Image resizing uses your browser's image and canvas features."
+        },
+        {
+          "question": "What is aspect ratio?",
+          "answer": "Aspect ratio is the relationship between an image's width and height. Keeping it prevents the image from appearing stretched."
+        },
+        {
+          "question": "What image sizes are supported?",
+          "answer": "This version accepts PNG, JPEG and WebP files up to 10 MB and limits output dimensions to 4096 by 4096 pixels."
+        }
+      ]
+    }
+  },
+  {
+    "id": "imagecompress",
+    "title": "Image Compressor",
+    "category": "Image",
+    "icon": "▤",
+    "slug": "image-compressor",
+    "description": "Reduce image file size with adjustable quality settings.",
+    "tagline": "Make image files lighter",
+    "seo": {
+      "description": "Compress a local JPEG, PNG or WebP image into JPEG or WebP with an adjustable quality setting. Processing stays in your browser.",
+      "steps": [
+        "Choose a PNG, JPEG or WebP image under 10 MB.",
+        "Choose JPEG or WebP output and adjust the quality slider.",
+        "Select Compress image, compare the file sizes and download the result."
+      ],
+      "features": [
+        "Processes images locally without uploading them.",
+        "Supports JPEG and WebP output with adjustable quality.",
+        "Shows the original and compressed file sizes."
+      ],
+      "faqs": [
+        {
+          "question": "Does lower quality always mean a smaller file?",
+          "answer": "Usually, but the final size depends on image content, dimensions and output format."
+        },
+        {
+          "question": "Why does the compressed image look different?",
+          "answer": "JPEG and WebP are lossy formats. Lower quality settings can reduce detail, so review the preview before using the result."
+        },
+        {
+          "question": "Is the original image changed?",
+          "answer": "No. The tool creates a new downloadable file and leaves your original file unchanged."
+        }
+      ]
+    }
   }
 ]
