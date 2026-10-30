@@ -12,16 +12,17 @@
   function calculatePercentage(mode, first, second) {
     finiteNumber(first, "First value");
     finiteNumber(second, "Second value");
-    if (mode === "of") return (first / 100) * second;
-    if (mode === "is") {
+    let result;
+    if (mode === "of") result = (first / 100) * second;
+    else if (mode === "is") {
       if (second === 0) throw new RangeError("The second value cannot be zero for this calculation.");
-      return (first / second) * 100;
-    }
-    if (mode === "change") {
+      result = (first / second) * 100;
+    } else if (mode === "change") {
       if (first === 0) throw new RangeError("Percentage change is undefined when the starting value is zero.");
-      return ((second - first) / Math.abs(first)) * 100;
-    }
-    throw new RangeError("Choose a valid percentage calculation.");
+      result = ((second - first) / Math.abs(first)) * 100;
+    } else throw new RangeError("Choose a valid percentage calculation.");
+    if (!Number.isFinite(result)) throw new RangeError("The result is too large to calculate safely.");
+    return result;
   }
 
   function calculateCompoundInterest(principal, annualRatePercent, years, frequency) {
