@@ -12,7 +12,7 @@ test("Phase 5 map assigns one unique primary keyword and exact guide URL to all 
   assert.equal(rows.length, 43, "keyword map must contain exactly 43 tool rows");
   assert.equal(new Set(rows.map((row) => row[3].trim().toLowerCase())).size, 43,
     "each tool must have a distinct primary keyword");
-  assert.equal(new Set(rows.map((row) => row[5])).size, 42,
+  assert.equal(new Set(rows.map((row) => row[5])).size, 43,
     "each tool must own a unique target URL");
   for (const row of rows) {
     const tool = tools.find((item) => item.title === row[2].trim());
