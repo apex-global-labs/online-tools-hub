@@ -18,6 +18,9 @@ const tools = [
 {id:"forexcalc",name:"Forex Currency Converter",category:"Calculators",icon:"💱",description:"Convert major currencies using automatically retrieved reference exchange rates."},
 {id:"unit",name:"Unit Converter",category:"Calculators",icon:"↔",description:"Convert length, weight and temperature units."},
 {id:"age",name:"Age & Date Difference",category:"Calculators",icon:"▦",description:"Calculate age or the days between two dates."},
+{id:"percentage",name:"Percentage Calculator",category:"Calculators",icon:"％",description:"Calculate a percentage of a value, find what percentage one value is of another, or calculate percentage change."},
+{id:"compound",name:"Compound Interest Calculator",category:"Calculators",icon:"↗",description:"Estimate compound growth from an initial amount, annual interest rate, term and compounding frequency."},
+{id:"emi",name:"EMI / Loan Calculator",category:"Calculators",icon:"৳",description:"Estimate monthly loan instalments, total repayment and total interest from the loan amount, annual rate and term."},
 {id:"counter",name:"Word & Character Counter",category:"Text",icon:"¶",description:"Count words, characters, sentences and paragraphs."},
 {id:"duplines",name:"Duplicate Lines Remover",category:"Text",icon:"≡",description:"Remove repeated lines while preserving the first occurrence and original order."},
 {id:"timestamp",name:"Unix Timestamp Converter",category:"Calculators",icon:"◷",description:"Convert Unix timestamps to dates and dates to Unix time."},
@@ -60,7 +63,10 @@ const cardTaglines={
  htmlentities:"Convert special characters safely",
  imageresize:"Set image dimensions in pixels",
  imagecompress:"Make image files lighter",
- loremipsum:"Create realistic placeholder paragraphs"
+ loremipsum:"Create realistic placeholder paragraphs",
+ percentage:"Work out percentages in a few steps",
+ compound:"Explore compound growth over time",
+ emi:"Estimate monthly loan repayments"
 };
 
 function renderCards(){
@@ -354,6 +360,9 @@ function toolMarkup(id){
  case "forexcalc":return form(`${input("forexAmount","Amount","100","number")}<div class="grid gap-4 sm:grid-cols-2">${select("forexFrom","From currency",[["USD","USD — US Dollar"],["BDT","BDT — Bangladeshi Taka"],["EUR","EUR — Euro"],["GBP","GBP — British Pound"],["JPY","JPY — Japanese Yen"],["AUD","AUD — Australian Dollar"],["CAD","CAD — Canadian Dollar"],["CHF","CHF — Swiss Franc"],["NZD","NZD — New Zealand Dollar"],["INR","INR — Indian Rupee"],["SGD","SGD — Singapore Dollar"],["CNY","CNY — Chinese Yuan"],["PKR","PKR — Pakistani Rupee"],["AED","AED — UAE Dirham"],["SAR","SAR — Saudi Riyal"],["MYR","MYR — Malaysian Ringgit"],["THB","THB — Thai Baht"],["TRY","TRY — Turkish Lira"],["ZAR","ZAR — South African Rand"],["HKD","HKD — Hong Kong Dollar"]])}${select("forexTo","To currency",[["USD","USD — US Dollar"],["BDT","BDT — Bangladeshi Taka"],["EUR","EUR — Euro"],["GBP","GBP — British Pound"],["JPY","JPY — Japanese Yen"],["AUD","AUD — Australian Dollar"],["CAD","CAD — Canadian Dollar"],["CHF","CHF — Swiss Franc"],["NZD","NZD — New Zealand Dollar"],["INR","INR — Indian Rupee"],["SGD","SGD — Singapore Dollar"],["CNY","CNY — Chinese Yuan"],["PKR","PKR — Pakistani Rupee"],["AED","AED — UAE Dirham"],["SAR","SAR — Saudi Riyal"],["MYR","MYR — Malaysian Ringgit"],["THB","THB — Thai Baht"],["TRY","TRY — Turkish Lira"],["ZAR","ZAR — South African Rand"],["HKD","HKD — Hong Kong Dollar"]])}</div><div class="actions">${btn("convertCurrency","Convert currency")}${btn("swapCurrencies","Swap currencies",false)}${btn("copy","Copy result",false)}</div>${out()}<p class="muted text-sm">Uses reference exchange rates retrieved online; rates are generally updated daily and may differ from your broker's executable Forex quotes. For information only, not trading advice. Rate source: <a href="https://www.exchangerate-api.com/docs/free" target="_blank" rel="noopener noreferrer">ExchangeRate-API</a>.</p>`);
  case "unit":return form(`${select("unitType","Conversion type",[["length","Length"],["weight","Weight"],["temperature","Temperature"]])}<div class="grid gap-4 sm:grid-cols-3">${input("unitValue","Value","1","number")}${select("unitFrom","From",[])}${select("unitTo","To",[])}</div><div class="actions">${btn("convert","Convert")}${btn("copy","Copy result",false)}</div>${out()}`);
  case "age":return form(`<div class="grid gap-4 sm:grid-cols-2">${input("dateA","Date of birth / start date","","date")}${input("dateB","End date (blank = today)","","date")}</div><div class="actions">${btn("calculate","Calculate")}${btn("copy","Copy result",false)}</div>${out()}`);
+ case "percentage":return form(`<p class="muted text-sm">Choose a calculation, enter two values and calculate. Results are mathematical estimates.</p>${select("percentageMode","Calculation",[[ "of","What is X% of Y?" ],[ "is","X is what percent of Y?" ],[ "change","Percentage change from X to Y" ]])}<div class="grid gap-4 sm:grid-cols-2">${input("percentageFirst","First value","20","number")}${input("percentageSecond","Second value","250","number")}</div><div class="actions">${btn("calculatePercentage","Calculate percentage")}${btn("copy","Copy result",false)}</div>${out()}<p class="muted text-sm">For percentage change, a zero starting value has no defined percentage change.</p>`);
+ case "compound":return form(`<p class="muted text-sm">Estimate how an initial amount grows when interest is added to the balance at regular intervals. This calculator does not include additional deposits, fees or taxes.</p>${input("compoundPrincipal","Initial amount (BDT)","10000","number")}<div class="grid gap-4 sm:grid-cols-2">${input("compoundRate","Annual interest rate (%)","8","number")}${input("compoundYears","Time (years)","5","number")}</div>${select("compoundFrequency","Compounding frequency",[[ "12","Monthly (12 times/year)" ],[ "4","Quarterly (4 times/year)" ],[ "2","Half-yearly (2 times/year)" ],[ "1","Yearly (1 time/year)" ],[ "365","Daily (365 times/year)" ]])}<div class="actions">${btn("calculateCompound","Calculate compound interest")}${btn("copy","Copy result",false)}</div>${out()}<p class="muted text-sm">Uses a nominal annual rate compounded at the selected frequency. Actual products may use different terms and day-count conventions.</p>`);
+ case "emi":return form(`<p class="muted text-sm">Estimate a fixed monthly instalment for a reducing-balance loan. Enter the principal, annual interest rate and repayment period.</p>${input("emiPrincipal","Loan amount (BDT)","500000","number")}<div class="grid gap-4 sm:grid-cols-2">${input("emiRate","Annual interest rate (%)","10","number")}${input("emiMonths","Loan term (months)","60","number")}</div><div class="actions">${btn("calculateEmi","Calculate EMI")}${btn("copy","Copy result",false)}</div>${out()}<p class="muted text-sm">Assumes a fixed annual rate divided into monthly periods, equal end-of-month payments and no fees, insurance, taxes or rate changes.</p>`);
  case "timestamp":return form(input("timestampValue","Unix timestamp","1760000000")+select("timestampUnit","Timestamp unit",[["seconds","Seconds"],["milliseconds","Milliseconds"]])+input("localDateTime","Local date and time","","datetime-local") + '<div class="actions">' + btn("convertTimestamp","Convert timestamp") + btn("convertDate","Convert date",false) + btn("copy","Copy result",false) + '</div>' + out() + '<p class="muted text-sm">Unix timestamps represent UTC time. Local date conversion uses your browser time zone.</p>');
  case "loremipsum":return form('<div class="grid gap-4 sm:grid-cols-2"><div><label class="field-label" for="loremParagraphs">Paragraphs (1–10)</label><input class="field" id="loremParagraphs" type="number" min="1" max="10" step="1" placeholder="3"></div>'+select("loremSentences","Sentences per paragraph",[["3","3 sentences"],["1","1 sentence"],["2","2 sentences"],["4","4 sentences"],["5","5 sentences"],["6","6 sentences"],["7","7 sentences"],["8","8 sentences"]])+'</div><div class="checkrow"><label><input id="loremStartStandard" type="checkbox" checked> Start with the classic Lorem ipsum opening</label></div><div class="actions">'+btn("generateLorem","Generate Lorem Ipsum")+btn("copy","Copy result",false)+'</div>'+out()+'<p class="muted text-sm">Generate up to 10 paragraphs with 1–8 sentences per paragraph. Text is created locally in your browser.</p>');
  case "whitespace":return form(textarea("sourceText","Text to clean")+'<div class="checkrow"><label><input id="trimWhitespaceLines" type="checkbox" checked> Trim each line</label><label><input id="removeBlankWhitespaceLines" type="checkbox"> Remove blank lines</label></div><div class="actions">' + btn("cleanWhitespace","Clean text") + btn("copy","Copy result",false) + '</div>' + out());
@@ -428,6 +437,57 @@ function wireTool(id){
  break;
  }
 
+ case "percentage": {
+ const finance=window.ToolNestFinance;
+ const fmt=value=>new Intl.NumberFormat("en-US",{maximumFractionDigits:4}).format(value);
+ bind("calculatePercentage",()=>{
+  const firstRaw=$("#percentageFirst").value.trim(),secondRaw=$("#percentageSecond").value.trim();
+  const first=Number(firstRaw),second=Number(secondRaw),mode=$("#percentageMode").value;
+  if(!firstRaw||!secondRaw||!Number.isFinite(first)||!Number.isFinite(second)){message("Enter two valid numbers.", "error");return;}
+  try{
+   const result=finance.calculatePercentage(mode,first,second);
+   const text=mode==="of"?first+"% of "+fmt(second)+" = "+fmt(result):
+    mode==="is"?fmt(first)+" is "+fmt(result)+"% of "+fmt(second):
+    "Percentage change from "+fmt(first)+" to "+fmt(second)+" = "+fmt(result)+"%";
+   setOutput(text);
+   message("Percentage calculated.");
+  }catch(error){message(error.message||"Could not calculate this percentage.","error");}
+ });
+ bind("copy",()=>copyOutput());
+ break;
+ }
+ case "compound": {
+ const finance=window.ToolNestFinance;
+ const money=value=>"BDT "+new Intl.NumberFormat("en-BD",{minimumFractionDigits:2,maximumFractionDigits:2}).format(value);
+ bind("calculateCompound",()=>{
+  const rawPrincipal=$("#compoundPrincipal").value.trim(),rawRate=$("#compoundRate").value.trim(),rawYears=$("#compoundYears").value.trim();
+  const principal=Number(rawPrincipal),rate=Number(rawRate),years=Number(rawYears),frequency=Number($("#compoundFrequency").value);
+  if(!rawPrincipal||!rawRate||!rawYears||![principal,rate,years,frequency].every(Number.isFinite)){message("Enter valid numbers for all fields.","error");return;}
+  try{
+   const result=finance.calculateCompoundInterest(principal,rate,years,frequency);
+   setOutput("Future value: "+money(result.amount)+"\nInitial amount: "+money(principal)+"\nCompound interest earned: "+money(result.interest)+"\nCompounding periods: "+result.periods);
+   message("Compound interest calculated.");
+  }catch(error){message(error.message||"Could not calculate compound interest.","error");}
+ });
+ bind("copy",()=>copyOutput());
+ break;
+ }
+ case "emi": {
+ const finance=window.ToolNestFinance;
+ const money=value=>"BDT "+new Intl.NumberFormat("en-BD",{minimumFractionDigits:2,maximumFractionDigits:2}).format(value);
+ bind("calculateEmi",()=>{
+  const rawPrincipal=$("#emiPrincipal").value.trim(),rawRate=$("#emiRate").value.trim(),rawMonths=$("#emiMonths").value.trim();
+  const principal=Number(rawPrincipal),rate=Number(rawRate),months=Number(rawMonths);
+  if(!rawPrincipal||!rawRate||!rawMonths||![principal,rate,months].every(Number.isFinite)){message("Enter valid numbers for all fields.","error");return;}
+  try{
+   const result=finance.calculateLoanEmi(principal,rate,months);
+   setOutput("Estimated monthly EMI: "+money(result.monthlyPayment)+"\nLoan amount: "+money(principal)+"\nTotal repayment: "+money(result.totalPayment)+"\nTotal interest: "+money(result.totalInterest)+"\nRepayment period: "+months+" months");
+   message("Loan instalment estimate calculated.");
+  }catch(error){message(error.message||"Could not calculate the loan instalment.","error");}
+ });
+ bind("copy",()=>copyOutput());
+ break;
+ }
  case "timestamp": {
  const timestampDate=ms=>new Date(ms);
  bind("convertTimestamp",()=>{
