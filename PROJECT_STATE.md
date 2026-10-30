@@ -97,6 +97,15 @@ Last updated: 2026-10-30
 - Source review confirmed all 40 static guide pages have synchronized unique metadata and visible practical tips; tool URLs, router behavior, canonical URLs and sitemap entries were retained.
 - Manual browser verification and Search Console indexing checks remain separate follow-up tasks.
 
+## Phase 7 — Speed & Performance SEO (in progress)
+
+- Scope: mobile performance, Core Web Vitals (LCP/INP/CLS), JavaScript/CSS and image optimization, and Google PageSpeed Insights checks on mobile and desktop.
+- Work branch: `phase7-speed-performance-seo`, based on verified main commit `5ec9bd22c449b09df47790add5138fca02f5940c`.
+- Initial code audit found a QR styling library downloaded on every visit despite being used only by the QR tool, plus a Google Fonts CSS import in the main stylesheet.
+- First low-risk optimization: load the QR library asynchronously only when QR generation is requested; remove the remote font CSS import and retain the existing system-font fallback stack.
+- Added source-level regression tests for deferred QR loading, request reuse/retry, and removal of the remote font import.
+- Baseline/final PageSpeed Insights scores and field Core Web Vitals are not yet measured. Do not claim score improvements or Phase 7 completion until Mobile/Desktop measurements and the remaining checks are recorded.
+
 ## Current application structure
 
 - `index.html`: homepage, navigation, search, tool grid and workspace.

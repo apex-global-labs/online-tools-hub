@@ -1,4 +1,22 @@
 
+let qrLibraryPromise = null;
+function loadQrLibrary(){
+ if(typeof QRCodeStyling==="function")return Promise.resolve();
+ if(qrLibraryPromise)return qrLibraryPromise;
+ qrLibraryPromise=new Promise((resolve,reject)=>{
+  const script=document.createElement("script");
+  script.src="https://unpkg.com/qr-code-styling@1.9.2/lib/qr-code-styling.js";
+  script.async=true;
+  script.onload=()=>{
+   if(typeof QRCodeStyling==="function")resolve();
+   else{qrLibraryPromise=null;reject(new Error("QR library did not initialize. Check your connection and reload."));}
+  };
+  script.onerror=()=>{qrLibraryPromise=null;reject(new Error("QR library could not be downloaded. Check your connection and try again."));};
+  document.head.appendChild(script);
+ });
+ return qrLibraryPromise;
+}
+
 const tools = [
 {id:"case",name:"Text Case Converter",category:"Text",icon:"Aa",description:"Convert text case and count words, characters and lines."},
 {id:"slug",name:"Slug Generator",category:"Text",icon:"🔗",description:"Create clean, URL-friendly slugs from text."},
@@ -1021,8 +1039,9 @@ function wireTool(id){
  const drawCanvas=async()=>{
   const token=++renderToken;
   if(!$("#qrText").value.trim()){say("Enter text or a URL first.",true);return false;}
-  if(typeof QRCodeStyling!=="function"){say("QR library did not load. Check your connection and reload.",true);return false;}
   try{
+   if(typeof QRCodeStyling!=="function")await loadQrLibrary();
+   if(token!==renderToken)return false;
    const settings=config();
    if(!qr){qr=new QRCodeStyling(settings);}else{qr.update(settings);}
    const svgBlob=await qr.getRawData("svg");
