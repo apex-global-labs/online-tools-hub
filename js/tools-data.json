@@ -934,5 +934,113 @@
         }
       ]
     }
+  },
+  {
+    "id": "percentage",
+    "title": "Percentage Calculator",
+    "category": "Calculators",
+    "icon": "％",
+    "slug": "percentage-calculator",
+    "description": "Calculate a percentage of a value, find what percentage one value is of another, or calculate percentage change.",
+    "tagline": "Calculate percentage values and changes",
+    "seo": {
+      "description": "Use this free percentage calculator to find a percentage of a number, work out what percentage one value is of another, or calculate percentage change between two values. All calculations run locally in your browser.",
+      "steps": [
+        "Choose whether to calculate a percentage of a value, find what percentage one value is of another, or calculate percentage change.",
+        "Enter the two numbers in the fields provided.",
+        "Select Calculate percentage to view the result, then copy or download it if needed."
+      ],
+      "features": [
+        "Three common percentage calculations in one simple tool.",
+        "Handles decimal values and clearly reports undefined zero-denominator cases.",
+        "Calculations run locally in your browser without sending entered numbers to a server."
+      ],
+      "faqs": [
+        {
+          "question": "How do I calculate X percent of Y?",
+          "answer": "Multiply Y by X and divide the result by 100. Choose the first calculation mode to do this automatically."
+        },
+        {
+          "question": "How do I find what percentage one number is of another?",
+          "answer": "Divide the first number by the second number and multiply by 100. The second number cannot be zero."
+        },
+        {
+          "question": "How is percentage change calculated?",
+          "answer": "Subtract the starting value from the ending value, divide by the starting value and multiply by 100. A zero starting value has no defined percentage change."
+        }
+      ]
+    }
+  },
+  {
+    "id": "compound",
+    "title": "Compound Interest Calculator",
+    "category": "Calculators",
+    "icon": "↗",
+    "slug": "compound-interest-calculator",
+    "description": "Estimate compound growth from an initial amount, annual interest rate, term and compounding frequency.",
+    "tagline": "Estimate compound growth over time",
+    "seo": {
+      "description": "Estimate compound interest with this free online calculator. Enter an initial amount, annual interest rate, time period and compounding frequency to see the projected future value and interest earned. Calculations stay in your browser.",
+      "steps": [
+        "Enter the initial amount, annual interest rate and time period in years.",
+        "Choose how often interest is compounded, such as monthly, quarterly or yearly.",
+        "Select Calculate compound interest to view the estimated future value and interest earned."
+      ],
+      "features": [
+        "Supports monthly, quarterly, half-yearly, yearly and daily compounding.",
+        "Shows the future value, starting amount and estimated interest separately.",
+        "Runs locally in your browser and does not upload the values you enter."
+      ],
+      "faqs": [
+        {
+          "question": "What is compound interest?",
+          "answer": "Compound interest is calculated on the initial amount and on interest added during earlier compounding periods."
+        },
+        {
+          "question": "Does compounding frequency affect the result?",
+          "answer": "Yes. With the same nominal annual rate and time period, more frequent compounding generally produces a slightly higher future value."
+        },
+        {
+          "question": "Does this calculator include monthly deposits or fees?",
+          "answer": "No. It estimates growth from a single initial amount and does not include extra deposits, fees, taxes or product-specific terms."
+        }
+      ]
+    }
+  },
+  {
+    "id": "emi",
+    "title": "EMI / Loan Calculator",
+    "category": "Calculators",
+    "icon": "৳",
+    "slug": "emi-loan-calculator",
+    "description": "Estimate monthly loan instalments, total repayment and total interest from the loan amount, annual rate and term.",
+    "tagline": "Estimate monthly loan instalments",
+    "seo": {
+      "description": "Estimate a loan's monthly instalment with this free EMI calculator. Enter the loan amount, annual interest rate and repayment term to see the estimated monthly payment, total repayment and total interest. The calculation runs locally in your browser.",
+      "steps": [
+        "Enter the loan amount, annual interest rate and repayment term in months.",
+        "Select Calculate EMI to estimate the fixed monthly instalment.",
+        "Review the estimated monthly payment, total repayment and total interest."
+      ],
+      "features": [
+        "Calculates equal monthly payments for a fixed-rate reducing-balance loan.",
+        "Shows monthly instalment, total repayment and total interest separately.",
+        "Supports zero-interest calculations and validates invalid loan terms."
+      ],
+      "faqs": [
+        {
+          "question": "What does EMI mean?",
+          "answer": "EMI means Equated Monthly Instalment: a regular monthly payment made toward a loan under the assumed repayment terms."
+        },
+        {
+          "question": "Does the EMI estimate include processing fees or insurance?",
+          "answer": "No. This estimate excludes fees, insurance, taxes, late charges and any changes in the interest rate."
+        },
+        {
+          "question": "Can I use the calculator for a zero-interest loan?",
+          "answer": "Yes. When the annual interest rate is zero, the calculator divides the loan amount evenly across the selected number of monthly payments."
+        }
+      ]
+    }
   }
 ]
