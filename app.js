@@ -24,7 +24,8 @@ const tools = [
 {id:"whitespace",name:"Extra Spaces Remover",category:"Text",icon:"↔",description:"Clean repeated spaces and unwanted blank lines from text."},
 {id:"htmlentities",name:"HTML Entity Encoder / Decoder",category:"Developer",icon:"</>",description:"Encode special characters as HTML entities or decode entities to text."},
 {id:"imageresize",name:"Image Resizer",category:"Image",icon:"↗",description:"Resize a local image to custom pixel dimensions."},
-{id:"imagecompress",name:"Image Compressor",category:"Image",icon:"▤",description:"Reduce image file size with adjustable quality settings."}
+{id:"imagecompress",name:"Image Compressor",category:"Image",icon:"▤",description:"Reduce image file size with adjustable quality settings."},
+{id:"loremipsum",name:"Lorem Ipsum Generator",category:"Text",icon:"¶",description:"Generate placeholder Lorem Ipsum text with adjustable paragraphs and sentences."}
 ];
 
 const $ = (s,root=document)=>root.querySelector(s);
@@ -58,7 +59,8 @@ const cardTaglines={
  whitespace:"Tidy spacing in seconds",
  htmlentities:"Convert special characters safely",
  imageresize:"Set image dimensions in pixels",
- imagecompress:"Make image files lighter"
+ imagecompress:"Make image files lighter",
+ loremipsum:"Create realistic placeholder paragraphs"
 };
 
 function renderCards(){
@@ -353,6 +355,7 @@ function toolMarkup(id){
  case "unit":return form(`${select("unitType","Conversion type",[["length","Length"],["weight","Weight"],["temperature","Temperature"]])}<div class="grid gap-4 sm:grid-cols-3">${input("unitValue","Value","1","number")}${select("unitFrom","From",[])}${select("unitTo","To",[])}</div><div class="actions">${btn("convert","Convert")}${btn("copy","Copy result",false)}</div>${out()}`);
  case "age":return form(`<div class="grid gap-4 sm:grid-cols-2">${input("dateA","Date of birth / start date","","date")}${input("dateB","End date (blank = today)","","date")}</div><div class="actions">${btn("calculate","Calculate")}${btn("copy","Copy result",false)}</div>${out()}`);
  case "timestamp":return form(input("timestampValue","Unix timestamp","1760000000")+select("timestampUnit","Timestamp unit",[["seconds","Seconds"],["milliseconds","Milliseconds"]])+input("localDateTime","Local date and time","","datetime-local") + '<div class="actions">' + btn("convertTimestamp","Convert timestamp") + btn("convertDate","Convert date",false) + btn("copy","Copy result",false) + '</div>' + out() + '<p class="muted text-sm">Unix timestamps represent UTC time. Local date conversion uses your browser time zone.</p>');
+ case "loremipsum":return form('<div class="grid gap-4 sm:grid-cols-2"><div><label class="field-label" for="loremParagraphs">Paragraphs (1–10)</label><input class="field" id="loremParagraphs" type="number" min="1" max="10" step="1" placeholder="3"></div>'+select("loremSentences","Sentences per paragraph",[["3","3 sentences"],["1","1 sentence"],["2","2 sentences"],["4","4 sentences"],["5","5 sentences"],["6","6 sentences"],["7","7 sentences"],["8","8 sentences"]])+'</div><div class="checkrow"><label><input id="loremStartStandard" type="checkbox" checked> Start with the classic Lorem ipsum opening</label></div><div class="actions">'+btn("generateLorem","Generate Lorem Ipsum")+btn("copy","Copy result",false)+'</div>'+out()+'<p class="muted text-sm">Generate up to 10 paragraphs with 1–8 sentences per paragraph. Text is created locally in your browser.</p>');
  case "whitespace":return form(textarea("sourceText","Text to clean")+'<div class="checkrow"><label><input id="trimWhitespaceLines" type="checkbox" checked> Trim each line</label><label><input id="removeBlankWhitespaceLines" type="checkbox"> Remove blank lines</label></div><div class="actions">' + btn("cleanWhitespace","Clean text") + btn("copy","Copy result",false) + '</div>' + out());
  case "htmlentities":return form(textarea("sourceText","Text or HTML entities")+'<div class="actions">' + btn("encodeEntities","Encode HTML") + btn("decodeEntities","Decode HTML",false) + btn("copy","Copy result",false) + '</div>' + out() + '<p class="muted text-sm">Decoded content is returned as plain text; it is not executed as HTML.</p>');
  case "imageresize":return form('<div><label class="field-label" for="resizeFile">Choose image (PNG, JPEG or WebP; max 10 MB)</label><input class="field" id="resizeFile" type="file" accept="image/png,image/jpeg,image/webp"></div><div class="grid gap-4 sm:grid-cols-2">' + input("resizeWidth","Width (px)","800","number") + input("resizeHeight","Height (px)","600","number") + '</div><label><input id="resizeKeepRatio" type="checkbox" checked> Keep aspect ratio</label>' + select("resizeFormat","Output format",[["image/png","PNG"],["image/jpeg","JPEG"],["image/webp","WebP"]]) + '<div class="actions">' + btn("resizeImage","Resize image") + btn("clearImage","Clear image",false) + '</div>' + out() + '<div id="imageResultPreview" class="image-tool-preview" hidden></div><p class="muted text-sm">Images are processed locally. Maximum output dimension: 4096 × 4096 pixels.</p>');
@@ -402,6 +405,29 @@ function wireTool(id){
  const src=()=>$("#sourceText")?.value??"";
  switch(id){
 
+ case "loremipsum": {
+ const words="lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo consequat duis aute irure dolor reprehenderit voluptate velit esse cillum fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt culpa qui officia deserunt mollit anim id est laborum".split(" ");
+ const opening="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+ bind("generateLorem",()=>{
+  const rawParagraphs=$("#loremParagraphs").value.trim();
+  const paragraphs=rawParagraphs?Number(rawParagraphs):3;
+  const sentences=Number($("#loremSentences").value);
+  if(!Number.isInteger(paragraphs)||paragraphs<1||paragraphs>10){message("Choose between 1 and 10 paragraphs.","error");return;}
+  if(!Number.isInteger(sentences)||sentences<1||sentences>8){message("Choose between 1 and 8 sentences per paragraph.","error");return;}
+  const useOpening=$("#loremStartStandard").checked;
+  const makeSentence=()=>{
+   const length=8+Math.floor(Math.random()*9);
+   const phrase=Array.from({length},()=>words[Math.floor(Math.random()*words.length)]).join(" ");
+   return phrase.charAt(0).toUpperCase()+phrase.slice(1)+".";
+  };
+  const result=Array.from({length:paragraphs},(_,paragraphIndex)=>Array.from({length:sentences},(_,sentenceIndex)=>useOpening&&paragraphIndex===0&&sentenceIndex===0?opening:makeSentence()).join(" ")).join("\n\n");
+  setOutput(result);
+  message("Generated "+paragraphs+" paragraph(s).");
+ });
+ bind("copy",()=>copyOutput());
+ break;
+ }
+
  case "timestamp": {
  const timestampDate=ms=>new Date(ms);
  bind("convertTimestamp",()=>{
@@ -429,7 +455,7 @@ function wireTool(id){
  case "whitespace": {
  const cleanWhitespace=()=>{
   const source=src();
-  if(!source.trim()){setOutput("");message("Enter some text to clean.","error");return;}
+  if(!source.length){setOutput("");message("Enter some text to clean.","error");return;}
   let lines=source.split(/\r?\n/);
   if($("#trimWhitespaceLines").checked)lines=lines.map(line=>line.replace(/[ \t]+/g," ").trim());
   else lines=lines.map(line=>line.replace(/[ \t]{2,}/g," "));
@@ -561,7 +587,9 @@ function wireTool(id){
  bind("sentence",()=>setOutput(src().toLowerCase().replace(/(^\s*\p{L}|[.!?]\s+\p{L})/gu,m=>m.toUpperCase())));
  bind("title",()=>setOutput(src().toLowerCase().replace(/\b\p{L}/gu,m=>m.toUpperCase())));
  bind("copy",()=>copyOutput());
- $("#sourceText").addEventListener("input",()=>{const s=src();$("#stats").textContent=`${s.trim()?s.trim().split(/\s+/).length:0} words · ${s.length} characters · ${s.length?s.split(/\n/).length:0} lines`;});
+ const updateCaseStats=()=>{const s=src(),trimmed=s.trim();$("#stats").textContent=(trimmed?trimmed.split(/\s+/).length:0)+" words · "+Array.from(s).length+" characters · "+(s?s.split(/\r?\n/).length:0)+" lines";};
+ $("#sourceText").addEventListener("input",updateCaseStats);
+ updateCaseStats();
  break;
 
  case "duplines":
@@ -584,13 +612,12 @@ function wireTool(id){
  break;
 
  case "counter":
- const count=()=>{const s=src(),trim=s.trim();const summary=`Words: ${trim?trim.split(/\s+/).length:0}\nCharacters (with spaces): ${s.length}\nCharacters (without spaces): ${s.replace(/\s/g,"").length}\nSentences: ${(s.match(/[.!?]+(?=\s|$)/g)||[]).length}\nParagraphs: ${trim?trim.split(/\n\s*\n/).length:0}`;setOutput(summary);$("#stats").textContent=summary.replace(/\n/g," · ");};
+ const count=()=>{const s=src(),trim=s.trim();const summary="Words: "+(trim?trim.split(/\s+/).length:0)+"\nCharacters (with spaces): "+Array.from(s).length+"\nCharacters (without spaces): "+Array.from(s.replace(/\s/g,"")).length+"\nSentences: "+(s.match(/[.!?]+(?=\s|$)/g)||[]).length+"\nParagraphs: "+(trim?trim.split(/\n\s*\n/).length:0);setOutput(summary);$("#stats").textContent=summary.replace(/\n/g," · ");};
  bind("count",count);
  bind("copy",()=>copyOutput());
  $("#sourceText").addEventListener("input",count);
  count();
  break;
-
  case "base64":
  bind("encode",()=>setOutput(btoa(unescape(encodeURIComponent(src())))));
  bind("decode",()=>{try{setOutput(decodeURIComponent(escape(atob(src().trim()))));message("Decoded successfully.");}catch{message("Invalid Base64 input or unsupported data.","error");}});
