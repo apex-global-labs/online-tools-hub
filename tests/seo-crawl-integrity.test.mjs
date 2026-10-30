@@ -9,7 +9,7 @@ const sitemap = read("../sitemap.xml");
 const directory = read("../tools/index.html");
 const homepage = read("../index.html");
 
-const locs = [...sitemap.matchAll(/<loc>([^<]+)<\\/loc>/g)].map((match) => match[1]);
+const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
 const expectedUrls = [
   site,
   site + "tools/",
@@ -17,8 +17,8 @@ const expectedUrls = [
 ];
 
 test("sitemap is validly structured for the complete canonical page set", () => {
-  assert.match(sitemap, /^<\\?xml version="1\\.0" encoding="UTF-8"\\?>/);
-  assert.match(sitemap, /<urlset xmlns="https:\\/\\/www\\.sitemaps\\.org\\/schemas\\/sitemap\\/0\\.9">/);
+  assert.ok(sitemap.startsWith('<?xml version="1.0" encoding="UTF-8"?>'));
+  assert.ok(sitemap.includes('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'));
   assert.equal((sitemap.match(/<url>/g) || []).length, 42);
   assert.equal(locs.length, 42, "each sitemap URL must have exactly one loc element");
   assert.equal(new Set(locs).size, locs.length, "sitemap URLs must be unique");
@@ -45,7 +45,7 @@ test("every sitemap URL maps to a real, canonical repository page", () => {
       "guide canonical does not match its sitemap URL: " + tool.slug);
     assert.match(guide, /<meta name="robots" content="index,follow">/i,
       "guide must not be blocked by a noindex directive: " + tool.slug);
-    assert.equal((guide.match(/<h1\\b/gi) || []).length, 1,
+    assert.equal((guide.match(/<h1\b/gi) || []).length, 1,
       "guide must have exactly one H1: " + tool.slug);
     assert.ok(guide.includes(site), "guide must link to the canonical site: " + tool.slug);
   }
@@ -58,7 +58,7 @@ test("homepage and tool directory provide crawlable discovery links to all guide
     assert.ok(directory.includes('href="' + guideUrl + '"'),
       "directory is missing a crawlable link to " + tool.slug);
   }
-  assert.match(directory, /<a href="https:\\/\\/apex-global-labs\\.github\\.io\\/online-tools-hub\\/">Home<\\/a>/);
+  assert.ok(directory.includes('<a href="' + site + '">Home</a>'));
 });
 
 test("each guide links back to the directory and its matching interactive workspace", () => {
