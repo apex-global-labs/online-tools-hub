@@ -6,6 +6,14 @@ Last updated: 2026-10-30
 > **Authoritative status note (2026-10-30):** This section is the current source of truth. Older handover notes and phase descriptions further below are historical records; where they say work is pending or unmerged, this current status supersedes that wording.
 
 
+## Phase 12 — Calculator & Finance Tools (in progress)
+- Work branch: `phase12-finance-calculators`; based on the verified 26-tool `main` catalogue.
+- Adds Percentage Calculator, Compound Interest Calculator and EMI / Loan Calculator; total catalogue target is **29 tools**.
+- Financial calculations are local, deterministic estimates with explicit input bounds and zero-rate handling. EMI uses a fixed-rate reducing-balance formula; compound interest assumes a fixed nominal annual rate and selected compounding frequency.
+- No exchange-rate API, backend, paid service or new third-party runtime dependency is required for these three calculators.
+- Regression tests cover known percentage, compound-interest and EMI examples, zero-interest cases, invalid denominators, invalid rates, tenure/frequency bounds and overflow guards.
+- Do not merge until the full Node regression suite and JavaScript syntax checks pass. Pages deployment and real-browser QA must be checked separately.
+
 ## Phase 11 — Text & Writing Tools (merged)
 - Work branch: `phase11-text-writing`; merged to `main` through PR #26. Verification-state documentation was finalized through PR #27.
 - Phase 11 adds **Lorem Ipsum Generator** as the 26th tool. Existing Text Diff Checker, Word & Character Counter, Text Case Converter and Extra Spaces Remover are retained; no duplicate versions are introduced.
