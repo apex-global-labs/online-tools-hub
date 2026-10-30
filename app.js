@@ -16,6 +16,9 @@ const tools = [
 {id:"qr",name:"QR Code Generator",category:"Image",icon:"▦",description:"Generate a QR code for text or a URL."},
 {id:"color",name:"Color Converter",category:"Image",icon:"◉",description:"Convert HEX colors into RGB and HSL values."},
 {id:"forexcalc",name:"Forex Currency Converter",category:"Calculators",icon:"💱",description:"Convert major currencies using automatically retrieved reference exchange rates."},
+{id:"percentage",name:"Percentage Calculator",category:"Calculators",icon:"％",description:"Calculate percentages, find what percent one value is of another, and compare percentage changes."},
+{id:"compound",name:"Compound Interest Calculator",category:"Calculators",icon:"∑",description:"Estimate compound growth using principal, annual rate, time and compounding frequency."},
+{id:"emi",name:"EMI / Loan Calculator",category:"Calculators",icon:"৳",description:"Estimate monthly loan instalments, total repayment and total interest from loan terms."},
 {id:"unit",name:"Unit Converter",category:"Calculators",icon:"↔",description:"Convert length, weight and temperature units."},
 {id:"age",name:"Age & Date Difference",category:"Calculators",icon:"▦",description:"Calculate age or the days between two dates."},
 {id:"counter",name:"Word & Character Counter",category:"Text",icon:"¶",description:"Count words, characters, sentences and paragraphs."},
@@ -60,7 +63,10 @@ const cardTaglines={
  htmlentities:"Convert special characters safely",
  imageresize:"Set image dimensions in pixels",
  imagecompress:"Make image files lighter",
- loremipsum:"Create realistic placeholder paragraphs"
+ loremipsum:"Create realistic placeholder paragraphs",
+ percentage:"Work out percentages and percentage changes",
+ compound:"Estimate how savings grow with compounding",
+ emi:"Understand monthly instalments and loan cost"
 };
 
 function renderCards(){
@@ -351,9 +357,70 @@ function toolMarkup(id){
 
  case "meta":return form(`${input("pageTitle","Page title","My useful website")}${textarea("pageDescription","Meta description","A short and helpful description of this page.")}${input("pageUrl","Canonical URL","https://example.com","url")}<div class="actions">${btn("generate","Generate tags")}${btn("copy","Copy tags",false)}</div>${out()}`);
  case "color":return form(`<div class="grid gap-4 sm:grid-cols-2">${input("hex","HEX color","#6366f1")}<div><label class="field-label" for="colorPicker">Pick a color</label><input class="field h-12" id="colorPicker" type="color" value="#6366f1"></div></div><div class="actions">${btn("convert","Convert color")}${btn("copy","Copy values",false)}</div><div id="colorSwatch" class="h-16 rounded-xl border border-slate-200"></div>${out()}`);
+ case "percentage": {
+ const mode=$("#percentageMode"),firstLabel=$("#percentageFirstLabel"),secondLabel=$("#percentageSecondLabel");
+ const updateLabels=()=>{
+  const labels={
+   of:["Percentage (%)","Number"],
+   what:["Part","Whole"],
+   change:["Original value","New value"]
+  }[mode.value];
+  firstLabel.textContent=labels[0];secondLabel.textContent=labels[1];
+  $("#percentageFirst").placeholder=mode.value==="of"?"15":mode.value==="what"?"45":"100";
+  $("#percentageSecond").placeholder=mode.value==="of"?"200":mode.value==="what"?"300":"120";
+ };
+ mode.addEventListener("change",updateLabels);updateLabels();
+ bind("calculatePercentage",()=>{
+  const rawA=$("#percentageFirst").value.trim(),rawB=$("#percentageSecond").value.trim();
+  if(rawA===""||rawB===""){message("Enter both values before calculating.","error");return;}
+  try{
+   const result=ToolNestFinance.calculatePercentage(mode.value,Number(rawA),Number(rawB));
+   const fmt=value=>Number(value.toFixed(8)).toLocaleString("en-US");
+   if(result.mode==="of")setOutput(fmt(result.percentage)+"% of "+fmt(result.base)+" = "+fmt(result.result));
+   else if(result.mode==="what")setOutput(fmt(result.part)+" is "+fmt(result.result)+"% of "+fmt(result.whole));
+   else{
+    const direction=result.result>0?"increase":result.result<0?"decrease":"no change";
+    setOutput("Original value: "+fmt(result.original)+"\nNew value: "+fmt(result.current)+"\nDifference: "+fmt(result.difference)+"\nPercentage change: "+fmt(Math.abs(result.result))+"% "+direction);
+   }
+   message("Percentage calculated.");
+  }catch(error){message(error.message,"error");}
+ });
+ break;
+ }
+ case "compound": {
+ bind("calculateCompound",()=>{
+  const raw=$("#compoundPrincipal").value.trim(),rate=$("#compoundRate").value.trim(),years=$("#compoundYears").value.trim();
+  if(!raw||!rate||!years){message("Enter principal, annual rate and time.","error");return;}
+  try{
+   const result=ToolNestFinance.calculateCompoundInterest(Number(raw),Number(rate),Number(years),$("#compoundFrequency").value);
+   const currency=$("#compoundCurrency").value;
+   const fmt=value=>new Intl.NumberFormat("en-US",{style:"currency",currency,minimumFractionDigits:2,maximumFractionDigits:2}).format(value);
+   setOutput("Future value: "+fmt(result.amount)+"\nInitial principal: "+fmt(result.principal)+"\nCompound interest earned: "+fmt(result.interest)+"\nAnnual interest rate: "+result.annualRate+"%\nTime: "+result.years+" years\nCompounding: "+$("#compoundFrequency").selectedOptions[0].textContent);
+   message("Compound interest calculated.");
+  }catch(error){message(error.message,"error");}
+ });
+ break;
+ }
+ case "emi": {
+ bind("calculateEmi",()=>{
+  const raw=$("#emiPrincipal").value.trim(),rate=$("#emiRate").value.trim(),months=$("#emiMonths").value.trim();
+  if(!raw||!rate||!months){message("Enter loan amount, annual rate and tenure.","error");return;}
+  try{
+   const result=ToolNestFinance.calculateEmi(Number(raw),Number(rate),Number(months));
+   const currency=$("#emiCurrency").value;
+   const fmt=value=>new Intl.NumberFormat("en-US",{style:"currency",currency,minimumFractionDigits:2,maximumFractionDigits:2}).format(value);
+   setOutput("Monthly EMI: "+fmt(result.monthlyPayment)+"\nLoan amount: "+fmt(result.principal)+"\nTotal interest: "+fmt(result.totalInterest)+"\nTotal repayment: "+fmt(result.totalPayment)+"\nTenure: "+result.months+" months\nAnnual interest rate: "+result.annualRate+"%");
+   message("EMI calculated.");
+  }catch(error){message(error.message,"error");}
+ });
+ break;
+ }
  case "forexcalc":return form(`${input("forexAmount","Amount","100","number")}<div class="grid gap-4 sm:grid-cols-2">${select("forexFrom","From currency",[["USD","USD — US Dollar"],["BDT","BDT — Bangladeshi Taka"],["EUR","EUR — Euro"],["GBP","GBP — British Pound"],["JPY","JPY — Japanese Yen"],["AUD","AUD — Australian Dollar"],["CAD","CAD — Canadian Dollar"],["CHF","CHF — Swiss Franc"],["NZD","NZD — New Zealand Dollar"],["INR","INR — Indian Rupee"],["SGD","SGD — Singapore Dollar"],["CNY","CNY — Chinese Yuan"],["PKR","PKR — Pakistani Rupee"],["AED","AED — UAE Dirham"],["SAR","SAR — Saudi Riyal"],["MYR","MYR — Malaysian Ringgit"],["THB","THB — Thai Baht"],["TRY","TRY — Turkish Lira"],["ZAR","ZAR — South African Rand"],["HKD","HKD — Hong Kong Dollar"]])}${select("forexTo","To currency",[["USD","USD — US Dollar"],["BDT","BDT — Bangladeshi Taka"],["EUR","EUR — Euro"],["GBP","GBP — British Pound"],["JPY","JPY — Japanese Yen"],["AUD","AUD — Australian Dollar"],["CAD","CAD — Canadian Dollar"],["CHF","CHF — Swiss Franc"],["NZD","NZD — New Zealand Dollar"],["INR","INR — Indian Rupee"],["SGD","SGD — Singapore Dollar"],["CNY","CNY — Chinese Yuan"],["PKR","PKR — Pakistani Rupee"],["AED","AED — UAE Dirham"],["SAR","SAR — Saudi Riyal"],["MYR","MYR — Malaysian Ringgit"],["THB","THB — Thai Baht"],["TRY","TRY — Turkish Lira"],["ZAR","ZAR — South African Rand"],["HKD","HKD — Hong Kong Dollar"]])}</div><div class="actions">${btn("convertCurrency","Convert currency")}${btn("swapCurrencies","Swap currencies",false)}${btn("copy","Copy result",false)}</div>${out()}<p class="muted text-sm">Uses reference exchange rates retrieved online; rates are generally updated daily and may differ from your broker's executable Forex quotes. For information only, not trading advice. Rate source: <a href="https://www.exchangerate-api.com/docs/free" target="_blank" rel="noopener noreferrer">ExchangeRate-API</a>.</p>`);
  case "unit":return form(`${select("unitType","Conversion type",[["length","Length"],["weight","Weight"],["temperature","Temperature"]])}<div class="grid gap-4 sm:grid-cols-3">${input("unitValue","Value","1","number")}${select("unitFrom","From",[])}${select("unitTo","To",[])}</div><div class="actions">${btn("convert","Convert")}${btn("copy","Copy result",false)}</div>${out()}`);
  case "age":return form(`<div class="grid gap-4 sm:grid-cols-2">${input("dateA","Date of birth / start date","","date")}${input("dateB","End date (blank = today)","","date")}</div><div class="actions">${btn("calculate","Calculate")}${btn("copy","Copy result",false)}</div>${out()}`);
+ case "percentage":return form('<div><label class="field-label" for="percentageMode">Calculation type</label><select class="field" id="percentageMode"><option value="of">What is X% of Y?</option><option value="what">X is what percent of Y?</option><option value="change">Percentage increase or decrease</option></select></div><div class="grid gap-4 sm:grid-cols-2"><div><label class="field-label" id="percentageFirstLabel" for="percentageFirst">Percentage (%)</label><input class="field" id="percentageFirst" type="number" step="any" inputmode="decimal" placeholder="15"></div><div><label class="field-label" id="percentageSecondLabel" for="percentageSecond">Number</label><input class="field" id="percentageSecond" type="number" step="any" inputmode="decimal" placeholder="200"></div></div><div class="actions">'+btn("calculatePercentage","Calculate")+'</div>'+out()+'<p class="muted text-sm">Supports positive and negative values where mathematically valid. A zero denominator or zero original value is not allowed for percentage ratios.</p>');
+ case "compound":return form('<div class="grid gap-4 sm:grid-cols-2">'+input("compoundPrincipal","Initial principal","100000","number")+select("compoundCurrency","Currency",[["BDT","BDT — Bangladeshi Taka"],["USD","USD — US Dollar"],["EUR","EUR — Euro"],["GBP","GBP — British Pound"],["INR","INR — Indian Rupee"],["SAR","SAR — Saudi Riyal"],["AED","AED — UAE Dirham"]])+'</div><div class="grid gap-4 sm:grid-cols-2">'+input("compoundRate","Annual interest rate (%)","8","number")+input("compoundYears","Time (years)","5","number")+'</div>'+select("compoundFrequency","Compounding frequency",[["1","Annually"],["2","Semi-annually"],["4","Quarterly"],["12","Monthly"],["365","Daily"]])+'<div class="actions">'+btn("calculateCompound","Calculate compound interest")+'</div>'+out()+'<p class="muted text-sm">Assumes a fixed annual nominal rate, constant compounding frequency and no deposits, withdrawals, fees or taxes. Results are estimates, not a bank quote.</p>');
+ case "emi":return form('<div class="grid gap-4 sm:grid-cols-2">'+input("emiPrincipal","Loan amount","1000000","number")+select("emiCurrency","Currency",[["BDT","BDT — Bangladeshi Taka"],["USD","USD — US Dollar"],["EUR","EUR — Euro"],["GBP","GBP — British Pound"],["INR","INR — Indian Rupee"],["SAR","SAR — Saudi Riyal"],["AED","AED — UAE Dirham"]])+'</div><div class="grid gap-4 sm:grid-cols-2">'+input("emiRate","Annual interest rate (%)","10","number")+input("emiMonths","Loan tenure (months)","120","number")+'</div><div class="actions">'+btn("calculateEmi","Calculate monthly EMI")+'</div>'+out()+'<p class="muted text-sm">Uses a fixed-rate reducing-balance EMI formula with monthly payments. Excludes fees, insurance, variable rates and lender-specific rounding. Estimate only, not a loan offer.</p>');
  case "timestamp":return form(input("timestampValue","Unix timestamp","1760000000")+select("timestampUnit","Timestamp unit",[["seconds","Seconds"],["milliseconds","Milliseconds"]])+input("localDateTime","Local date and time","","datetime-local") + '<div class="actions">' + btn("convertTimestamp","Convert timestamp") + btn("convertDate","Convert date",false) + btn("copy","Copy result",false) + '</div>' + out() + '<p class="muted text-sm">Unix timestamps represent UTC time. Local date conversion uses your browser time zone.</p>');
  case "loremipsum":return form('<div class="grid gap-4 sm:grid-cols-2"><div><label class="field-label" for="loremParagraphs">Paragraphs (1–10)</label><input class="field" id="loremParagraphs" type="number" min="1" max="10" step="1" placeholder="3"></div>'+select("loremSentences","Sentences per paragraph",[["3","3 sentences"],["1","1 sentence"],["2","2 sentences"],["4","4 sentences"],["5","5 sentences"],["6","6 sentences"],["7","7 sentences"],["8","8 sentences"]])+'</div><div class="checkrow"><label><input id="loremStartStandard" type="checkbox" checked> Start with the classic Lorem ipsum opening</label></div><div class="actions">'+btn("generateLorem","Generate Lorem Ipsum")+btn("copy","Copy result",false)+'</div>'+out()+'<p class="muted text-sm">Generate up to 10 paragraphs with 1–8 sentences per paragraph. Text is created locally in your browser.</p>');
  case "whitespace":return form(textarea("sourceText","Text to clean")+'<div class="checkrow"><label><input id="trimWhitespaceLines" type="checkbox" checked> Trim each line</label><label><input id="removeBlankWhitespaceLines" type="checkbox"> Remove blank lines</label></div><div class="actions">' + btn("cleanWhitespace","Clean text") + btn("copy","Copy result",false) + '</div>' + out());
