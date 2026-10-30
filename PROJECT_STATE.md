@@ -2,6 +2,21 @@
 
 Last updated: 2026-10-30
 
+
+> **Authoritative status note (2026-10-30):** This section is the current source of truth. Older handover notes and phase descriptions further below are historical records; where they say work is pending or unmerged, this current status supersedes that wording.
+
+## Current production status — verified through PR #20
+
+- Production branch: `main`; current HEAD: `69958fcb58f23549b52afac2f746ad7493654559`.
+- **Phase 6 SEO content and FAQ is merged** through [PR #15](https://github.com/apex-global-labs/online-tools-hub/pull/15). The earlier statement below that Phase 6 was unmerged/pending is obsolete.
+- **QR Studio work is merged**: Premium QR preview fix [PR #17](https://github.com/apex-global-labs/online-tools-hub/pull/17), browser-cache fix [PR #18](https://github.com/apex-global-labs/online-tools-hub/pull/18), Default/Custom modes and image blending [PR #19](https://github.com/apex-global-labs/online-tools-hub/pull/19), and visibility adjustment [PR #20](https://github.com/apex-global-labs/online-tools-hub/pull/20). The earlier Phase 8 text below describing this work as in preparation is obsolete.
+- QR Studio currently includes Default and Custom modes; five color palettes; five dot shapes; optional local image blending; error correction level H; PNG and SVG exports. The image-visibility slider range is **20%–60%**, default **50%**, and Clear/reset restores **50%**. The artwork is processed in the browser; SVG export is a clean vector QR and does not include the Canvas-only artwork blend.
+- QR safety note: stronger artwork visibility can reduce scan reliability; error correction H is not a guarantee. The owner reports live testing passed for visibility, reset, and phone-camera scanning with the current settings.
+- Latest recorded CI run: **41015933954 — completed successfully**. Latest recorded GitHub Pages deployment run: **41015933273 — completed successfully**. These are separate checks; CI success alone does not prove deployment or browser behavior.
+- Current catalogue target status: **20 existing tools**; the project goal remains 25. Do not claim all 20 tools have passed a full live-browser audit.
+- Phase 4 Escape-key issue remains deferred. Other browser-only checks not explicitly confirmed by the owner remain pending.
+
+
 ## Project goal
 Build a modern, fast, mobile-friendly multi-utility website with a light/night theme, search and category navigation, and browser-side processing where practical. Keep hosting free using GitHub Pages. The owner is a beginner, so changes should be incremental, easy to verify, and avoid breaking working tools.
 
@@ -88,10 +103,10 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - The longer-term goal is 25 tools. Proposed candidates have included Regex Tester, Unix Timestamp Converter, Extra Spaces Remover, Image Resizer, Image Compressor and Image Format Converter; choose the final five only after reviewing risk and scope.
 
 ## Next roadmap
-1. Verify the live site after the Phase 3B and router-fix merges: category filters, search, theme persistence, tool launches, metadata routes, legacy routes and mobile layout.
-2. Add/extend automated checks for app-level behavior and audit the existing 20 tools for input validation, error handling and Copy/Download behavior.
-3. Audit the existing 20 tools for empty/invalid inputs, error handling and Copy/Download behavior.
-4. Choose and implement five additional tools using free, browser-side processing where practical; then complete SEO, accessibility and performance reviews.
+
+1. **Phase 9 — Full audit of the existing 20 tools.** Check empty and invalid inputs, Convert/Generate actions, Copy/Download/Clear, visible error handling, mobile layout, dark mode, and browser-console errors. Record which checks are automated, owner-tested, or still pending. Do not assume that the universal buttons are fully functional on every tool merely because they render.
+2. **Phase 10 — Grow from 20 to 25 tools.** Select five low-risk, browser-side tools after the audit. Candidates: Regex Tester, Unix Timestamp Converter, Extra Spaces Remover, Image Resizer, and Image Compressor. Review scope and browser compatibility before implementation.
+3. After the tool audit and additions, complete accessibility, performance, and SEO reviews. Keep the static GitHub Pages architecture unless a concrete requirement justifies a change.
 
 ## Safe-change rules
 - Keep the current static/free hosting approach.
