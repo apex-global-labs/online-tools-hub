@@ -166,7 +166,7 @@ test("Phase 10 tools remain complete after Phase 11 adds a new text utility", ()
     assert.ok(wiring.includes('case "' + id + '":'), "event wiring should include " + id);
     assert.ok(metadata.some(tool => tool.id === id && tool.seo?.faqs?.length >= 3), "SEO metadata should include " + id);
   }
-  assert.equal(new Set(metadata.map(tool => tool.slug)).size, 25);
+  assert.equal(new Set(metadata.map(tool => tool.slug)).size, 26);
 });
 
 test("Phase 10 image tools validate local file type and size and support downloadable output", () => {
