@@ -6,6 +6,15 @@ Last updated: 2026-10-30
 > **Authoritative status note (2026-10-30):** This section is the current source of truth. Older handover notes and phase descriptions further below are historical records; where they say work is pending or unmerged, this current status supersedes that wording.
 
 
+## Phase 15 — Developer & SEO Tools (in progress)
+- Work branch: `phase15-developer-seo-tools`; implementation is being prepared for review and is not merged to production.
+- Adds three non-duplicate browser-local utilities: **Robots.txt Generator**, **XML Sitemap Generator** and **CSS Gradient Generator**. Existing **Meta Tag Generator**, JSON Formatter, CSV ↔ JSON Converter and HTML Entity Encoder / Decoder are retained.
+- Robots.txt output is plain text only; the UI explains that robots.txt is not access control and does not publish the file.
+- XML sitemap generation accepts up to 500 unique absolute HTTP/HTTPS URLs, rejects unsupported protocols and credentials, and escapes XML content.
+- CSS Gradient Generator creates validated linear/radial CSS with two selected colors and a bounded angle.
+- Pure helpers are isolated in `js/phase15-developer-seo.js`; new catalogue metadata includes unique slugs, descriptions, How to Use steps, features and FAQs.
+- Automated regression coverage is being added. Real-browser QA remains pending until manually checked on the deployed site.
+
 ## Phase 14 — Image & Media Tools (merged)
 - Work branch: `phase14-image-media-tools`; merged through [PR #34](https://github.com/apex-global-labs/online-tools-hub/pull/34).
 - Production merge commit: `29e7887e340b111480feccdf53ddfc3eb7db15e5`.
