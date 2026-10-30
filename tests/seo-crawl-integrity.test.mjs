@@ -19,11 +19,11 @@ const expectedUrls = [
 test("sitemap is validly structured for the complete canonical page set", () => {
   assert.ok(sitemap.startsWith('<?xml version="1.0" encoding="UTF-8"?>'));
   assert.ok(sitemap.includes('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'));
-  assert.equal((sitemap.match(/<url>/g) || []).length, 43);
+  assert.equal((sitemap.match(/<url>/g) || []).length, 44);
   assert.equal(locs.length, 43, "each sitemap URL must have exactly one loc element");
   assert.equal(new Set(locs).size, locs.length, "sitemap URLs must be unique");
   assert.deepEqual([...locs].sort(), [...expectedUrls].sort(),
-    "sitemap must contain only the canonical homepage, directory and 41 guide URLs");
+    "sitemap must contain only the canonical homepage, directory and 42 guide URLs");
   for (const url of locs) {
     assert.ok(url.startsWith(site), "URL must use the production project-site origin and path");
     assert.equal(new URL(url).search, "", "sitemap URLs must not contain query strings");
