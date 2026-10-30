@@ -23,7 +23,7 @@ test("sitemap is validly structured for the complete canonical page set", () => 
   assert.equal(locs.length, 45, "each sitemap URL must have exactly one loc element");
   assert.equal(new Set(locs).size, locs.length, "sitemap URLs must be unique");
   assert.deepEqual([...locs].sort(), [...expectedUrls].sort(),
-    "sitemap must contain only the canonical homepage, directory and 42 guide URLs");
+    "sitemap must contain only the canonical homepage, directory and 43 guide URLs");
   for (const url of locs) {
     assert.ok(url.startsWith(site), "URL must use the production project-site origin and path");
     assert.equal(new URL(url).search, "", "sitemap URLs must not contain query strings");
