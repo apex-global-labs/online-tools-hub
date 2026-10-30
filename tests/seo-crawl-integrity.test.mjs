@@ -20,7 +20,7 @@ test("sitemap is validly structured for the complete canonical page set", () => 
   assert.ok(sitemap.startsWith('<?xml version="1.0" encoding="UTF-8"?>'));
   assert.ok(sitemap.includes('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'));
   assert.equal((sitemap.match(/<url>/g) || []).length, 44);
-  assert.equal(locs.length, 43, "each sitemap URL must have exactly one loc element");
+  assert.equal(locs.length, 44, "each sitemap URL must have exactly one loc element");
   assert.equal(new Set(locs).size, locs.length, "sitemap URLs must be unique");
   assert.deepEqual([...locs].sort(), [...expectedUrls].sort(),
     "sitemap must contain only the canonical homepage, directory and 42 guide URLs");
