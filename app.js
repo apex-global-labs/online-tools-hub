@@ -68,6 +68,7 @@ let activeCategory="All", activeTool=null;
 $("#year").textContent=new Date().getFullYear();
 
 const cardTaglines={
+ pdfmerge:"Merge PDFs and control every page",
  case:"Make every word fit your style",
  slug:"Turn titles into clean URLs",
  diff:"Spot changes between two texts",
