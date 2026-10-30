@@ -605,7 +605,7 @@ function wireTool(id){
    if(!["image/png","image/jpeg","image/webp"].includes(file.type)||file.size>10*1024*1024){if(formatSourceUrl)URL.revokeObjectURL(formatSourceUrl);formatSourceUrl=null;$("#formatSourcePreview").replaceChildren();$("#formatSourcePreview").hidden=true;message("Choose a PNG, JPEG or WebP image smaller than 10 MB.","error");$("#formatFile").value="";return;}
    if(formatSourceUrl)URL.revokeObjectURL(formatSourceUrl);formatSourceUrl=URL.createObjectURL(file);
    const img=new Image();img.onload=()=>{
-    if(img.naturalWidth>4096||img.naturalHeight>4096||img.naturalWidth*img.naturalHeight>40000000){message("Image dimensions must not exceed 4096 pixels per side or 40 megapixels.","error");return;}
+    if(img.naturalWidth>4096||img.naturalHeight>4096||img.naturalWidth*img.naturalHeight>40000000){URL.revokeObjectURL(formatSourceUrl);formatSourceUrl=null;$("#formatFile").value="";$("#formatSourcePreview").replaceChildren();$("#formatSourcePreview").hidden=true;message("Image dimensions must not exceed 4096 pixels per side or 40 megapixels.","error");return;}
     const preview=$("#formatSourcePreview");preview.replaceChildren();const image=document.createElement("img");image.src=formatSourceUrl;image.alt="Original image preview";preview.append(image);preview.hidden=false;
    };img.onerror=()=>message("Could not read this image file.","error");img.src=formatSourceUrl;
   });
@@ -656,6 +656,7 @@ function wireTool(id){
    if(match&&match[1].toLowerCase()!==mime){message("The data URL type does not match the image content.","error");return;}
    const blob=new Blob([bytes],{type:mime});if(imageObjectUrl)URL.revokeObjectURL(imageObjectUrl);imageObjectUrl=URL.createObjectURL(blob);
    const img=new Image();img.onload=()=>{
+    if(img.naturalWidth>12000||img.naturalHeight>12000||img.naturalWidth*img.naturalHeight>40000000){URL.revokeObjectURL(imageObjectUrl);imageObjectUrl=null;message("Decoded image exceeds the safe 40-megapixel limit.","error");return;}
     decodedDataUrl="data:"+mime+";base64,"+payload;
     const output=$("#output");output.dataset.downloadUrl=imageObjectUrl;output.dataset.downloadName="toolnest-decoded-image."+(mime==="image/jpeg"?"jpg":mime==="image/webp"?"webp":mime==="image/gif"?"gif":"png");
     setOutput("Image decoded successfully.\nType: "+mime+"\nDimensions: "+img.naturalWidth+" × "+img.naturalHeight+" px\nSize: "+(bytes.length/1024).toFixed(1)+" KB");
