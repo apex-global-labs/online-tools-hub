@@ -75,7 +75,7 @@ test("QR Studio supports default/custom modes, five palettes, five shapes, high 
   assert.match(markup, /id="qrDefaultMode"/);
   assert.match(markup, /id="qrCustomMode"/);
   assert.match(markup, /id="qrCustomPanel"/);
-  assert.match(markup, /id="qrText"/);
+  assert.match(markup, /input\("qrText","Text or URL"/);
   assert.match(markup, /data-qr-palette="classic"/);
   assert.match(markup, /data-qr-palette="ocean"/);
   assert.match(markup, /data-qr-palette="emerald"/);
