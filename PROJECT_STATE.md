@@ -6,6 +6,19 @@ Last updated: 2026-10-30
 > **Authoritative status note (2026-10-30):** This section is the current source of truth. Older handover notes and phase descriptions further below are historical records; where they say work is pending or unmerged, this current status supersedes that wording.
 
 
+## Phase 13 — Advanced Converters & Math Tools (merged)
+- Work branch: `phase13-advanced-converters`; merged through [PR #33](https://github.com/apex-global-labs/online-tools-hub/pull/33).
+- Production merge commit: `651551d57ce958386228cd356b53812f8a648200`.
+- Adds **Area Converter**, **Bangladesh Land Unit Converter**, **Time Zone Converter** and **Number to Words Converter** (English and Bangla). Catalogue total: **33 tools**.
+- Area Converter supports square metres, square feet, square yards, acres, hectares and square kilometres.
+- Bangladesh land converter uses the documented conventional factors: 1 shotok = 435.6 ft²; 1 katha = 720 ft²; 1 bigha = 20 katha = 14,400 ft²; 1 acre = 100 shotok = 43,560 ft². The UI warns that local units vary and advises checking local deed/measurement standards.
+- Time Zone Converter uses browser IANA time-zone rules. It detects skipped local times and chooses the earlier occurrence for ambiguous repeated times.
+- Number to Words supports English and Bangla, negative values, up to two decimal places and values through ±999,999,999,999.
+- Helpers live in `js/advanced-converters.js`; all four tools have individual SEO descriptions, How to Use steps, features and FAQs. No backend, paid API or new third-party runtime dependency was added.
+- Pull-request regression run **41039526675** and post-merge `main` run **41039590292** passed: **52 tests, 52 passed, 0 failed**. JavaScript syntax checks passed.
+- GitHub Pages run **41039589834** built the site artifact successfully; final deployment status is being verified separately.
+- Real-browser interaction QA remains pending. Do not describe clipboard/download/Clear, visual responsiveness, theme or browser-console behavior as browser-tested.
+
 ## Phase 12 — Calculator & Finance Tools (merged)
 - Work branch: `phase12-finance-calculators`; merged to `main` through [PR #31](https://github.com/apex-global-labs/online-tools-hub/pull/31).
 - Adds **Percentage Calculator**, **Compound Interest Calculator** and **EMI / Loan Calculator**. The complete catalogue now contains **29 tools**.
@@ -33,14 +46,17 @@ Last updated: 2026-10-30
 
 ## Current production status — 2026-10-30
 
-- Production branch: `main`; latest application release is Phase 12, merged through [PR #31](https://github.com/apex-global-labs/online-tools-hub/pull/31), commit `f0f5176aa0996f263dc229e003925ce900dee401`.
-- Phase 6 SEO content, QR Studio, Phase 9 audit, Phase 10 additions, Phase 11 Text & Writing Tools and Phase 12 Calculator & Finance Tools are merged.
-- Catalogue status: **29 tools**. `app.js` and `js/tools-data.json` contain matching unique tool IDs; all 29 have tool-specific SEO metadata and unique slugs.
+- Production branch: `main`; latest application release is Phase 13, merged through [PR #33](https://github.com/apex-global-labs/online-tools-hub/pull/33), commit `651551d57ce958386228cd356b53812f8a648200`.
+- Phase 6 SEO content, QR Studio, Phase 9 audit, Phase 10 additions, Phase 11 Text & Writing Tools, Phase 12 Calculator & Finance Tools and Phase 13 Advanced Converters are merged.
+- Catalogue status: **33 tools**. `app.js` and `js/tools-data.json` contain matching unique tool IDs; all 33 have tool-specific SEO metadata and unique slugs.
 - Phase 10 added Unix Timestamp Converter, Extra Spaces Remover, HTML Entity Encoder / Decoder, Image Resizer and Image Compressor.
 - Phase 11 added Lorem Ipsum Generator and improved Unicode-aware character totals in Text Case Converter and Word & Character Counter, plus whitespace-only cleanup in Extra Spaces Remover. Existing text tools were retained without duplicates.
 - Phase 12 added Percentage Calculator, Compound Interest Calculator and EMI / Loan Calculator. Formulas are local, bounded and covered by automated tests; no live rates are used by these three calculators.
+- Phase 13 added Area Converter, Bangladesh Land Unit Converter, Time Zone Converter and Number to Words Converter (English and Bangla). Conversion helpers are browser-local; Bangladesh land-unit assumptions are stated in the UI, and IANA daylight-saving transitions are handled.
 - Unicode ↔ Bijoy conversion is explicitly excluded.
 - Phase 12 PR regression run **41035773406** and post-merge `main` regression run **41035951034** passed: **40/40 tests**.
+- Phase 13 PR regression run **41039526675** and post-merge `main` regression run **41039590292** passed: **52/52 tests**; JavaScript syntax checks passed.
+- GitHub Pages build/deployment workflow **41039589834** built the site artifact successfully; final deployment completion remains separately verified.
 - GitHub Pages build/deployment run **41035949638** completed successfully after the Phase 12 merge.
 - No new backend, paid service or third-party runtime dependency was added for Phase 12.
 - **Real-browser interaction QA remains pending for all 29 tools.** CI and deployment do not prove actual clipboard/download/Clear behavior, responsive layout, Day/Night rendering, route interactions or browser-console behavior.
