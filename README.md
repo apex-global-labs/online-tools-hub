@@ -9,6 +9,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `app.js` — tool catalogue, filters, workspace rendering, theme toggle and tool implementations
 - `js/live-search.js` — search autocomplete, keyboard navigation, category menu behavior and slash shortcut
 - `js/tools-data.json` — metadata for all 29 tools used by the modular hash router
+- `js/finance-calculations.js` — validated browser-local percentage, compound-interest and EMI calculation functions
 - `js/router.js` — route parsing/resolution
 - `js/router-bridge.js` — bridge from modular routes to the existing tool workspace
 - `css/phase10-image-tools.css` — responsive previews for the image utilities
