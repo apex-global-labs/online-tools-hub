@@ -3,7 +3,7 @@
  "use strict";
  function isIPv4(value){
   const parts=value.split(".");
-  return parts.length===4&&parts.every(part=>/^\\d{1,3}$/.test(part)&&Number(part)>=0&&Number(part)<=255&&(part==="0"||!part.startsWith("0")));
+  return parts.length===4&&parts.every(part=>/^\d{1,3}$/.test(part)&&Number(part)>=0&&Number(part)<=255&&(part==="0"||!part.startsWith("0")));
  }
  function isIPv6(value){
   if(!value||value.includes("%")||!value.includes(":")||value.includes(":::"))return false;
@@ -72,7 +72,7 @@
    return isSpecialIPv4(mapped)?"Private / special-use":"Public IPv6";
   }
   const first=groups[0];
-  if(groups.every(group=>group===0)||groups.slice(0,7).every(group=>group===0)&&groups[7]===1)return "Private / special-use";
+  if(groups.every(group=>group===0)||(groups.slice(0,7).every(group=>group===0)&&groups[7]===1))return "Private / special-use";
   if((first&0xfe00)===0xfc00||(first&0xffc0)===0xfe80||(first&0xff00)===0xff00)return "Private / special-use";
   if(first===0x2001&&groups[1]===0x0db8)return "Private / special-use";
   if(first===0x0100&&groups.slice(1,4).every(group=>group===0))return "Private / special-use";
