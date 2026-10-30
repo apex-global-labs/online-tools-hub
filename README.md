@@ -8,10 +8,11 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/phase2.css` — search/navigation styling, dark-mode contrast and animated sun/moon scene
 - `app.js` — tool catalogue, filters, workspace rendering, theme toggle and tool implementations
 - `js/live-search.js` — search autocomplete, keyboard navigation, category menu behavior and slash shortcut
-- `js/tools-data.json` — metadata for all 33 tools used by the modular hash router
+- `js/tools-data.json` — metadata for all 36 tools used by the modular hash router
 - `js/router.js` — route parsing/resolution
 - `js/router-bridge.js` — bridge from modular routes to the existing tool workspace
 - `css/phase10-image-tools.css` — responsive previews for the image utilities
+- `css/phase14-image-tools.css` — cropper, format-converter and Base64 image preview refinements
 - `css/phase12-calculators.css` — responsive finance calculator refinements
 - `js/finance-calculators.js` — bounded, reusable percentage, compound-interest and EMI formula helpers
 - `js/advanced-converters.js` — local area, Bangladesh land-unit, time-zone and number-to-words helpers
@@ -27,7 +28,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Theme preference is saved when browser storage is available
 - Responsive layout and reduced-motion support for the decorative scene
 
-## Tool catalogue (33)
+## Tool catalogue (36)
 
 ### Text
 - Text Case Converter
@@ -55,6 +56,9 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Color Converter
 - Image Resizer
 - Image Compressor
+- Image Cropper
+- Image Format Converter
+- Base64 to Image
 
 ### Calculators
 - Area Converter
