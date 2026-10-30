@@ -21,6 +21,8 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `js/ip-tools.js` — IPv4/IPv6 validation and special-use range classification
 - `css/ip-tools.css` — responsive IP lookup results and status styling
 - `css/phase13-converters.css` — responsive styling for advanced converters
+- `robots.txt` and `sitemap.xml` — root-level crawl guidance and the canonical homepage sitemap
+- `sitemap.xml` — canonical homepage sitemap for the GitHub Pages project site
 - `PROJECT_STATE.md` — current status, verification notes and next-step roadmap
 
 ## Current UI features
@@ -90,6 +92,16 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Displays approximate country, region, city, postal area, coordinates, ISP, organization, ASN and time zone when available.
 - IP data is sent directly from the visitor's browser to the provider; ToolNest does not proxy or intentionally store the lookup input. The provider may process request data under its own policy.
 - The free endpoint does not include VPN/proxy/Tor detection. Location and coordinates are estimates, not a home address or exact GPS location.
+
+## Search engine crawl files
+- `robots.txt` allows public crawling and points to the published sitemap.
+- `sitemap.xml` lists the canonical homepage only. Tool workspaces use hash-based routes inside one static HTML page, so they are not represented as separate crawlable HTML pages in this sitemap.
+- The canonical URL and social-sharing metadata point to the GitHub Pages homepage. Search engines decide independently whether and how to index the site.
+
+## Search engine crawl files
+- `sitemap.xml` lists the canonical homepage only. Tool workspaces use hash-based routes inside one static HTML page, so they are not separate crawlable HTML pages in this sitemap.
+- This is a GitHub Pages project site under `/online-tools-hub/`. A repository-level `robots.txt` would not be served at the origin root where crawlers expect it, so this repository does not claim to control origin-wide crawl rules.
+- The canonical URL and social-sharing metadata point to the GitHub Pages homepage. Search engines decide independently whether and how to index the site.
 
 ## Run locally
 Open `index.html` in a modern browser while connected to the internet. Tailwind CSS and `qr-code-styling` are loaded from CDNs. QR generation requires the QR library CDN to load.

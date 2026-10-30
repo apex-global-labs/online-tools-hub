@@ -2,82 +2,81 @@
 
 Last updated: 2026-10-30
 
+> **Authoritative status:** This top section reflects the verified repository state. Older implementation notes are retained below as historical context and must not override this status.
 
-> **Authoritative status note (2026-10-30):** This section is the current source of truth. Older handover notes and phase descriptions further below are historical records; where they say work is pending or unmerged, this current status supersedes that wording.
+## Repository and production baseline
 
+- Repository: https://github.com/apex-global-labs/online-tools-hub
+- Live site: https://apex-global-labs.github.io/online-tools-hub/
+- Production branch: `main`
+- Main baseline before Phase 17: `c9415fb826b401add76a59e8533e74b1651132e6`
+- Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no backend or application build step.
+- Catalogue: **40 unique tools**; `app.js` and `js/tools-data.json` are synchronized.
+- No paid service or new runtime dependency is introduced by Phase 17.
 
-## Phase 15 — Developer & SEO Tools (merged)
-- Merged through [PR #36](https://github.com/apex-global-labs/online-tools-hub/pull/36); production merge commit: `dd7b13767b310c6bf12267ed401792db05876dfb`.
-- Adds three non-duplicate browser-local utilities: **Robots.txt Generator**, **XML Sitemap Generator** and **CSS Gradient Generator**. Existing **Meta Tag Generator**, JSON Formatter, CSV ↔ JSON Converter and HTML Entity Encoder / Decoder are retained.
-- Robots.txt output is plain text only; the UI explains that robots.txt is not access control and does not publish the file.
-- XML sitemap generation accepts up to 500 absolute HTTP/HTTPS URLs, rejects unsupported protocols, credentials and URL fragments, removes duplicates, and escapes XML content.
-- CSS Gradient Generator creates validated linear/radial CSS using two HEX colors and a bounded angle, with a preview.
-- Pure helpers are isolated in `js/phase15-developer-seo.js`; metadata includes unique IDs/slugs, SEO descriptions, How to Use steps, features and FAQs. Named downloads are `robots.txt` and `sitemap.xml`.
-- CI run [41043213351](https://github.com/apex-global-labs/online-tools-hub/actions/runs/41043213351) passed: **64 tests, 64 passed, 0 failed**. JavaScript syntax checks, including the Phase 15 helper, passed.
-- Catalogue total: **39 unique tools**. README and search placeholder are updated. No paid service, backend or new runtime dependency was added.
-- **Real-browser QA remains pending** for the three Phase 15 tools and the Phase 14 image tools. Do not claim manual browser verification until the deployed site is tested.
+## Phase 16 — Standalone IP Tools module (merged)
 
-## Phase 14 — Image & Media Tools (merged)
-- Work branch: `phase14-image-media-tools`; merged through [PR #34](https://github.com/apex-global-labs/online-tools-hub/pull/34).
-- Production merge commit: `29e7887e340b111480feccdf53ddfc3eb7db15e5`.
-- Adds **Image Cropper**, **Image Format Converter** and **Base64 to Image**. Catalogue total: **36 tools**. Existing Image to Base64, Image Resizer and Image Compressor were retained; no duplicate tools were added.
-- Image Cropper accepts local PNG/JPEG/WebP files up to 10 MB, supports pixel-coordinate crop rectangles, validates crop bounds, and exports PNG/JPEG/WebP. Crop output is limited to 4096 × 4096; source image safety is bounded at 40 megapixels and 12,000 px per side.
-- Image Format Converter supports PNG/JPEG/WebP output, quality selection for JPEG/WebP, and validates the browser's actual output MIME type. Transparent pixels are filled white for JPEG because JPEG has no transparency support. Source images are bounded to 4096 px per side and 40 megapixels.
-- Base64 to Image accepts image data URLs or raw Base64, verifies actual PNG/JPEG/WebP/GIF file signatures, rejects mismatched/unsupported data, limits encoded input to 15 MB and decoded images to 10 MB, and guards against images above 40 megapixels / 12,000 px per side.
-- All three tools process data locally in the browser; no image upload endpoint, backend, paid service or new third-party runtime dependency was added. Includes tool-specific SEO metadata, FAQ content, responsive styles and Phase 14 regression tests.
-- PR regression workflow **41041421984** passed: **57 tests, 57 passed, 0 failed**. JavaScript syntax checks passed.
-- GitHub Pages deployment is confirmed: latest deployment run **41041510347** for `main` commit `cb5777730b53c531ada42c6e736a62c2f0b478b5` completed successfully. The post-merge regression run **41041474380** also passed. Real-browser QA remains pending; do not claim preview, clipboard, download, Clear, mobile layout or theme behavior is browser-tested until manually checked.
- 
-## Phase 13 — Advanced Converters & Math Tools (merged)
-- Work branch: `phase13-advanced-converters`; merged through [PR #33](https://github.com/apex-global-labs/online-tools-hub/pull/33).
-- Production merge commit: `651551d57ce958386228cd356b53812f8a648200`.
-- Adds **Area Converter**, **Bangladesh Land Unit Converter**, **Time Zone Converter** and **Number to Words Converter** (English and Bangla). Catalogue total: **33 tools**.
-- Area Converter supports square metres, square feet, square yards, acres, hectares and square kilometres.
-- Bangladesh land converter uses the documented conventional factors: 1 shotok = 435.6 ft²; 1 katha = 720 ft²; 1 bigha = 20 katha = 14,400 ft²; 1 acre = 100 shotok = 43,560 ft². The UI warns that local units vary and advises checking local deed/measurement standards.
-- Time Zone Converter uses browser IANA time-zone rules. It detects skipped local times and chooses the earlier occurrence for ambiguous repeated times.
-- Number to Words supports English and Bangla, negative values, up to two decimal places and values through ±999,999,999,999.
-- Helpers live in `js/advanced-converters.js`; all four tools have individual SEO descriptions, How to Use steps, features and FAQs. No backend, paid API or new third-party runtime dependency was added.
-- Pull-request regression run **41039526675** and post-merge `main` run **41039590292** passed: **52 tests, 52 passed, 0 failed**. JavaScript syntax checks passed.
-- GitHub Pages run **41039589834** built the site artifact successfully; final deployment status is being verified separately.
-- Real-browser interaction QA remains pending. Do not describe clipboard/download/Clear, visual responsiveness, theme or browser-console behavior as browser-tested.
+- IP Address Finder & Lookup was added through PR #37; the IP special-use classification correction was merged through PR #38.
+- Supports public IPv4/IPv6 lookup and Find My IP, local input validation, private/special-use range checks, approximate geolocation, ISP, organization, ASN and timezone fields when supplied by the provider.
+- The queried IP is sent directly from the visitor's browser to IPWHOIS.io. ToolNest does not proxy the request through its own server or intentionally store the lookup input. The provider may process request data under its own policy.
+- Location and coordinates are approximate network estimates, not a home address or exact GPS location. The free endpoint does not provide VPN/proxy/Tor detection.
+- PR #38 regression workflow **41045882806** passed: **72 tests, 72 passed, 0 failed**.
+- Latest `main` regression workflow **41045986360** completed successfully.
+- Latest GitHub Pages build/deployment workflow **41045986248** completed successfully for the same main commit.
+- Live visual and interaction checks still require real-browser verification.
 
-## Phase 12 — Calculator & Finance Tools (merged)
-- Work branch: `phase12-finance-calculators`; merged to `main` through [PR #31](https://github.com/apex-global-labs/online-tools-hub/pull/31).
-- Adds **Percentage Calculator**, **Compound Interest Calculator** and **EMI / Loan Calculator**. The complete catalogue now contains **29 tools**.
-- Percentage Calculator supports percent-of, part-as-percent-of-whole and percentage increase/decrease.
-- Compound Interest Calculator supports annual, semi-annual, quarterly, monthly and daily compounding, with principal, annual nominal rate, time in years and selectable display currency.
-- EMI Calculator uses a fixed-rate monthly reducing-balance formula and shows monthly instalment, total interest and total repayment. Tenure is limited to 1–600 months.
-- Pure formula helpers live in `js/finance-calculators.js`. Inputs, rates, result ranges, zero denominators, compounding frequencies, zero-interest loans and overflow cases are validated.
-- The currency selector changes display formatting only; no currency conversion or live financial data is fetched by these calculators. No backend, paid API, or new third-party runtime dependency was added.
-- Pull-request regression workflow **41035773406** and post-merge `main` regression workflow **41035951034** passed: **40 tests, 40 passed, 0 failed**.
-- GitHub Pages build/deployment workflow **41035949638** completed successfully after the application merge.
-- Automated tests and deployment are verified. Real-browser interaction QA (actual input, Copy/Download/Clear, mobile layout, theme and console checks) remains pending and must not be described as passed.
+## Phase 17 — Final QA & Release Audit (in progress)
 
+- Work branch: `phase17-final-qa-audit`; based on the verified `main` baseline above.
+- Scope: final release audit and low-risk fixes only; no new utility tools.
+- Initial findings and branch changes:
+  1. The production page loads `js/ip-tools.js` and `js/router-bridge.js`, but neither file had a dedicated CI syntax check. A new release-audit test runs Node syntax checks for both and is included in the existing `tests/*.test.mjs` suite.
+  2. The homepage description did not describe the complete 40-tool catalogue, and canonical/Open Graph/Twitter metadata were absent. These have been added.
+  3. A sitemap was absent. A canonical homepage sitemap is now added. A repository-level `robots.txt` was deliberately omitted: this GitHub Pages project site is path-prefixed, so a file in the repository cannot serve the origin-root robots path crawlers expect.
+  4. The previous project-state summary incorrectly described Phase 14 / 36 tools as the current production release. This authoritative section supersedes that historical text.
+- The complete Phase 17 change list is recorded in PR #39.
+- The existing GitHub Actions workflow now syntax-checks `js/ip-tools.js` and `js/router-bridge.js`; its existing test command automatically discovers the new release-audit test file.
+- PR #39 regression workflow **41049822027** passed: **75 tests, 75 passed, 0 failed**; JavaScript syntax checks passed. GitHub Pages deployment for these changes will occur only after merge.
+- Manual browser verification is still required for representative tools, IP lookups, image previews/downloads, QR scanability, Copy/Clear behavior, routes, responsive layouts, themes and browser-console/network errors.
+- Do not describe the project as fully browser-QA-passed until those checks have actually been completed.
 
-## Phase 11 — Text & Writing Tools (merged)
-- Work branch: `phase11-text-writing`; merged to `main` through PR #26. Verification-state documentation was finalized through PR #27.
-- Phase 11 adds **Lorem Ipsum Generator** as the 26th tool. Existing Text Diff Checker, Word & Character Counter, Text Case Converter and Extra Spaces Remover are retained; no duplicate versions are introduced.
-- Text Case Converter and Word & Character Counter now count Unicode code points for character totals, so supplementary Unicode characters are not counted as two characters.
-- Extra Spaces Remover accepts whitespace-only input and cleans it instead of treating it as missing input.
-- Lorem Ipsum Generator supports 1–10 paragraphs, 1–8 sentences per paragraph, an optional classic opening, and local generation.
-- Unicode ↔ Bijoy conversion is explicitly out of scope.
-- Regression coverage and metadata/catalogue synchronization are included. PR #26 was merged to `main` as commit `1bfce56a13f0b9ee0147ec1d71c64a7cd3328046`.
-- PR regression workflow run **41033005867** and post-merge `main` regression run **41033055609** completed successfully.
-- GitHub Pages build/deployment run **41033055683** completed successfully after the merge.
-- Real-browser interaction QA remains pending; deployment success and source/CI tests do not prove clipboard, download, Clear, responsive layout or theme behavior in a browser.
+## Current application structure
 
-## Current production status — 2026-10-30
+- `index.html`: homepage, navigation, search, tool grid and workspace.
+- `app.js`: catalogue, tool rendering, interactions and tool implementations.
+- `js/tools-data.json`: 40 tool metadata records, descriptions, routes and per-tool SEO content.
+- `js/router.js` and `js/router-bridge.js`: modern hash routes and legacy route compatibility.
+- `js/ip-tools.js` / `css/ip-tools.css`: IP validation, special-use classification and lookup presentation.
+- `js/phase15-developer-seo.js`: local robots.txt, XML sitemap and CSS gradient generators.
+- `js/advanced-converters.js`, `js/finance-calculators.js`: reusable converter and calculator helpers.
+- `js/seo-content.js`: tool guides, FAQs and dynamic FAQPage JSON-LD.
+- `tests/`: Node regression tests run by GitHub Actions.
+- `sitemap.xml`: canonical homepage sitemap; no repository-level robots file is published because this is a path-prefixed GitHub Pages project site.
 
-- Production branch: `main`; latest application release is Phase 14, merged through [PR #34](https://github.com/apex-global-labs/online-tools-hub/pull/34), commit `29e7887e340b111480feccdf53ddfc3eb7db15e5`.
-- Catalogue status: **36 tools**. `app.js` and `js/tools-data.json` contain matching unique tool IDs; all 36 have tool-specific SEO metadata and unique slugs.
-- Phases 6–14 are merged, including QR Studio, image utilities, text tools, calculators, advanced converters and the three Phase 14 image/media tools.
-- Phase 14 adds Image Cropper, Image Format Converter and Base64 to Image. Existing Image to Base64, Image Resizer and Image Compressor remain in place without duplicates.
-- Phase 14 PR regression run **41041421984** passed: **57/57 tests**, with JavaScript syntax checks passing.
-- Phase 13 PR regression run **41039526675** and post-merge `main` run **41039590292** passed: **52/52 tests**. The latest Pages deployment run for the pre-Phase-14 production state, **41039728937**, completed successfully.
-- Phase 14 Pages deployment run **41041510347** completed successfully for the latest documentation-updated `main` commit. The three Phase 14 tools are included in the deployed Pages artifact; real-browser QA remains pending.
-- Browser QA remains pending for all 36 tools. Automated tests and successful deployment do not prove actual browser behavior for image preview, image download, Copy/Clear, responsive layout, Day/Night rendering, route navigation or browser-console errors.
-- Phase 4 Escape-key issue remains deferred.
- 
+## Known limitations and release cautions
+
+- No automated real-browser end-to-end suite is currently part of the active CI workflow. A historical browser-test PR exists but is not merged; do not assume it runs.
+- Hash-based tool routes share one HTML document. The homepage sitemap does not make each hash route an independently rendered page.
+- Third-party browser resources include Tailwind and qr-code-styling CDNs. Currency conversion and IP lookup call external services; those tools are not fully offline.
+- IP geolocation is approximate and depends on the external provider's availability and data coverage.
+- QR image blending can reduce scan reliability; exported QR images should be scan-tested.
+- Phase 4 Escape-key workspace issue remains deferred. Search suggestion Escape handling is a separate behavior.
+- Tailwind's browser CDN is convenient for the current free static setup but is not an optimized compiled production asset.
+
+## Safe-change rules
+
+- Keep GitHub Pages hosting and the no-paid-service approach.
+- Work on a feature branch; do not edit `main` directly.
+- Run automated tests and syntax checks before opening a PR.
+- Merge only after reviewing the PR diff and successful required checks.
+- Separate source-level, CI, deployment and real-browser verification claims.
+
+---
+
+## Historical phase notes
+
+The remaining sections below preserve earlier phase decisions and implementation history. Any older tool counts, deployment states, roadmaps or pending/completed labels are historical and are superseded by the authoritative status above.
+
 ## Project goal
 Build a modern, fast, mobile-friendly multi-utility website with a light/night theme, search and category navigation, and browser-side processing where practical. Keep hosting free using GitHub Pages. The owner is a beginner, so changes should be incremental, easy to verify, and avoid breaking working tools.
 
