@@ -264,6 +264,8 @@ function wireUniversalActions(id){
   message("Result downloaded as a text file.");
  });
  bind("universalClear",()=>{
+  // QR Studio keeps artwork and render state in local variables; use its own reset handler.
+  if(id==="qr"){ $("#qrClear")?.click(); return; }
   panel.querySelectorAll("input,textarea").forEach(el=>{
    if(el.type==="checkbox"||el.type==="radio")el.checked=el.defaultChecked;
    else if(el.type==="file")el.value="";
