@@ -38,7 +38,8 @@ const tools = [
 {id:"numberwords",name:"Number to Words Converter",category:"Utilities",icon:"১",description:"Convert numbers into words in English or Bangla."},
 {id:"robots",name:"Robots.txt Generator",category:"Developer",icon:"🤖",description:"Create a robots.txt file with crawler rules and a sitemap location."},
 {id:"sitemap",name:"XML Sitemap Generator",category:"Developer",icon:"🗺",description:"Build an XML sitemap from a list of website URLs."},
-{id:"gradient",name:"CSS Gradient Generator",category:"Developer",icon:"🎨",description:"Create reusable linear and radial CSS gradient backgrounds."}
+{id:"gradient",name:"CSS Gradient Generator",category:"Developer",icon:"🎨",description:"Create reusable linear and radial CSS gradient backgrounds."},
+{id:"iptools",name:"IP Address Finder & Lookup",category:"Utilities",icon:"◎",description:"Find your public IP or look up public IP geolocation and network details."},
 ];
 
 const $ = (s,root=document)=>root.querySelector(s);
@@ -311,6 +312,7 @@ function wireUniversalActions(id){
   if(id==="percentage")$("#percentageMode")?.dispatchEvent(new Event("change"));
   if(id==="gradient"&&$("#gradientPreview"))$("#gradientPreview").style.background="";
   panel.querySelectorAll(".output").forEach(el=>{if(el.dataset.downloadUrl)URL.revokeObjectURL(el.dataset.downloadUrl);delete el.dataset.downloadUrl;delete el.dataset.downloadName;el.textContent="";});
+  if(id==="iptools"){const results=$("#ipLookupResults");if(results){results.replaceChildren();results.hidden=true;}const status=$("#ipLookupStatus");if(status){status.textContent="Ready. Enter a public IP address or choose Find My IP.";status.className="ip-lookup-status muted";}}
   const preview=$("#markdownPreview");if(preview)preview.innerHTML="";
   ["imagePreview","qrOutput"].forEach(selector=>{const el=$("#"+selector);if(el)el.innerHTML="";});
   const swatch=$("#colorSwatch");if(swatch)swatch.style.background="";
@@ -372,6 +374,7 @@ function toolMarkup(id){
  <div class="actions qr-download-actions"><button type="button" class="btn-primary" id="generate">Generate QR</button><button type="button" class="btn-primary" id="qrDownloadPng">Download PNG</button><button type="button" class="btn-secondary" id="qrDownloadSvg">Download SVG</button><button type="button" class="btn-secondary" id="qrClear">Clear</button></div><p id="qrStatus" class="qr-status" role="status" aria-live="polite"></p>
 </div>`);
 
+ case "iptools":return form('<p class="muted text-sm">Look up a public IPv4 or IPv6 address, or check the public IP seen by the lookup provider. Location results are approximate, never an exact home or GPS location.</p>'+input("ipAddress","IP address to look up","8.8.8.8")+'<div class="actions">'+btn("lookupIp","Look Up IP") + btn("myIp","Find My IP",false)+'</div><div hidden>'+out()+'</div><div id="ipLookupStatus" class="ip-lookup-status muted text-sm" role="status" aria-live="polite">Ready. Enter a public IP address or choose Find My IP.</div><section id="ipLookupResults" class="ip-lookup-results" aria-live="polite" hidden></section><p class="muted text-sm">Privacy: the IP address is sent directly from your browser to IPWHOIS.io to provide the lookup. ToolNest does not route it through its own server. The provider may process request data under its own policy. VPN/proxy detection is not included in this free endpoint.</p><p class="muted text-sm">Accuracy: city, postal area and coordinates are estimates associated with the network IP. They cannot identify a person, home, street or exact GPS location.</p>');
  case "meta":return form(`${input("pageTitle","Page title","My useful website")}${textarea("pageDescription","Meta description","A short and helpful description of this page.")}${input("pageUrl","Canonical URL","https://example.com","url")}<div class="actions">${btn("generate","Generate tags")}${btn("copy","Copy tags",false)}</div>${out()}`);
  case "robots":return form('<p class="muted text-sm">Create a plain-text robots.txt file. Add one path per line; rules apply to all crawlers.</p>'+textarea("robotsDisallow","Disallow paths (one per line)","/private/\n/admin/")+input("robotsSitemap","Sitemap URL (optional)","https://example.com/sitemap.xml","url") + '<div class="actions">'+btn("generateRobots","Generate robots.txt")+btn("copy","Copy result",false)+'</div>'+out()+'<p class="muted text-sm">This creates text only; save it as robots.txt at your website root. Robots.txt is not access control.</p>');
  case "sitemap":return form('<p class="muted text-sm">Enter one complete public page URL per line. URLs are validated and duplicates removed.</p>'+textarea("sitemapUrls","Website URLs (one per line)","https://example.com/\nhttps://example.com/about") + '<div class="actions">'+btn("generateSitemap","Generate XML sitemap")+btn("copy","Copy XML",false)+'</div>'+out()+'<p class="muted text-sm">Up to 500 URLs. Save the output as sitemap.xml and publish it on your website.</p>');
@@ -442,6 +445,42 @@ function csvCell(value){
 function wireTool(id){
  const src=()=>$("#sourceText")?.value??"";
  switch(id){
+ case "iptools": {
+  const status=$("#ipLookupStatus"),results=$("#ipLookupResults"),lookupButton=$("#lookupIp"),myButton=$("#myIp");
+  const render=(data)=>{
+   const rows=[["IP address",data.ip],["IP version",data.type],["Address type",ToolNestIP.classifyIpAddress(data.ip)],["Continent",data.continent],["Country",(data.flag?.emoji?data.flag.emoji+" ":"")+(data.country||"")],["Region / State",data.region],["City",data.city],["Postal area",data.postal],["Approximate coordinates",Number.isFinite(data.latitude)&&Number.isFinite(data.longitude)?data.latitude.toFixed(4)+", "+data.longitude.toFixed(4):""],["ISP",data.connection?.isp],["Organization",data.connection?.org],["ASN",data.connection?.asn?"AS"+data.connection.asn:""],["Network domain",data.connection?.domain],["Time zone",data.timezone?.id],["UTC offset",data.timezone?.utc]];
+   results.replaceChildren();
+   const heading=document.createElement("h3");heading.className="ip-lookup-heading";heading.textContent="IP lookup results";results.append(heading);
+   const grid=document.createElement("dl");grid.className="ip-lookup-grid";
+   rows.forEach(([label,value])=>{const wrap=document.createElement("div");wrap.className="ip-lookup-item";const dt=document.createElement("dt");dt.textContent=label;const dd=document.createElement("dd");dd.textContent=value===null||value===undefined||value===""?"Not available":String(value);wrap.append(dt,dd);grid.append(wrap);});
+   results.append(grid);
+   setOutput(rows.map(([label,value])=>label+": "+(value===null||value===undefined||value===""?"Not available":String(value))).join("\n")+"\n\nLocation and coordinates are approximate network estimates.");
+   const note=document.createElement("p");note.className="ip-lookup-note";note.textContent="Location and coordinates are approximate network estimates, not a person's physical location.";results.append(note);
+   results.hidden=false;
+  };
+  const lookup=async(value,own=false)=>{
+   const ip=value.trim();
+   if(!own&&!ip){status.textContent="Enter an IP address to look it up, or choose Find My IP.";status.className="ip-lookup-status is-error";return;}
+   if(ip&&!ToolNestIP.isValidIpAddress(ip)){status.textContent="Enter a valid IPv4 or IPv6 address.";status.className="ip-lookup-status is-error";return;}
+   if(ip&&ToolNestIP.classifyIpAddress(ip)==="Private / special-use"){status.textContent="This is a private or special-use IP address. It is not publicly geolocatable, so no external lookup was sent.";status.className="ip-lookup-status is-error";setOutput("IP address: "+ip+"\nAddress type: Private / special-use\nPublic geolocation: Not available.");results.hidden=true;return;}
+   lookupButton.disabled=true;myButton.disabled=true;status.textContent=ip?"Looking up "+ip+"…":"Checking the public IP address…";status.className="ip-lookup-status muted";results.hidden=true;results.replaceChildren();
+   try{
+    const fields="ip,type,continent,country,country_code,region,region_code,city,postal,latitude,longitude,flag.emoji,connection.isp,connection.org,connection.asn,connection.domain,timezone.id,timezone.utc";
+    const url="https://ipwho.is/"+(ip?encodeURIComponent(ip):"")+"?fields="+encodeURIComponent(fields);
+    const response=await fetch(url,{headers:{Accept:"application/json"},cache:"no-store"});
+    if(response.status===429)throw new Error("The free lookup service has reached its daily request limit. Please try again later.");
+    if(!response.ok)throw new Error("The lookup service returned HTTP "+response.status+". Please try again later.");
+    const data=await response.json();
+    if(!data||data.success!==true){const reason=data?.message||"This address could not be looked up.";throw new Error(reason+" Private, reserved or unsupported IP ranges may not have public geolocation.");}
+    render(data);$("#ipAddress").value=data.ip||ip;status.textContent="Lookup complete. Location data is approximate and supplied by IPWHOIS.io.";status.className="ip-lookup-status is-success";
+   }catch(error){status.textContent=error.message||"Could not complete the lookup. Check your connection and try again.";status.className="ip-lookup-status is-error";}
+   finally{lookupButton.disabled=false;myButton.disabled=false;}
+  };
+  bind("lookupIp",()=>lookup($("#ipAddress").value));
+  bind("myIp",()=>{ $("#ipAddress").value=""; lookup("",true); });
+  bind("copy",()=>copyOutput());
+  break;
+ }
  case "area": {
   bind("convertArea",()=>{const raw=$("#areaValue").value.trim();if(!raw){message("Enter an area value first.","error");return;}const result=ToolNestAdvanced.convertArea(raw,$("#areaFrom").value,$("#areaTo").value);setOutput(Number(result.toPrecision(12)).toLocaleString(undefined,{maximumFractionDigits:8})+" "+$("#areaTo").selectedOptions[0].text);});
   bind("copy",()=>copyOutput());break;

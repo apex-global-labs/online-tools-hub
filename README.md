@@ -8,7 +8,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/phase2.css` — search/navigation styling, dark-mode contrast and animated sun/moon scene
 - `app.js` — tool catalogue, filters, workspace rendering, theme toggle and tool implementations
 - `js/live-search.js` — search autocomplete, keyboard navigation, category menu behavior and slash shortcut
-- `js/tools-data.json` — metadata for all 39 tools used by the modular hash router
+- `js/tools-data.json` — metadata for all 40 tools used by the modular hash router
 - `js/router.js` — route parsing/resolution
 - `js/router-bridge.js` — bridge from modular routes to the existing tool workspace
 - `css/phase10-image-tools.css` — responsive previews for the image utilities
@@ -18,6 +18,8 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `js/finance-calculators.js` — bounded, reusable percentage, compound-interest and EMI formula helpers
 - `js/advanced-converters.js` — local area, Bangladesh land-unit, time-zone and number-to-words helpers
 - `js/phase15-developer-seo.js` — local robots.txt, XML sitemap and CSS gradient generators
+- `js/ip-tools.js` — IPv4/IPv6 validation and special-use range classification
+- `css/ip-tools.css` — responsive IP lookup results and status styling
 - `css/phase13-converters.css` — responsive styling for advanced converters
 - `PROJECT_STATE.md` — current status, verification notes and next-step roadmap
 
@@ -30,7 +32,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Theme preference is saved when browser storage is available
 - Responsive layout and reduced-motion support for the decorative scene
 
-## Tool catalogue (39)
+## Tool catalogue (40)
 
 ### Text
 - Text Case Converter
@@ -80,6 +82,14 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Password Generator
 - Time Zone Converter
 - Number to Words Converter (English and Bangla)
+- IP Address Finder & Lookup
+
+### IP Address Finder & Lookup
+- Finds the public IP visible to the external lookup provider or looks up a manually entered public IPv4/IPv6 address.
+- Uses the IPWHOIS.io free endpoint (up to 1,000 requests per day per website domain); actual availability and limits are controlled by the provider.
+- Displays approximate country, region, city, postal area, coordinates, ISP, organization, ASN and time zone when available.
+- IP data is sent directly from the visitor's browser to the provider; ToolNest does not proxy or intentionally store the lookup input. The provider may process request data under its own policy.
+- The free endpoint does not include VPN/proxy/Tor detection. Location and coordinates are estimates, not a home address or exact GPS location.
 
 ## Run locally
 Open `index.html` in a modern browser while connected to the internet. Tailwind CSS and `qr-code-styling` are loaded from CDNs. QR generation requires the QR library CDN to load.

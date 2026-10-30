@@ -236,3 +236,14 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - Clear/reset now returns blend visibility to 50%.
 - Added an on-screen warning that stronger artwork visibility can reduce QR scan reliability and that downloaded PNGs should be tested with a phone camera.
 - QR foreground pattern remains drawn above the artwork; error correction remains H. High visibility is not a guarantee of scanability.
+
+
+## Standalone IP Tools module — 2026-10-30
+- Work branch: `feature/advanced-ip-tools`; isolated from the production `main` branch.
+- Adds one dedicated `IP Address Finder & Lookup` utility; no other Phase 16 tools are included.
+- Supports public IPv4/IPv6 lookups and a Find My IP action, with input validation, local private/special-use range checks, approximate geolocation, ISP, organization, ASN and timezone fields when returned by the provider.
+- Uses the IPWHOIS.io free HTTPS endpoint with an explicit `fields` allowlist. Provider documentation states 1,000 requests/day per website domain and commercial use is allowed; the free tier does not include VPN/proxy/Tor security flags and has no uptime SLA.
+- Privacy: browser sends the queried IP directly to IPWHOIS.io; ToolNest does not proxy it through its own server or intentionally store it. The provider may process request data under its own policy. A private/special-use address is detected locally and is not sent for geolocation.
+- Accuracy: city/postal/coordinates are approximate network estimates only; no household, street-address or exact GPS claims.
+- Adds helper validation tests and updates prior hard-coded catalogue-count regression expectations from 39 to 40.
+- Status at handover: implementation committed on feature branch; automated CI, PR review, merge, Pages deployment and live browser verification are still pending. Do not claim the tool is live or complete until these checks pass.

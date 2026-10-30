@@ -13,7 +13,7 @@ test("Phase 14 adds three unique image tools with complete SEO metadata",()=>{
   assert.match(app,new RegExp('id:"'+id+'"'));
   assert.ok(app.includes('case "'+id+'":'),id+" markup and wiring exist");
  }
- assert.equal(metadata.length,39);
+ assert.equal(metadata.length,40);
 });
 test("Image Cropper validates crop bounds and exports only browser-supported formats",()=>{
  assert.match(app,/crop rectangle must fit inside the source image/);
