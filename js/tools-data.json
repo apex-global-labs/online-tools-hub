@@ -1186,5 +1186,113 @@
         }
       ]
     }
+  },
+  {
+    "id": "imagecrop",
+    "title": "Image Cropper",
+    "category": "Image",
+    "icon": "✂",
+    "slug": "image-cropper",
+    "description": "Crop a local PNG, JPEG or WebP image by entering pixel coordinates. Preview and download the cropped image without uploading it.",
+    "tagline": "Crop images with pixel precision",
+    "seo": {
+      "description": "Crop images online with ToolNest Image Cropper. Choose a local PNG, JPEG or WebP file, set the crop position and dimensions in pixels, preview the result and download it directly in your browser.",
+      "steps": [
+        "Choose a PNG, JPEG or WebP image from your device.",
+        "Enter the left, top, width and height values for the crop area.",
+        "Select an output format, crop the image and download the preview."
+      ],
+      "features": [
+        "Precise pixel-based crop position and dimensions.",
+        "Preview the source and cropped image before downloading.",
+        "Processes local images in your browser with a 10 MB file limit."
+      ],
+      "faqs": [
+        {
+          "question": "Are my images uploaded?",
+          "answer": "No. The selected image is processed locally in your browser."
+        },
+        {
+          "question": "Can I crop outside the original image?",
+          "answer": "No. The crop rectangle must remain fully inside the source image."
+        },
+        {
+          "question": "Which formats can I export?",
+          "answer": "You can export PNG, JPEG or WebP when the browser supports the selected format."
+        }
+      ]
+    }
+  },
+  {
+    "id": "imageformat",
+    "title": "Image Format Converter",
+    "category": "Image",
+    "icon": "⇄",
+    "slug": "image-format-converter",
+    "description": "Convert local PNG, JPEG and WebP images between common web formats.",
+    "tagline": "Convert PNG, JPG and WebP",
+    "seo": {
+      "description": "Convert image formats online with ToolNest. Change local PNG, JPEG and WebP files to another common format, preview the converted result and download it without uploading your image to a server.",
+      "steps": [
+        "Choose a PNG, JPEG or WebP image from your device.",
+        "Select PNG, JPEG or WebP as the target format and adjust quality if needed.",
+        "Convert the image, review the preview and download the result."
+      ],
+      "features": [
+        "Converts between PNG, JPEG and WebP where browser support is available.",
+        "Adjustable quality for JPEG and WebP output.",
+        "Local browser processing with a 10 MB source file limit."
+      ],
+      "faqs": [
+        {
+          "question": "Will transparent backgrounds stay transparent?",
+          "answer": "Transparency is preserved in PNG and WebP where supported. JPEG does not support transparency, so transparent areas are filled with white."
+        },
+        {
+          "question": "Does conversion upload my image?",
+          "answer": "No. Conversion is performed locally using your browser's canvas features."
+        },
+        {
+          "question": "Why might a format fail?",
+          "answer": "Some browsers may not support exporting every format. The tool checks the actual output type and reports unsupported exports."
+        }
+      ]
+    }
+  },
+  {
+    "id": "base64image",
+    "title": "Base64 to Image",
+    "category": "Image",
+    "icon": "▧",
+    "slug": "base64-to-image",
+    "description": "Decode supported Base64 image data and preview or download the image.",
+    "tagline": "Preview images from Base64",
+    "seo": {
+      "description": "Turn Base64 image data into a viewable image with ToolNest Base64 to Image. Paste an image data URL or raw Base64, preview the decoded image and download it locally in your browser.",
+      "steps": [
+        "Paste an image data URL or raw Base64 text into the input.",
+        "If you use raw Base64, select the image type only as a reference; the tool checks the actual file signature.",
+        "Decode the image, inspect its preview and download it."
+      ],
+      "features": [
+        "Accepts image data URLs and raw Base64 strings.",
+        "Checks PNG, JPEG, WebP and GIF file signatures before displaying.",
+        "Runs locally in your browser and limits decoded images to 10 MB."
+      ],
+      "faqs": [
+        {
+          "question": "Which image types are supported?",
+          "answer": "PNG, JPEG, WebP and GIF image data are supported."
+        },
+        {
+          "question": "Can I paste plain Base64 without a data URL?",
+          "answer": "Yes. Raw Base64 is accepted, and the image type is detected from its file signature."
+        },
+        {
+          "question": "Is the Base64 sent to a server?",
+          "answer": "No. Decoding and previewing happen locally in your browser."
+        }
+      ]
+    }
   }
 ]
