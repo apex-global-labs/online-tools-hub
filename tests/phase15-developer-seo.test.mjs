@@ -1,6 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import "../js/phase15-developer-seo.js";
+const app = readFileSync(new URL("../app.js", import.meta.url), "utf8");
+const metadata = JSON.parse(readFileSync(new URL("../js/tools-data.json", import.meta.url), "utf8"));
+const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const tools = globalThis.ToolNestPhase15;
 
 test("robots.txt generator creates allow-all defaults and valid disallow rules", () => {
@@ -33,4 +37,19 @@ test("CSS gradient generator rejects unsupported types, invalid colors and angle
   assert.throws(() => tools.buildCssGradient({colorA:"red"}), /HEX colors/);
   assert.throws(() => tools.buildCssGradient({angle:361}), /0 to 360/);
   assert.throws(() => tools.buildCssGradient({angle:1.5}), /whole number/);
+});
+
+test("Phase 15 tools are registered with complete metadata, UI wiring and local assets", () => {
+  for (const id of ["robots", "sitemap", "gradient"]) {
+    const tool = metadata.find(item => item.id === id);
+    assert.ok(tool, id + " metadata exists");
+    assert.equal(tool.seo.steps.length, 3);
+    assert.equal(tool.seo.features.length, 3);
+    assert.equal(tool.seo.faqs.length, 3);
+    assert.match(app, new RegExp('id:"' + id + '"'));
+    assert.ok(app.includes('case "' + id + '":'));
+  }
+  assert.equal(metadata.length, 39);
+  assert.match(html, /phase15-developer-seo\.js/);
+  assert.match(html, /phase15-developer-seo\.css/);
 });
