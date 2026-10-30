@@ -20,12 +20,15 @@ test("homepage has useful title, description, canonical URL and social metadata"
   }
 });
 
-test("XML sitemap contains only the canonical static homepage URL", () => {
+test("XML sitemap lists the homepage, directory and all 40 canonical tool guide pages", () => {
   assert.match(sitemap, /^<\?xml version="1\.0" encoding="UTF-8"\?>/);
   assert.ok(sitemap.includes("<loc>" + siteUrl + "</loc>"));
-  assert.match(sitemap, /<lastmod>2026-10-30<\/lastmod>/);
+  assert.ok(sitemap.includes("<loc>" + siteUrl + "tools/</loc>"));
+  assert.equal((sitemap.match(/<url>/g) || []).length, 42);
   assert.doesNotMatch(sitemap, /#\/tools\//);
-  assert.equal((sitemap.match(/<url>/g) || []).length, 1);
+  for (const tool of JSON.parse(read("../js/tools-data.json"))) {
+    assert.ok(sitemap.includes("<loc>" + siteUrl + "tools/" + tool.slug + "/</loc>"), "missing sitemap URL for " + tool.id);
+  }
 });
 
 test("CI regression suite runs syntax checks for IP and router bridge runtime files", () => {
@@ -40,10 +43,9 @@ test("CI regression suite runs syntax checks for IP and router bridge runtime fi
   assert.match(workflow, /node --experimental-default-type=module --test tests\/\*\.test\.mjs/);
 });
 
-
 test("crawl documentation accurately describes the project-site sitemap and robots.txt limitation", () => {
   assert.equal((readme.match(/^## Search engine crawl files$/gm) || []).length, 1);
-  assert.match(readme, /sitemap\.xml` lists the canonical homepage only/);
+  assert.match(readme, /sitemap\.xml` lists the canonical homepage, the tool-guide directory and 40 individual static tool-guide URLs/);
   assert.match(readme, /No repository-level `robots\.txt` is provided/);
   assert.doesNotMatch(readme, /- `robots\.txt` allows public crawling/);
   assert.match(readme, /A social preview image is not yet configured/);
