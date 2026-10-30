@@ -31,4 +31,4 @@ The repository audit found that Text Diff Checker, Word & Character Counter, Tex
 
 ## Verification boundary
 
-The regression suite checks catalogue/metadata parity, Lorem Ipsum markup and event wiring, range guards, SEO completeness, Unicode-aware counters, and the whitespace-only cleanup path. CI results, Pages deployment, and real-browser behavior must be confirmed separately. Source-level tests do not replace browser checks for generation, clipboard, download, Clear, mobile layout or Day/Night theme.
+The regression suite checks catalogue/metadata parity, Lorem Ipsum markup and event wiring, range guards, SEO completeness, Unicode-aware counters, and the whitespace-only cleanup path. PR regression run **41033005867** and post-merge `main` regression run **41033055609** passed. GitHub Pages build/deployment run **41033055683** also completed successfully. Real-browser behavior remains a separate QA item: source tests and deployment success do not prove generation, clipboard, download, Clear, mobile layout or Day/Night theme behavior on actual devices.
