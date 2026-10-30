@@ -249,9 +249,8 @@ test("Advanced PDF Merger is registered with browser-side page controls and guar
   assert.match(module, /file-up/);
   assert.match(module, /MAX_PAGES_PER_FILE = 500/);
   assert.match(module, /MAX_TOTAL_PAGES = 2000/);
-  assert.match(module, /application\\/pdf/);
+  assert.match(module, /application\/pdf/);
   assert.doesNotMatch(module, /\bfetch\s*\(/, "PDF files must not be sent to a server from this module");
-  assert.doesNotMatch(module, /\\bfetch\\s*\\(/, "PDF files must not be sent to a server from this module");
   assert.match(getBranch(markup, "pdfmerge"), /Files are processed locally in your browser/);
   assert.ok(metadata.some(tool => tool.id === "pdfmerge" && tool.seo?.faqs?.length === 3));
   const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
