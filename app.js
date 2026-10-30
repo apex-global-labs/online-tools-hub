@@ -39,6 +39,7 @@ const tools = [
 {id:"robots",name:"Robots.txt Generator",category:"Developer",icon:"🤖",description:"Create a robots.txt file with crawler rules and a sitemap location."},
 {id:"sitemap",name:"XML Sitemap Generator",category:"Developer",icon:"🗺",description:"Build an XML sitemap from a list of website URLs."},
 {id:"gradient",name:"CSS Gradient Generator",category:"Developer",icon:"🎨",description:"Create reusable linear and radial CSS gradient backgrounds."}
+{id:"iptools",name:"IP Address Finder & Lookup",category:"Utilities",icon:"◎",description:"Find your public IP or look up public IP geolocation and network details."},
 ];
 
 const $ = (s,root=document)=>root.querySelector(s);
