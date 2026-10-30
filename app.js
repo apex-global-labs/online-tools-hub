@@ -57,6 +57,7 @@ const tools = [
 {id:"robots",name:"Robots.txt Generator",category:"Developer",icon:"🤖",description:"Create a robots.txt file with crawler rules and a sitemap location."},
 {id:"sitemap",name:"XML Sitemap Generator",category:"Developer",icon:"🗺",description:"Build an XML sitemap from a list of website URLs."},
 {id:"gradient",name:"CSS Gradient Generator",category:"Developer",icon:"🎨",description:"Create reusable linear and radial CSS gradient backgrounds."},
+{id:"pdfmerge",name:"Advanced PDF Merger",category:"Utilities",icon:"📄",description:"Combine PDFs, select and reorder pages, rotate pages and download a custom merged PDF."},
 {id:"iptools",name:"IP Address Finder & Lookup",category:"Utilities",icon:"◎",description:"Find your public IP or look up public IP geolocation and network details."},
 ];
 
@@ -67,6 +68,7 @@ let activeCategory="All", activeTool=null;
 $("#year").textContent=new Date().getFullYear();
 
 const cardTaglines={
+ pdfmerge:"Merge PDFs and control every page",
  case:"Make every word fit your style",
  slug:"Turn titles into clean URLs",
  diff:"Spot changes between two texts",
@@ -278,6 +280,7 @@ function wireUniversalActions(id){
   return "";
  };
  bind("universalCopy",()=>{
+  if(id==="pdfmerge"){message("PDF files are documents; use the Download Merged PDF button after merging.");return;}
   const canvas=$("#qrCanvas");
   if(canvas){
    const value=$("#qrText")?.value.trim()||"";
@@ -292,6 +295,7 @@ function wireUniversalActions(id){
   navigator.clipboard.writeText(text).then(()=>message("Copied to clipboard.")).catch(()=>message("Clipboard access was blocked. Select and copy the result manually.","error"));
  });
  bind("universalDownload",()=>{
+  if(id==="pdfmerge"){ $("#pdfMergeDownload")?.click(); return; }
   const canvas=$("#qrCanvas");
   if(canvas){
    try{const a=document.createElement("a");a.href=canvas.toDataURL("image/png");a.download="toolnest-qr.png";a.click();message("QR code downloaded.");}
@@ -316,6 +320,7 @@ function wireUniversalActions(id){
  });
  bind("universalClear",()=>{
   // QR Studio keeps artwork and render state in local variables; use its own reset handler.
+  if(id==="pdfmerge"){ $("#pdfMergeClear")?.click(); return; }
   if(id==="qr"){ $("#qrClear")?.click(); return; }
   if(id==="imageresize"||id==="imagecompress"){ $("#clearImage")?.click(); return; }
   if(id==="imagecrop"){ $("#clearCrop")?.click(); return; }
@@ -392,6 +397,16 @@ function toolMarkup(id){
  <div class="actions qr-download-actions"><button type="button" class="btn-primary" id="generate">Generate QR</button><button type="button" class="btn-primary" id="qrDownloadPng">Download PNG</button><button type="button" class="btn-secondary" id="qrDownloadSvg">Download SVG</button><button type="button" class="btn-secondary" id="qrClear">Clear</button></div><p id="qrStatus" class="qr-status" role="status" aria-live="polite"></p>
 </div>`);
 
+ case "pdfmerge":return form(`
+<div class="pdf-merge-tool">
+ <div class="pdf-merge-intro"><span class="pdf-merge-kicker">TOOLNEST DOCUMENT STUDIO</span><h3>Advanced PDF Merger</h3><p>Add multiple PDF files, arrange their order, choose individual pages, rotate pages and create one custom PDF. Files are processed locally in your browser.</p></div>
+ <div class="pdf-merge-upload" id="pdfMergeUpload"><label class="field-label" for="pdfMergeFiles">Choose PDF files</label><input class="field" id="pdfMergeFiles" type="file" accept="application/pdf,.pdf" multiple><p class="muted text-sm">Up to 20 files · 50 MB per file · 200 MB total. Password-protected or damaged PDFs may not open.</p></div>
+ <div class="pdf-merge-summary" id="pdfMergeSummary" role="status" aria-live="polite">No PDF files added yet.</div>
+ <div class="pdf-merge-list" id="pdfMergeList"><div class="pdf-merge-empty">Your PDF files and page controls will appear here.</div></div>
+ <div class="pdf-merge-actions actions"><button type="button" class="btn-primary" id="pdfMergeRun" disabled>Merge Selected Pages</button><button type="button" class="btn-secondary" id="pdfMergeDownload" disabled>Download Merged PDF</button><button type="button" class="btn-secondary" id="pdfMergeClear">Clear All</button></div>
+ <p class="pdf-merge-status" id="pdfMergeStatus" role="status" aria-live="polite">Ready. Add at least one PDF file to begin.</p>
+ <div class="pdf-merge-privacy"><strong>Privacy:</strong> PDF files are read and processed in this browser. ToolNest does not upload them to its own server. Your device's available memory may limit very large jobs.</div>
+</div>`);
  case "iptools":return form('<p class="muted text-sm">Look up a public IPv4 or IPv6 address, or check the public IP seen by the lookup provider. Location results are approximate, never an exact home or GPS location.</p>'+input("ipAddress","IP address to look up","8.8.8.8")+'<div class="actions">'+btn("lookupIp","Look Up IP") + btn("myIp","Find My IP",false)+'</div><div hidden>'+out()+'</div><div id="ipLookupStatus" class="ip-lookup-status muted text-sm" role="status" aria-live="polite">Ready. Enter a public IP address or choose Find My IP.</div><section id="ipLookupResults" class="ip-lookup-results" aria-live="polite" hidden></section><p class="muted text-sm">Privacy: the IP address is sent directly from your browser to IPWHOIS.io to provide the lookup. ToolNest does not route it through its own server. The provider may process request data under its own policy. VPN/proxy detection is not included in this free endpoint.</p><p class="muted text-sm">Accuracy: city, postal area and coordinates are estimates associated with the network IP. They cannot identify a person, home, street or exact GPS location.</p>');
  case "meta":return form(`${input("pageTitle","Page title","My useful website")}${textarea("pageDescription","Meta description","A short and helpful description of this page.")}${input("pageUrl","Canonical URL","https://example.com","url")}<div class="actions">${btn("generate","Generate tags")}${btn("copy","Copy tags",false)}</div>${out()}`);
  case "robots":return form('<p class="muted text-sm">Create a plain-text robots.txt file. Add one path per line; rules apply to all crawlers.</p>'+textarea("robotsDisallow","Disallow paths (one per line)","/private/\n/admin/")+input("robotsSitemap","Sitemap URL (optional)","https://example.com/sitemap.xml","url") + '<div class="actions">'+btn("generateRobots","Generate robots.txt")+btn("copy","Copy result",false)+'</div>'+out()+'<p class="muted text-sm">This creates text only; save it as robots.txt at your website root. Robots.txt is not access control.</p>');
@@ -463,6 +478,10 @@ function csvCell(value){
 function wireTool(id){
  const src=()=>$("#sourceText")?.value??"";
  switch(id){
+ case "pdfmerge": {
+  window.ToolNestPdfMerge?.init();
+  break;
+ }
  case "iptools": {
   const status=$("#ipLookupStatus"),results=$("#ipLookupResults"),lookupButton=$("#lookupIp"),myButton=$("#myIp");
   const render=(data)=>{

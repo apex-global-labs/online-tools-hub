@@ -28,10 +28,10 @@ function getBranch(source, id) {
   return source.slice(start, next < 0 ? source.length : start + marker.length + next);
 }
 
-test("catalogue and router metadata contain the same 40 unique tool IDs", () => {
-  assert.equal(catalogIds.length, 40);
+test("catalogue and router metadata contain the same 41 unique tool IDs", () => {
+  assert.equal(catalogIds.length, 41);
   assert.equal(new Set(catalogIds).size, catalogIds.length);
-  assert.equal(metadata.length, 40);
+  assert.equal(metadata.length, 41);
   assert.equal(new Set(metadata.map((tool) => tool.id)).size, metadata.length);
   assert.deepEqual([...metadata.map((tool) => tool.id)].sort(), [...catalogIds].sort());
   assert.equal(new Set(metadata.map((tool) => tool.slug)).size, metadata.length);
@@ -158,15 +158,15 @@ test("workspace supports slug routes, legacy ID routes and a visible 404 state",
 
 test("Phase 10 tools remain complete after Phase 11 adds a new text utility", () => {
   const newIds = ["timestamp", "whitespace", "htmlentities", "imageresize", "imagecompress"];
-  assert.equal(catalogIds.length, 40);
-  assert.equal(metadata.length, 40);
+  assert.equal(catalogIds.length, 41);
+  assert.equal(metadata.length, 41);
   for (const id of newIds) {
     assert.ok(catalogIds.includes(id), "catalogue should include " + id);
     assert.ok(markup.includes('case "' + id + '":'), "markup should include " + id);
     assert.ok(wiring.includes('case "' + id + '":'), "event wiring should include " + id);
     assert.ok(metadata.some(tool => tool.id === id && tool.seo?.faqs?.length >= 3), "SEO metadata should include " + id);
   }
-  assert.equal(new Set(metadata.map(tool => tool.slug)).size, 40);
+  assert.equal(new Set(metadata.map(tool => tool.slug)).size, 41);
 });
 
 test("Phase 10 image tools validate local file type and size and support downloadable output", () => {
@@ -229,4 +229,39 @@ test("Phase 12 finance calculators are registered, have markup and safe event wi
   assert.match(getBranch(wiring, "emi"), /ToolNestFinance\.calculateEmi/);
   const indexHtml = readFileSync(new URL("../index.html", import.meta.url), "utf8");
   assert.match(indexHtml, /js\/finance-calculators\.js/);
+});
+
+test("Advanced PDF Merger is registered with browser-side page controls and guarded file handling", () => {
+  assert.ok(catalogIds.includes("pdfmerge"));
+  assert.match(getBranch(markup, "pdfmerge"), /id="pdfMergeFiles"/);
+  assert.match(getBranch(markup, "pdfmerge"), /id="pdfMergeUpload"/);
+  assert.match(getBranch(markup, "pdfmerge"), /id="pdfMergeRun"/);
+  assert.match(getBranch(markup, "pdfmerge"), /id="pdfMergeDownload"/);
+  assert.match(getBranch(markup, "pdfmerge"), /id="pdfMergeClear"/);
+  assert.match(getBranch(wiring, "pdfmerge"), /ToolNestPdfMerge\?\.init\(\)/);
+  const module = readFileSync(new URL("../js/pdf-merge.js", import.meta.url), "utf8");
+  assert.match(module, /pdf-lib@1\.17\.1/);
+  assert.match(module, /MAX_FILES = 20/);
+  assert.match(module, /MAX_FILE_BYTES = 50 \* 1024 \* 1024/);
+  assert.match(module, /MAX_TOTAL_BYTES = 200 \* 1024 \* 1024/);
+  assert.match(module, /parsePageRange/);
+  assert.match(module, /rotate-page/);
+  assert.match(module, /page-up/);
+  assert.match(module, /file-up/);
+  assert.match(module, /dataTransfer\?\.files/);
+  assert.match(module, /MAX_PAGES_PER_FILE = 500/);
+  assert.match(module, /MAX_TOTAL_PAGES = 2000/);
+  assert.match(module, /application\/pdf/);
+  assert.doesNotMatch(module, /\bfetch\s*\(/, "PDF files must not be sent to a server from this module");
+  assert.match(getBranch(markup, "pdfmerge"), /Files are processed locally in your browser/);
+  assert.ok(metadata.some(tool => tool.id === "pdfmerge" && tool.seo?.faqs?.length === 3));
+  const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
+  assert.match(html, /js\/pdf-merge\.js/);
+  assert.match(html, /css\/pdf-merge\.css/);
+});
+
+test("PDF merger module passes the Node JavaScript syntax check", () => {
+  const file = new URL("../js/pdf-merge.js", import.meta.url).pathname;
+  const result = spawnSync(process.execPath, ["--check", file], { encoding: "utf8" });
+  assert.equal(result.status, 0, result.stderr || result.stdout || "PDF merger syntax check failed");
 });

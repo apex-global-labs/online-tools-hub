@@ -8,7 +8,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/phase2.css` — search/navigation styling, dark-mode contrast and animated sun/moon scene
 - `app.js` — tool catalogue, filters, workspace rendering, theme toggle and tool implementations
 - `js/live-search.js` — search autocomplete, keyboard navigation, category menu behavior and slash shortcut
-- `js/tools-data.json` — metadata for all 40 tools used by the modular hash router
+- `js/tools-data.json` — metadata for all 41 tools used by the modular hash router
 - `js/router.js` — route parsing/resolution
 - `js/router-bridge.js` — bridge from modular routes to the existing tool workspace
 - `css/phase10-image-tools.css` — responsive previews for the image utilities
@@ -22,7 +22,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/ip-tools.css` — responsive IP lookup results and status styling
 - `css/phase13-converters.css` — responsive styling for advanced converters
 - `tools/` — static, individually crawlable tool guide pages and the tool-guide directory
-- `sitemap.xml` — homepage, tool directory and 40 canonical tool-page URLs
+- `sitemap.xml` — homepage, tool directory and 41 canonical tool-page URLs
 - `PROJECT_STATE.md` — current status, verification notes and next-step roadmap
 
 ## Current UI features
@@ -34,7 +34,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Theme preference is saved when browser storage is available
 - Responsive layout and reduced-motion support for the decorative scene
 
-## Tool catalogue (40)
+## Tool catalogue (41)
 
 ### Text
 - Text Case Converter
@@ -84,6 +84,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Password Generator
 - Time Zone Converter
 - Number to Words Converter (English and Bangla)
+- Advanced PDF Merger — merge PDF files with page selection, file/page ordering and rotation
 - IP Address Finder & Lookup
 
 ### IP Address Finder & Lookup
@@ -95,7 +96,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 
 ## Search engine crawl files
 
-- `sitemap.xml` lists the canonical homepage, the tool-guide directory and 40 individual static tool-guide URLs. Each guide has a unique title, meta description, canonical URL, visible instructions, features, FAQs and structured data. Interactive workspaces still open through the existing hash-based app routes; hash fragments are not listed as separate pages.
+- `sitemap.xml` lists the canonical homepage, the tool-guide directory and 41 individual static tool-guide URLs. Each guide has a unique title, meta description, canonical URL, visible instructions, features, FAQs and structured data. Interactive workspaces still open through the existing hash-based app routes; hash fragments are not listed as separate pages.
 - This is a GitHub Pages project site published under `/online-tools-hub/`. A `robots.txt` stored in this repository would be served at the project subpath, not the origin root (`https://apex-global-labs.github.io/robots.txt`) where host-wide crawl rules are expected. No repository-level `robots.txt` is provided; do not describe one as present.
 - The homepage has a canonical URL plus Open Graph and Twitter title/description metadata. A social preview image is not yet configured.
 - Search engines decide independently whether and how to crawl, index, and display the site. Inclusion in a sitemap does not guarantee indexing or rankings.
