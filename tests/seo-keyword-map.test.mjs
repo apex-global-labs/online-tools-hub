@@ -6,11 +6,11 @@ const map = readFileSync(new URL("../SEO_KEYWORD_MAP.md", import.meta.url), "utf
 const tools = JSON.parse(readFileSync(new URL("../js/tools-data.json", import.meta.url), "utf8"));
 const site = "https://apex-global-labs.github.io/online-tools-hub/";
 
-test("Phase 5 map assigns one unique primary keyword and exact guide URL to all 41 tools", () => {
+test("Phase 5 map assigns one unique primary keyword and exact guide URL to all 42 tools", () => {
   const rows = [...map.matchAll(/^\| (\d+) \| ([^|]+) \| \*\*([^*]+)\*\* \|.*?\| \[([^\]]+)\]\(([^)]+)\) \|$/gm)];
-  assert.equal(tools.length, 41);
-  assert.equal(rows.length, 41, "keyword map must contain exactly 41 tool rows");
-  assert.equal(new Set(rows.map((row) => row[3].trim().toLowerCase())).size, 41,
+  assert.equal(tools.length, 42);
+  assert.equal(rows.length, 42, "keyword map must contain exactly 41 tool rows");
+  assert.equal(new Set(rows.map((row) => row[3].trim().toLowerCase())).size, 42,
     "each tool must have a distinct primary keyword");
   assert.equal(new Set(rows.map((row) => row[5])).size, 41,
     "each tool must own a unique target URL");
