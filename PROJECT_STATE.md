@@ -247,7 +247,9 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - Accuracy: city/postal/coordinates are approximate network estimates only; no household, street-address or exact GPS claims.
 - Adds helper validation tests and updates prior hard-coded catalogue-count regression expectations from 39 to 40.
 - Merge: PR #37 — https://github.com/apex-global-labs/online-tools-hub/pull/37; squash merge commit `e435fd6c35d4f62f538e2172a97999fa5e5f7a32`.
-- Automated verification: regression workflow run #41045292098 passed; JavaScript syntax check passed; 70 tests passed, 0 failed. The first CI attempt exposed IPv4 digit-pattern and stale 39-tool count assertions; both were corrected and the rerun passed.
+- Initial IP Tools regression workflow #41045292098 passed: 70/70 tests. A follow-up code review found an overly broad IPv4 special-use range check that could incorrectly block some addresses.
+- Corrected through PR #38 — https://github.com/apex-global-labs/online-tools-hub/pull/38; squash merge commit `1e277d5b093acc0041bb8673fd68495caf9e3056`. IPv4 special-use classification now uses exact CIDR boundaries and IPv4-mapped IPv6 addresses inherit the embedded IPv4 special-use check.
+- Follow-up regression workflow #41045882806 passed: **72 tests, 72 passed, 0 failed**; JavaScript syntax checks passed.
 - Production baseline: main catalog and router metadata both contain 40 unique tools; `ip-tools` route and IP helper/style assets are present on main.
 - Deployment/live QA: GitHub Pages deployment and real-browser interaction could not be independently verified in this session. The live-site fetch was unavailable. Do not claim the feature is visibly live until the site is checked in a browser.
 - Manual browser QA still recommended: Find My IP; public IPv4 and IPv6 lookup; invalid/hostname input; private/special-use IP rejection without API request; Copy/Download/Clear; mobile and desktop layouts; day/night themes; console/network errors.
