@@ -1,6 +1,6 @@
 (function (root) {
   "use strict";
-  const API_URL = "https://spoo.me/";
+  const API_URL = "https://spoo.me/api/v1/shorten";
   const DEFAULT_STATUS = "Ready. Paste a complete website URL to create a short link.";
 
   function normalizeUrl(value) {
@@ -18,7 +18,7 @@
   function validateAlias(value) {
     const alias = String(value || "").trim();
     if (!alias) return "";
-    if (!/^[a-zA-Z0-9]{1,16}$/.test(alias)) throw new Error("Custom alias must contain 1–16 letters or numbers only.");
+    if (!/^[a-zA-Z0-9_-]{3,16}$/.test(alias)) throw new Error("Custom alias must contain 3–16 letters, numbers, hyphens or underscores.");
     return alias;
   }
 
@@ -26,13 +26,13 @@
     if (typeof fetchImpl !== "function") throw new Error("Your browser does not support the required network request.");
     const url = normalizeUrl(longUrl);
     const customAlias = validateAlias(alias);
-    const body = new URLSearchParams({ url });
-    if (customAlias) body.set("alias", customAlias);
-    const response = await fetchImpl(API_URL, { method:"POST", headers:{ "Accept":"application/json", "Content-Type":"application/x-www-form-urlencoded" }, body });
+    const body = { long_url:url };
+    if (customAlias) body.alias = customAlias;
+    const response = await fetchImpl(API_URL, { method:"POST", headers:{ "Accept":"application/json", "Content-Type":"application/json" }, body:JSON.stringify(body) });
     let data = {};
     try { data = await response.json(); } catch (_) {}
     if (response.status === 429) throw new Error("The free shortening service is temporarily rate-limited. Please try again later.");
-    if (!response.ok) throw new Error(data.message || data.error || "The shortening service could not create this link. Check the URL and try again.");
+    if (!response.ok) throw new Error(data.error || data.message || data.code || "The shortening service could not create this link. Check the URL and try again.");
     const shortUrl = String(data.short_url || data.shortUrl || "").trim();
     let parsedShort;
     try { parsedShort = new URL(shortUrl); } catch (_) {}
