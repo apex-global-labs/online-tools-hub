@@ -355,8 +355,8 @@ function toolMarkup(id){
  case "timestamp":return form(input("timestampValue","Unix timestamp","1760000000")+select("timestampUnit","Timestamp unit",[["seconds","Seconds"],["milliseconds","Milliseconds"]])+input("localDateTime","Local date and time","","datetime-local") + '<div class="actions">' + btn("convertTimestamp","Convert timestamp") + btn("convertDate","Convert date",false) + '</div>' + out() + '<p class="muted text-sm">Unix timestamps represent UTC time. Local date conversion uses your browser time zone.</p>');
  case "whitespace":return form(textarea("sourceText","Text to clean")+'<div class="checkrow"><label><input id="trimWhitespaceLines" type="checkbox" checked> Trim each line</label><label><input id="removeBlankWhitespaceLines" type="checkbox"> Remove blank lines</label></div><div class="actions">' + btn("cleanWhitespace","Clean text") + btn("copy","Copy result",false) + '</div>' + out());
  case "htmlentities":return form(textarea("sourceText","Text or HTML entities")+'<div class="actions">' + btn("encodeEntities","Encode HTML") + btn("decodeEntities","Decode HTML",false) + btn("copy","Copy result",false) + '</div>' + out() + '<p class="muted text-sm">Decoded content is returned as plain text; it is not executed as HTML.</p>');
- case "imageresize":return form('<div><label class="field-label" for="resizeFile">Choose image (PNG, JPEG or WebP; max 10 MB)</label><input class="field" id="resizeFile" type="file" accept="image/png,image/jpeg,image/webp"></div><div class="grid gap-4 sm:grid-cols-2">' + input("resizeWidth","Width (px)","800","number") + input("resizeHeight","Height (px)","600","number") + '</div><label><input id="resizeKeepRatio" type="checkbox" checked> Keep aspect ratio</label>' + select("resizeFormat","Output format",[["image/png","PNG"],["image/jpeg","JPEG"],["image/webp","WebP"]]) + '<div class="actions">' + btn("resizeImage","Resize image") + '</div>' + out() + '<div id="imageResultPreview" class="image-tool-preview" hidden></div><p class="muted text-sm">Images are processed locally. Maximum output dimension: 4096 × 4096 pixels.</p>');
- case "imagecompress":return form('<div><label class="field-label" for="compressFile">Choose image (PNG, JPEG or WebP; max 10 MB)</label><input class="field" id="compressFile" type="file" accept="image/png,image/jpeg,image/webp"></div>' + select("compressFormat","Output format",[["image/webp","WebP"],["image/jpeg","JPEG"]]) + '<label class="field-label" for="compressQuality">Quality: <output id="compressQualityValue">75%</output></label><input class="field" id="compressQuality" type="range" min="10" max="95" value="75"><div class="actions">' + btn("compressImage","Compress image") + '</div>' + out() + '<div id="imageResultPreview" class="image-tool-preview" hidden></div><p class="muted text-sm">Lower quality can reduce file size but may reduce image detail. Review the preview before downloading.</p>');
+ case "imageresize":return form('<div><label class="field-label" for="resizeFile">Choose image (PNG, JPEG or WebP; max 10 MB)</label><input class="field" id="resizeFile" type="file" accept="image/png,image/jpeg,image/webp"></div><div class="grid gap-4 sm:grid-cols-2">' + input("resizeWidth","Width (px)","800","number") + input("resizeHeight","Height (px)","600","number") + '</div><label><input id="resizeKeepRatio" type="checkbox" checked> Keep aspect ratio</label>' + select("resizeFormat","Output format",[["image/png","PNG"],["image/jpeg","JPEG"],["image/webp","WebP"]]) + '<div class="actions">' + btn("resizeImage","Resize image") + btn("clearImage","Clear image",false) + '</div>' + out() + '<div id="imageResultPreview" class="image-tool-preview" hidden></div><p class="muted text-sm">Images are processed locally. Maximum output dimension: 4096 × 4096 pixels.</p>');
+ case "imagecompress":return form('<div><label class="field-label" for="compressFile">Choose image (PNG, JPEG or WebP; max 10 MB)</label><input class="field" id="compressFile" type="file" accept="image/png,image/jpeg,image/webp"></div>' + select("compressFormat","Output format",[["image/webp","WebP"],["image/jpeg","JPEG"]]) + '<label class="field-label" for="compressQuality">Quality: <output id="compressQualityValue">75%</output></label><input class="field" id="compressQuality" type="range" min="10" max="95" value="75"><div class="actions">' + btn("compressImage","Compress image") + btn("clearImage","Clear image",false) + '</div>' + out() + '<div id="imageResultPreview" class="image-tool-preview" hidden></div><p class="muted text-sm">Lower quality can reduce file size but may reduce image detail. Review the preview before downloading.</p>');
  default:return `<p class="muted">Tool not found.</p>`;
  }
 }
@@ -402,7 +402,7 @@ function wireTool(id){
  const src=()=>$("#sourceText")?.value??"";
  switch(id){
 
- case "timestamp":
+ case "timestamp": {
  const timestampDate=ms=>new Date(ms);
  bind("convertTimestamp",()=>{
   const raw=$("#timestampValue").value.trim(),value=Number(raw),unit=$("#timestampUnit").value;
@@ -424,8 +424,9 @@ function wireTool(id){
  });
  bind("copy",()=>copyOutput());
  break;
+ }
 
- case "whitespace":
+ case "whitespace": { {
  const cleanWhitespace=()=>{
   const source=src();
   if(!source.trim()){setOutput("");message("Enter some text to clean.","error");return;}
@@ -439,8 +440,9 @@ function wireTool(id){
  bind("cleanWhitespace",cleanWhitespace);
  bind("copy",()=>copyOutput());
  break;
+ }
 
- case "htmlentities":
+ case "htmlentities": { {
  bind("encodeEntities",()=>{
   if(!src()){setOutput("");message("Enter text to encode.","error");return;}
   const area=document.createElement("textarea");
@@ -455,8 +457,9 @@ function wireTool(id){
  });
  bind("copy",()=>copyOutput());
  break;
+ }
 
- case "imageresize":
+ case "imageresize": { {
  let resizeUrl=null;
  const clearResize=()=>{
   if(resizeUrl)URL.revokeObjectURL(resizeUrl);
@@ -492,7 +495,7 @@ function wireTool(id){
     if(!blob){message("Could not create the resized image.","error");return;}
     if(resizeUrl)URL.revokeObjectURL(resizeUrl);
     resizeUrl=URL.createObjectURL(blob);
-    const output=$("#output");output.dataset.downloadUrl=resizeUrl;output.dataset.downloadName="toolnest-resized-image."+ (format==="image/png"?"png":format==="image/jpeg"?"jpg":"webp");
+    const output=$("#output");output.dataset.downloadUrl=resizeUrl;output.dataset.downloadName="toolnest-resized-image."+(blob.type==="image/png"?"png":blob.type==="image/jpeg"?"jpg":"webp");
     setOutput("Resized image: "+width+" × "+height+" px\nOriginal size: "+(file.size/1024).toFixed(1)+" KB\nNew size: "+(blob.size/1024).toFixed(1)+" KB");
     const preview=$("#imageResultPreview");preview.replaceChildren();const image=document.createElement("img");image.src=resizeUrl;image.alt="Resized image preview";preview.append(image);preview.hidden=false;
     message("Image resized. Use Download result to save it.");
@@ -504,8 +507,9 @@ function wireTool(id){
  bind("copy",()=>copyOutput());
  bind("clearImage",clearResize);
  break;
+ }
 
- case "imagecompress":
+ case "imagecompress": { {
  let compressedUrl=null;
  const clearCompress=()=>{
   if(compressedUrl)URL.revokeObjectURL(compressedUrl);
@@ -535,7 +539,7 @@ function wireTool(id){
     if(!blob){message("Could not compress this image.","error");return;}
     if(compressedUrl)URL.revokeObjectURL(compressedUrl);
     compressedUrl=URL.createObjectURL(blob);
-    const output=$("#output");output.dataset.downloadUrl=compressedUrl;output.dataset.downloadName="toolnest-compressed-image."+(format==="image/webp"?"webp":"jpg");
+    const output=$("#output");output.dataset.downloadUrl=compressedUrl;output.dataset.downloadName="toolnest-compressed-image."+(blob.type==="image/webp"?"webp":blob.type==="image/jpeg"?"jpg":"png");
     const saved=((file.size-blob.size)/file.size*100);
     setOutput("Original: "+(file.size/1024).toFixed(1)+" KB\nCompressed: "+(blob.size/1024).toFixed(1)+" KB\nSize change: "+(saved>=0?saved.toFixed(1)+"% smaller":Math.abs(saved).toFixed(1)+"% larger")+"\nDimensions: "+img.naturalWidth+" × "+img.naturalHeight+" px");
     const preview=$("#imageResultPreview");preview.replaceChildren();const image=document.createElement("img");image.src=compressedUrl;image.alt="Compressed image preview";preview.append(image);preview.hidden=false;
@@ -548,7 +552,7 @@ function wireTool(id){
  bind("copy",()=>copyOutput());
  bind("clearImage",clearCompress);
  break;
-
+ }
 
  case "case":
  bind("upper",()=>setOutput(src().toUpperCase()));
