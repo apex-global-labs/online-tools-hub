@@ -60,6 +60,7 @@ const tools = [
 {id:"pdfmerge",name:"Advanced PDF Merger",category:"Utilities",icon:"📄",description:"Combine PDFs, select and reorder pages, rotate pages and download a custom merged PDF."},
 {id:"pdfsplitter",name:"PDF Splitter",category:"Utilities",icon:"✂️",description:"Split a PDF into separate page files, select page ranges and download multiple pages as a ZIP archive."},
 {id:"iptools",name:"IP Address Finder & Lookup",category:"Utilities",icon:"◎",description:"Find your public IP or look up public IP geolocation and network details."},
+{id:"urlshortener",name:"URL Shortener",category:"Utilities",icon:"🔗",description:"Turn long website addresses into short, shareable links with an optional custom alias."},
 ];
 
 const $ = (s,root=document)=>root.querySelector(s);
@@ -71,6 +72,7 @@ $("#year").textContent=new Date().getFullYear();
 const cardTaglines={
  pdfmerge:"Merge PDFs and control every page",
  pdfsplitter:"Extract pages into separate PDF files",
+ urlshortener:"Turn long URLs into easy-to-share short links",
  case:"Make every word fit your style",
  slug:"Turn titles into clean URLs",
  diff:"Spot changes between two texts",
@@ -326,6 +328,7 @@ function wireUniversalActions(id){
   // QR Studio keeps artwork and render state in local variables; use its own reset handler.
   if(id==="pdfmerge"){ $("#pdfMergeClear")?.click(); return; }
   if(id==="pdfsplitter"){ $("#pdfSplitClear")?.click(); return; }
+  if(id==="urlshortener"){ window.ToolNestUrlShortener?.clear(); message("Tool cleared."); return; }
   if(id==="qr"){ $("#qrClear")?.click(); return; }
   if(id==="imageresize"||id==="imagecompress"){ $("#clearImage")?.click(); return; }
   if(id==="imagecrop"){ $("#clearCrop")?.click(); return; }
@@ -402,6 +405,16 @@ function toolMarkup(id){
  <div class="actions qr-download-actions"><button type="button" class="btn-primary" id="generate">Generate QR</button><button type="button" class="btn-primary" id="qrDownloadPng">Download PNG</button><button type="button" class="btn-secondary" id="qrDownloadSvg">Download SVG</button><button type="button" class="btn-secondary" id="qrClear">Clear</button></div><p id="qrStatus" class="qr-status" role="status" aria-live="polite"></p>
 </div>`);
 
+ case "urlshortener":return form(`
+<div class="url-shortener-tool">
+ <div class="url-shortener-intro"><span class="url-shortener-kicker">FREE LINK TOOL</span><h3>Shorten a long URL</h3><p>Create a shareable short link using a free external service. ToolNest does not host the redirect.</p></div>
+ <div class="url-shortener-fields">${input("shortUrlInput","Long website URL","https://example.com/your/very/long/link","url")}${input("shortUrlAlias","Custom alias (optional)","myLink")}</div>
+ <div class="actions">${btn("shortenUrl","Shorten URL")}${btn("copy","Copy short link",false)}</div>
+ ${out()}
+ <div id="shortUrlResultLink" class="url-shortener-result-link" hidden></div>
+ <p id="shortUrlStatus" class="url-shortener-status" role="status" aria-live="polite">Ready. Paste a complete website URL to create a short link.</p>
+ <p class="url-shortener-note"><strong>Privacy:</strong> The destination URL is sent directly to Spoo.me to create the redirect. ToolNest does not store it. Anonymous use is currently limited by the provider (published limit: 5 links per minute and 50 per day); availability and terms may change. Only shorten links you trust.</p>
+</div>`);
  case "pdfsplitter":return form(`
 <div class="pdf-split-tool">
  <div class="pdf-split-intro"><span class="pdf-split-kicker">TOOLNEST DOCUMENT STUDIO</span><h3>PDF Splitter</h3><p>Export each selected page as a separate PDF. Choose individual pages or enter a page range. Files are processed locally in your browser.</p></div>
@@ -494,6 +507,11 @@ function csvCell(value){
 function wireTool(id){
  const src=()=>$("#sourceText")?.value??"";
  switch(id){
+ case "urlshortener": {
+  window.ToolNestUrlShortener?.init();
+  bind("copy",()=>copyOutput());
+  break;
+ }
  case "pdfsplitter": {
   window.ToolNestPdfSplitter?.init();
   break;
