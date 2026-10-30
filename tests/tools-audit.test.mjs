@@ -246,7 +246,7 @@ test("Advanced PDF Merger is registered with browser-side page controls and guar
   assert.match(module, /parsePageRange/);
   assert.match(module, /rotate-page/);
   assert.match(module, /page-up/);
-  assert.match(module, /file-up/);
+  assert.match(module, /file-up/);\n  assert.doesNotMatch(module, /state\\.initialized/);
   assert.match(module, /application\/pdf/);
   assert.doesNotMatch(module, /\\bfetch\\s*\\(/, "PDF files must not be sent to a server from this module");
   assert.match(getBranch(markup, "pdfmerge"), /Files are processed locally in your browser/);
