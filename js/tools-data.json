@@ -1555,5 +1555,46 @@
       ],
       "tips": "Use page ranges to extract only the pages you need. Large documents may be limited by available device memory; this version supports PDFs up to 30 MB and 300 pages."
     }
+  },
+  {
+    "id": "urlshortener",
+    "title": "URL Shortener",
+    "category": "Utilities",
+    "icon": "🔗",
+    "slug": "url-shortener",
+    "description": "Turn long website addresses into short, shareable links with an optional custom alias.",
+    "tagline": "Create short links for sharing",
+    "seo": {
+      "description": "Shorten long website URLs into easy-to-share links. Add an optional custom alias and copy the result with ToolNest's free URL shortener.",
+      "steps": [
+        "Paste a complete website URL beginning with https:// or http://.",
+        "Optionally enter a custom alias using 1–16 letters or numbers.",
+        "Select Shorten URL, then copy the short link after it is created."
+      ],
+      "features": [
+        "Creates short links for valid HTTP and HTTPS URLs.",
+        "Supports an optional custom alias when it is available.",
+        "Creates redirects through a free third-party service without a ToolNest backend."
+      ],
+      "faqs": [
+        {
+          "question": "How do I shorten a long URL?",
+          "answer": "Paste a complete HTTP or HTTPS URL, optionally enter a custom alias, and select Shorten URL. Copy the generated short link to share it."
+        },
+        {
+          "question": "Are short links hosted on the ToolNest domain?",
+          "answer": "No. The free integration creates links on the external provider's domain. ToolNest does not currently provide its own redirect domain or link-management dashboard."
+        },
+        {
+          "question": "Is URL shortening free?",
+          "answer": "The integrated provider currently offers anonymous free use subject to rate limits. Availability, limits and provider terms may change."
+        },
+        {
+          "question": "Does ToolNest store the URLs I shorten?",
+          "answer": "ToolNest does not store the submitted URL. It is sent directly from your browser to the shortening provider, which processes and stores the short link under its own policies."
+        }
+      ],
+      "tips": "Short links can hide their destination. Only shorten addresses you trust, and explain the destination when sharing a link with others."
+    }
   }
 ]
