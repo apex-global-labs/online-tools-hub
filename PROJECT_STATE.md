@@ -6,13 +6,18 @@ Last updated: 2026-10-30
 > **Authoritative status note (2026-10-30):** This section is the current source of truth. Older handover notes and phase descriptions further below are historical records; where they say work is pending or unmerged, this current status supersedes that wording.
 
 
-## Phase 12 — Calculator & Finance Tools (in progress)
-- Work branch: `phase12-finance-calculators`; based on the verified 26-tool `main` catalogue.
-- Adds Percentage Calculator, Compound Interest Calculator and EMI / Loan Calculator; total catalogue target is **29 tools**.
-- Financial calculations are local, deterministic estimates with explicit input bounds and zero-rate handling. EMI uses a fixed-rate reducing-balance formula; compound interest assumes a fixed nominal annual rate and selected compounding frequency.
-- No exchange-rate API, backend, paid service or new third-party runtime dependency is required for these three calculators.
-- Regression tests cover known percentage, compound-interest and EMI examples, zero-interest cases, invalid denominators, invalid rates, tenure/frequency bounds and overflow guards.
-- Do not merge until the full Node regression suite and JavaScript syntax checks pass. Pages deployment and real-browser QA must be checked separately.
+## Phase 12 — Calculator & Finance Tools (merged)
+- Work branch: `phase12-finance-calculators`; merged to `main` through [PR #31](https://github.com/apex-global-labs/online-tools-hub/pull/31).
+- Adds **Percentage Calculator**, **Compound Interest Calculator** and **EMI / Loan Calculator**. The complete catalogue now contains **29 tools**.
+- Percentage Calculator supports percent-of, part-as-percent-of-whole and percentage increase/decrease.
+- Compound Interest Calculator supports annual, semi-annual, quarterly, monthly and daily compounding, with principal, annual nominal rate, time in years and selectable display currency.
+- EMI Calculator uses a fixed-rate monthly reducing-balance formula and shows monthly instalment, total interest and total repayment. Tenure is limited to 1–600 months.
+- Pure formula helpers live in `js/finance-calculators.js`. Inputs, rates, result ranges, zero denominators, compounding frequencies, zero-interest loans and overflow cases are validated.
+- The currency selector changes display formatting only; no currency conversion or live financial data is fetched by these calculators. No backend, paid API, or new third-party runtime dependency was added.
+- Pull-request regression workflow **41035773406** and post-merge `main` regression workflow **41035951034** passed: **40 tests, 40 passed, 0 failed**.
+- GitHub Pages build/deployment workflow **41035949638** completed successfully after the application merge.
+- Automated tests and deployment are verified. Real-browser interaction QA (actual input, Copy/Download/Clear, mobile layout, theme and console checks) remains pending and must not be described as passed.
+
 
 ## Phase 11 — Text & Writing Tools (merged)
 - Work branch: `phase11-text-writing`; merged to `main` through PR #26. Verification-state documentation was finalized through PR #27.
@@ -28,17 +33,17 @@ Last updated: 2026-10-30
 
 ## Current production status — 2026-10-30
 
-- Production branch: `main`; Phase 11 application code is merged through [PR #26](https://github.com/apex-global-labs/online-tools-hub/pull/26). Its application commit is `1bfce56a13f0b9ee0147ec1d71c64a7cd3328046`.
-- Later project-state updates are documentation-only and do not change the deployed application.
-- Phase 6 SEO content, QR Studio, Phase 9 audit, Phase 10 additions and Phase 11 Text & Writing Tools are merged.
-- Catalogue status: **26 tools**. `app.js` and `js/tools-data.json` contain matching tool IDs; all 26 have SEO metadata and unique slugs.
+- Production branch: `main`; latest application release is Phase 12, merged through [PR #31](https://github.com/apex-global-labs/online-tools-hub/pull/31), commit `f0f5176aa0996f263dc229e003925ce900dee401`.
+- Phase 6 SEO content, QR Studio, Phase 9 audit, Phase 10 additions, Phase 11 Text & Writing Tools and Phase 12 Calculator & Finance Tools are merged.
+- Catalogue status: **29 tools**. `app.js` and `js/tools-data.json` contain matching unique tool IDs; all 29 have tool-specific SEO metadata and unique slugs.
 - Phase 10 added Unix Timestamp Converter, Extra Spaces Remover, HTML Entity Encoder / Decoder, Image Resizer and Image Compressor.
-- Phase 11 added Lorem Ipsum Generator and improved Unicode-aware character totals in Text Case Converter and Word & Character Counter, plus whitespace-only cleanup in Extra Spaces Remover. Existing Text Diff Checker and other text tools were retained rather than duplicated.
+- Phase 11 added Lorem Ipsum Generator and improved Unicode-aware character totals in Text Case Converter and Word & Character Counter, plus whitespace-only cleanup in Extra Spaces Remover. Existing text tools were retained without duplicates.
+- Phase 12 added Percentage Calculator, Compound Interest Calculator and EMI / Loan Calculator. Formulas are local, bounded and covered by automated tests; no live rates are used by these three calculators.
 - Unicode ↔ Bijoy conversion is explicitly excluded.
-- Phase 11 regression checks passed on the pull request and after merge to `main`. The latest `main` regression workflow also passed after the documentation reconciliation.
-- GitHub Pages build and deployment succeeded after the Phase 11 application merge and again after the latest documentation reconciliation.
-- No new paid service, backend, package or third-party dependency was added for Phase 11.
-- **Real-browser interaction QA remains pending for all 26 tools.** Automated tests and successful Pages deployment do not prove actual clipboard/download/Clear behavior, responsive layout, Day/Night rendering, routes or browser-console behavior.
+- Phase 12 PR regression run **41035773406** and post-merge `main` regression run **41035951034** passed: **40/40 tests**.
+- GitHub Pages build/deployment run **41035949638** completed successfully after the Phase 12 merge.
+- No new backend, paid service or third-party runtime dependency was added for Phase 12.
+- **Real-browser interaction QA remains pending for all 29 tools.** CI and deployment do not prove actual clipboard/download/Clear behavior, responsive layout, Day/Night rendering, route interactions or browser-console behavior.
 - Phase 4 Escape-key issue remains deferred.
 
 ## Project goal
