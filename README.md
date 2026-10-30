@@ -82,6 +82,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Password Generator
 - Time Zone Converter
 - Number to Words Converter (English and Bangla)
+- IP Address Finder & Lookup
 
 ### IP Address Finder & Lookup
 - Finds the public IP visible to the external lookup provider or looks up a manually entered public IPv4/IPv6 address.
