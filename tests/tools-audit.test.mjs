@@ -28,10 +28,10 @@ function getBranch(source, id) {
   return source.slice(start, next < 0 ? source.length : start + marker.length + next);
 }
 
-test("catalogue and router metadata contain the same 26 unique tool IDs", () => {
-  assert.equal(catalogIds.length, 26);
+test("catalogue and router metadata contain the same 29 unique tool IDs", () => {
+  assert.equal(catalogIds.length, 29);
   assert.equal(new Set(catalogIds).size, catalogIds.length);
-  assert.equal(metadata.length, 26);
+  assert.equal(metadata.length, 29);
   assert.equal(new Set(metadata.map((tool) => tool.id)).size, metadata.length);
   assert.deepEqual([...metadata.map((tool) => tool.id)].sort(), [...catalogIds].sort());
   assert.equal(new Set(metadata.map((tool) => tool.slug)).size, metadata.length);
@@ -156,10 +156,10 @@ test("workspace supports slug routes, legacy ID routes and a visible 404 state",
   assert.match(app, /toastTimer=setTimeout/);
 });
 
-test("Phase 10 tools remain complete after Phase 11 adds a new text utility", () => {
+test("Phase 10 and Phase 11 tools remain complete after Phase 12 adds three calculators", () => {
   const newIds = ["timestamp", "whitespace", "htmlentities", "imageresize", "imagecompress"];
-  assert.equal(catalogIds.length, 26);
-  assert.equal(metadata.length, 26);
+  assert.equal(catalogIds.length, 29);
+  assert.equal(metadata.length, 29);
   for (const id of newIds) {
     assert.ok(catalogIds.includes(id), "catalogue should include " + id);
     assert.ok(markup.includes('case "' + id + '":'), "markup should include " + id);
@@ -212,4 +212,17 @@ test("text counters count Unicode code points and whitespace cleaner accepts whi
   assert.match(getBranch(wiring, "counter"), /Array\.from\(s\.replace/);
   assert.match(getBranch(wiring, "case"), /Array\.from\(s\)\.length/);
   assert.match(getBranch(wiring, "whitespace"), /if\(!source\.length\)/);
+});
+
+test("Phase 12 calculators are registered, wired and share universal actions", () => {
+  for (const id of ["percentage", "compound", "emi"]) {
+    assert.ok(catalogIds.includes(id), "catalogue should include " + id);
+    assert.match(getBranch(markup, id), /btn\("copy"/);
+    assert.match(getBranch(wiring, id), /calculate/);
+    assert.ok(metadata.some(tool => tool.id === id && tool.seo?.faqs?.length === 3));
+  }
+  assert.match(getBranch(markup, "percentage"), /percentageMode/);
+  assert.match(getBranch(markup, "compound"), /compoundFrequency/);
+  assert.match(getBranch(markup, "emi"), /emiMonths/);
+  assert.match(wiring, /window\.ToolNestFinance/);
 });
