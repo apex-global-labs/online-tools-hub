@@ -22,7 +22,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/ip-tools.css` — responsive IP lookup results and status styling
 - `css/phase13-converters.css` — responsive styling for advanced converters
 - `robots.txt` and `sitemap.xml` — root-level crawl guidance and the canonical homepage sitemap
-- `robots.txt` and `sitemap.xml` — root-level crawl guidance and canonical homepage sitemap
+- `sitemap.xml` — canonical homepage sitemap for the GitHub Pages project site
 - `PROJECT_STATE.md` — current status, verification notes and next-step roadmap
 
 ## Current UI features
@@ -99,8 +99,8 @@ A static, browser-based multi-tool website. No backend or build step is required
 - The canonical URL and social-sharing metadata point to the GitHub Pages homepage. Search engines decide independently whether and how to index the site.
 
 ## Search engine crawl files
-- `robots.txt` allows public crawling and points to the published sitemap.
 - `sitemap.xml` lists the canonical homepage only. Tool workspaces use hash-based routes inside one static HTML page, so they are not separate crawlable HTML pages in this sitemap.
+- This is a GitHub Pages project site under `/online-tools-hub/`. A repository-level `robots.txt` would not be served at the origin root where crawlers expect it, so this repository does not claim to control origin-wide crawl rules.
 - The canonical URL and social-sharing metadata point to the GitHub Pages homepage. Search engines decide independently whether and how to index the site.
 
 ## Run locally
