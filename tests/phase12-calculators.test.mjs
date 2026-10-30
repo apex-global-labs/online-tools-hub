@@ -18,6 +18,7 @@ test("percentage calculator rejects zero denominators, invalid modes and extreme
   assert.throws(() => finance.calculatePercentage("unknown", 1, 2), /valid percentage/);
   assert.throws(() => finance.calculatePercentage("of", 1e13, 2), /supported range/);
   assert.throws(() => finance.calculatePercentage("of", Infinity, 2), /valid number/);
+  assert.throws(() => finance.calculatePercentage("of", 1e12, 1e12), /result is outside/);
 });
 
 test("compound interest matches annual, monthly and zero-rate examples", () => {
