@@ -50,7 +50,8 @@ Last updated: 2026-10-30
 ## Phase 3 — Individual Crawlable Tool Pages (in progress)
 
 - Working branch: `seo/phase3-crawlable-tool-pages` (based on main commit `016513e746d7e5420706a90cab3717fd07780c80`).
-- Planned implementation: 40 static tool guide pages under `tools/<slug>/`, a directory at `tools/`, unique canonical and social metadata, visible per-tool instructions/features/FAQs, structured data, homepage discovery link and a 42-URL XML sitemap (homepage + directory + 40 guides).
+- Implemented on the feature branch: 40 static tool guide pages under `tools/<slug>/`, a directory at `tools/`, unique canonical and social metadata, visible per-tool instructions/features/FAQs, WebApplication/BreadcrumbList/FAQPage structured data, a homepage discovery link and a 42-URL XML sitemap (homepage + directory + 40 guides).
+- Added regression coverage for every guide page, canonical URL, directory link, structured-data block and sitemap entry. CI and deployment are pending.
 - Interactive tool implementations remain in the existing app and are reached through the existing hash router; guide pages must not duplicate or replace tool logic.
 - Completion depends on source review, CI regression tests, GitHub Pages deployment and separate live URL/browser verification.
 
