@@ -8,6 +8,7 @@ const read = (path) => readFileSync(new URL(path, import.meta.url), "utf8");
 const html = read("../index.html");
 const sitemap = read("../sitemap.xml");
 const workflow = read("../.github/workflows/tests.yml");
+const readme = read("../README.md");
 const siteUrl = "https://apex-global-labs.github.io/online-tools-hub/";
 
 test("homepage has useful title, description, canonical URL and social metadata", () => {
@@ -37,4 +38,13 @@ test("CI regression suite runs syntax checks for IP and router bridge runtime fi
     assert.equal(result.status, 0, result.stderr || result.stdout || "runtime JavaScript syntax check failed");
   }
   assert.match(workflow, /node --experimental-default-type=module --test tests\/\*\.test\.mjs/);
+});
+
+
+test("crawl documentation accurately describes the project-site sitemap and robots.txt limitation", () => {
+  assert.equal((readme.match(/^## Search engine crawl files$/gm) || []).length, 1);
+  assert.match(readme, /sitemap\.xml` lists the canonical homepage only/);
+  assert.match(readme, /No repository-level `robots\.txt` is provided/);
+  assert.doesNotMatch(readme, /- `robots\.txt` allows public crawling/);
+  assert.match(readme, /A social preview image is not yet configured/);
 });
