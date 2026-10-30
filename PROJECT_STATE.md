@@ -71,7 +71,8 @@ Last updated: 2026-10-30
 - Corrected the homepage heading hierarchy: the dynamic workspace title is now H2, leaving the homepage hero as its single primary H1.
 - Improved the tool-directory description and social preview metadata.
 - Added regression coverage for unique concise metadata, social description consistency, practical tips, exactly one H1 per guide, FAQ visibility and image alt text when images are present.
-- Pending: run the complete regression suite and JavaScript syntax checks, review the 40-page diff and open a PR. Do not merge until checks pass and the PR is reviewed.
+- Regression workflow **41098279543** completed successfully: **82 tests, 82 passed, 0 failed**; JavaScript syntax checks passed.
+- PR #44 is open and mergeable; source diff and representative guides were reviewed. GitHub Pages deployment will run after merge.
 - Manual browser verification and Search Console indexing checks remain separate follow-up tasks.
 
 ## Current application structure
