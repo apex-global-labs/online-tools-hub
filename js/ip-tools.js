@@ -6,7 +6,7 @@
   return parts.length===4&&parts.every(part=>/^\\d{1,3}$/.test(part)&&Number(part)>=0&&Number(part)<=255&&(part==="0"||!part.startsWith("0")));
  }
  function isIPv6(value){
-  if(!value||value.includes("%")||!value.includes(":"))return false;
+  if(!value||value.includes("%")||!value.includes(":")||value.includes(":::"))return false;
   if((value.match(/::/g)||[]).length>1)return false;
   let source=value;
   let ipv4Groups=0;
@@ -31,12 +31,12 @@
   if(!isValidIpAddress(value))return "Invalid";
   if(value.includes(":")){
    const ip=value.toLowerCase();
-   if(ip==="::"||ip==="::1"||ip.startsWith("fc")||ip.startsWith("fd")||/^fe[89ab]/.test(ip))return "Private / special-use";
-   return "IPv6";
+   if(ip==="::"||ip==="::1"||ip.startsWith("fc")||ip.startsWith("fd")||ip.startsWith("ff")||ip.startsWith("2001:db8:")||/^fe[89ab]/.test(ip))return "Private / special-use";
+   return "Public IPv6";
   }
   const p=value.split(".").map(Number),a=p[0],b=p[1];
-  if(a===10||a===127||a===0||(a===169&&b===254)||(a===172&&b>=16&&b<=31)||(a===192&&b===168)||(a===100&&b>=64&&b<=127)||a>=224)return "Private / special-use";
-  return "IPv4";
+  if(a===10||a===127||a===0||(a===169&&b===254)||(a===172&&b>=16&&b<=31)||(a===192&&(b===168||b===0||b===2))||(a===100&&b>=64&&b<=127)||(a===198&&(b===18||b===19||b===51))||(a===203&&b===0)||a>=224)return "Private / special-use";
+  return "Public IPv4";
  }
  const api={isIPv4,isIPv6,isValidIpAddress,classifyIpAddress};
  root.ToolNestIP=api;
