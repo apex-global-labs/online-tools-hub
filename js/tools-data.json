@@ -1042,5 +1042,149 @@
         }
       ]
     }
+  },
+  {
+    "id": "area",
+    "title": "Area Converter",
+    "category": "Calculators",
+    "icon": "▱",
+    "slug": "area-converter",
+    "description": "Convert square metres, square feet, square yards, acres, hectares and square kilometres.",
+    "tagline": "Convert common area measurements",
+    "seo": {
+      "description": "Convert area measurements between square metres, square feet, square yards, acres, hectares and square kilometres with accurate standard conversion factors. Calculations run locally in your browser.",
+      "steps": [
+        "Enter a non-negative area value.",
+        "Choose the source and destination area units.",
+        "Select Convert and review the result; copy or download it using the workspace actions."
+      ],
+      "features": [
+        "Supports six common metric and imperial area units.",
+        "Uses standard square-metre conversion factors.",
+        "Processes values locally without an external conversion API."
+      ],
+      "faqs": [
+        {
+          "question": "Which area units are supported?",
+          "answer": "Square metres, square feet, square yards, acres, hectares and square kilometres are supported."
+        },
+        {
+          "question": "Are the conversion factors exact?",
+          "answer": "The tool uses standard internationally defined unit factors; displayed results are rounded for readability."
+        },
+        {
+          "question": "Is my input sent to a server?",
+          "answer": "No. Area conversion is calculated in your browser."
+        }
+      ]
+    }
+  },
+  {
+    "id": "land",
+    "title": "Bangladesh Land Unit Converter",
+    "category": "Calculators",
+    "icon": "৳",
+    "slug": "bangladesh-land-unit-converter",
+    "description": "Convert shotok, katha, bigha, acre and square feet using clearly stated Bangladesh conventions.",
+    "tagline": "Convert common Bangladesh land units",
+    "seo": {
+      "description": "Convert Bangladesh land measurements including shotok or decimal, katha, bigha, acre and square feet. The calculator clearly states its assumed local conversion standards and runs in your browser.",
+      "steps": [
+        "Enter the land area and choose its current unit.",
+        "Choose the unit you want to convert into.",
+        "Select Convert and read the result together with the regional measurement note."
+      ],
+      "features": [
+        "Supports shotok, decimal, katha, bigha, acre and square feet.",
+        "Uses a clearly documented common Bangladesh convention.",
+        "Keeps all calculations local in your browser."
+      ],
+      "faqs": [
+        {
+          "question": "What land-unit standard does this converter use?",
+          "answer": "It assumes 1 shotok = 435.6 square feet, 1 katha = 720 square feet and 1 bigha = 20 katha."
+        },
+        {
+          "question": "Are land units identical throughout Bangladesh?",
+          "answer": "No. Local conventions can differ by district, locality and deed. Verify the applicable measurement standard before using a result for a transaction."
+        },
+        {
+          "question": "Does the converter replace a land survey?",
+          "answer": "No. It is a reference calculator and does not replace official survey, deed review or local land-record guidance."
+        }
+      ]
+    }
+  },
+  {
+    "id": "timezone",
+    "title": "Time Zone Converter",
+    "category": "Utilities",
+    "icon": "◷",
+    "slug": "time-zone-converter",
+    "description": "Convert a date and time between UTC and popular international time zones.",
+    "tagline": "Compare dates and times around the world",
+    "seo": {
+      "description": "Convert a selected local date and time between popular international time zones using built-in IANA time-zone rules. Daylight-saving transitions are handled in your browser without an external time API.",
+      "steps": [
+        "Choose the date and time as it occurs in the source time zone.",
+        "Select the source and destination time zones.",
+        "Select Convert time to view the equivalent UTC instant and destination time."
+      ],
+      "features": [
+        "Includes Bangladesh, India, UAE, Europe, Japan, the United States and Australia.",
+        "Uses IANA time-zone data supplied by the browser, including daylight-saving rules.",
+        "Detects local times skipped by daylight-saving clock changes."
+      ],
+      "faqs": [
+        {
+          "question": "Does the converter account for daylight saving time?",
+          "answer": "Yes. It uses the browser's IANA time-zone database for the selected date, so seasonal offsets are applied."
+        },
+        {
+          "question": "What happens when a clock change makes a local time ambiguous?",
+          "answer": "If a local time occurs twice, the converter selects the earlier occurrence and identifies that choice in the result."
+        },
+        {
+          "question": "Is an internet time service required?",
+          "answer": "No external time API is called. Conversion uses the browser's built-in internationalization support."
+        }
+      ]
+    }
+  },
+  {
+    "id": "numberwords",
+    "title": "Number to Words Converter",
+    "category": "Utilities",
+    "icon": "১",
+    "slug": "number-to-words-converter",
+    "description": "Convert numbers into words in English or Bangla, including negative values and decimals.",
+    "tagline": "Write numbers in English or বাংলা",
+    "seo": {
+      "description": "Convert numeric values into written words in English or Bangla. Supports negative numbers and up to two decimal places, with browser-local processing and no external API.",
+      "steps": [
+        "Enter a whole number or a value with up to two decimal places.",
+        "Choose English or বাংলা as the output language.",
+        "Select Convert to words, then copy or download the written result."
+      ],
+      "features": [
+        "Supports English and Bangla number words.",
+        "Handles negative values and up to two decimal places.",
+        "Processes values locally in your browser."
+      ],
+      "faqs": [
+        {
+          "question": "Which number range is supported?",
+          "answer": "The converter supports values from negative 999,999,999,999 to positive 999,999,999,999."
+        },
+        {
+          "question": "Can I convert decimal numbers?",
+          "answer": "Yes. Up to two decimal places are supported and read digit by digit after the decimal point."
+        },
+        {
+          "question": "Does it support Bangla output?",
+          "answer": "Yes. Select বাংলা to receive the number words in Bangla."
+        }
+      ]
+    }
   }
 ]

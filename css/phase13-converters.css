@@ -1,0 +1,7 @@
+/* Phase 13 — advanced converter layouts */
+.advanced-converter .field { min-width: 0; }
+.advanced-converter .output { overflow-wrap: anywhere; white-space: pre-line; }
+.advanced-converter .muted { line-height: 1.65; }
+@media (max-width: 640px) {
+  .advanced-converter .actions > button { flex: 1 1 100%; }
+}
