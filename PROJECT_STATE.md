@@ -5,16 +5,18 @@ Last updated: 2026-10-30
 
 > **Authoritative status note (2026-10-30):** This section is the current source of truth. Older handover notes and phase descriptions further below are historical records; where they say work is pending or unmerged, this current status supersedes that wording.
 
-## Current production status — verified through PR #22
+## Current production status — verified through PR #24
 
-- Production branch: `main`; current production HEAD after PR #22: `afa5ba398caa94c9ad4e152992813860ed04427b`.
+- Production branch: `main`; current production HEAD after PR #24: `74186010ad190ba582b4d0ac1e373c45d7ca1766`.
 - **Phase 6 SEO content and FAQ is merged** through [PR #15](https://github.com/apex-global-labs/online-tools-hub/pull/15).
-- **QR Studio work is merged**: [PR #17](https://github.com/apex-global-labs/online-tools-hub/pull/17), [PR #18](https://github.com/apex-global-labs/online-tools-hub/pull/18), [PR #19](https://github.com/apex-global-labs/online-tools-hub/pull/19), and [PR #20](https://github.com/apex-global-labs/online-tools-hub/pull/20). QR Studio has Default/Custom modes, five palettes, five dot shapes, optional local image blending, error correction H, and PNG/SVG export. Blend visibility is 20%–60%, default 50%; QR scanning must be tested after exporting because stronger artwork visibility can reduce reliability.
-- **Phase 9 source-level audit and QR Clear fix are merged** through [PR #22](https://github.com/apex-global-labs/online-tools-hub/pull/22). The audit report is [docs/PHASE9_AUDIT.md](docs/PHASE9_AUDIT.md).
-- PR #22 regression workflow run **41027128056** completed successfully. This verifies the Node regression suite, not real-browser behavior.
-- The previous GitHub Pages deployment run **41026695491** completed successfully before PR #22 was merged. A deployment for the PR #22 merge has not yet been independently confirmed here.
-- Catalogue status: **20 existing tools**; the project goal remains 25.
-- **Live browser audit is still pending** for all 20 tools, including actual Copy/Download/Clear behavior, mobile/desktop rendering, Day/Night theme, routes, and browser-console/network checks. Owner-reported QR visibility/reset/phone-camera checks passed separately.
+- **QR Studio work is merged**: [PR #17](https://github.com/apex-global-labs/online-tools-hub/pull/17), [PR #18](https://github.com/apex-global-labs/online-tools-hub/pull/18), [PR #19](https://github.com/apex-global-labs/online-tools-hub/pull/19), and [PR #20](https://github.com/apex-global-labs/online-tools-hub/pull/20). QR Studio has Default/Custom modes, five palettes, five dot shapes, optional local image blending, error correction H, and PNG/SVG export. Blend visibility is 20%–60%, default 50%; exported QR codes should be scan-tested.
+- **Phase 9 source-level audit and QR Clear fix are merged** through [PR #22](https://github.com/apex-global-labs/online-tools-hub/pull/22). Report: [docs/PHASE9_AUDIT.md](docs/PHASE9_AUDIT.md).
+- **Phase 10 added five tools, taking the catalogue from 20 to 25** through [PR #24](https://github.com/apex-global-labs/online-tools-hub/pull/24). Report: [docs/PHASE10_TOOLS.md](docs/PHASE10_TOOLS.md).
+- New tools: Unix Timestamp Converter, Extra Spaces Remover, HTML Entity Encoder / Decoder, Image Resizer, and Image Compressor.
+- PR #24 regression workflow run **41028497065** completed successfully, including catalogue/metadata checks and a Node syntax check of `app.js`.
+- GitHub Pages deployment for the PR #24 merge has **not yet been independently confirmed**. Do not assume the live site already serves the new tools until deployment is verified.
+- Catalogue status: **25 tools**. No paid service, backend, package, or new third-party dependency was added for Phase 10.
+- **Live browser audit remains pending** for the 20 earlier tools and the five Phase 10 tools. Browser/device checks must verify actual actions, image rendering/downloads, Day/Night layout, routes, and browser-console/network behavior.
 - Phase 4 Escape-key issue remains deferred.
 
 ## Project goal
@@ -32,9 +34,9 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - `style.css`: base layout, theme variables, responsive styling and tool UI.
 - `css/phase2.css`: phase 2 navigation/search styles, dark-mode contrast overrides and animated day/night hero scene.
 - `css/phase3-category-grid.css`: responsive category filter pills and card-grid presentation for Phase 3.
-- `app.js`: 20-tool catalogue, card filtering, workspace lifecycle and tool implementations.
+- `app.js`: 25-tool catalogue, card filtering, workspace lifecycle and tool implementations.
 - `js/live-search.js`: autocomplete suggestions, keyboard handling, category dropdown behavior and slash shortcut.
-- `js/tools-data.json`: modular router metadata. `main` now contains 20 entries intended to match the 20 tools in `app.js`; automated consistency checks passed, while live route regression checks remain pending.
+- `js/tools-data.json`: modular router metadata. `main` now contains 25 entries intended to match the 20 tools in `app.js`; automated consistency checks passed, while live route regression checks remain pending.
 - `js/router.js`: modular hash route parser/resolver for `#/tools/:slug`.
 - `js/router-bridge.js`: connects modular routes to existing tool launch behavior.
 - `README.md`: setup and feature overview.
