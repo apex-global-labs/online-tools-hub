@@ -1,0 +1,18 @@
+/* Phase 12 — finance calculator refinements */
+.finance-calculator .field,
+.finance-calculator input,
+.finance-calculator select {
+  min-width: 0;
+}
+.finance-calculator .output {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.finance-calculator .muted {
+  line-height: 1.65;
+}
+@media (max-width: 640px) {
+  .finance-calculator .actions > button {
+    flex: 1 1 100%;
+  }
+}
