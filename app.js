@@ -413,7 +413,7 @@ function toolMarkup(id){
  ${out()}
  <div id="shortUrlResultLink" class="url-shortener-result-link" hidden></div>
  <p id="shortUrlStatus" class="url-shortener-status" role="status" aria-live="polite">Ready. Paste a complete website URL to create a short link.</p>
- <p class="url-shortener-note"><strong>Privacy:</strong> The destination URL is sent directly to Spoo.me to create the redirect. ToolNest does not store it. Anonymous use is currently limited by the provider (published limit: 5 links per minute and 50 per day); availability and terms may change. Only shorten links you trust.</p>
+ <p class="url-shortener-note"><strong>Privacy:</strong> The destination URL is sent directly to Spoo.me to create the redirect. ToolNest does not store it. Anonymous use is currently limited by the provider (published anonymous limit: 20 requests per minute and 1,000 per day); availability and terms may change. Only shorten links you trust.</p>
 </div>`);
  case "pdfsplitter":return form(`
 <div class="pdf-split-tool">
