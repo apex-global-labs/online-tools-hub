@@ -97,6 +97,5 @@ test("Phase 13 helper and stylesheet are loaded before app interactions", () => 
   assert.match(html, /css\/phase13-converters\.css/);
   assert.match(html, /js\/advanced-converters\.js[^\n]*defer/);
   assert.match(html, /Search 33 free tools/);
-  assert.match(html.indexOf("js/advanced-converters.js"), /./);
   assert.ok(html.indexOf("js/advanced-converters.js") < html.indexOf("app.js"));
 });
