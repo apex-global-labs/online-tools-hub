@@ -227,5 +227,6 @@ test("Phase 12 finance calculators are registered, have markup and safe event wi
   assert.match(getBranch(wiring, "percentage"), /ToolNestFinance\.calculatePercentage/);
   assert.match(getBranch(wiring, "compound"), /ToolNestFinance\.calculateCompoundInterest/);
   assert.match(getBranch(wiring, "emi"), /ToolNestFinance\.calculateEmi/);
-  assert.match(app, /js\/finance-calculators\.js/);
+  const indexHtml = readFileSync(new URL("../index.html", import.meta.url), "utf8");
+  assert.match(indexHtml, /js\/finance-calculators\.js/);
 });
