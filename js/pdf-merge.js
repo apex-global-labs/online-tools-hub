@@ -4,6 +4,8 @@
   const MAX_FILES = 20;
   const MAX_FILE_BYTES = 50 * 1024 * 1024;
   const MAX_TOTAL_BYTES = 200 * 1024 * 1024;
+  const MAX_PAGES_PER_FILE = 500;
+  const MAX_TOTAL_PAGES = 2000;
   const state = { items: [], busy: false, nextId: 1, resultUrl: null, resultName: "toolnest-merged.pdf", initialized: false };
   const $ = (selector) => document.querySelector(selector);
   const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
@@ -145,6 +147,9 @@
           const document = await PDF.PDFDocument.load(bytes, { ignoreEncryption: false, updateMetadata: false });
           const count = document.getPageCount();
           if (!count) throw new Error("This PDF contains no pages.");
+          if (count > MAX_PAGES_PER_FILE) throw new Error("This PDF has more than 500 pages. Split it into smaller files before adding it.");
+          const existingPages = state.items.reduce((sum, item) => sum + item.pageCount, 0);
+          if (existingPages + count > MAX_TOTAL_PAGES) throw new Error("The total page limit is 2,000 pages per merge job.");
           state.items.push({
             id: state.nextId++,
             file,
@@ -269,8 +274,6 @@
   }
 
   function init() {
-    if (state.initialized) return;
-    state.initialized = true;
     const input = $("#pdfMergeFiles");
     const list = $("#pdfMergeList");
     const mergeButton = $("#pdfMergeRun");
