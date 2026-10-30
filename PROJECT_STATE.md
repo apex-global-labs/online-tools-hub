@@ -5,17 +5,17 @@ Last updated: 2026-10-30
 
 > **Authoritative status note (2026-10-30):** This section is the current source of truth. Older handover notes and phase descriptions further below are historical records; where they say work is pending or unmerged, this current status supersedes that wording.
 
-## Current production status — verified through PR #20
+## Current production status — verified through PR #22
 
-- Production branch: `main`; current HEAD: `69958fcb58f23549b52afac2f746ad7493654559`.
-- **Phase 6 SEO content and FAQ is merged** through [PR #15](https://github.com/apex-global-labs/online-tools-hub/pull/15). The earlier statement below that Phase 6 was unmerged/pending is obsolete.
-- **QR Studio work is merged**: Premium QR preview fix [PR #17](https://github.com/apex-global-labs/online-tools-hub/pull/17), browser-cache fix [PR #18](https://github.com/apex-global-labs/online-tools-hub/pull/18), Default/Custom modes and image blending [PR #19](https://github.com/apex-global-labs/online-tools-hub/pull/19), and visibility adjustment [PR #20](https://github.com/apex-global-labs/online-tools-hub/pull/20). The earlier Phase 8 text below describing this work as in preparation is obsolete.
-- QR Studio currently includes Default and Custom modes; five color palettes; five dot shapes; optional local image blending; error correction level H; PNG and SVG exports. The image-visibility slider range is **20%–60%**, default **50%**, and Clear/reset restores **50%**. The artwork is processed in the browser; SVG export is a clean vector QR and does not include the Canvas-only artwork blend.
-- QR safety note: stronger artwork visibility can reduce scan reliability; error correction H is not a guarantee. The owner reports live testing passed for visibility, reset, and phone-camera scanning with the current settings.
-- Latest recorded CI run: **41015933954 — completed successfully**. Latest recorded GitHub Pages deployment run: **41015933273 — completed successfully**. These are separate checks; CI success alone does not prove deployment or browser behavior.
-- Current catalogue target status: **20 existing tools**; the project goal remains 25. Do not claim all 20 tools have passed a full live-browser audit.
-- Phase 4 Escape-key issue remains deferred. Other browser-only checks not explicitly confirmed by the owner remain pending.
-
+- Production branch: `main`; current production HEAD after PR #22: `afa5ba398caa94c9ad4e152992813860ed04427b`.
+- **Phase 6 SEO content and FAQ is merged** through [PR #15](https://github.com/apex-global-labs/online-tools-hub/pull/15).
+- **QR Studio work is merged**: [PR #17](https://github.com/apex-global-labs/online-tools-hub/pull/17), [PR #18](https://github.com/apex-global-labs/online-tools-hub/pull/18), [PR #19](https://github.com/apex-global-labs/online-tools-hub/pull/19), and [PR #20](https://github.com/apex-global-labs/online-tools-hub/pull/20). QR Studio has Default/Custom modes, five palettes, five dot shapes, optional local image blending, error correction H, and PNG/SVG export. Blend visibility is 20%–60%, default 50%; QR scanning must be tested after exporting because stronger artwork visibility can reduce reliability.
+- **Phase 9 source-level audit and QR Clear fix are merged** through [PR #22](https://github.com/apex-global-labs/online-tools-hub/pull/22). The audit report is [docs/PHASE9_AUDIT.md](docs/PHASE9_AUDIT.md).
+- PR #22 regression workflow run **41027128056** completed successfully. This verifies the Node regression suite, not real-browser behavior.
+- The previous GitHub Pages deployment run **41026695491** completed successfully before PR #22 was merged. A deployment for the PR #22 merge has not yet been independently confirmed here.
+- Catalogue status: **20 existing tools**; the project goal remains 25.
+- **Live browser audit is still pending** for all 20 tools, including actual Copy/Download/Clear behavior, mobile/desktop rendering, Day/Night theme, routes, and browser-console/network checks. Owner-reported QR visibility/reset/phone-camera checks passed separately.
+- Phase 4 Escape-key issue remains deferred.
 
 ## Project goal
 Build a modern, fast, mobile-friendly multi-utility website with a light/night theme, search and category navigation, and browser-side processing where practical. Keep hosting free using GitHub Pages. The owner is a beginner, so changes should be incremental, easy to verify, and avoid breaking working tools.
