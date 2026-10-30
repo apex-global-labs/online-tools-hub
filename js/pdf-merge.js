@@ -39,6 +39,11 @@
     return libraryPromise;
   }
 
+  function invalidateResult() {
+    if (state.resultUrl) URL.revokeObjectURL(state.resultUrl);
+    state.resultUrl = null;
+  }
+
   function selectedCount() {
     return state.items.reduce((sum, item) => sum + item.pages.filter((page) => page.selected).length, 0);
   }
@@ -150,6 +155,7 @@
           if (count > MAX_PAGES_PER_FILE) throw new Error("This PDF has more than 500 pages. Split it into smaller files before adding it.");
           const existingPages = state.items.reduce((sum, item) => sum + item.pageCount, 0);
           if (existingPages + count > MAX_TOTAL_PAGES) throw new Error("The total page limit is 2,000 pages per merge job.");
+          invalidateResult();
           state.items.push({
             id: state.nextId++,
             file,
@@ -175,6 +181,7 @@
     const index = state.items.findIndex((item) => item.id === Number(id));
     const next = index + direction;
     if (index < 0 || next < 0 || next >= state.items.length) return;
+    invalidateResult();
     const [item] = state.items.splice(index, 1);
     state.items.splice(next, 0, item);
     render();
@@ -184,6 +191,7 @@
     const index = item.pages.findIndex((page) => page.index === Number(pageIndex));
     const next = index + direction;
     if (index < 0 || next < 0 || next >= item.pages.length) return;
+    invalidateResult();
     const [page] = item.pages.splice(index, 1);
     item.pages.splice(next, 0, page);
     render();
@@ -193,6 +201,7 @@
     const input = $("#pdf-range-" + item.id);
     try {
       const chosen = parsePageRange(input?.value || "", item.pageCount);
+      invalidateResult();
       item.pages.forEach((page) => { page.selected = chosen.has(page.index); });
       item.range = input.value.trim();
       status("Selected " + chosen.size + " page(s) from " + item.file.name + ".", "success");
@@ -290,6 +299,7 @@
       const item = findItem(checkbox.dataset.fileId);
       const page = item?.pages.find((entry) => entry.index === Number(checkbox.dataset.pageIndex));
       if (!page) return;
+      invalidateResult();
       page.selected = checkbox.checked;
       render();
     });
@@ -308,7 +318,7 @@
       else if (item && action === "page-down") movePage(item, button.dataset.pageIndex, 1);
       else if (item && action === "rotate-page") {
         const page = item.pages.find((entry) => entry.index === Number(button.dataset.pageIndex));
-        if (page) page.rotation = (page.rotation + 90) % 360;
+        if (page) { invalidateResult(); page.rotation = (page.rotation + 90) % 360; }
         render();
       } else if (item && action === "apply-range") applyRange(item);
       else if (item && action === "select-all") {
