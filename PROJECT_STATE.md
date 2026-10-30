@@ -9,7 +9,7 @@ Last updated: 2026-10-30
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Current verified production baseline after Phase 4: `bb200c3a12d797333d87e36fe864ffec09b46249`
+- Current verified production baseline after SEO Phase 5: `c8d1c3926290e1a89fd85f59efe133744441453d`
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no backend or application build step.
 - Catalogue: **40 unique tools**; `app.js` and `js/tools-data.json` are synchronized.
 - No paid service or new runtime dependency is introduced by Phase 17.
@@ -61,6 +61,16 @@ Last updated: 2026-10-30
   - Repository source audit: 40 guide HTML files, 42 unique sitemap URLs, all 40 guide URLs resolve to a corresponding repository file.
 - **Manual real-browser verification remains pending.** The project has no active automated browser E2E suite; verify representative guide URLs, mobile layout, internal links and tool launch in a real browser before claiming browser QA complete.
 - Sitemap inclusion does not guarantee Google indexing, search visibility or rankings. Search Console indexing status has not yet been confirmed.
+
+## SEO Phase 6 — Sitemap & Crawling Optimization (in progress)
+
+- Work branch: `seo/phase6-sitemap-crawling`, based on the post-Phase-5 `main` state.
+- Audited the existing sitemap and all 40 static tool-guide pages. The intended crawlable inventory is 42 URLs: homepage, tool directory and 40 guide pages.
+- Confirmed the repository is a GitHub Pages project site at `/online-tools-hub/`. A repository-level `robots.txt` would be published under that project path rather than the host root, so no ineffective robots file is being added.
+- Added `docs/PHASE6_SITEMAP_CRAWLING.md` documenting sitemap inventory, canonical alignment, internal discovery, the robots.txt hosting constraint and manual Search Console handoff.
+- Added `tests/sitemap-crawling.test.mjs` to check sitemap URL inventory/uniqueness, project path, absence of query/hash URLs, W3C `lastmod` dates, canonical consistency, index/follow directives and crawlable internal links.
+- Search Console sitemap submission and Google indexing status require owner account access and are not claimed as completed.
+- Automated CI, PR review, merge and post-merge deployment verification are pending.
 
 ## SEO Phase 5 — Keyword Research & Search Intent Mapping (completed and merged)
 
