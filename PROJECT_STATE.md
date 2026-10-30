@@ -1,6 +1,6 @@
 # ToolNest / Online Tools Hub — Project State
 
-Last updated: 2026-10-30
+Last updated: 2026-10-31
 
 > **Authoritative status:** This top section reflects the verified repository state. Older implementation notes are retained below as historical context and must not override this status.
 
@@ -9,10 +9,21 @@ Last updated: 2026-10-30
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Current verified production baseline after Phase 4: `bb200c3a12d797333d87e36fe864ffec09b46249`
+- Current verified production baseline after Phase 7: `79f13736744aa6a8e6af2e5dd387fc8585cc8768`
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no backend or application build step.
 - Catalogue: **40 unique tools**; `app.js` and `js/tools-data.json` are synchronized.
 - No paid service or new runtime dependency is introduced by Phase 17.
+
+## Phase 7 — Speed & Performance SEO (completed and deployed)
+
+- PR #49 merged into `main` at commit `79f13736744aa6a8e6af2e5dd387fc8585cc8768`.
+- Regression workflow **41105519466** completed successfully: **91 tests passed, 0 failed**; JavaScript syntax checks passed.
+- GitHub Pages deployment workflow **41106153259** completed successfully for the Phase 7 merge commit.
+- QR Code Styling is no longer downloaded on every initial page visit; it is loaded asynchronously on demand when the QR tool needs it.
+- Removed the remote Google Fonts CSS import from the main stylesheet and retained the system-font fallback stack.
+- The user reviewed the live site and the supplied PageSpeed Insights page and confirmed that everything looked okay. Exact Mobile/Desktop scores were not provided in the project record, so no numeric score or before/after improvement is claimed.
+- CrUX field Core Web Vitals values were not independently captured. Treat numeric PSI/CWV reporting as a future measurement follow-up, not as a claimed result of this phase.
+- Phase acceptance is based on the merged optimization, passing regression suite, successful production deployment, and user-reported live review.
 
 ## Phase 2 — Technical SEO Fix (completed and deployed)
 
@@ -97,14 +108,11 @@ Last updated: 2026-10-30
 - Source review confirmed all 40 static guide pages have synchronized unique metadata and visible practical tips; tool URLs, router behavior, canonical URLs and sitemap entries were retained.
 - Manual browser verification and Search Console indexing checks remain separate follow-up tasks.
 
-## Phase 7 — Speed & Performance SEO (in progress)
+## Phase 7 — Speed & Performance SEO (completed; quantitative metrics not recorded)
 
-- Scope: mobile performance, Core Web Vitals (LCP/INP/CLS), JavaScript/CSS and image optimization, and Google PageSpeed Insights checks on mobile and desktop.
-- Work branch: `phase7-speed-performance-seo`, based on verified main commit `5ec9bd22c449b09df47790add5138fca02f5940c`.
-- Initial code audit found a QR styling library downloaded on every visit despite being used only by the QR tool, plus a Google Fonts CSS import in the main stylesheet.
-- First low-risk optimization: load the QR library asynchronously only when QR generation is requested; remove the remote font CSS import and retain the existing system-font fallback stack.
-- Added source-level regression tests for deferred QR loading, request reuse/retry, and removal of the remote font import.
-- Baseline/final PageSpeed Insights scores and field Core Web Vitals are not yet measured. Do not claim score improvements or Phase 7 completion until Mobile/Desktop measurements and the remaining checks are recorded.
+- Implementation details and verified CI/deployment evidence are summarized in the authoritative Phase 7 status above.
+- The user reviewed the live site and PageSpeed Insights page and reported that everything looked okay; exact Mobile/Desktop score values were not supplied.
+- No numeric PageSpeed score improvement or independently measured CrUX field Core Web Vitals result is claimed.
 
 ## Current application structure
 
