@@ -6,7 +6,7 @@
   const MAX_TOTAL_BYTES = 200 * 1024 * 1024;
   const MAX_PAGES_PER_FILE = 500;
   const MAX_TOTAL_PAGES = 2000;
-  const state = { items: [], busy: false, nextId: 1, resultUrl: null, resultName: "toolnest-merged.pdf", initialized: false };
+  const state = { items: [], busy: false, nextId: 1, resultUrl: null, resultName: "toolnest-merged.pdf" };
   const $ = (selector) => document.querySelector(selector);
   const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
