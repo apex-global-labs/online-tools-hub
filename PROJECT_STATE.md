@@ -13,7 +13,10 @@ Last updated: 2026-10-30
 - Extra Spaces Remover accepts whitespace-only input and cleans it instead of treating it as missing input.
 - Lorem Ipsum Generator supports 1–10 paragraphs, 1–8 sentences per paragraph, an optional classic opening, and local generation.
 - Unicode ↔ Bijoy conversion is explicitly out of scope.
-- Regression coverage and metadata/catalogue synchronization are included. CI, merge, Pages deployment and real-browser QA must be recorded only after their respective checks complete.
+- Regression coverage and metadata/catalogue synchronization are included. PR #26 was merged to `main` as commit `1bfce56a13f0b9ee0147ec1d71c64a7cd3328046`.
+- PR regression workflow run **41033005867** and post-merge `main` regression run **41033055609** completed successfully.
+- GitHub Pages build/deployment run **41033055683** completed successfully after the merge.
+- Real-browser interaction QA remains pending; deployment success and source/CI tests do not prove clipboard, download, Clear, responsive layout or theme behavior in a browser.
 
 ## Current production status — verified through PR #24
 
