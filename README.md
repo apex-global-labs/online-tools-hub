@@ -12,6 +12,8 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `js/router.js` — route parsing/resolution
 - `js/router-bridge.js` — bridge from modular routes to the existing tool workspace
 - `css/phase10-image-tools.css` — responsive previews for the image utilities
+- `css/phase12-calculators.css` — responsive finance calculator refinements
+- `js/finance-calculators.js` — bounded, reusable percentage, compound-interest and EMI formula helpers
 - `PROJECT_STATE.md` — current status, verification notes and next-step roadmap
 
 ## Current UI features
@@ -76,5 +78,6 @@ Open `index.html` in a modern browser while connected to the internet. Tailwind 
 ## Important notes
 - Tool processing is browser-based unless a tool explicitly fetches a public reference service (the currency converter retrieves exchange-rate data). Image Resizer and Image Compressor process local images in the browser; each input is limited to 10 MB.
 - Avoid describing every tool as fully private: the currency converter makes a network request, and external libraries are loaded from CDNs.
+- Percentage, compound-interest and EMI calculators use local formulas. The currency selectors only format the displayed amount; they do not fetch exchange rates. These calculators provide estimates, not financial advice or lender offers.
 - Tailwind's browser CDN is convenient for a prototype; a production build can later compile and pin assets locally.
 - Phase 2 UI interactions have been manually spot-checked by the owner. The newest theme-persistence and keyboard-navigation changes should be re-tested on desktop and mobile after deployment.
