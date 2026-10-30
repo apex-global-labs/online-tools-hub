@@ -21,7 +21,7 @@ Last updated: 2026-10-31
 - Intended behavior: load one PDF locally, select individual pages or a range such as `1-3,5`, export each selected page as a separate PDF, and package multiple outputs as ZIP.
 - Uses the existing `pdf-lib@1.17.1` browser dependency and lazy-loads JSZip only when multiple page outputs need a ZIP. No PDF is uploaded to ToolNest.
 - Safety limits: 30 MB per input PDF and 300 pages per job.
-- Automated regression coverage has been added. Full suite, syntax checks and PR/CI verification are pending. The owner reports that the live Advanced PDF Merger was manually tested and works; the exact scenario checklist was not recorded, so do not infer that every large-file or edge-case scenario was tested. This tool is **not complete or deployed** until those checks pass.
+- Automated regression suite passed: **101 tests passed, 0 failed** in workflow **41118228617**. Existing JavaScript syntax checks passed. The CI workflow now also includes a direct syntax check for `js/pdf-splitter.js`; its updated run is pending. PR #53 remains open and the feature is not yet deployed. The owner reports that the live Advanced PDF Merger was manually tested and works; the exact scenario checklist was not recorded, so do not infer that every large-file or edge-case scenario was tested. This tool is **not complete or deployed** until those checks pass.
 - Current branch catalogue target: 42 tools, 42 individual guides and 44 sitemap URLs. Production `main` remains at 41 tools, 41 guides and 43 sitemap URLs until merge.
 
 ## Phase 8A — Advanced PDF Merger (merged and deployed; owner-reported live check passed)
