@@ -6,8 +6,8 @@ Last updated: 2026-10-30
 > **Authoritative status note (2026-10-30):** This section is the current source of truth. Older handover notes and phase descriptions further below are historical records; where they say work is pending or unmerged, this current status supersedes that wording.
 
 
-## Phase 11 — Text & Writing Tools (feature branch)
-- Work branch: `phase11-text-writing`; based on the latest Phase 10 documentation commit.
+## Phase 11 — Text & Writing Tools (merged)
+- Work branch: `phase11-text-writing`; merged to `main` through PR #26. Verification-state documentation was finalized through PR #27.
 - Phase 11 adds **Lorem Ipsum Generator** as the 26th tool. Existing Text Diff Checker, Word & Character Counter, Text Case Converter and Extra Spaces Remover are retained; no duplicate versions are introduced.
 - Text Case Converter and Word & Character Counter now count Unicode code points for character totals, so supplementary Unicode characters are not counted as two characters.
 - Extra Spaces Remover accepts whitespace-only input and cleans it instead of treating it as missing input.
@@ -18,18 +18,23 @@ Last updated: 2026-10-30
 - GitHub Pages build/deployment run **41033055683** completed successfully after the merge.
 - Real-browser interaction QA remains pending; deployment success and source/CI tests do not prove clipboard, download, Clear, responsive layout or theme behavior in a browser.
 
-## Current production status — verified through PR #24
+## Current production status — verified through PR #27
 
-- Production branch: `main`; current production HEAD after PR #24: `74186010ad190ba582b4d0ac1e373c45d7ca1766`.
+- Production branch: `main`; current production HEAD after PR #27: `88f3a85711f8d4d6c0becefe9a57fbeecbe99e23`.
 - **Phase 6 SEO content and FAQ is merged** through [PR #15](https://github.com/apex-global-labs/online-tools-hub/pull/15).
 - **QR Studio work is merged**: [PR #17](https://github.com/apex-global-labs/online-tools-hub/pull/17), [PR #18](https://github.com/apex-global-labs/online-tools-hub/pull/18), [PR #19](https://github.com/apex-global-labs/online-tools-hub/pull/19), and [PR #20](https://github.com/apex-global-labs/online-tools-hub/pull/20). QR Studio has Default/Custom modes, five palettes, five dot shapes, optional local image blending, error correction H, and PNG/SVG export. Blend visibility is 20%–60%, default 50%; exported QR codes should be scan-tested.
 - **Phase 9 source-level audit and QR Clear fix are merged** through [PR #22](https://github.com/apex-global-labs/online-tools-hub/pull/22). Report: [docs/PHASE9_AUDIT.md](docs/PHASE9_AUDIT.md).
 - **Phase 10 added five tools, taking the catalogue from 20 to 25** through [PR #24](https://github.com/apex-global-labs/online-tools-hub/pull/24). Report: [docs/PHASE10_TOOLS.md](docs/PHASE10_TOOLS.md).
+- **Phase 11 added Lorem Ipsum Generator**, improved Unicode-aware character counting and whitespace-only cleanup, and retained existing Text Diff Checker / Word Counter / Case Converter tools without duplicates. PR: [#26](https://github.com/apex-global-labs/online-tools-hub/pull/26). Final status documentation: [PR #27](https://github.com/apex-global-labs/online-tools-hub/pull/27).
+- Phase 11 regression run **41033005867**, post-merge main run **41033055609**, and latest main documentation run **41033254956** completed successfully.
+- GitHub Pages deployment for the Phase 11 application merge **41033055683** and latest main documentation merge **41033253957** completed successfully.
+- Catalogue status: **26 tools**, with matching catalogue and router metadata. No new dependency, backend or paid service was added for Phase 11.
+- Real-browser interaction QA remains pending for the 26-tool catalogue; deployment and automated source tests do not verify clipboard/download/Clear or device rendering.
 - New tools: Unix Timestamp Converter, Extra Spaces Remover, HTML Entity Encoder / Decoder, Image Resizer, and Image Compressor.
 - PR #24 regression workflow run **41028497065** completed successfully, including catalogue/metadata checks and a Node syntax check of `app.js`.
 - GitHub Pages deployment for the PR #24 merge has **not yet been independently confirmed**. Do not assume the live site already serves the new tools until deployment is verified.
-- Catalogue status: **25 tools**. No paid service, backend, package, or new third-party dependency was added for Phase 10.
-- **Live browser audit remains pending** for the 20 earlier tools and the five Phase 10 tools. Browser/device checks must verify actual actions, image rendering/downloads, Day/Night layout, routes, and browser-console/network behavior.
+- Phase 10 catalogue status: **25 tools**. No paid service, backend, package, or new third-party dependency was added for Phase 10.
+- **Live browser audit remains pending** for all 26 tools, including the new Phase 11 text utility. Browser/device checks must verify actual actions, image rendering/downloads, Day/Night layout, routes, and browser-console/network behavior.
 - Phase 4 Escape-key issue remains deferred.
 
 ## Project goal
@@ -49,7 +54,7 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - `css/phase3-category-grid.css`: responsive category filter pills and card-grid presentation for Phase 3.
 - `app.js`: 26-tool catalogue, card filtering, workspace lifecycle and tool implementations.
 - `js/live-search.js`: autocomplete suggestions, keyboard handling, category dropdown behavior and slash shortcut.
-- `js/tools-data.json`: modular router metadata. `main` now contains 26 entries intended to match the 20 tools in `app.js`; automated consistency checks passed, while live route regression checks remain pending.
+- `js/tools-data.json`: modular router metadata. `main` now contains 26 entries matching the 26 tools in `app.js`; automated consistency checks passed, while live route regression checks remain pending.
 - `js/router.js`: modular hash route parser/resolver for `#/tools/:slug`.
 - `js/router-bridge.js`: connects modular routes to existing tool launch behavior.
 - `README.md`: setup and feature overview.
