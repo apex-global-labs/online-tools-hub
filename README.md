@@ -100,6 +100,13 @@ A static, browser-based multi-tool website. No backend or build step is required
 - The homepage has a canonical URL plus Open Graph and Twitter title/description metadata. A social preview image is not yet configured.
 - Search engines decide independently whether and how to crawl, index, and display the site. Inclusion in a sitemap does not guarantee indexing or rankings.
 
+## Phase 6 — Sitemap & Crawling
+
+- Automated crawl checks validate the 42 intended static URLs (homepage, tool directory and 40 tool guides), canonical URL alignment, URL uniqueness, and crawlable internal links.
+- Hash-based interactive workspace routes are intentionally excluded from the XML sitemap; each guide links to its corresponding workspace using a normal anchor.
+- This is a GitHub Pages project site under `/online-tools-hub/`. A repository-level `robots.txt` would not be served from the host root, so it is deliberately not added or represented as an active crawl policy. See [the Phase 6 crawling audit](docs/PHASE6_SITEMAP_CRAWLING.md).
+- Google Search Console sitemap submission and indexing inspection require the site owner's account and remain manual; sitemap inclusion does not guarantee indexing.
+
 ## Run locally
 Open `index.html` in a modern browser while connected to the internet. Tailwind CSS and `qr-code-styling` are loaded from CDNs. QR generation requires the QR library CDN to load.
 
