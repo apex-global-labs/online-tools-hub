@@ -385,7 +385,7 @@ function toolMarkup(id){
  case "htmlentities":return form(textarea("sourceText","Text or HTML entities")+'<div class="actions">' + btn("encodeEntities","Encode HTML") + btn("decodeEntities","Decode HTML",false) + btn("copy","Copy result",false) + '</div>' + out() + '<p class="muted text-sm">Decoded content is returned as plain text; it is not executed as HTML.</p>');
 
  case "imagecrop":return form('<div><label class="field-label" for="cropFile">Choose image (PNG, JPEG or WebP; max 10 MB)</label><input class="field" id="cropFile" type="file" accept="image/png,image/jpeg,image/webp"></div><div id="cropSourcePreview" class="image-tool-preview" hidden></div><p id="cropDimensions" class="muted text-sm">Choose an image to see its dimensions.</p><div class="grid gap-4 sm:grid-cols-2">'+input("cropX","Left (X px)","0","number")+input("cropY","Top (Y px)","0","number")+input("cropWidth","Crop width (px)","400","number")+input("cropHeight","Crop height (px)","300","number")+'</div>'+select("cropFormat","Output format",[["image/png","PNG"],["image/jpeg","JPEG"],["image/webp","WebP"]])+'<div class="actions">'+btn("cropImage","Crop image")+btn("clearCrop","Clear image",false)+'</div>'+out()+'<div id="cropPreview" class="image-tool-preview" hidden></div><p class="muted text-sm">Set the crop rectangle in pixels. The selected area must fit inside the source image; output is limited to 4096 × 4096 pixels.</p>');
- case "imageformat":return form('<div><label class="field-label" for="formatFile">Choose image (PNG, JPEG or WebP; max 10 MB)</label><input class="field" id="formatFile" type="file" accept="image/png,image/jpeg,image/webp"></div><div id="formatSourcePreview" class="image-tool-preview" hidden></div>'+select("targetFormat","Convert to",[["image/png","PNG"],["image/jpeg","JPEG"],["image/webp","WebP"]])+'<label class="field-label" for="formatQuality">Quality for JPEG / WebP: <output id="formatQualityValue">90%</output></label><input class="field" id="formatQuality" class="field" type="range" min="10" max="100" value="90"><div class="actions">'+btn("convertFormat","Convert image")+btn("clearFormat","Clear image",false)+'</div>'+out()+'<div id="formatPreview" class="image-tool-preview" hidden></div><p class="muted text-sm">Transparent areas become white when converting to JPEG. Maximum source dimensions: 4096 × 4096 pixels.</p>');
+ case "imageformat":return form('<div><label class="field-label" for="formatFile">Choose image (PNG, JPEG or WebP; max 10 MB)</label><input class="field" id="formatFile" type="file" accept="image/png,image/jpeg,image/webp"></div><div id="formatSourcePreview" class="image-tool-preview" hidden></div>'+select("targetFormat","Convert to",[["image/png","PNG"],["image/jpeg","JPEG"],["image/webp","WebP"]])+'<label class="field-label" for="formatQuality">Quality for JPEG / WebP: <output id="formatQualityValue">90%</output></label><input class="field" id="formatQuality" type="range" min="10" max="100" value="90"><div class="actions">'+btn("convertFormat","Convert image")+btn("clearFormat","Clear image",false)+'</div>'+out()+'<div id="formatPreview" class="image-tool-preview" hidden></div><p class="muted text-sm">Transparent areas become white when converting to JPEG. Maximum source dimensions: 4096 × 4096 pixels.</p>');
  case "base64image":return form('<p class="muted text-sm">Paste an image data URL (data:image/...) or raw Base64. The tool checks the actual image file signature before displaying it.</p>'+textarea("base64Input","Paste image data URL or Base64")+'<div class="actions">'+btn("decodeImage","Decode image")+btn("copyImageData","Copy data URL",false)+btn("clearBase64Image","Clear",false)+'</div>'+out()+'<div id="base64ImagePreview" class="image-tool-preview" hidden></div><p class="muted text-sm">For safety, only PNG, JPEG, WebP and GIF image data are accepted. Maximum decoded size: 10 MB. Processing stays in this browser.</p>');
 
  case "imageresize":return form('<div><label class="field-label" for="resizeFile">Choose image (PNG, JPEG or WebP; max 10 MB)</label><input class="field" id="resizeFile" type="file" accept="image/png,image/jpeg,image/webp"></div><div class="grid gap-4 sm:grid-cols-2">' + input("resizeWidth","Width (px)","800","number") + input("resizeHeight","Height (px)","600","number") + '</div><label><input id="resizeKeepRatio" type="checkbox" checked> Keep aspect ratio</label>' + select("resizeFormat","Output format",[["image/png","PNG"],["image/jpeg","JPEG"],["image/webp","WebP"]]) + '<div class="actions">' + btn("resizeImage","Resize image") + btn("clearImage","Clear image",false) + '</div>' + out() + '<div id="imageResultPreview" class="image-tool-preview" hidden></div><p class="muted text-sm">Images are processed locally. Maximum output dimension: 4096 × 4096 pixels.</p>');
@@ -547,8 +547,11 @@ function wireTool(id){
    message("Image cropper cleared.");
   };
   $("#cropFile").addEventListener("change",()=>{
+   if(cropOutputUrl)URL.revokeObjectURL(cropOutputUrl);cropOutputUrl=null;
+   const oldOutput=$("#output");oldOutput.textContent="";delete oldOutput.dataset.downloadUrl;delete oldOutput.dataset.downloadName;
+   $("#cropPreview").replaceChildren();$("#cropPreview").hidden=true;
    const file=$("#cropFile").files[0];if(!file)return;
-   if(!["image/png","image/jpeg","image/webp"].includes(file.type)||file.size>10*1024*1024){message("Choose a PNG, JPEG or WebP image smaller than 10 MB.","error");$("#cropFile").value="";return;}
+   if(!["image/png","image/jpeg","image/webp"].includes(file.type)||file.size>10*1024*1024){if(cropSourceUrl)URL.revokeObjectURL(cropSourceUrl);cropSourceUrl=null;$("#cropSourcePreview").replaceChildren();$("#cropSourcePreview").hidden=true;message("Choose a PNG, JPEG or WebP image smaller than 10 MB.","error");$("#cropFile").value="";return;}
    if(cropSourceUrl)URL.revokeObjectURL(cropSourceUrl);
    cropSourceUrl=URL.createObjectURL(file);
    const img=new Image();
@@ -595,8 +598,11 @@ function wireTool(id){
   };
   $("#formatQuality").addEventListener("input",()=>{$("#formatQualityValue").textContent=$("#formatQuality").value+"%";});
   $("#formatFile").addEventListener("change",()=>{
+   if(formatOutputUrl)URL.revokeObjectURL(formatOutputUrl);formatOutputUrl=null;
+   const oldOutput=$("#output");oldOutput.textContent="";delete oldOutput.dataset.downloadUrl;delete oldOutput.dataset.downloadName;
+   $("#formatPreview").replaceChildren();$("#formatPreview").hidden=true;
    const file=$("#formatFile").files[0];if(!file)return;
-   if(!["image/png","image/jpeg","image/webp"].includes(file.type)||file.size>10*1024*1024){message("Choose a PNG, JPEG or WebP image smaller than 10 MB.","error");$("#formatFile").value="";return;}
+   if(!["image/png","image/jpeg","image/webp"].includes(file.type)||file.size>10*1024*1024){if(formatSourceUrl)URL.revokeObjectURL(formatSourceUrl);formatSourceUrl=null;$("#formatSourcePreview").replaceChildren();$("#formatSourcePreview").hidden=true;message("Choose a PNG, JPEG or WebP image smaller than 10 MB.","error");$("#formatFile").value="";return;}
    if(formatSourceUrl)URL.revokeObjectURL(formatSourceUrl);formatSourceUrl=URL.createObjectURL(file);
    const img=new Image();img.onload=()=>{
     if(img.naturalWidth>4096||img.naturalHeight>4096||img.naturalWidth*img.naturalHeight>40000000){message("Image dimensions must not exceed 4096 pixels per side or 40 megapixels.","error");return;}
@@ -630,6 +636,9 @@ function wireTool(id){
    const output=$("#output");output.textContent="";delete output.dataset.downloadUrl;delete output.dataset.downloadName;message("Base64 to Image cleared.");
   };
   bind("decodeImage",()=>{
+   if(imageObjectUrl)URL.revokeObjectURL(imageObjectUrl);imageObjectUrl=null;decodedDataUrl="";
+   const oldOutput=$("#output");oldOutput.textContent="";delete oldOutput.dataset.downloadUrl;delete oldOutput.dataset.downloadName;
+   $("#base64ImagePreview").replaceChildren();$("#base64ImagePreview").hidden=true;
    const raw=$("#base64Input").value.trim();if(!raw){message("Paste an image data URL or Base64 first.","error");return;}
    if(raw.length>15*1024*1024){message("Encoded image data is too large (maximum 15 MB).","error");return;}
    const match=raw.match(/^data:(image\/(?:png|jpeg|webp|gif));base64,([\s\S]*)$/i);
@@ -646,12 +655,12 @@ function wireTool(id){
    if(!mime){message("The data does not contain a supported PNG, JPEG, WebP or GIF image.","error");return;}
    if(match&&match[1].toLowerCase()!==mime){message("The data URL type does not match the image content.","error");return;}
    const blob=new Blob([bytes],{type:mime});if(imageObjectUrl)URL.revokeObjectURL(imageObjectUrl);imageObjectUrl=URL.createObjectURL(blob);
-   decodedDataUrl="data:"+mime+";base64,"+payload;
    const img=new Image();img.onload=()=>{
+    decodedDataUrl="data:"+mime+";base64,"+payload;
     const output=$("#output");output.dataset.downloadUrl=imageObjectUrl;output.dataset.downloadName="toolnest-decoded-image."+(mime==="image/jpeg"?"jpg":mime==="image/webp"?"webp":mime==="image/gif"?"gif":"png");
     setOutput("Image decoded successfully.\nType: "+mime+"\nDimensions: "+img.naturalWidth+" × "+img.naturalHeight+" px\nSize: "+(bytes.length/1024).toFixed(1)+" KB");
     const preview=$("#base64ImagePreview");preview.replaceChildren();const image=document.createElement("img");image.src=imageObjectUrl;image.alt="Decoded Base64 image preview";preview.append(image);preview.hidden=false;message("Image decoded. Use Download result to save it.");
-   };img.onerror=()=>message("Decoded data could not be displayed as an image.","error");img.src=imageObjectUrl;
+   };img.onerror=()=>{if(imageObjectUrl)URL.revokeObjectURL(imageObjectUrl);imageObjectUrl=null;message("Decoded data could not be displayed as an image.","error");};img.src=imageObjectUrl;
   });
   bind("copyImageData",()=>{
    if(!decodedDataUrl){message("Decode an image first.","error");return;}
