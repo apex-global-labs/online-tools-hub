@@ -8,7 +8,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/phase2.css` — search/navigation styling, dark-mode contrast and animated sun/moon scene
 - `app.js` — tool catalogue, filters, workspace rendering, theme toggle and tool implementations
 - `js/live-search.js` — search autocomplete, keyboard navigation, category menu behavior and slash shortcut
-- `js/tools-data.json` — metadata for all 42 tools used by the modular hash router
+- `js/tools-data.json` — metadata for all 43 tools used by the modular hash router
 - `js/router.js` — route parsing/resolution
 - `js/router-bridge.js` — bridge from modular routes to the existing tool workspace
 - `css/phase10-image-tools.css` — responsive previews for the image utilities
@@ -20,11 +20,12 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `js/phase15-developer-seo.js` — local robots.txt, XML sitemap and CSS gradient generators
 - `js/ip-tools.js` — IPv4/IPv6 validation and special-use range classification
 - `js/pdf-splitter.js` — local PDF page extraction with individual PDF and ZIP downloads
+- `js/url-shortener.js` — browser-side integration with a free third-party URL-shortening API
 - `css/pdf-splitter.css` — responsive PDF Splitter workspace styling
 - `css/ip-tools.css` — responsive IP lookup results and status styling
 - `css/phase13-converters.css` — responsive styling for advanced converters
 - `tools/` — static, individually crawlable tool guide pages and the tool-guide directory
-- `sitemap.xml` — homepage, tool directory and 42 canonical tool-page URLs
+- `sitemap.xml` — homepage, tool directory and 43 canonical tool-page URLs
 - `PROJECT_STATE.md` — current status, verification notes and next-step roadmap
 
 ## Current UI features
@@ -88,6 +89,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Number to Words Converter (English and Bangla)
 - Advanced PDF Merger — merge PDF files with page selection, file/page ordering and rotation
 - PDF Splitter — export selected PDF pages as separate files or a ZIP archive
+- URL Shortener — create shareable short links with an optional custom alias through Spoo.me's free API
 - IP Address Finder & Lookup
 
 ### IP Address Finder & Lookup
@@ -105,7 +107,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Search engines decide independently whether and how to crawl, index, and display the site. Inclusion in a sitemap does not guarantee indexing or rankings.
 
 ## Run locally
-Open `index.html` in a modern browser while connected to the internet. Tailwind CSS and `qr-code-styling` are loaded from CDNs. PDF tools load `pdf-lib` on demand; PDF Splitter loads JSZip only when downloading multiple page files as a ZIP.
+Open `index.html` in a modern browser while connected to the internet. Tailwind CSS and `qr-code-styling` are loaded from CDNs. PDF tools load `pdf-lib` on demand; PDF Splitter loads JSZip only when downloading multiple page files as a ZIP. URL Shortener sends submitted destination URLs directly to Spoo.me; anonymous API use is currently limited to 5 links per minute and 50 per day.
 
 ## Deploy with GitHub Pages
 1. Open repository **Settings → Pages**.
@@ -114,7 +116,7 @@ Open `index.html` in a modern browser while connected to the internet. Tailwind 
 4. Wait for GitHub Pages to publish the latest commit.
 
 ## Important notes
-- Tool processing is browser-based unless a tool explicitly fetches a public reference service (the currency converter retrieves exchange-rate data). Advanced PDF Merger and PDF Splitter process documents locally; PDF Splitter uses a public CDN for ZIP packaging when multiple page files are downloaded. Image Resizer and Image Compressor process local images in the browser; each input is limited to 10 MB.
+- Tool processing is browser-based unless a tool explicitly fetches a public reference service (the currency converter retrieves exchange-rate data, and URL Shortener sends destination URLs to Spoo.me to create redirects). Advanced PDF Merger and PDF Splitter process documents locally; PDF Splitter uses a public CDN for ZIP packaging when multiple page files are downloaded. Image Resizer and Image Compressor process local images in the browser; each input is limited to 10 MB.
 - Avoid describing every tool as fully private: the currency converter makes a network request, and external libraries are loaded from CDNs.
 - Percentage, compound-interest and EMI calculators use local formulas. The currency selectors only format the displayed amount; they do not fetch exchange rates. These calculators provide estimates, not financial advice or lender offers.
 - Tailwind's browser CDN is convenient for a prototype; a production build can later compile and pin assets locally.
