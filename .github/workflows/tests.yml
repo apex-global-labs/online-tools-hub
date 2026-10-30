@@ -28,6 +28,7 @@ jobs:
           node --check js/phase15-developer-seo.js
           node --check js/ip-tools.js
           node --check js/pdf-merge.js
+          node --check js/pdf-splitter.js
           node --experimental-default-type=module --check js/router.js
           node --experimental-default-type=module --check js/router-bridge.js
           node --check js/live-search.js

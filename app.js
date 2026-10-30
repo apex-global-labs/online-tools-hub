@@ -58,6 +58,7 @@ const tools = [
 {id:"sitemap",name:"XML Sitemap Generator",category:"Developer",icon:"🗺",description:"Build an XML sitemap from a list of website URLs."},
 {id:"gradient",name:"CSS Gradient Generator",category:"Developer",icon:"🎨",description:"Create reusable linear and radial CSS gradient backgrounds."},
 {id:"pdfmerge",name:"Advanced PDF Merger",category:"Utilities",icon:"📄",description:"Combine PDFs, select and reorder pages, rotate pages and download a custom merged PDF."},
+{id:"pdfsplitter",name:"PDF Splitter",category:"Utilities",icon:"✂️",description:"Split a PDF into separate page files, select page ranges and download multiple pages as a ZIP archive."},
 {id:"iptools",name:"IP Address Finder & Lookup",category:"Utilities",icon:"◎",description:"Find your public IP or look up public IP geolocation and network details."},
 ];
 
@@ -69,6 +70,7 @@ $("#year").textContent=new Date().getFullYear();
 
 const cardTaglines={
  pdfmerge:"Merge PDFs and control every page",
+ pdfsplitter:"Extract pages into separate PDF files",
  case:"Make every word fit your style",
  slug:"Turn titles into clean URLs",
  diff:"Spot changes between two texts",
@@ -281,6 +283,7 @@ function wireUniversalActions(id){
  };
  bind("universalCopy",()=>{
   if(id==="pdfmerge"){message("PDF files are documents; use the Download Merged PDF button after merging.");return;}
+  if(id==="pdfsplitter"){message("Select pages and split them before downloading PDF files.");return;}
   const canvas=$("#qrCanvas");
   if(canvas){
    const value=$("#qrText")?.value.trim()||"";
@@ -296,6 +299,7 @@ function wireUniversalActions(id){
  });
  bind("universalDownload",()=>{
   if(id==="pdfmerge"){ $("#pdfMergeDownload")?.click(); return; }
+  if(id==="pdfsplitter"){ $("#pdfSplitDownload")?.click(); return; }
   const canvas=$("#qrCanvas");
   if(canvas){
    try{const a=document.createElement("a");a.href=canvas.toDataURL("image/png");a.download="toolnest-qr.png";a.click();message("QR code downloaded.");}
@@ -321,6 +325,7 @@ function wireUniversalActions(id){
  bind("universalClear",()=>{
   // QR Studio keeps artwork and render state in local variables; use its own reset handler.
   if(id==="pdfmerge"){ $("#pdfMergeClear")?.click(); return; }
+  if(id==="pdfsplitter"){ $("#pdfSplitClear")?.click(); return; }
   if(id==="qr"){ $("#qrClear")?.click(); return; }
   if(id==="imageresize"||id==="imagecompress"){ $("#clearImage")?.click(); return; }
   if(id==="imagecrop"){ $("#clearCrop")?.click(); return; }
@@ -397,6 +402,17 @@ function toolMarkup(id){
  <div class="actions qr-download-actions"><button type="button" class="btn-primary" id="generate">Generate QR</button><button type="button" class="btn-primary" id="qrDownloadPng">Download PNG</button><button type="button" class="btn-secondary" id="qrDownloadSvg">Download SVG</button><button type="button" class="btn-secondary" id="qrClear">Clear</button></div><p id="qrStatus" class="qr-status" role="status" aria-live="polite"></p>
 </div>`);
 
+ case "pdfsplitter":return form(`
+<div class="pdf-split-tool">
+ <div class="pdf-split-intro"><span class="pdf-split-kicker">TOOLNEST DOCUMENT STUDIO</span><h3>PDF Splitter</h3><p>Export each selected page as a separate PDF. Choose individual pages or enter a page range. Files are processed locally in your browser.</p></div>
+ <div class="pdf-split-upload"><label class="field-label" for="pdfSplitFiles">Choose one PDF file</label><input class="field" id="pdfSplitFiles" type="file" accept="application/pdf,.pdf"><p class="muted text-sm">Maximum 30 MB and 300 pages per PDF. Damaged or password-protected files may not open.</p></div>
+ <div class="pdf-split-summary" id="pdfSplitSummary" role="status" aria-live="polite">No PDF selected.</div>
+ <div class="pdf-split-range"><label for="pdfSplitRange">Page range (example: 1-3,5)</label><input class="field" id="pdfSplitRange" type="text" placeholder="1-3,5" disabled><button type="button" class="btn-secondary" id="pdfSplitApplyRange" disabled>Apply Range</button><button type="button" class="btn-secondary" id="pdfSplitSelectAll" disabled>Select All</button><button type="button" class="btn-secondary" id="pdfSplitSelectNone" disabled>Select None</button></div>
+ <div class="pdf-split-pages" id="pdfSplitPages"><div class="pdf-split-empty">Upload a PDF to view its pages.</div></div>
+ <div class="pdf-split-actions actions"><button type="button" class="btn-primary" id="pdfSplitRun" disabled>Split Selected Pages</button><button type="button" class="btn-secondary" id="pdfSplitDownload" disabled>Download PDF / ZIP</button><button type="button" class="btn-secondary" id="pdfSplitClear">Clear All</button></div>
+ <p class="pdf-split-status" id="pdfSplitStatus" role="status" aria-live="polite">Ready. Add a PDF file to begin.</p>
+ <div class="pdf-split-privacy"><strong>Privacy:</strong> PDF files are processed locally in this browser and are not uploaded to ToolNest. PDF and ZIP libraries load from public CDNs when needed.</div>
+</div>`);
  case "pdfmerge":return form(`
 <div class="pdf-merge-tool">
  <div class="pdf-merge-intro"><span class="pdf-merge-kicker">TOOLNEST DOCUMENT STUDIO</span><h3>Advanced PDF Merger</h3><p>Add multiple PDF files, arrange their order, choose individual pages, rotate pages and create one custom PDF. Files are processed locally in your browser.</p></div>
@@ -478,6 +494,10 @@ function csvCell(value){
 function wireTool(id){
  const src=()=>$("#sourceText")?.value??"";
  switch(id){
+ case "pdfsplitter": {
+  window.ToolNestPdfSplitter?.init();
+  break;
+ }
  case "pdfmerge": {
   window.ToolNestPdfMerge?.init();
   break;

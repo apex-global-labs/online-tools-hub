@@ -14,7 +14,17 @@ Last updated: 2026-10-31
 - Catalogue: **41 unique tools**; `app.js` and `js/tools-data.json` are synchronized.
 - No paid service or backend is used. Advanced PDF Merger loads `pdf-lib` from a public CDN only when the tool is used.
 
-## Phase 8A — Advanced PDF Merger (merged and deployed; real-browser QA pending)
+## Phase 8B — PDF Splitter (implementation in progress on feature branch)
+
+- Development branch: `feature/phase-8b-pdf-splitter`, created from the verified `main` baseline `300ff4b0c5aeae1f5afdca8bf8b2e46fec6daa78`.
+- First Phase 8B tool: **PDF Splitter**. Added the tool workspace registration, browser-side module, responsive CSS, dedicated SEO guide, directory entry, sitemap URL, keyword-map row and README catalogue entry on the feature branch.
+- Intended behavior: load one PDF locally, select individual pages or a range such as `1-3,5`, export each selected page as a separate PDF, and package multiple outputs as ZIP.
+- Uses the existing `pdf-lib@1.17.1` browser dependency and lazy-loads JSZip only when multiple page outputs need a ZIP. No PDF is uploaded to ToolNest.
+- Safety limits: 30 MB per input PDF and 300 pages per job.
+- Automated regression suite passed: **101 tests passed, 0 failed** in workflow **41118228617**. Existing JavaScript syntax checks passed. The CI workflow now also includes a direct syntax check for `js/pdf-splitter.js`; its updated run is pending. PR #53 remains open and the feature is not yet deployed. The owner reports that the live Advanced PDF Merger was manually tested and works; the exact scenario checklist was not recorded, so do not infer that every large-file or edge-case scenario was tested. This tool is **not complete or deployed** until those checks pass.
+- Current branch catalogue target: 42 tools, 42 individual guides and 44 sitemap URLs. Production `main` remains at 41 tools, 41 guides and 43 sitemap URLs until merge.
+
+## Phase 8A — Advanced PDF Merger (merged and deployed; owner-reported live check passed)
 
 - PR #51 merged into `main` at commit `7a514e47f115ef07c91d25979d9085d38a791c09`.
 - Added the 41st tool, **Advanced PDF Merger**, with a dedicated workspace and responsive styling.
@@ -24,7 +34,7 @@ Last updated: 2026-10-31
 - Added `tools/advanced-pdf-merger/index.html`, a directory link, a sitemap entry and a dedicated keyword-map row. The sitemap now contains **43 canonical URLs**: homepage + directory + 41 tool guides.
 - Regression workflow **41115562344** completed successfully: **93 tests passed, 0 failed**; JavaScript syntax checks passed, including `js/pdf-merge.js`.
 - GitHub Pages deployment workflow **41115562715** completed successfully for the merge commit.
-- **Real-browser verification is pending:** test actual PDF files on desktop and Android, including multi-file merge, range selection, page reorder, rotation, download validity, reopening the tool and large-file behavior. The web preview could not fetch the deployed GitHub Pages URL during this session, so do not claim these interactions have been manually verified.
+- **Live verification:** the owner reports manually testing the deployed tool and confirming that it works. The exact test cases and devices were not recorded; further edge-case QA (large files, password-protected PDFs, mobile memory limits and downloaded-file reopening) remains advisable.
 - Not included in this sub-phase: separate per-page file downloads, PDF thumbnails, PDF Splitter as a standalone tool, Image to PDF, PDF to Image, PDF to Word and Word to PDF. These remain candidates for subsequent Phase 8 work.
 
 ## Phase 7 — Speed & Performance SEO (completed and deployed)

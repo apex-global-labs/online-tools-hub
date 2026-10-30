@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-30  
 Project: [ToolNest](https://apex-global-labs.github.io/online-tools-hub/)  
-Scope: 41 existing crawlable tool-guide pages
+Scope: 42 existing crawlable tool-guide pages
 
 ## Research method and confidence
 
@@ -78,6 +78,7 @@ Google recommends descriptive, concise titles, useful people-first content, anti
 | 39 | CSS Gradient Generator | **CSS gradient generator** | CSS linear gradient generator; CSS radial gradient generator; gradient code generator | create a CSS linear gradient with preview; generate CSS gradient code online | Transactional / tool use | P2 | Describe supported gradient types, color inputs, angle and preview accurately. Do not claim conic gradients unless supported. | [css-gradient-generator](https://apex-global-labs.github.io/online-tools-hub/tools/css-gradient-generator/) |
 | 40 | IP Address Finder & Lookup | **IP address lookup** | what is my IP address; IP address finder; public IP lookup | find my public IP address; look up an IPv4 or IPv6 address | Transactional / tool use | P1 | Separate Find My IP from manual public-IP lookup. Explain approximate geolocation and provider processing; no exact GPS or VPN detection claims. | [ip-tools](https://apex-global-labs.github.io/online-tools-hub/tools/ip-tools/) |
 | 41 | Advanced PDF Merger | **merge PDF files** | PDF merger; combine PDF files; merge PDF pages | how to merge selected pages from multiple PDFs; reorder and rotate PDF pages online | Transactional / tool use | P1 | Lead with browser-side PDF merging; explain page selection, ordering, rotation, range syntax and file limits. Keep page extraction as a distinct future tool if users need separate downloads. | [advanced-pdf-merger](https://apex-global-labs.github.io/online-tools-hub/tools/advanced-pdf-merger/) |
+| 42 | PDF Splitter | **split PDF pages** | split PDF; PDF page extractor; separate PDF pages | extract selected PDF pages; download each PDF page separately as files or ZIP | Transactional / tool use | P1 | Explain individual-page output, page-range selection, ZIP behavior and browser-side processing; distinguish page extraction from merging PDFs. | [pdf-splitter](https://apex-global-labs.github.io/online-tools-hub/tools/pdf-splitter/) |
 
 ## Keyword ownership and page-boundary checks
 

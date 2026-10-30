@@ -28,10 +28,10 @@ function getBranch(source, id) {
   return source.slice(start, next < 0 ? source.length : start + marker.length + next);
 }
 
-test("catalogue and router metadata contain the same 41 unique tool IDs", () => {
-  assert.equal(catalogIds.length, 41);
+test("catalogue and router metadata contain the same 42 unique tool IDs", () => {
+  assert.equal(catalogIds.length, 42);
   assert.equal(new Set(catalogIds).size, catalogIds.length);
-  assert.equal(metadata.length, 41);
+  assert.equal(metadata.length, 42);
   assert.equal(new Set(metadata.map((tool) => tool.id)).size, metadata.length);
   assert.deepEqual([...metadata.map((tool) => tool.id)].sort(), [...catalogIds].sort());
   assert.equal(new Set(metadata.map((tool) => tool.slug)).size, metadata.length);
@@ -157,16 +157,16 @@ test("workspace supports slug routes, legacy ID routes and a visible 404 state",
 });
 
 test("Phase 10 tools remain complete after Phase 11 adds a new text utility", () => {
-  const newIds = ["timestamp", "whitespace", "htmlentities", "imageresize", "imagecompress"];
-  assert.equal(catalogIds.length, 41);
-  assert.equal(metadata.length, 41);
+  const newIds = ["timestamp", "whitespace", "htmlentities", "imageresize", "imagecompress", "pdfsplitter"];
+  assert.equal(catalogIds.length, 42);
+  assert.equal(metadata.length, 42);
   for (const id of newIds) {
     assert.ok(catalogIds.includes(id), "catalogue should include " + id);
     assert.ok(markup.includes('case "' + id + '":'), "markup should include " + id);
     assert.ok(wiring.includes('case "' + id + '":'), "event wiring should include " + id);
     assert.ok(metadata.some(tool => tool.id === id && tool.seo?.faqs?.length >= 3), "SEO metadata should include " + id);
   }
-  assert.equal(new Set(metadata.map(tool => tool.slug)).size, 41);
+  assert.equal(new Set(metadata.map(tool => tool.slug)).size, 42);
 });
 
 test("Phase 10 image tools validate local file type and size and support downloadable output", () => {
