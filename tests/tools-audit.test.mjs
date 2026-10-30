@@ -46,7 +46,7 @@ test("every catalogue tool has markup and an event-wiring branch", () => {
 });
 
 test("all text-result tools expose a wired Copy action", () => {
-  const copyTools = ["case", "slug", "diff", "markdown", "base64", "json", "url", "meta", "csvjson", "uuid", "sha256", "password", "image64", "color", "forexcalc", "unit", "age", "counter", "duplines", "timestamp", "whitespace", "htmlentities", "loremipsum", "percentage", "compound", "emi"];
+  const copyTools = ["case", "slug", "diff", "markdown", "base64", "json", "url", "meta", "csvjson", "uuid", "sha256", "password", "image64", "color", "forexcalc", "unit", "age", "counter", "duplines", "timestamp", "whitespace", "htmlentities", "loremipsum", "percentage", "compound", "emi", "area", "land", "timezone", "numberwords"];
   for (const id of copyTools) {
     assert.match(getBranch(markup, id), /btn\("copy"/, `${id} should show a Copy button`);
     assert.match(getBranch(wiring, id), /bind\("copy"/, `${id} should wire its Copy button`);
