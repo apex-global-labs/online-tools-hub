@@ -13,6 +13,9 @@ const tools = [
 {id:"sha256",name:"SHA-256 Hash Generator",category:"Developer",icon:"#️⃣",description:"Create a SHA-256 hash from text in your browser."},
 {id:"password",name:"Password Generator",category:"Utilities",icon:"✳",description:"Create a random password with character options."},
 {id:"image64",name:"Image to Base64",category:"Image",icon:"▧",description:"Convert a local image into a Base64 data URL."},
+{id:"imagecrop",name:"Image Cropper",category:"Image",icon:"✂",description:"Crop a local image using precise pixel coordinates."},
+{id:"imageformat",name:"Image Format Converter",category:"Image",icon:"⇄",description:"Convert PNG, JPEG and WebP images in your browser."},
+{id:"base64image",name:"Base64 to Image",category:"Image",icon:"▧",description:"Preview and download an image from Base64 data."},
 {id:"qr",name:"QR Code Generator",category:"Image",icon:"▦",description:"Generate a QR code for text or a URL."},
 {id:"color",name:"Color Converter",category:"Image",icon:"◉",description:"Convert HEX colors into RGB and HSL values."},
 {id:"forexcalc",name:"Forex Currency Converter",category:"Calculators",icon:"💱",description:"Convert major currencies using automatically retrieved reference exchange rates."},
@@ -292,6 +295,9 @@ function wireUniversalActions(id){
   // QR Studio keeps artwork and render state in local variables; use its own reset handler.
   if(id==="qr"){ $("#qrClear")?.click(); return; }
   if(id==="imageresize"||id==="imagecompress"){ $("#clearImage")?.click(); return; }
+  if(id==="imagecrop"){ $("#clearCrop")?.click(); return; }
+  if(id==="imageformat"){ $("#clearFormat")?.click(); return; }
+  if(id==="base64image"){ $("#clearBase64Image")?.click(); return; }
   panel.querySelectorAll("input,textarea").forEach(el=>{
    if(el.type==="checkbox"||el.type==="radio")el.checked=el.defaultChecked;
    else if(el.type==="file")el.value="";
@@ -377,6 +383,11 @@ function toolMarkup(id){
  case "loremipsum":return form('<div class="grid gap-4 sm:grid-cols-2"><div><label class="field-label" for="loremParagraphs">Paragraphs (1–10)</label><input class="field" id="loremParagraphs" type="number" min="1" max="10" step="1" placeholder="3"></div>'+select("loremSentences","Sentences per paragraph",[["3","3 sentences"],["1","1 sentence"],["2","2 sentences"],["4","4 sentences"],["5","5 sentences"],["6","6 sentences"],["7","7 sentences"],["8","8 sentences"]])+'</div><div class="checkrow"><label><input id="loremStartStandard" type="checkbox" checked> Start with the classic Lorem ipsum opening</label></div><div class="actions">'+btn("generateLorem","Generate Lorem Ipsum")+btn("copy","Copy result",false)+'</div>'+out()+'<p class="muted text-sm">Generate up to 10 paragraphs with 1–8 sentences per paragraph. Text is created locally in your browser.</p>');
  case "whitespace":return form(textarea("sourceText","Text to clean")+'<div class="checkrow"><label><input id="trimWhitespaceLines" type="checkbox" checked> Trim each line</label><label><input id="removeBlankWhitespaceLines" type="checkbox"> Remove blank lines</label></div><div class="actions">' + btn("cleanWhitespace","Clean text") + btn("copy","Copy result",false) + '</div>' + out());
  case "htmlentities":return form(textarea("sourceText","Text or HTML entities")+'<div class="actions">' + btn("encodeEntities","Encode HTML") + btn("decodeEntities","Decode HTML",false) + btn("copy","Copy result",false) + '</div>' + out() + '<p class="muted text-sm">Decoded content is returned as plain text; it is not executed as HTML.</p>');
+
+ case "imagecrop":return form('<div><label class="field-label" for="cropFile">Choose image (PNG, JPEG or WebP; max 10 MB)</label><input class="field" id="cropFile" type="file" accept="image/png,image/jpeg,image/webp"></div><div id="cropSourcePreview" class="image-tool-preview" hidden></div><p id="cropDimensions" class="muted text-sm">Choose an image to see its dimensions.</p><div class="grid gap-4 sm:grid-cols-2">'+input("cropX","Left (X px)","0","number")+input("cropY","Top (Y px)","0","number")+input("cropWidth","Crop width (px)","400","number")+input("cropHeight","Crop height (px)","300","number")+'</div>'+select("cropFormat","Output format",[["image/png","PNG"],["image/jpeg","JPEG"],["image/webp","WebP"]])+'<div class="actions">'+btn("cropImage","Crop image")+btn("clearCrop","Clear image",false)+'</div>'+out()+'<div id="cropPreview" class="image-tool-preview" hidden></div><p class="muted text-sm">Set the crop rectangle in pixels. The selected area must fit inside the source image; output is limited to 4096 × 4096 pixels.</p>');
+ case "imageformat":return form('<div><label class="field-label" for="formatFile">Choose image (PNG, JPEG or WebP; max 10 MB)</label><input class="field" id="formatFile" type="file" accept="image/png,image/jpeg,image/webp"></div><div id="formatSourcePreview" class="image-tool-preview" hidden></div>'+select("targetFormat","Convert to",[["image/png","PNG"],["image/jpeg","JPEG"],["image/webp","WebP"]])+'<label class="field-label" for="formatQuality">Quality for JPEG / WebP: <output id="formatQualityValue">90%</output></label><input class="field" id="formatQuality" type="range" min="10" max="100" value="90"><div class="actions">'+btn("convertFormat","Convert image")+btn("clearFormat","Clear image",false)+'</div>'+out()+'<div id="formatPreview" class="image-tool-preview" hidden></div><p class="muted text-sm">Transparent areas become white when converting to JPEG. Maximum source dimensions: 4096 × 4096 pixels.</p>');
+ case "base64image":return form('<p class="muted text-sm">Paste an image data URL (data:image/...) or raw Base64. The tool checks the actual image file signature before displaying it.</p>'+textarea("base64Input","Paste image data URL or Base64")+'<div class="actions">'+btn("decodeImage","Decode image")+btn("copyImageData","Copy data URL",false)+btn("clearBase64Image","Clear",false)+'</div>'+out()+'<div id="base64ImagePreview" class="image-tool-preview" hidden></div><p class="muted text-sm">For safety, only PNG, JPEG, WebP and GIF image data are accepted. Maximum decoded size: 10 MB. Processing stays in this browser.</p>');
+
  case "imageresize":return form('<div><label class="field-label" for="resizeFile">Choose image (PNG, JPEG or WebP; max 10 MB)</label><input class="field" id="resizeFile" type="file" accept="image/png,image/jpeg,image/webp"></div><div class="grid gap-4 sm:grid-cols-2">' + input("resizeWidth","Width (px)","800","number") + input("resizeHeight","Height (px)","600","number") + '</div><label><input id="resizeKeepRatio" type="checkbox" checked> Keep aspect ratio</label>' + select("resizeFormat","Output format",[["image/png","PNG"],["image/jpeg","JPEG"],["image/webp","WebP"]]) + '<div class="actions">' + btn("resizeImage","Resize image") + btn("clearImage","Clear image",false) + '</div>' + out() + '<div id="imageResultPreview" class="image-tool-preview" hidden></div><p class="muted text-sm">Images are processed locally. Maximum output dimension: 4096 × 4096 pixels.</p>');
  case "imagecompress":return form('<div><label class="field-label" for="compressFile">Choose image (PNG, JPEG or WebP; max 10 MB)</label><input class="field" id="compressFile" type="file" accept="image/png,image/jpeg,image/webp"></div>' + select("compressFormat","Output format",[["image/webp","WebP"],["image/jpeg","JPEG"]]) + '<label class="field-label" for="compressQuality">Quality: <output id="compressQualityValue">75%</output></label><input class="field" id="compressQuality" type="range" min="10" max="95" value="75"><div class="actions">' + btn("compressImage","Compress image") + btn("clearImage","Clear image",false) + '</div>' + out() + '<div id="imageResultPreview" class="image-tool-preview" hidden></div><p class="muted text-sm">Lower quality can reduce file size but may reduce image detail. Review the preview before downloading.</p>');
  default:return `<p class="muted">Tool not found.</p>`;
@@ -517,6 +528,147 @@ function wireTool(id){
  });
  bind("copy",()=>copyOutput());
  break;
+ }
+
+
+ case "imagecrop": {
+  let cropSourceUrl=null,cropOutputUrl=null;
+  const clearCrop=()=>{
+   if(cropSourceUrl)URL.revokeObjectURL(cropSourceUrl);
+   if(cropOutputUrl)URL.revokeObjectURL(cropOutputUrl);
+   cropSourceUrl=cropOutputUrl=null;
+   $("#cropFile").value="";
+   $("#cropSourcePreview").replaceChildren();$("#cropSourcePreview").hidden=true;
+   $("#cropPreview").replaceChildren();$("#cropPreview").hidden=true;
+   $("#cropDimensions").textContent="Choose an image to see its dimensions.";
+   ["cropX","cropY"].forEach(id=>$("#"+id).value="0");
+   $("#cropWidth").value="400";$("#cropHeight").value="300";$("#cropFormat").value="image/png";
+   const output=$("#output");output.textContent="";delete output.dataset.downloadUrl;delete output.dataset.downloadName;
+   message("Image cropper cleared.");
+  };
+  $("#cropFile").addEventListener("change",()=>{
+   if(cropOutputUrl)URL.revokeObjectURL(cropOutputUrl);cropOutputUrl=null;
+   const oldOutput=$("#output");oldOutput.textContent="";delete oldOutput.dataset.downloadUrl;delete oldOutput.dataset.downloadName;
+   $("#cropPreview").replaceChildren();$("#cropPreview").hidden=true;
+   const file=$("#cropFile").files[0];if(!file)return;
+   if(!["image/png","image/jpeg","image/webp"].includes(file.type)||file.size>10*1024*1024){if(cropSourceUrl)URL.revokeObjectURL(cropSourceUrl);cropSourceUrl=null;$("#cropSourcePreview").replaceChildren();$("#cropSourcePreview").hidden=true;message("Choose a PNG, JPEG or WebP image smaller than 10 MB.","error");$("#cropFile").value="";return;}
+   if(cropSourceUrl)URL.revokeObjectURL(cropSourceUrl);
+   cropSourceUrl=URL.createObjectURL(file);
+   const img=new Image();
+   img.onload=()=>{
+    if(img.naturalWidth>12000||img.naturalHeight>12000||img.naturalWidth*img.naturalHeight>40000000){URL.revokeObjectURL(cropSourceUrl);cropSourceUrl=null;$("#cropFile").value="";message("Source image exceeds the safe 40-megapixel limit.","error");return;}
+    $("#cropDimensions").textContent="Source: "+img.naturalWidth+" × "+img.naturalHeight+" px";
+    $("#cropWidth").value=Math.min(400,img.naturalWidth);$("#cropHeight").value=Math.min(300,img.naturalHeight);
+    const preview=$("#cropSourcePreview");preview.replaceChildren();const image=document.createElement("img");image.src=cropSourceUrl;image.alt="Source image for cropping";preview.append(image);preview.hidden=false;
+   };
+   img.onerror=()=>message("Could not read this image file.","error");img.src=cropSourceUrl;
+  });
+  bind("cropImage",()=>{
+   const file=$("#cropFile").files[0];if(!file||!cropSourceUrl){message("Choose an image first.","error");return;}
+   const x=Number($("#cropX").value),y=Number($("#cropY").value),w=Number($("#cropWidth").value),h=Number($("#cropHeight").value);
+   if(![x,y,w,h].every(Number.isInteger)||x<0||y<0||w<1||h<1||w>4096||h>4096){message("Enter whole pixel values; crop width and height must be 1–4096.","error");return;}
+   const img=new Image();
+   img.onload=()=>{
+    if(x+w>img.naturalWidth||y+h>img.naturalHeight){message("The crop rectangle must fit inside the source image.","error");return;}
+    const canvas=document.createElement("canvas");canvas.width=w;canvas.height=h;const ctx=canvas.getContext("2d");
+    if(!ctx){message("Canvas is unavailable in this browser.","error");return;}
+    const format=$("#cropFormat").value;if(format==="image/jpeg"){ctx.fillStyle="#fff";ctx.fillRect(0,0,w,h);}
+    ctx.drawImage(img,x,y,w,h,0,0,w,h);
+    canvas.toBlob(blob=>{
+     if(!blob||blob.type!==format){message("This image format is not supported by your browser.","error");return;}
+     if(cropOutputUrl)URL.revokeObjectURL(cropOutputUrl);cropOutputUrl=URL.createObjectURL(blob);
+     const ext=format==="image/jpeg"?"jpg":format==="image/webp"?"webp":"png",output=$("#output");
+     output.dataset.downloadUrl=cropOutputUrl;output.dataset.downloadName="toolnest-cropped-image."+ext;
+     setOutput("Cropped image: "+w+" × "+h+" px\nFile size: "+(blob.size/1024).toFixed(1)+" KB");
+     const preview=$("#cropPreview");preview.replaceChildren();const image=document.createElement("img");image.src=cropOutputUrl;image.alt="Cropped image preview";preview.append(image);preview.hidden=false;
+     message("Image cropped. Use Download result to save it.");
+    },format,0.92);
+   };
+   img.onerror=()=>message("Could not load the selected image.","error");img.src=cropSourceUrl;
+  });
+  bind("clearCrop",clearCrop);bind("copy",()=>copyOutput());break;
+ }
+ case "imageformat": {
+  let formatSourceUrl=null,formatOutputUrl=null;
+  const clearFormat=()=>{
+   if(formatSourceUrl)URL.revokeObjectURL(formatSourceUrl);if(formatOutputUrl)URL.revokeObjectURL(formatOutputUrl);
+   formatSourceUrl=formatOutputUrl=null;$("#formatFile").value="";$("#targetFormat").value="image/png";$("#formatQuality").value="90";$("#formatQualityValue").textContent="90%";
+   $("#formatSourcePreview").replaceChildren();$("#formatSourcePreview").hidden=true;$("#formatPreview").replaceChildren();$("#formatPreview").hidden=true;
+   const output=$("#output");output.textContent="";delete output.dataset.downloadUrl;delete output.dataset.downloadName;message("Image converter cleared.");
+  };
+  $("#formatQuality").addEventListener("input",()=>{$("#formatQualityValue").textContent=$("#formatQuality").value+"%";});
+  $("#formatFile").addEventListener("change",()=>{
+   if(formatOutputUrl)URL.revokeObjectURL(formatOutputUrl);formatOutputUrl=null;
+   const oldOutput=$("#output");oldOutput.textContent="";delete oldOutput.dataset.downloadUrl;delete oldOutput.dataset.downloadName;
+   $("#formatPreview").replaceChildren();$("#formatPreview").hidden=true;
+   const file=$("#formatFile").files[0];if(!file)return;
+   if(!["image/png","image/jpeg","image/webp"].includes(file.type)||file.size>10*1024*1024){if(formatSourceUrl)URL.revokeObjectURL(formatSourceUrl);formatSourceUrl=null;$("#formatSourcePreview").replaceChildren();$("#formatSourcePreview").hidden=true;message("Choose a PNG, JPEG or WebP image smaller than 10 MB.","error");$("#formatFile").value="";return;}
+   if(formatSourceUrl)URL.revokeObjectURL(formatSourceUrl);formatSourceUrl=URL.createObjectURL(file);
+   const img=new Image();img.onload=()=>{
+    if(img.naturalWidth>4096||img.naturalHeight>4096||img.naturalWidth*img.naturalHeight>40000000){URL.revokeObjectURL(formatSourceUrl);formatSourceUrl=null;$("#formatFile").value="";$("#formatSourcePreview").replaceChildren();$("#formatSourcePreview").hidden=true;message("Image dimensions must not exceed 4096 pixels per side or 40 megapixels.","error");return;}
+    const preview=$("#formatSourcePreview");preview.replaceChildren();const image=document.createElement("img");image.src=formatSourceUrl;image.alt="Original image preview";preview.append(image);preview.hidden=false;
+   };img.onerror=()=>message("Could not read this image file.","error");img.src=formatSourceUrl;
+  });
+  bind("convertFormat",()=>{
+   const file=$("#formatFile").files[0];if(!file||!formatSourceUrl){message("Choose an image first.","error");return;}
+   const img=new Image();img.onload=()=>{
+    const format=$("#targetFormat").value,canvas=document.createElement("canvas");canvas.width=img.naturalWidth;canvas.height=img.naturalHeight;
+    const ctx=canvas.getContext("2d");if(!ctx){message("Canvas is unavailable in this browser.","error");return;}
+    if(format==="image/jpeg"){ctx.fillStyle="#fff";ctx.fillRect(0,0,canvas.width,canvas.height);}
+    ctx.drawImage(img,0,0);
+    canvas.toBlob(blob=>{
+     if(!blob||blob.type!==format){message("Your browser could not export this format. Try PNG or JPEG.","error");return;}
+     if(formatOutputUrl)URL.revokeObjectURL(formatOutputUrl);formatOutputUrl=URL.createObjectURL(blob);
+     const ext=format==="image/jpeg"?"jpg":format==="image/webp"?"webp":"png",output=$("#output");
+     output.dataset.downloadUrl=formatOutputUrl;output.dataset.downloadName="toolnest-converted-image."+ext;
+     setOutput("Converted to "+ext.toUpperCase()+"\nDimensions: "+canvas.width+" × "+canvas.height+" px\nOriginal: "+(file.size/1024).toFixed(1)+" KB\nConverted: "+(blob.size/1024).toFixed(1)+" KB");
+     const preview=$("#formatPreview");preview.replaceChildren();const image=document.createElement("img");image.src=formatOutputUrl;image.alt="Converted image preview";preview.append(image);preview.hidden=false;message("Image converted. Use Download result to save it.");
+    },format,Number($("#formatQuality").value)/100);
+   };img.onerror=()=>message("Could not load the selected image.","error");img.src=formatSourceUrl;
+  });
+  bind("clearFormat",clearFormat);bind("copy",()=>copyOutput());break;
+ }
+ case "base64image": {
+  let imageObjectUrl=null,decodedDataUrl="";
+  const clearBase64Image=()=>{
+   if(imageObjectUrl)URL.revokeObjectURL(imageObjectUrl);imageObjectUrl=null;decodedDataUrl="";
+   $("#base64Input").value="";$("#base64ImagePreview").replaceChildren();$("#base64ImagePreview").hidden=true;
+   const output=$("#output");output.textContent="";delete output.dataset.downloadUrl;delete output.dataset.downloadName;message("Base64 to Image cleared.");
+  };
+  bind("decodeImage",()=>{
+   if(imageObjectUrl)URL.revokeObjectURL(imageObjectUrl);imageObjectUrl=null;decodedDataUrl="";
+   const oldOutput=$("#output");oldOutput.textContent="";delete oldOutput.dataset.downloadUrl;delete oldOutput.dataset.downloadName;
+   $("#base64ImagePreview").replaceChildren();$("#base64ImagePreview").hidden=true;
+   const raw=$("#base64Input").value.trim();if(!raw){message("Paste an image data URL or Base64 first.","error");return;}
+   if(raw.length>15*1024*1024){message("Encoded image data is too large (maximum 15 MB).","error");return;}
+   const match=raw.match(/^data:(image\/(?:png|jpeg|webp|gif));base64,([\s\S]*)$/i);
+   const payload=(match?match[2]:raw).replace(/\s/g,"");
+   if(!payload||payload.length%4===1||!/^[A-Za-z0-9+/]*={0,2}$/.test(payload)){message("Invalid Base64 data. Check the pasted content.","error");return;}
+   let bytes;try{const binary=atob(payload);bytes=new Uint8Array(binary.length);for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);}catch{message("Could not decode this Base64 data.","error");return;}
+   if(bytes.length>10*1024*1024){message("Decoded image must be 10 MB or smaller.","error");return;}
+   const starts=(...values)=>values.every((v,i)=>bytes[i]===v);
+   let mime="";
+   if(starts(0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a))mime="image/png";
+   else if(starts(0xff,0xd8,0xff))mime="image/jpeg";
+   else if(starts(0x47,0x49,0x46,0x38,0x37,0x61)||starts(0x47,0x49,0x46,0x38,0x39,0x61))mime="image/gif";
+   else if(starts(0x52,0x49,0x46,0x46)&&bytes[8]===0x57&&bytes[9]===0x45&&bytes[10]===0x42&&bytes[11]===0x50)mime="image/webp";
+   if(!mime){message("The data does not contain a supported PNG, JPEG, WebP or GIF image.","error");return;}
+   if(match&&match[1].toLowerCase()!==mime){message("The data URL type does not match the image content.","error");return;}
+   const blob=new Blob([bytes],{type:mime});if(imageObjectUrl)URL.revokeObjectURL(imageObjectUrl);imageObjectUrl=URL.createObjectURL(blob);
+   const img=new Image();img.onload=()=>{
+    if(img.naturalWidth>12000||img.naturalHeight>12000||img.naturalWidth*img.naturalHeight>40000000){URL.revokeObjectURL(imageObjectUrl);imageObjectUrl=null;message("Decoded image exceeds the safe 40-megapixel limit.","error");return;}
+    decodedDataUrl="data:"+mime+";base64,"+payload;
+    const output=$("#output");output.dataset.downloadUrl=imageObjectUrl;output.dataset.downloadName="toolnest-decoded-image."+(mime==="image/jpeg"?"jpg":mime==="image/webp"?"webp":mime==="image/gif"?"gif":"png");
+    setOutput("Image decoded successfully.\nType: "+mime+"\nDimensions: "+img.naturalWidth+" × "+img.naturalHeight+" px\nSize: "+(bytes.length/1024).toFixed(1)+" KB");
+    const preview=$("#base64ImagePreview");preview.replaceChildren();const image=document.createElement("img");image.src=imageObjectUrl;image.alt="Decoded Base64 image preview";preview.append(image);preview.hidden=false;message("Image decoded. Use Download result to save it.");
+   };img.onerror=()=>{if(imageObjectUrl)URL.revokeObjectURL(imageObjectUrl);imageObjectUrl=null;message("Decoded data could not be displayed as an image.","error");};img.src=imageObjectUrl;
+  });
+  bind("copyImageData",()=>{
+   if(!decodedDataUrl){message("Decode an image first.","error");return;}
+   if(!navigator.clipboard?.writeText){message("Clipboard access is unavailable in this browser.","error");return;}
+   navigator.clipboard.writeText(decodedDataUrl).then(()=>message("Image data URL copied.")).catch(()=>message("Clipboard access was blocked.","error"));
+  });
+  bind("copy",()=>copyOutput());bind("clearBase64Image",clearBase64Image);break;
  }
 
  case "imageresize": {
