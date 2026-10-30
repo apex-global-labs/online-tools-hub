@@ -10,7 +10,7 @@ test("accepts only complete public HTTP and HTTPS URLs", () => {
   for (const value of ["", "example.com", "javascript:alert(1)", "file:///tmp/test", "http://localhost", "http://127.0.0.1", "http://192.168.1.1", "http://10.0.0.2", "http://172.16.0.1", "https://user:pass@example.com"]) assert.throws(() => normalizeUrl(value));
 });
 
-test("custom aliases are optional and limited to 1–16 alphanumeric characters", () => {
+test("custom aliases are optional and limited to 3–16 letters, numbers, hyphens or underscores", () => {
   assert.equal(validateAlias(""), "");
   assert.equal(validateAlias("ToolNest42"), "ToolNest42");
   for (const value of ["ab", "has space", "a.b", "a".repeat(17), "বাংলা"]) assert.throws(() => validateAlias(value));
@@ -18,11 +18,11 @@ test("custom aliases are optional and limited to 1–16 alphanumeric characters"
   assert.equal(validateAlias("alias_name"), "alias_name");
 });
 
-test("uses the documented free provider form endpoint and returns HTTPS links", async () => {
+test("uses the documented free Spoo.me API v1 endpoint and returns HTTPS links", async () => {
   let captured;
   const result = await createShortUrl("https://example.com/long", "sample42", async (url, options) => {
     captured = { url, options };
-    return { ok:true, status:200, json:async()=>({short_url:"https://spoo.me/sample42",original_url:"https://example.com/long"}) };
+    return { ok:true, status:201, json:async()=>({short_url:"https://spoo.me/sample42",original_url:"https://example.com/long"}) };
   });
   assert.equal(captured.url,"https://spoo.me/api/v1/shorten");
   assert.equal(captured.options.method,"POST");
