@@ -1,0 +1,2 @@
+.phase15-gradient-preview{min-height:150px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(135deg,#6366f1,#06b6d4);box-shadow:0 8px 24px rgba(15,23,42,.08)}
+.phase15-gradient-preview:focus-visible{outline:3px solid #6366f1;outline-offset:3px}

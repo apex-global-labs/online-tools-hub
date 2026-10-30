@@ -35,7 +35,10 @@ const tools = [
 {id:"area",name:"Area Converter",category:"Calculators",icon:"▱",description:"Convert square metres, square feet, acres, hectares and other area units."},
 {id:"land",name:"Bangladesh Land Unit Converter",category:"Calculators",icon:"৳",description:"Convert common Bangladesh land units including shotok, katha, bigha, acre and square feet."},
 {id:"timezone",name:"Time Zone Converter",category:"Utilities",icon:"◷",description:"Convert a date and time between UTC and popular international time zones."},
-{id:"numberwords",name:"Number to Words Converter",category:"Utilities",icon:"১",description:"Convert numbers into words in English or Bangla."}
+{id:"numberwords",name:"Number to Words Converter",category:"Utilities",icon:"১",description:"Convert numbers into words in English or Bangla."},
+{id:"robots",name:"Robots.txt Generator",category:"Developer",icon:"🤖",description:"Create a robots.txt file with crawler rules and a sitemap location."},
+{id:"sitemap",name:"XML Sitemap Generator",category:"Developer",icon:"🗺",description:"Build an XML sitemap from a list of website URLs."},
+{id:"gradient",name:"CSS Gradient Generator",category:"Developer",icon:"🎨",description:"Create reusable linear and radial CSS gradient backgrounds."}
 ];
 
 const $ = (s,root=document)=>root.querySelector(s);
@@ -280,11 +283,12 @@ function wireUniversalActions(id){
   if(output?.dataset.downloadUrl){const a=document.createElement("a");a.href=output.dataset.downloadUrl;a.download=output.dataset.downloadName||"toolnest-image.png";a.click();message("Image download started.");return;}
   const text=resultText();
   if(!text.trim()){message("Generate a result before downloading.","error");return;}
-  const blob=new Blob([text],{type:"text/plain;charset=utf-8"});
+  const downloadType=id==="sitemap"?"application/xml;charset=utf-8":"text/plain;charset=utf-8";
+  const blob=new Blob([text],{type:downloadType});
   const url=URL.createObjectURL(blob);
   const a=document.createElement("a");
   a.href=url;
-  a.download="toolnest-"+id+"-result.txt";
+  a.download=id==="robots"?"robots.txt":id==="sitemap"?"sitemap.xml":"toolnest-"+id+"-result.txt";
   document.body.appendChild(a);
   a.click();
   a.remove();
@@ -305,6 +309,7 @@ function wireUniversalActions(id){
   });
   panel.querySelectorAll("select").forEach(el=>{el.selectedIndex=0;});
   if(id==="percentage")$("#percentageMode")?.dispatchEvent(new Event("change"));
+  if(id==="gradient"&&$("#gradientPreview"))$("#gradientPreview").style.background="";
   panel.querySelectorAll(".output").forEach(el=>{if(el.dataset.downloadUrl)URL.revokeObjectURL(el.dataset.downloadUrl);delete el.dataset.downloadUrl;delete el.dataset.downloadName;el.textContent="";});
   const preview=$("#markdownPreview");if(preview)preview.innerHTML="";
   ["imagePreview","qrOutput"].forEach(selector=>{const el=$("#"+selector);if(el)el.innerHTML="";});
@@ -368,6 +373,9 @@ function toolMarkup(id){
 </div>`);
 
  case "meta":return form(`${input("pageTitle","Page title","My useful website")}${textarea("pageDescription","Meta description","A short and helpful description of this page.")}${input("pageUrl","Canonical URL","https://example.com","url")}<div class="actions">${btn("generate","Generate tags")}${btn("copy","Copy tags",false)}</div>${out()}`);
+ case "robots":return form('<p class="muted text-sm">Create a plain-text robots.txt file. Add one path per line; rules apply to all crawlers.</p>'+textarea("robotsDisallow","Disallow paths (one per line)","/private/\n/admin/")+input("robotsSitemap","Sitemap URL (optional)","https://example.com/sitemap.xml","url") + '<div class="actions">'+btn("generateRobots","Generate robots.txt")+btn("copy","Copy result",false)+'</div>'+out()+'<p class="muted text-sm">This creates text only; save it as robots.txt at your website root. Robots.txt is not access control.</p>');
+ case "sitemap":return form('<p class="muted text-sm">Enter one complete public page URL per line. URLs are validated and duplicates removed.</p>'+textarea("sitemapUrls","Website URLs (one per line)","https://example.com/\nhttps://example.com/about") + '<div class="actions">'+btn("generateSitemap","Generate XML sitemap")+btn("copy","Copy XML",false)+'</div>'+out()+'<p class="muted text-sm">Up to 500 URLs. Save the output as sitemap.xml and publish it on your website.</p>');
+ case "gradient":return form('<div class="grid gap-4 sm:grid-cols-2">'+select("gradientType","Gradient type",[["linear","Linear"],["radial","Radial"]])+input("gradientAngle","Angle (linear only; 0–360°)","135","number")+'</div><div class="grid gap-4 sm:grid-cols-2">'+input("gradientColorA","First color","#6366f1","color")+input("gradientColorB","Second color","#06b6d4","color")+'</div><div id="gradientPreview" class="phase15-gradient-preview" aria-label="CSS gradient preview"></div><div class="actions">'+btn("generateGradient","Generate CSS")+btn("copy","Copy CSS",false)+'</div>'+out()+'<p class="muted text-sm">Preview and CSS are generated locally.</p>');
  case "color":return form(`<div class="grid gap-4 sm:grid-cols-2">${input("hex","HEX color","#6366f1")}<div><label class="field-label" for="colorPicker">Pick a color</label><input class="field h-12" id="colorPicker" type="color" value="#6366f1"></div></div><div class="actions">${btn("convert","Convert color")}${btn("copy","Copy values",false)}</div><div id="colorSwatch" class="h-16 rounded-xl border border-slate-200"></div>${out()}`);
  case "forexcalc":return form(`${input("forexAmount","Amount","100","number")}<div class="grid gap-4 sm:grid-cols-2">${select("forexFrom","From currency",[["USD","USD — US Dollar"],["BDT","BDT — Bangladeshi Taka"],["EUR","EUR — Euro"],["GBP","GBP — British Pound"],["JPY","JPY — Japanese Yen"],["AUD","AUD — Australian Dollar"],["CAD","CAD — Canadian Dollar"],["CHF","CHF — Swiss Franc"],["NZD","NZD — New Zealand Dollar"],["INR","INR — Indian Rupee"],["SGD","SGD — Singapore Dollar"],["CNY","CNY — Chinese Yuan"],["PKR","PKR — Pakistani Rupee"],["AED","AED — UAE Dirham"],["SAR","SAR — Saudi Riyal"],["MYR","MYR — Malaysian Ringgit"],["THB","THB — Thai Baht"],["TRY","TRY — Turkish Lira"],["ZAR","ZAR — South African Rand"],["HKD","HKD — Hong Kong Dollar"]])}${select("forexTo","To currency",[["USD","USD — US Dollar"],["BDT","BDT — Bangladeshi Taka"],["EUR","EUR — Euro"],["GBP","GBP — British Pound"],["JPY","JPY — Japanese Yen"],["AUD","AUD — Australian Dollar"],["CAD","CAD — Canadian Dollar"],["CHF","CHF — Swiss Franc"],["NZD","NZD — New Zealand Dollar"],["INR","INR — Indian Rupee"],["SGD","SGD — Singapore Dollar"],["CNY","CNY — Chinese Yuan"],["PKR","PKR — Pakistani Rupee"],["AED","AED — UAE Dirham"],["SAR","SAR — Saudi Riyal"],["MYR","MYR — Malaysian Ringgit"],["THB","THB — Thai Baht"],["TRY","TRY — Turkish Lira"],["ZAR","ZAR — South African Rand"],["HKD","HKD — Hong Kong Dollar"]])}</div><div class="actions">${btn("convertCurrency","Convert currency")}${btn("swapCurrencies","Swap currencies",false)}${btn("copy","Copy result",false)}</div>${out()}<p class="muted text-sm">Uses reference exchange rates retrieved online; rates are generally updated daily and may differ from your broker's executable Forex quotes. For information only, not trading advice. Rate source: <a href="https://www.exchangerate-api.com/docs/free" target="_blank" rel="noopener noreferrer">ExchangeRate-API</a>.</p>`);
  case "unit":return form(`${select("unitType","Conversion type",[["length","Length"],["weight","Weight"],["temperature","Temperature"]])}<div class="grid gap-4 sm:grid-cols-3">${input("unitValue","Value","1","number")}${select("unitFrom","From",[])}${select("unitTo","To",[])}</div><div class="actions">${btn("convert","Convert")}${btn("copy","Copy result",false)}</div>${out()}`);
@@ -1060,6 +1068,18 @@ function wireTool(id){
  bind("generate",()=>{const title=$("#pageTitle").value.trim(),desc=$("#pageDescription").value.trim(),url=$("#pageUrl").value.trim();if(!title||!desc){message("Enter both a title and description.","error");return;}let canonical="";if(url){try{const parsed=new URL(url);if(!["http:","https:"].includes(parsed.protocol)||!parsed.hostname)throw new Error("invalid URL");canonical=parsed.href;}catch{message("Enter a valid HTTP or HTTPS canonical URL.","error");return;}}const safe=s=>s.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");setOutput(`<title>${safe(title)}</title>\n<meta name="description" content="${safe(desc)}">`+(canonical?`\n<link rel="canonical" href="${safe(canonical)}">`:""));});
  bind("copy",()=>copyOutput());
  break;
+ case "robots": {
+  bind("generateRobots",()=>{try{setOutput(ToolNestPhase15.buildRobotsTxt({sitemap:$("#robotsSitemap").value,disallow:$("#robotsDisallow").value}));}catch(error){message(error.message,"error");}});
+  bind("copy",()=>copyOutput());break;
+ }
+ case "sitemap": {
+  bind("generateSitemap",()=>{try{setOutput(ToolNestPhase15.buildSitemapXml($("#sitemapUrls").value));}catch(error){message(error.message,"error");}});
+  bind("copy",()=>copyOutput());break;
+ }
+ case "gradient": {
+  bind("generateGradient",()=>{try{const gradient=ToolNestPhase15.buildCssGradient({type:$("#gradientType").value,angle:$("#gradientAngle").value,colorA:$("#gradientColorA").value,colorB:$("#gradientColorB").value});$("#gradientPreview").style.background=gradient;setOutput("background: "+gradient+";");}catch(error){message(error.message,"error");}});
+  bind("copy",()=>copyOutput());break;
+ }
 
  case "color":
  const sync=()=>{const v=$("#colorPicker").value;$("#hex").value=v;};

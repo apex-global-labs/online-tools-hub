@@ -8,14 +8,16 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/phase2.css` — search/navigation styling, dark-mode contrast and animated sun/moon scene
 - `app.js` — tool catalogue, filters, workspace rendering, theme toggle and tool implementations
 - `js/live-search.js` — search autocomplete, keyboard navigation, category menu behavior and slash shortcut
-- `js/tools-data.json` — metadata for all 36 tools used by the modular hash router
+- `js/tools-data.json` — metadata for all 39 tools used by the modular hash router
 - `js/router.js` — route parsing/resolution
 - `js/router-bridge.js` — bridge from modular routes to the existing tool workspace
 - `css/phase10-image-tools.css` — responsive previews for the image utilities
 - `css/phase14-image-tools.css` — cropper, format-converter and Base64 image preview refinements
+- `css/phase15-developer-seo.css` — CSS gradient preview styling
 - `css/phase12-calculators.css` — responsive finance calculator refinements
 - `js/finance-calculators.js` — bounded, reusable percentage, compound-interest and EMI formula helpers
 - `js/advanced-converters.js` — local area, Bangladesh land-unit, time-zone and number-to-words helpers
+- `js/phase15-developer-seo.js` — local robots.txt, XML sitemap and CSS gradient generators
 - `css/phase13-converters.css` — responsive styling for advanced converters
 - `PROJECT_STATE.md` — current status, verification notes and next-step roadmap
 
@@ -28,7 +30,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Theme preference is saved when browser storage is available
 - Responsive layout and reduced-motion support for the decorative scene
 
-## Tool catalogue (36)
+## Tool catalogue (39)
 
 ### Text
 - Text Case Converter
@@ -49,6 +51,9 @@ A static, browser-based multi-tool website. No backend or build step is required
 - UUID Generator
 - SHA-256 Hash Generator
 - HTML Entity Encoder / Decoder
+- Robots.txt Generator
+- XML Sitemap Generator
+- CSS Gradient Generator
 
 ### Images
 - Image to Base64
