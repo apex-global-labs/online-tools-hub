@@ -15,7 +15,7 @@ Last updated: 2026-10-30
 - Base64 to Image accepts image data URLs or raw Base64, verifies actual PNG/JPEG/WebP/GIF file signatures, rejects mismatched/unsupported data, limits encoded input to 15 MB and decoded images to 10 MB, and guards against images above 40 megapixels / 12,000 px per side.
 - All three tools process data locally in the browser; no image upload endpoint, backend, paid service or new third-party runtime dependency was added. Includes tool-specific SEO metadata, FAQ content, responsive styles and Phase 14 regression tests.
 - PR regression workflow **41041421984** passed: **57 tests, 57 passed, 0 failed**. JavaScript syntax checks passed.
-- GitHub Pages deployment after the merge is being verified separately. Real-browser QA remains pending; do not claim preview, clipboard, download, Clear, mobile layout or theme behavior is browser-tested until manually checked.
+- GitHub Pages deployment is confirmed: latest deployment run **41041510347** for `main` commit `cb5777730b53c531ada42c6e736a62c2f0b478b5` completed successfully. The post-merge regression run **41041474380** also passed. Real-browser QA remains pending; do not claim preview, clipboard, download, Clear, mobile layout or theme behavior is browser-tested until manually checked.
  
 ## Phase 13 — Advanced Converters & Math Tools (merged)
 - Work branch: `phase13-advanced-converters`; merged through [PR #33](https://github.com/apex-global-labs/online-tools-hub/pull/33).
@@ -63,7 +63,7 @@ Last updated: 2026-10-30
 - Phase 14 adds Image Cropper, Image Format Converter and Base64 to Image. Existing Image to Base64, Image Resizer and Image Compressor remain in place without duplicates.
 - Phase 14 PR regression run **41041421984** passed: **57/57 tests**, with JavaScript syntax checks passing.
 - Phase 13 PR regression run **41039526675** and post-merge `main` run **41039590292** passed: **52/52 tests**. The latest Pages deployment run for the pre-Phase-14 production state, **41039728937**, completed successfully.
-- Phase 14 Pages deployment is triggered by the merge and must be confirmed before calling the new tools live.
+- Phase 14 Pages deployment run **41041510347** completed successfully for the latest documentation-updated `main` commit. The three Phase 14 tools are included in the deployed Pages artifact; real-browser QA remains pending.
 - Browser QA remains pending for all 36 tools. Automated tests and successful deployment do not prove actual browser behavior for image preview, image download, Copy/Clear, responsive layout, Day/Night rendering, route navigation or browser-console errors.
 - Phase 4 Escape-key issue remains deferred.
  
