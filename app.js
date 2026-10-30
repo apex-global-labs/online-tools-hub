@@ -458,8 +458,9 @@ function wireTool(id){
    const note=document.createElement("p");note.className="ip-lookup-note";note.textContent="Location and coordinates are approximate network estimates, not a person's physical location.";results.append(note);
    results.hidden=false;
   };
-  const lookup=async(value)=>{
+  const lookup=async(value,own=false)=>{
    const ip=value.trim();
+   if(!own&&!ip){status.textContent="Enter an IP address to look it up, or choose Find My IP.";status.className="ip-lookup-status is-error";return;}
    if(ip&&!ToolNestIP.isValidIpAddress(ip)){status.textContent="Enter a valid IPv4 or IPv6 address.";status.className="ip-lookup-status is-error";return;}
    if(ip&&ToolNestIP.classifyIpAddress(ip)==="Private / special-use"){status.textContent="This is a private or special-use IP address. It is not publicly geolocatable, so no external lookup was sent.";status.className="ip-lookup-status is-error";setOutput("IP address: "+ip+"\nAddress type: Private / special-use\nPublic geolocation: Not available.");results.hidden=true;return;}
    lookupButton.disabled=true;myButton.disabled=true;status.textContent=ip?"Looking up "+ip+"…":"Checking the public IP address…";status.className="ip-lookup-status muted";results.hidden=true;results.replaceChildren();
@@ -476,7 +477,7 @@ function wireTool(id){
    finally{lookupButton.disabled=false;myButton.disabled=false;}
   };
   bind("lookupIp",()=>lookup($("#ipAddress").value));
-  bind("myIp",()=>{ $("#ipAddress").value=""; lookup(""); });
+  bind("myIp",()=>{ $("#ipAddress").value=""; lookup("",true); });
   bind("copy",()=>copyOutput());
   break;
  }
