@@ -37,7 +37,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Theme preference is saved when browser storage is available
 - Responsive layout and reduced-motion support for the decorative scene
 
-## Tool catalogue (42)
+## Tool catalogue (43)
 
 ### Text
 - Text Case Converter
@@ -91,6 +91,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - PDF Splitter — export selected PDF pages as separate files or a ZIP archive
 - URL Shortener — create shareable short links with an optional custom alias through Spoo.me's free API
 - IP Address Finder & Lookup
+- URL Shortener
 
 ### IP Address Finder & Lookup
 - Finds the public IP visible to the external lookup provider or looks up a manually entered public IPv4/IPv6 address.
