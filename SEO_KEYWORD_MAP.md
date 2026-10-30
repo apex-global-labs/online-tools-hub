@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-30  
 Project: [ToolNest](https://apex-global-labs.github.io/online-tools-hub/)  
-Scope: 40 existing crawlable tool-guide pages
+Scope: 41 existing crawlable tool-guide pages
 
 ## Research method and confidence
 
@@ -20,7 +20,7 @@ Google recommends descriptive, concise titles, useful people-first content, anti
 
 1. Keep the **Primary keyword** as the main query theme for its assigned guide URL.
 2. Do not create another page targeting the same primary phrase or near-identical intent.
-3. Preserve the existing 40 canonical guide URLs; do not rename slugs as part of this phase.
+3. Preserve the existing 41 canonical guide URLs; do not rename slugs as part of this phase.
 4. Keep closely related variants on one page when the tool performs the same task.
 5. Maintain explicit boundaries for similar tools:
    - Unit Converter = length, weight and temperature; Area Converter = area units; Bangladesh Land Unit Converter = local land measures.
@@ -33,7 +33,7 @@ Google recommends descriptive, concise titles, useful people-first content, anti
    - Robots.txt Generator = crawler directives; XML Sitemap Generator = URL inventory.
 6. Do not force the brand name into every keyword. Use ToolNest naturally in branding where helpful.
 
-## 40-tool keyword map
+## 41-tool keyword map
 
 | # | Tool / page | Primary keyword (one target) | Secondary keywords | Long-tail queries / FAQ angles | Search intent | Priority | Content strategy / page boundary | Target URL |
 |---:|---|---|---|---|---|---|---|---|
@@ -76,6 +76,7 @@ Google recommends descriptive, concise titles, useful people-first content, anti
 | 37 | Robots.txt Generator | **robots.txt generator** | robots txt file generator; crawler rules generator; robots directives generator | generate robots.txt rules for a website; create a robots.txt file with sitemap directive | Transactional / tool use | P2 | Explain user-agent and allow/disallow directives; robots.txt is not access control. Tool generates a file, not publish it. | [robots-txt-generator](https://apex-global-labs.github.io/online-tools-hub/tools/robots-txt-generator/) |
 | 38 | XML Sitemap Generator | **XML sitemap generator** | sitemap generator; XML sitemap creator; website URL sitemap | create an XML sitemap from website URLs; generate sitemap.xml online | Transactional / tool use | P2 | Show URL validation, duplicate handling and XML output. Generation does not submit or guarantee indexing. | [xml-sitemap-generator](https://apex-global-labs.github.io/online-tools-hub/tools/xml-sitemap-generator/) |
 | 39 | CSS Gradient Generator | **CSS gradient generator** | CSS linear gradient generator; CSS radial gradient generator; gradient code generator | create a CSS linear gradient with preview; generate CSS gradient code online | Transactional / tool use | P2 | Describe supported gradient types, color inputs, angle and preview accurately. Do not claim conic gradients unless supported. | [css-gradient-generator](https://apex-global-labs.github.io/online-tools-hub/tools/css-gradient-generator/) |
+| 41 | Advanced PDF Merger | **merge PDF files** | PDF merger; combine PDF files; merge PDF pages | how to merge selected pages from multiple PDFs; reorder and rotate PDF pages online | Transactional / tool use | P1 | Lead with browser-side PDF merging; explain page selection, ordering, rotation, range syntax and file limits. Keep page extraction as a distinct future tool if users need separate downloads. | [advanced-pdf-merger](https://apex-global-labs.github.io/online-tools-hub/tools/advanced-pdf-merger/) |
 | 40 | IP Address Finder & Lookup | **IP address lookup** | what is my IP address; IP address finder; public IP lookup | find my public IP address; look up an IPv4 or IPv6 address | Transactional / tool use | P1 | Separate Find My IP from manual public-IP lookup. Explain approximate geolocation and provider processing; no exact GPS or VPN detection claims. | [ip-tools](https://apex-global-labs.github.io/online-tools-hub/tools/ip-tools/) |
 
 ## Keyword ownership and page-boundary checks
