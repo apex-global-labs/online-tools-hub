@@ -1480,5 +1480,42 @@
       ],
       "tips": "IP geolocation is approximate and may show an ISP gateway or VPN exit point rather than a person's actual location."
     }
+  },
+  {
+    "id": "pdfmerge",
+    "title": "Advanced PDF Merger",
+    "category": "Utilities",
+    "icon": "📄",
+    "slug": "advanced-pdf-merger",
+    "description": "Merge PDF files and select, reorder or rotate individual pages before downloading one custom PDF.",
+    "tagline": "Merge PDFs with page-level control",
+    "seo": {
+      "description": "Merge multiple PDF files online, select specific pages, reorder files and pages, rotate pages, and download one custom PDF in your browser.",
+      "steps": [
+        "Add two or more PDF files, or add one PDF if you want to extract selected pages.",
+        "Reorder files and pages, untick pages you do not need, or apply a page range such as 1-3,5.",
+        "Choose Merge Selected Pages, then download your new PDF."
+      ],
+      "features": [
+        "Combine multiple PDF documents in a chosen file and page order.",
+        "Select or exclude individual pages and apply page ranges to each PDF.",
+        "Move files and pages, rotate selected pages, and create a new PDF locally in your browser."
+      ],
+      "faqs": [
+        {
+          "question": "Can I merge only selected pages from PDF files?",
+          "answer": "Yes. Add your PDFs, select the pages you want to keep, and merge the selected pages into one new document. You can also use a page range such as 1-3,5."
+        },
+        {
+          "question": "Can I change the order or rotation of pages?",
+          "answer": "Yes. Move files or individual pages up and down, and rotate individual pages before creating the merged PDF."
+        },
+        {
+          "question": "Are my PDF files uploaded to ToolNest?",
+          "answer": "No. The tool processes PDF files in your browser and does not upload them to the ToolNest server. Very large files may be limited by your device memory."
+        }
+      ],
+      "tips": "Check the page selection and order before merging. Keep a copy of your original PDFs, especially when working with important documents."
+    }
   }
 ]
