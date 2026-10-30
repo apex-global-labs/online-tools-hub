@@ -1402,5 +1402,43 @@
         }
       ]
     }
+  },
+  {
+    "id": "iptools",
+    "title": "IP Address Finder & Lookup",
+    "category": "Utilities",
+    "icon": "◎",
+    "slug": "ip-tools",
+    "description": "Find your public IP or look up public IP geolocation and network details.",
+    "tagline": "Check IP address, approximate location and network details",
+    "seo": {
+      "description": "Find your public IP address or look up a public IPv4 or IPv6 address. View approximate country, region, city, ISP, ASN and timezone details with clear privacy and accuracy notes.",
+      "steps": [
+        "Choose Find My IP to check the public IP address visible to the lookup provider, or enter an IPv4/IPv6 address.",
+        "Select Look Up IP and wait for the public geolocation service to respond.",
+        "Review the approximate location, network and timezone details. Missing fields are shown as unavailable."
+      ],
+      "features": [
+        "Supports public IPv4 and IPv6 address lookups with input validation.",
+        "Displays approximate country, region, city, postal area and coordinates when the data provider supplies them.",
+        "Shows ISP, organization, ASN and timezone information when available.",
+        "Does not claim to identify a person's home, street address or exact GPS position.",
+        "Shows clear third-party data-sharing and provider-availability notices."
+      ],
+      "faqs": [
+        {
+          "question": "Can an IP address reveal an exact home address?",
+          "answer": "No. IP geolocation estimates a network's general location and cannot reliably identify a person's home, street address or exact GPS position."
+        },
+        {
+          "question": "Does ToolNest store the IP address I enter?",
+          "answer": "ToolNest does not send the lookup through its own server or intentionally store the entered IP. The address is sent directly from your browser to the external IP geolocation provider, which may process request data under its own policy."
+        },
+        {
+          "question": "Why can the city or coordinates be wrong?",
+          "answer": "VPNs, mobile networks, proxies, ISP routing and database coverage can cause an IP location estimate to point to a nearby or different area. Coordinates are approximate."
+        }
+      ]
+    }
   }
 ]
