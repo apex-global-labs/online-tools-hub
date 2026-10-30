@@ -9,10 +9,23 @@ Last updated: 2026-10-31
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Current verified production baseline after Phase 7: `79f13736744aa6a8e6af2e5dd387fc8585cc8768`
+- Current verified production baseline after Phase 8A: `7a514e47f115ef07c91d25979d9085d38a791c09`
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no backend or application build step.
-- Catalogue: **40 unique tools**; `app.js` and `js/tools-data.json` are synchronized.
-- No paid service or new runtime dependency is introduced by Phase 17.
+- Catalogue: **41 unique tools**; `app.js` and `js/tools-data.json` are synchronized.
+- No paid service or backend is used. Advanced PDF Merger loads `pdf-lib` from a public CDN only when the tool is used.
+
+## Phase 8A — Advanced PDF Merger (merged and deployed; real-browser QA pending)
+
+- PR #51 merged into `main` at commit `7a514e47f115ef07c91d25979d9085d38a791c09`.
+- Added the 41st tool, **Advanced PDF Merger**, with a dedicated workspace and responsive styling.
+- Browser-side PDF processing uses `pdf-lib@1.17.1`, loaded on demand from unpkg. PDF files are not sent to the ToolNest server by this module.
+- Features: multi-file selection and drag-and-drop; reorder files; select or deselect individual pages; apply page ranges such as `1-3,5`; reorder pages; rotate individual pages by 90-degree steps; merge selected pages and download one PDF. Selecting pages from a single PDF can create a new PDF containing only those pages.
+- Safety limits: up to 20 files, 50 MB per file, 200 MB total, 500 pages per file and 2,000 pages per merge job. Invalid file signatures, damaged PDFs and password-protected PDFs may be rejected.
+- Added `tools/advanced-pdf-merger/index.html`, a directory link, a sitemap entry and a dedicated keyword-map row. The sitemap now contains **43 canonical URLs**: homepage + directory + 41 tool guides.
+- Regression workflow **41115562344** completed successfully: **93 tests passed, 0 failed**; JavaScript syntax checks passed, including `js/pdf-merge.js`.
+- GitHub Pages deployment workflow **41115562715** completed successfully for the merge commit.
+- **Real-browser verification is pending:** test actual PDF files on desktop and Android, including multi-file merge, range selection, page reorder, rotation, download validity, reopening the tool and large-file behavior. The web preview could not fetch the deployed GitHub Pages URL during this session, so do not claim these interactions have been manually verified.
+- Not included in this sub-phase: separate per-page file downloads, PDF thumbnails, PDF Splitter as a standalone tool, Image to PDF, PDF to Image, PDF to Word and Word to PDF. These remain candidates for subsequent Phase 8 work.
 
 ## Phase 7 — Speed & Performance SEO (completed and deployed)
 
@@ -118,14 +131,15 @@ Last updated: 2026-10-31
 
 - `index.html`: homepage, navigation, search, tool grid and workspace.
 - `app.js`: catalogue, tool rendering, interactions and tool implementations.
-- `js/tools-data.json`: 40 tool metadata records, descriptions, routes and per-tool SEO content.
+- `js/tools-data.json`: 41 tool metadata records, descriptions, routes and per-tool SEO content.
 - `js/router.js` and `js/router-bridge.js`: modern hash routes and legacy route compatibility.
 - `js/ip-tools.js` / `css/ip-tools.css`: IP validation, special-use classification and lookup presentation.
+- `js/pdf-merge.js` / `css/pdf-merge.css`: on-demand browser-side PDF merging, page selection/order/rotation and responsive controls.
 - `js/phase15-developer-seo.js`: local robots.txt, XML sitemap and CSS gradient generators.
 - `js/advanced-converters.js`, `js/finance-calculators.js`: reusable converter and calculator helpers.
 - `js/seo-content.js`: tool guides, FAQs and dynamic FAQPage JSON-LD.
 - `tests/`: Node regression tests run by GitHub Actions.
-- `tools/`: static SEO guide directory and 40 individual crawlable pages (Phase 3 deployed).
+- `tools/`: static SEO guide directory and 41 individual crawlable pages (Phase 3 deployed; Advanced PDF Merger added in Phase 8A).
 - `sitemap.xml`: canonical homepage, directory and individual tool guide URLs; no repository-level robots file is published because this is a path-prefixed GitHub Pages project site.
 
 ## Known limitations and release cautions
