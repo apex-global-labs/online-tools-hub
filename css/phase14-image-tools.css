@@ -1,0 +1,7 @@
+/* Phase 14: local image crop, conversion and Base64 preview tools */
+.image-tool-preview { overflow:hidden; }
+.image-tool-preview img { max-width:100%; max-height:520px; object-fit:contain; }
+#cropDimensions { margin:.5rem 0 1rem; }
+#formatQuality { accent-color:#4f46e5; }
+#base64Input { min-height:170px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.85rem; overflow-wrap:anywhere; }
+.dark .image-tool-preview { background:#0b1220; border-color:#334155; }
