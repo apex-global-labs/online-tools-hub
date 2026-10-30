@@ -18,23 +18,19 @@ Last updated: 2026-10-30
 - GitHub Pages build/deployment run **41033055683** completed successfully after the merge.
 - Real-browser interaction QA remains pending; deployment success and source/CI tests do not prove clipboard, download, Clear, responsive layout or theme behavior in a browser.
 
-## Current production status — verified through PR #27
+## Current production status — 2026-10-30
 
-- Production branch: `main`; current production HEAD after PR #27: `88f3a85711f8d4d6c0becefe9a57fbeecbe99e23`.
-- **Phase 6 SEO content and FAQ is merged** through [PR #15](https://github.com/apex-global-labs/online-tools-hub/pull/15).
-- **QR Studio work is merged**: [PR #17](https://github.com/apex-global-labs/online-tools-hub/pull/17), [PR #18](https://github.com/apex-global-labs/online-tools-hub/pull/18), [PR #19](https://github.com/apex-global-labs/online-tools-hub/pull/19), and [PR #20](https://github.com/apex-global-labs/online-tools-hub/pull/20). QR Studio has Default/Custom modes, five palettes, five dot shapes, optional local image blending, error correction H, and PNG/SVG export. Blend visibility is 20%–60%, default 50%; exported QR codes should be scan-tested.
-- **Phase 9 source-level audit and QR Clear fix are merged** through [PR #22](https://github.com/apex-global-labs/online-tools-hub/pull/22). Report: [docs/PHASE9_AUDIT.md](docs/PHASE9_AUDIT.md).
-- **Phase 10 added five tools, taking the catalogue from 20 to 25** through [PR #24](https://github.com/apex-global-labs/online-tools-hub/pull/24). Report: [docs/PHASE10_TOOLS.md](docs/PHASE10_TOOLS.md).
-- **Phase 11 added Lorem Ipsum Generator**, improved Unicode-aware character counting and whitespace-only cleanup, and retained existing Text Diff Checker / Word Counter / Case Converter tools without duplicates. PR: [#26](https://github.com/apex-global-labs/online-tools-hub/pull/26). Final status documentation: [PR #27](https://github.com/apex-global-labs/online-tools-hub/pull/27).
-- Phase 11 regression run **41033005867**, post-merge main run **41033055609**, and latest main documentation run **41033254956** completed successfully.
-- GitHub Pages deployment for the Phase 11 application merge **41033055683** and latest main documentation merge **41033253957** completed successfully.
-- Catalogue status: **26 tools**, with matching catalogue and router metadata. No new dependency, backend or paid service was added for Phase 11.
-- Real-browser interaction QA remains pending for the 26-tool catalogue; deployment and automated source tests do not verify clipboard/download/Clear or device rendering.
-- New tools: Unix Timestamp Converter, Extra Spaces Remover, HTML Entity Encoder / Decoder, Image Resizer, and Image Compressor.
-- PR #24 regression workflow run **41028497065** completed successfully, including catalogue/metadata checks and a Node syntax check of `app.js`.
-- GitHub Pages deployment for the PR #24 merge has **not yet been independently confirmed**. Do not assume the live site already serves the new tools until deployment is verified.
-- Phase 10 catalogue status: **25 tools**. No paid service, backend, package, or new third-party dependency was added for Phase 10.
-- **Live browser audit remains pending** for all 26 tools, including the new Phase 11 text utility. Browser/device checks must verify actual actions, image rendering/downloads, Day/Night layout, routes, and browser-console/network behavior.
+- Production branch: `main`; Phase 11 application code is merged through [PR #26](https://github.com/apex-global-labs/online-tools-hub/pull/26). Its application commit is `1bfce56a13f0b9ee0147ec1d71c64a7cd3328046`.
+- Later project-state updates are documentation-only and do not change the deployed application.
+- Phase 6 SEO content, QR Studio, Phase 9 audit, Phase 10 additions and Phase 11 Text & Writing Tools are merged.
+- Catalogue status: **26 tools**. `app.js` and `js/tools-data.json` contain matching tool IDs; all 26 have SEO metadata and unique slugs.
+- Phase 10 added Unix Timestamp Converter, Extra Spaces Remover, HTML Entity Encoder / Decoder, Image Resizer and Image Compressor.
+- Phase 11 added Lorem Ipsum Generator and improved Unicode-aware character totals in Text Case Converter and Word & Character Counter, plus whitespace-only cleanup in Extra Spaces Remover. Existing Text Diff Checker and other text tools were retained rather than duplicated.
+- Unicode ↔ Bijoy conversion is explicitly excluded.
+- Phase 11 regression checks passed on the pull request and after merge to `main`. The latest `main` regression workflow also passed after the documentation reconciliation.
+- GitHub Pages build and deployment succeeded after the Phase 11 application merge and again after the latest documentation reconciliation.
+- No new paid service, backend, package or third-party dependency was added for Phase 11.
+- **Real-browser interaction QA remains pending for all 26 tools.** Automated tests and successful Pages deployment do not prove actual clipboard/download/Clear behavior, responsive layout, Day/Night rendering, routes or browser-console behavior.
 - Phase 4 Escape-key issue remains deferred.
 
 ## Project goal
