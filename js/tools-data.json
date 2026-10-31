@@ -2043,7 +2043,7 @@
           "answer": "It extracts embedded raster objects when available. It does not perform OCR or recreate a full-page scan as an original image."
         }
       ],
-      "tips": "Keep the original PDF. Color spaces, masks and transparency can affect extracted image appearance."
+      "tips": "Keep the original PDF. Color profiles, transparency masks and PDF-specific image transformations can affect how an extracted image appears. Byte-for-byte recovery of the original source asset is not guaranteed."
     }
   }
 ]
