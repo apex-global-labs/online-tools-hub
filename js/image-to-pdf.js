@@ -80,6 +80,10 @@
     list.querySelectorAll("button").forEach(button => { button.disabled = state.busy || button.disabled; });
     create.disabled = state.busy || state.items.length === 0;
     create.textContent = state.busy ? "Creating PDF…" : "Create PDF";
+    const preview = $("#imagePdfPreview");
+    const download = $("#imagePdfDownload");
+    if (preview && state.resultUrl) { preview.src = state.resultUrl; preview.hidden = false; }
+    if (download) download.disabled = state.busy || !state.resultUrl;
     $("#imagePdfClear").disabled = state.busy;
     $("#imagePdfPageSize").disabled = state.busy;
     $("#imagePdfOrientation").disabled = state.busy;
