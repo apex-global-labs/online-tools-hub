@@ -1,6 +1,6 @@
 (function(root){
 "use strict";
-const MAX_ZIP_BYTES=50*1024*1024,MAX_FILES=100,MAX_FILE_BYTES=25*1024*1024,MAX_TOTAL_BYTES=100*1024*1024,MAX_ENTRIES=1000;
+const MAX_ZIP_BYTES=50*1024*1024,MAX_FILES=100,MAX_FILE_BYTES=25*1024*1024,MAX_TOTAL_BYTES=50*1024*1024,MAX_ENTRIES=1000;
 function safePath(path){
  const value=String(path||"").replace(/\\/g,"/");
  if(!value||value.startsWith("/")||/^[a-zA-Z]:/.test(value)||value.split("/").some(part=>part===".."||part==="."))throw new Error("The archive contains an unsafe file path.");
