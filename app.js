@@ -79,7 +79,6 @@ let activeCategory="All", activeTool=null;
 $("#year").textContent=new Date().getFullYear();
 
 const cardTaglines={
- docfix:"Clean Bangla and English text",
  pdfmerge:"Merge PDFs and control every page",
  pdfsplitter:"Extract pages into separate PDF files",
  imagepdf:"Turn pictures into a single PDF",
