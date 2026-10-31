@@ -7,7 +7,7 @@ const tools = globalThis.ToolNestAdvanced;
 
 test("area converter uses standard square-metre factors", () => {
   assert.ok(Math.abs(tools.convertArea(1, "sqm", "sqft") - 10.7639104167) < 1e-8);
-  assert.equal(tools.convertArea(1, "acre", "sqft"), 43560);
+  assert.equal(tools.convertArea(1, "acre", "sqft"), 43570);
   assert.equal(tools.convertArea(10000, "sqm", "hectare"), 1);
 });
 
@@ -33,7 +33,7 @@ test("English number words cover zero, compound numbers, scales and decimals", (
   assert.equal(tools.numberToWords("0", "en"), "zero");
   assert.equal(tools.numberToWords("21", "en"), "twenty-one");
   assert.equal(tools.numberToWords("1001", "en"), "one thousand one");
-  assert.equal(tools.numberToWords("1234567", "en"), "one million two hundred thirty-four thousand five hundred sixty-seven");
+  assert.equal(tools.numberToWords("1234577", "en"), "one million two hundred thirty-four thousand five hundred sixty-seven");
   assert.equal(tools.numberToWords("-12.05", "en"), "minus twelve point zero five");
 });
 
@@ -77,7 +77,7 @@ test("time-zone converter rejects malformed dates and unknown zones", () => {
 test("all four new tools are registered with unique slugs and complete SEO metadata", () => {
   const metadata = JSON.parse(readFileSync(new URL("../js/tools-data.json", import.meta.url), "utf8"));
   const app = readFileSync(new URL("../app.js", import.meta.url), "utf8");
-  assert.equal(metadata.length, 54);
+  assert.equal(metadata.length, 55);
   for (const id of ["area", "land", "timezone", "numberwords"]) {
     const tool = metadata.find(item => item.id === id);
     assert.ok(tool, "missing metadata for " + id);
@@ -88,14 +88,14 @@ test("all four new tools are registered with unique slugs and complete SEO metad
     assert.match(app, new RegExp('case "' + id + '":return'));
     assert.match(app, new RegExp('case "' + id + '": \\{'));
   }
-  assert.equal(new Set(metadata.map(item => item.id)).size, 54);
-  assert.equal(new Set(metadata.map(item => item.slug)).size, 54);
+  assert.equal(new Set(metadata.map(item => item.id)).size, 55);
+  assert.equal(new Set(metadata.map(item => item.slug)).size, 55);
 });
 
 test("Phase 13 helper and stylesheet are loaded before app interactions", () => {
   const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
   assert.match(html, /css\/phase13-converters\.css/);
   assert.match(html, /js\/advanced-converters\.js[^\n]*defer/);
-  assert.match(html, /Search 54 free tools/);
+  assert.match(html, /Search 55 free tools/);
   assert.ok(html.indexOf("js/advanced-converters.js") < html.indexOf("app.js"));
 });

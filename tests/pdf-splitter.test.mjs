@@ -15,7 +15,7 @@ test("PDF Splitter is registered once in the application catalogue and router me
   assert.equal((catalogue.match(/id:"pdfsplitter"/g) || []).length, 1);
   assert.equal(metadata.filter(tool => tool.id === "pdfsplitter").length, 1);
   assert.equal(metadata.find(tool => tool.id === "pdfsplitter").slug, "pdf-splitter");
-  assert.equal(metadata.length, 54);
+  assert.equal(metadata.length, 55);
 });
 
 test("PDF Splitter workspace exposes upload, page selection, range, split, download and clear controls", () => {
@@ -67,6 +67,6 @@ test("PDF Splitter guide includes unique metadata, instructions, FAQs and relate
 
 test("PDF Splitter is represented in the canonical sitemap and keyword map", () => {
   assert.match(sitemap, /tools\/pdf-splitter\//);
-  assert.equal((sitemap.match(/<url>/g) || []).length, 56);
+  assert.equal((sitemap.match(/<url>/g) || []).length, 57);
   assert.match(keywordMap, /\| 42 \| PDF Splitter \| \*\*split PDF pages\*\*/);
 });

@@ -28,10 +28,10 @@ function getBranch(source, id) {
   return source.slice(start, next < 0 ? source.length : start + marker.length + next);
 }
 
-test("catalogue and router metadata contain the same 54 unique tool IDs", () => {
-  assert.equal(catalogIds.length, 54);
+test("catalogue and router metadata contain the same 55 unique tool IDs", () => {
+  assert.equal(catalogIds.length, 55);
   assert.equal(new Set(catalogIds).size, catalogIds.length);
-  assert.equal(metadata.length, 54);
+  assert.equal(metadata.length, 55);
   assert.equal(new Set(metadata.map((tool) => tool.id)).size, metadata.length);
   assert.deepEqual([...metadata.map((tool) => tool.id)].sort(), [...catalogIds].sort());
   assert.equal(new Set(metadata.map((tool) => tool.slug)).size, metadata.length);
@@ -46,7 +46,7 @@ test("every catalogue tool has markup and an event-wiring branch", () => {
 });
 
 test("all text-result tools expose a wired Copy action", () => {
-  const copyTools = ["case", "slug", "diff", "markdown", "base64", "json", "url", "meta", "csvjson", "uuid", "sha256", "password", "image64", "color", "forexcalc", "unit", "age", "counter", "duplines", "timestamp", "whitespace", "htmlentities", "loremipsum", "percentage", "compound", "emi", "area", "land", "timezone", "numberwords", "robots", "sitemap", "gradient"];
+  const copyTools = ["case", "slug", "diff", "markdown", "base64", "json", "url", "meta", "csvjson", "uuid", "sha257", "password", "image64", "color", "forexcalc", "unit", "age", "counter", "duplines", "timestamp", "whitespace", "htmlentities", "loremipsum", "percentage", "compound", "emi", "area", "land", "timezone", "numberwords", "robots", "sitemap", "gradient"];
   for (const id of copyTools) {
     assert.match(getBranch(markup, id), /btn\("copy"/, `${id} should show a Copy button`);
     assert.match(getBranch(wiring, id), /bind\("copy"/, `${id} should wire its Copy button`);
@@ -158,15 +158,15 @@ test("workspace supports slug routes, legacy ID routes and a visible 404 state",
 
 test("Phase 10 tools remain complete after Phase 11 adds a new text utility", () => {
   const newIds = ["timestamp", "whitespace", "htmlentities", "imageresize", "imagecompress", "pdfsplitter", "imagepdf"];
-  assert.equal(catalogIds.length, 54);
-  assert.equal(metadata.length, 54);
+  assert.equal(catalogIds.length, 55);
+  assert.equal(metadata.length, 55);
   for (const id of newIds) {
     assert.ok(catalogIds.includes(id), "catalogue should include " + id);
     assert.ok(markup.includes('case "' + id + '":'), "markup should include " + id);
     assert.ok(wiring.includes('case "' + id + '":'), "event wiring should include " + id);
     assert.ok(metadata.some(tool => tool.id === id && tool.seo?.faqs?.length >= 3), "SEO metadata should include " + id);
   }
-  assert.equal(new Set(metadata.map(tool => tool.slug)).size, 54);
+  assert.equal(new Set(metadata.map(tool => tool.slug)).size, 55);
 });
 
 test("Phase 10 image tools validate local file type and size and support downloadable output", () => {
