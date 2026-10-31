@@ -65,6 +65,8 @@ const tools = [
 {id:"pdfmark",name:"PDF Watermark & Page Number",category:"Utilities",icon:"🔖",description:"Add a custom text watermark, logo and page numbers to PDF documents."},
 {id:"iptools",name:"IP Address Finder & Lookup",category:"Utilities",icon:"◎",description:"Find your public IP or look up public IP geolocation and network details."},
 {id:"urlshortener",name:"URL Shortener",category:"Utilities",icon:"🔗",description:"Turn long website addresses into short, shareable links with an optional custom alias."},
+{id:"zipmanager",name:"ZIP File Manager",category:"Utilities",icon:"▤",description:"Create ZIP archives from files or inspect and extract selected files in your browser."},
+{id:"favicongenerator",name:"Favicon Generator",category:"Image",icon:"◈",description:"Create common website favicon sizes, an ICO file and HTML icon tags from an image."},
 ];
 
 // Curated general-demand order (not first-party usage analytics).
@@ -144,6 +146,7 @@ featuredGrid?.addEventListener("click",e=>{const b=e.target.closest("[data-tool]
 renderFeaturedCards();
 
 function closeTool(updateHistory=true){
+ window.__toolNestCurrentZip=null;
  workspace.classList.add("hidden");
  document.body.classList.remove("tool-open");
  document.body.style.removeProperty("overflow");
@@ -287,6 +290,7 @@ function bind(id,fn){
 }
 
 function openTool(id,updateHistory=true){
+ window.__toolNestCurrentZip=null;
  activeTool=tools.find(t=>t.id===id);
  if(!activeTool){showToolNotFound(id);return;}
  document.body.classList.add("tool-open");
@@ -320,6 +324,7 @@ function wireUniversalActions(id){
   return "";
  };
  bind("universalCopy",()=>{
+  if(id==="zipmanager"||id==="favicongenerator"){message("Use the tool-specific controls to create or download your files.");return;}
   if(id==="pdfmerge"){message("PDF files are documents; use the Download Merged PDF button after merging.");return;}
   if(id==="pdfsplitter"){message("Select pages and split them before downloading PDF files.");return;}
   if(id==="pdftoimage"){message("Convert selected PDF pages, then use Download Images / ZIP.");return;}
@@ -340,6 +345,8 @@ function wireUniversalActions(id){
   navigator.clipboard.writeText(text).then(()=>message("Copied to clipboard.")).catch(()=>message("Clipboard access was blocked. Select and copy the result manually.","error"));
  });
  bind("universalDownload",()=>{
+  if(id==="zipmanager"){const selected=$("#zipFiles")?.files?.length;const checked=$("#zipEntryList")?.querySelectorAll("input:checked").length;if(selected)$("#zipCreate")?.click();else if(checked)$("#zipDownloadSelected")?.click();else message("Choose source files or inspect a ZIP archive first.");return;}
+  if(id==="favicongenerator"){ $("#faviconGenerate")?.click(); return; }
   if(id==="pdfmerge"){ $("#pdfMergeDownload")?.click(); return; }
   if(id==="pdfsplitter"){ $("#pdfSplitDownload")?.click(); return; }
   if(id==="pdftoimage"){window.ToolNestPdfToImage?.download();return;}
@@ -369,6 +376,8 @@ function wireUniversalActions(id){
   message("Result downloaded as a text file.");
  });
  bind("universalClear",()=>{
+  if(id==="zipmanager"){ $("#zipClear")?.click(); return; }
+  if(id==="favicongenerator"){ $("#faviconClear")?.click(); return; }
   // QR Studio keeps artwork and render state in local variables; use its own reset handler.
   if(id==="pdfmerge"){ $("#pdfMergeClear")?.click(); return; }
   if(id==="pdfsplitter"){ $("#pdfSplitClear")?.click(); return; }
@@ -429,6 +438,25 @@ function toolMarkup(id){
  case "diff":return form(`<div class="grid gap-4 md:grid-cols-2">${textarea("leftText","Original text")}${textarea("rightText","New text")}</div><div class="actions">${btn("compare","Compare text")}${btn("copy","Copy result",false)}</div>${out()}`);
  case "markdown":return form(`${textarea("sourceText","Markdown input","# Hello\\n\\nWrite **bold** text, *italic* text, and a [link](https://example.com).")}<div class="actions">${btn("preview","Preview Markdown")}${btn("copy","Copy preview text",false)}</div><div><label class="field-label">Preview</label><div id="markdownPreview"></div></div>`);
  case "image64":return form(`<div><label class="field-label" for="imageFile">Choose an image</label><input class="field" id="imageFile" type="file" accept="image/*"></div><div id="imagePreview"></div>${out()}<div class="actions">${btn("copy","Copy data URL",false)}</div><p class="muted text-sm">Large images create very long strings. Conversion stays in this browser.</p>`);
+ case "zipmanager":return form(`
+<div class="zip-manager">
+ <div class="zip-manager-intro"><span class="eyebrow">TOOLNEST FILE UTILITIES</span><h3>ZIP File Manager</h3><p>Create a ZIP archive from local files or inspect and extract selected files from an existing ZIP. Processing stays in this browser.</p></div>
+ <section class="zip-panel"><h4>Create a ZIP archive</h4><label class="field-label" for="zipFiles">Choose files</label><input class="field" id="zipFiles" type="file" multiple><p class="zip-note">Up to 100 files · 25 MB per file · 50 MB total source size · 50 MB generated archive.</p><button class="btn-primary" id="zipCreate" type="button">Create ZIP</button></section>
+ <section class="zip-panel"><h4>Extract a ZIP archive</h4><label class="field-label" for="zipArchive">Choose ZIP file</label><input class="field" id="zipArchive" type="file" accept=".zip,application/zip,application/x-zip-compressed"><p class="zip-note">Maximum archive size 50 MB · up to 1,000 entries · 25 MB per extracted file · 50 MB expanded total.</p><button class="btn-primary" id="zipExtract" type="button" disabled>Inspect ZIP contents</button><div id="zipEntryList" class="zip-entry-list" hidden></div><button class="btn-secondary" id="zipDownloadSelected" type="button" disabled>Download selected files as ZIP</button></section>
+ <div class="actions"><button class="btn-secondary" id="zipClear" type="button">Clear</button></div>
+ <p id="zipStatus" class="zip-status" role="status" aria-live="polite">Ready. Choose files to create a ZIP or select an archive to extract.</p>
+ <p class="zip-note"><strong>Privacy:</strong> Files are processed locally in your browser. ZIP support is loaded from a public CDN when needed. Password-protected ZIP archives are not supported.</p>
+</div>`);
+ case "favicongenerator":return form(`
+<div class="favicon-tool">
+ <div class="favicon-intro"><span class="eyebrow">TOOLNEST IMAGE UTILITIES</span><h3>Favicon Generator</h3><p>Turn a PNG, JPEG or WebP image into common website icon sizes, an ICO file and ready-to-copy HTML tags.</p></div>
+ <div class="field-group"><label class="field-label" for="faviconFile">Choose source image</label><input class="field" id="faviconFile" type="file" accept="image/png,image/jpeg,image/webp"><p class="zip-note">Maximum 10 MB and 4,096 pixels per side. Square images are recommended.</p></div>
+ <div class="favicon-controls"><div class="field-group"><label class="field-label" for="faviconBg">Background color</label><input class="field" id="faviconBg" type="color" value="#ffffff"></div><div class="field-group"><label class="field-label" for="faviconPadding">Image padding</label><input class="field" id="faviconPadding" type="range" min="0" max="30" value="8"><output id="faviconPaddingValue">8%</output></div></div>
+ <div class="field-group"><label class="field-label">Preview</label><div id="faviconPreview" class="favicon-preview"><span class="muted text-sm">Your preview will appear here.</span></div></div>
+ <div class="actions"><button class="btn-primary" id="faviconGenerate" type="button">Generate & Download Icon Pack</button><button class="btn-secondary" id="faviconClear" type="button">Clear</button></div>
+ <p id="faviconStatus" class="favicon-status" role="status" aria-live="polite">Ready. Choose a PNG, JPEG or WebP image.</p>
+ <p class="favicon-note"><strong>Included:</strong> 16, 32, 48, 180, 192 and 512 pixel PNG icons, a 48×48 ICO file and an HTML snippet. ICO embeds PNG data; very old systems may not support it. Files are generated locally using Canvas and JSZip.</p>
+</div>`);
  case "qr":return form(`
 <div class="qr-studio">
  <div class="qr-studio-intro"><span class="qr-studio-kicker">TOOLNEST QR STUDIO</span><h3>Make your QR code</h3><p>Start with a clean black-and-white QR, or switch to Custom Mode for colors, patterns and image blending. Processing stays in your browser.</p></div>
@@ -574,6 +602,8 @@ function csvCell(value){
 function wireTool(id){
  const src=()=>$("#sourceText")?.value??"";
  switch(id){
+ case "zipmanager": { window.ToolNestZip?.init(); break; }
+ case "favicongenerator": { window.ToolNestFavicon?.init(); const slider=$("#faviconPadding");slider?.addEventListener("input",()=>{const out=$("#faviconPaddingValue");if(out)out.textContent=slider.value+"%";});break; }
  case "urlshortener": {
   window.ToolNestUrlShortener?.init();
   bind("copy",()=>copyOutput());

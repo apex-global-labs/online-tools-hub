@@ -17,6 +17,19 @@ Last updated: 2026-10-31
 - Post-merge main regression workflow **41211622198** also passed **138 tests, 138 passed, 0 failed**.
 - Independent real-browser QA with representative PDFs, output files and mobile devices remains pending. CI and deployment success do not prove every PDF variant works on every browser/device.
 
+## Phase B1 — ZIP File Manager and Favicon Generator (development branch; not yet merged)
+
+- Work branch: `feature/phase-b1-zip-favicon`, based on main HEAD `321e34e0a1bbaf1d164b8973db85cbfcf22aeebf`.
+- The main branch remains at 47 tools until this branch is reviewed and merged. The development branch catalogue contains 49 unique tools, including ZIP File Manager (`zip-file-manager`) and Favicon Generator (`favicon-generator`).
+- ZIP Manager creates archives from up to 100 files, 25 MB per file and 50 MB total; generated archive limit 50 MB. ZIP inspection accepts up to 50 MB, 1,000 entries, 25 MB per extracted entry and 50 MB expanded total. Selected files are repackaged as a new ZIP. Password-protected archives are unsupported.
+- Favicon Generator accepts PNG/JPEG/WebP up to 10 MB and 4,096 pixels per side. It generates 16, 32, 48, 180, 192 and 512 pixel PNGs, a 48×48 ICO with embedded PNG data, and an HTML snippet.
+- Processing is local in the browser. JSZip 3.10.1 is loaded on demand from a public CDN. No backend, paid service or upload endpoint was introduced.
+- Added dedicated modules, responsive CSS, tool metadata, workspace wiring, two SEO guide pages, directory links, sitemap entries and automated tests. The development sitemap has 51 unique URLs (homepage, directory and 49 tool guides).
+- Initial test coverage checks unique IDs/slugs, workspace and script wiring, ZIP path traversal rejection, archive limits, supported image formats and ICO header structure.
+- **CI:** GitHub Actions run **41215187748** (run #414) passed: **145 tests, 145 passed, 0 failed**; all JavaScript syntax checks passed.
+- **Browser QA:** real ZIP creation/extraction and favicon generation still need manual desktop/mobile browser verification. Do not claim production readiness until these interactions are tested.
+- PR #88 remains open and unmerged. Main still has 47 tools; no GitHub Pages deployment of Phase B1 has occurred.
+
 ## Retired tools
 
 - Two Bangla text utilities have been permanently removed from the active catalogue, application workspace, router compatibility handling, dedicated assets, SEO guides, directory, sitemap and tool-specific tests.
