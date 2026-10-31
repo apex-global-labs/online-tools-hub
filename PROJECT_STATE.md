@@ -4,15 +4,18 @@ Last updated: 2026-10-31
 
 > **Authoritative status:** This section reflects the current verified repository state. Older phase notes below are historical records and must not override this status.
 
-## Phase A — Three PDF utilities added (implementation branch; CI and live QA pending)
+## Phase A — Three PDF utilities added (merged and deployed; real-file browser QA pending)
 
 - New tools: PDF to JPG / PNG, PDF Text Extractor, and PDF Watermark & Page Number.
-- PDF.js is loaded on demand for page rendering and selectable-text extraction; pdf-lib is loaded on demand for PDF modification; JSZip is loaded only for multi-image downloads.
-- Limits: PDF to Image 30 MB / 120 pages / 40 exported pages per job; Text Extractor 25 MB / 200 pages; Watermark 30 MB / 150 pages; optional logo up to 5 MB.
-- PDF Text Extractor reads selectable text only. It does not perform OCR on image-only scanned pages.
-- Watermark text is rendered to a transparent canvas overlay using browser-available fonts; non-Latin glyph appearance depends on device/browser font support.
-- No backend, paid API or document upload endpoint added.
-- Automated CI, production deployment and independent live-browser QA remain pending. Do not describe these tools as production-ready until those checks pass.
+- PDF.js 3.11.174 is loaded on demand for page previews, image rendering and selectable-text extraction; pdf-lib 1.17.1 is loaded on demand for PDF modification; JSZip 3.10.1 is loaded only for multi-image downloads.
+- Limits: PDF to Image 30 MB / 120 pages / 40 exported pages per job; Text Extractor 25 MB / 200 pages; Watermark 30 MB / 150 pages; optional logo up to 5 MB. Watermark canvas rendering is capped at 16 megapixels per page to reduce mobile memory pressure.
+- PDF Text Extractor reads selectable text only. It does not perform OCR on image-only scanned pages; complex multi-column reading order may vary by source PDF.
+- Watermark text and logos are rendered as a transparent canvas overlay. Non-Latin glyph appearance depends on fonts available in the visitor's browser.
+- No backend, paid API or document upload endpoint added. PDF files are processed locally; PDF.js, pdf-lib and JSZip libraries are loaded from public CDNs when needed.
+- PR #84 was squash-merged into `main` at `d8ae533938e45d36ad9df519b72a7ce4800628f7`; its regression workflow **41211319136** passed **136 tests, 136 passed, 0 failed**, and Pages deployment workflow **41211355679** succeeded.
+- PR #86 was squash-merged into `main` at `f7a11fdeb4354e010d9de45208eb18603da3ec70`; its follow-up regression workflow **41211595615** passed **138 tests, 138 passed, 0 failed**, including JavaScript syntax checks.
+- Post-merge main regression workflow **41211622198** also passed **138 tests, 138 passed, 0 failed**.
+- Independent real-browser QA with representative PDFs, output files and mobile devices remains pending. CI and deployment success do not prove every PDF variant works on every browser/device.
 
 ## Retired tools
 
@@ -25,7 +28,7 @@ Last updated: 2026-10-31
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Latest verified production code commit: `a04358d30b1c1008905943777ed5be0480f7e601` (PR #79 squash merge; previous production baseline). The preceding full-screen workspace baseline was `dbb657f9a6ad37368b5b4a151d8e7bca6d1aa930` (PR #68).
+- Latest verified production code commit: `f7a11fdeb4354e010d9de45208eb18603da3ec70` (PR #86 squash merge). The preceding full-screen workspace baseline was `dbb657f9a6ad37368b5b4a151d8e7bca6d1aa930` (PR #68).
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
 - Catalogue: **47 unique tools**, **47 individual SEO guide pages**, and **49 sitemap URLs** (homepage + directory + 47 guides).
 - `app.js`, `js/tools-data.json`, the tool-guide directory and sitemap are expected to remain synchronized.
