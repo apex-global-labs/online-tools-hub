@@ -1592,5 +1592,44 @@
       ],
       "tips": "Short links can hide their destination. Only shorten addresses you trust, and explain the destination when sharing a link with others."
     }
+  },
+  {
+    "id": "imagepdf",
+    "title": "Image to PDF",
+    "category": "Utilities",
+    "icon": "🖼️",
+    "slug": "image-to-pdf",
+    "description": "Convert multiple JPG, JPEG and PNG images into one PDF, arrange their order, choose page size and orientation, and download locally.",
+    "tagline": "Turn pictures into a single PDF",
+    "seo": {
+      "description": "Convert JPG and PNG images into one PDF. Arrange pages, choose A4, Letter or Legal size, set orientation and margins, then preview and download.",
+      "steps": [
+        "Select one or more PNG or JPEG images from your device, or drag them into the upload area.",
+        "Arrange the images in the page order you want, then choose paper size, orientation and margins.",
+        "Select Create PDF, review the preview, and download your file."
+      ],
+      "features": [
+        "Combine up to 20 PNG or JPEG images into one PDF, with one image per page.",
+        "Reorder or remove images before creating the document.",
+        "Choose A4, US Letter or US Legal paper with automatic or fixed orientation.",
+        "Set 0 mm, 10 mm or 20 mm page margins.",
+        "Process image files locally in your browser without uploading them to ToolNest."
+      ],
+      "faqs": [
+        {
+          "question": "Which image formats can I convert?",
+          "answer": "This version accepts PNG and JPEG images, including JPG files."
+        },
+        {
+          "question": "Can I combine multiple images into one PDF?",
+          "answer": "Yes. Add multiple images, arrange their order, and create one PDF with one image per page."
+        },
+        {
+          "question": "Are my images uploaded to ToolNest?",
+          "answer": "No. Image processing and PDF creation happen in your browser. The PDF library is loaded from a public CDN, but your selected images are not sent to ToolNest."
+        }
+      ],
+      "tips": "Use clear, correctly oriented images and check their order before creating the PDF. Each image is limited to 15 MB and 40 megapixels; a job can contain up to 20 images, 60 MB combined and 100 megapixels total. Large jobs may be limited by available device memory."
+    }
   }
 ]

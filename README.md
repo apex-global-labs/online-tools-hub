@@ -8,7 +8,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/phase2.css` — search/navigation styling, dark-mode contrast and animated sun/moon scene
 - `app.js` — tool catalogue, filters, workspace rendering, theme toggle and tool implementations
 - `js/live-search.js` — search autocomplete, keyboard navigation, category menu behavior and slash shortcut
-- `js/tools-data.json` — metadata for all 43 tools used by the modular hash router
+- `js/tools-data.json` — metadata for all 44 tools used by the modular hash router
 - `js/router.js` — route parsing/resolution
 - `js/router-bridge.js` — bridge from modular routes to the existing tool workspace
 - `css/phase10-image-tools.css` — responsive previews for the image utilities
@@ -20,12 +20,14 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `js/phase15-developer-seo.js` — local robots.txt, XML sitemap and CSS gradient generators
 - `js/ip-tools.js` — IPv4/IPv6 validation and special-use range classification
 - `js/pdf-splitter.js` — local PDF page extraction with individual PDF and ZIP downloads
+- `js/image-to-pdf.js` — local PNG/JPEG image conversion to a multi-page PDF
 - `js/url-shortener.js` — browser-side integration with a free third-party URL-shortening API
 - `css/pdf-splitter.css` — responsive PDF Splitter workspace styling
+- `css/image-to-pdf.css` — responsive Image to PDF workspace styling
 - `css/ip-tools.css` — responsive IP lookup results and status styling
 - `css/phase13-converters.css` — responsive styling for advanced converters
 - `tools/` — static, individually crawlable tool guide pages and the tool-guide directory
-- `sitemap.xml` — homepage, tool directory and 43 canonical tool-page URLs
+- `sitemap.xml` — homepage, tool directory and 44 canonical tool-page URLs
 - `PROJECT_STATE.md` — current status, verification notes and next-step roadmap
 
 ## Current UI features
@@ -37,7 +39,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Theme preference is saved when browser storage is available
 - Responsive layout and reduced-motion support for the decorative scene
 
-## Tool catalogue (43)
+## Tool catalogue (44)
 
 ### Text
 - Text Case Converter
@@ -89,6 +91,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Number to Words Converter (English and Bangla)
 - Advanced PDF Merger — merge PDF files with page selection, file/page ordering and rotation
 - PDF Splitter — export selected PDF pages as separate files or a ZIP archive
+- Image to PDF — combine PNG/JPEG images into a paginated PDF with paper settings
 - URL Shortener — create shareable short links with an optional custom alias through Spoo.me's free API v1 (no API key required)
 - IP Address Finder & Lookup
 
@@ -101,13 +104,13 @@ A static, browser-based multi-tool website. No backend or build step is required
 
 ## Search engine crawl files
 
-- `sitemap.xml` lists the canonical homepage, the tool-guide directory and 43 individual static tool-guide URLs. Each guide has a unique title, meta description, canonical URL, visible instructions, features, FAQs and structured data. Interactive workspaces still open through the existing hash-based app routes; hash fragments are not listed as separate pages.
+- `sitemap.xml` lists the canonical homepage, the tool-guide directory and 44 individual static tool-guide URLs. Each guide has a unique title, meta description, canonical URL, visible instructions, features, FAQs and structured data. Interactive workspaces still open through the existing hash-based app routes; hash fragments are not listed as separate pages.
 - This is a GitHub Pages project site published under `/online-tools-hub/`. A `robots.txt` stored in this repository would be served at the project subpath, not the origin root (`https://apex-global-labs.github.io/robots.txt`) where host-wide crawl rules are expected. No repository-level `robots.txt` is provided; do not describe one as present.
 - The homepage has a canonical URL plus Open Graph and Twitter title/description metadata. A social preview image is not yet configured.
 - Search engines decide independently whether and how to crawl, index, and display the site. Inclusion in a sitemap does not guarantee indexing or rankings.
 
 ## Run locally
-Open `index.html` in a modern browser while connected to the internet. Tailwind CSS and `qr-code-styling` are loaded from CDNs. PDF tools load `pdf-lib` on demand; PDF Splitter loads JSZip only when downloading multiple page files as a ZIP. URL Shortener sends submitted destination URLs directly to Spoo.me; anonymous API use is currently limited to 20 requests per minute and 1,000 per day.
+Open `index.html` in a modern browser while connected to the internet. Tailwind CSS and `qr-code-styling` are loaded from CDNs. PDF tools load `pdf-lib` on demand; PDF Splitter loads JSZip only when downloading multiple page files as a ZIP. Image to PDF supports up to 20 PNG/JPEG images (15 MB each, 60 MB total) and creates one page per image. URL Shortener sends submitted destination URLs directly to Spoo.me; anonymous API use is currently limited to 20 requests per minute and 1,000 per day.
 
 ## Deploy with GitHub Pages
 1. Open repository **Settings → Pages**.
@@ -116,7 +119,7 @@ Open `index.html` in a modern browser while connected to the internet. Tailwind 
 4. Wait for GitHub Pages to publish the latest commit.
 
 ## Important notes
-- Tool processing is browser-based unless a tool explicitly fetches a public reference service (the currency converter retrieves exchange-rate data, and URL Shortener sends destination URLs to Spoo.me to create redirects). Advanced PDF Merger and PDF Splitter process documents locally; PDF Splitter uses a public CDN for ZIP packaging when multiple page files are downloaded. Image Resizer and Image Compressor process local images in the browser; each input is limited to 10 MB.
+- Tool processing is browser-based unless a tool explicitly fetches a public reference service (the currency converter retrieves exchange-rate data, and URL Shortener sends destination URLs to Spoo.me to create redirects). Advanced PDF Merger, PDF Splitter and Image to PDF process files locally; PDF Splitter uses a public CDN for ZIP packaging when multiple page files are downloaded. Image Resizer and Image Compressor process local images in the browser; each input is limited to 10 MB.
 - Avoid describing every tool as fully private: the currency converter makes a network request, and external libraries are loaded from CDNs.
 - Percentage, compound-interest and EMI calculators use local formulas. The currency selectors only format the displayed amount; they do not fetch exchange rates. These calculators provide estimates, not financial advice or lender offers.
 - Tailwind's browser CDN is convenient for a prototype; a production build can later compile and pin assets locally.
