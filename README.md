@@ -8,7 +8,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/phase2.css` — search/navigation styling, dark-mode contrast and animated sun/moon scene
 - `app.js` — tool catalogue, filters, workspace rendering, theme toggle and tool implementations
 - `js/live-search.js` — search autocomplete, keyboard navigation, category menu behavior and slash shortcut
-- `js/tools-data.json` — metadata for all 47 tools used by the modular hash router
+- `js/tools-data.json` — metadata for all 49 tools used by the modular hash router
 - `js/router.js` — route parsing/resolution
 - `js/router-bridge.js` — bridge from modular routes to the existing tool workspace
 - `css/phase10-image-tools.css` — responsive previews for the image utilities
@@ -23,12 +23,15 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `js/pdf-splitter.js` — local PDF page extraction with individual PDF and ZIP downloads
 - `js/image-to-pdf.js` — local PNG/JPEG image conversion to a multi-page PDF
 - `js/url-shortener.js` — browser-side integration with a free third-party URL-shortening API
+- `js/zip-manager.js` — local ZIP creation and selected-file extraction with file and archive limits
+- `js/favicon-generator.js` — local favicon PNG/ICO generation and HTML snippet export
+- `css/phase-b1-file-tools.css` — responsive ZIP Manager and Favicon Generator styling
 - `css/pdf-splitter.css` — responsive PDF Splitter workspace styling
 - `css/image-to-pdf.css` — responsive Image to PDF workspace styling
 - `css/ip-tools.css` — responsive IP lookup results and status styling
 - `css/phase13-converters.css` — responsive styling for advanced converters
 - `tools/` — static, individually crawlable tool guide pages and the tool-guide directory
-- `sitemap.xml` — homepage, tool directory and 44 canonical tool-page URLs
+- `sitemap.xml` — homepage, tool directory and 49 canonical tool-page URLs
 - `PROJECT_STATE.md` — current status, verification notes and next-step roadmap
 
 ## Current UI features
@@ -129,3 +132,10 @@ Open `index.html` in a modern browser while connected to the internet. Tailwind 
 - Percentage, compound-interest and EMI calculators use local formulas. The currency selectors only format the displayed amount; they do not fetch exchange rates. These calculators provide estimates, not financial advice or lender offers.
 - Tailwind's browser CDN is convenient for a prototype; a production build can later compile and pin assets locally.
 - Phase 2 UI interactions have been manually spot-checked by the owner. The newest theme-persistence and keyboard-navigation changes should be re-tested on desktop and mobile after deployment.
+
+
+## Phase B1 — File and image utilities (development branch)
+- ZIP File Manager creates archives from up to 100 local files (25 MB per file, 100 MB total, 50 MB output cap) and inspects ZIP archives up to 50 MB. Selected entries are repackaged into a downloadable ZIP. Extraction is limited to 1,000 entries, 25 MB per entry and 100 MB expanded total. Password-protected ZIP files are not supported.
+- Favicon Generator accepts PNG, JPEG and WebP images up to 10 MB and 4,096 pixels per side. It exports 16, 32, 48, 180, 192 and 512 pixel PNGs, a 48×48 ICO with embedded PNG data, and an HTML snippet in one ZIP.
+- Both tools process user files in the browser. JSZip 3.10.1 is loaded from a public CDN on demand; no ToolNest upload endpoint or paid service is used.
+- This section describes the Phase B1 feature branch until its PR is merged. Automated and real-browser QA must pass before describing the tools as production-ready.
