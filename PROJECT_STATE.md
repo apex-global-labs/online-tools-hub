@@ -9,7 +9,7 @@ Last updated: 2026-10-31
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Current production baseline before this three-phase homepage update: `a163996ef40519c319285d7e9645a72f7e1397a5` (PR #60). Phase 1 functional fixes were merged in PR #59 (`fc7fdb02457032dc1d483e2e9a097e44a3551a33`).
+- Current verified `main` production commit: `fdf3f2546c21bbba5c8346030a21f28ab98e6224` (PR #63 merge commit). PR #62 merged at `e855cb5943d78f37d97c871d16f5298b80016581`; PR #63 merged the selector-specificity correction at the current `main` commit. The earlier PR #60 baseline (`a163996ef40519c319285d7e9645a72f7e1397a5`) and PR #59 functional fixes (`fc7fdb02457032dc1d483e2e9a097e44a3551a33`) remain historical.
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
 - Catalogue: **43 unique tools**, **43 individual SEO guide pages**, and **45 sitemap URLs** (homepage + directory + 43 guides).
 - `app.js`, `js/tools-data.json`, the tool-guide directory and sitemap are expected to remain synchronized.
@@ -21,6 +21,17 @@ Last updated: 2026-10-31
 - Phase 2: compacted the homepage hero, added seven popular quick-pick cards, category symbols, and a 14px English welcome marquee. PR #60 regression run #192 passed. Visual browser/device QA remains to be confirmed by the site owner; CI does not verify visual rendering.
 - Phase 3: tool cards are sorted by a curated general-demand heuristic and display Hot / High / Medium / Normal labels. These tiers are not measured from ToolNest usage analytics or an independently verified global usage dataset.
 
+## Deep audit remediation — URL Shortener and project-state record (2026-10-31)
+
+- Verified production `main` at `fdf3f2546c21bbba5c8346030a21f28ab98e6224`. PR #62 merged at `e855cb5943d78f37d97c871d16f5298b80016581`; PR #63 merged at the current `main` commit. Their scope was the sticky welcome marquee/header positioning and homepage stylesheet cache key.
+- Post-merge `main` regression workflow **41173495989** completed successfully. GitHub Pages build/deployment workflow **41173494784** completed successfully for `fdf3f2546c21bbba5c8346030a21f28ab98e6224`. This confirms the Pages workflow reported success; it is not an independent real-browser visual check.
+- Deep audit Finding 1: URL Shortener hostname validation did not fully cover IPv6 loopback, IPv6 unique-local/link-local, IPv4 link-local, CGNAT and IPv4-mapped IPv6 forms. Remediation is being delivered in PR #64 on branch `fix/url-shortener-private-ip-validation`.
+- PR #64 updates `js/url-shortener.js` and `tests/url-shortener.test.mjs`. Its GitHub Actions regression run **41175794474** completed successfully: JavaScript syntax-check step PASS and complete repository regression-test step PASS. Targeted local URL Shortener tests also passed **6/6**.
+- The URL is validated before it is submitted to Spoo.me. ToolNest does not fetch the destination URL itself; describe this as URL input validation, not an SSRF vulnerability.
+- Finding 2 — reduced-motion marquee text visibility — was explicitly excluded by the project owner. Do not change its CSS, markup or behavior as part of this remediation.
+- Finding 3 — this project-state documentation update — is included in PR #64. Historical phase records below are retained; this current status section supersedes stale production-baseline wording.
+- PR #64 has not been merged. Its changes are not yet part of the production site and no post-merge deployment is claimed. Merge only after the CI result and code review are confirmed; verify the resulting main commit and Pages deployment after merge.
+- Manual live-browser visual verification has not been independently performed in this remediation. Do not report visual QA as passed based only on CI or the Pages deployment workflow.
 ## QA-1 / QA-2 — Release verification record (2026-10-31)
 
 - QA-1 repository checks on the PR #56 merge commit confirmed 43 unique tool metadata records, 43 matching guide pages, and 45 unique sitemap URLs; no missing or duplicate tool slugs were found.
