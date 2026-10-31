@@ -456,3 +456,11 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - The homepage's existing title, meta description, canonical URL, Open Graph and Twitter text metadata were retained; no unverified social-image URL or ineffective project-subpath robots file was added.
 - Individual crawlable tool pages and their sitemap entries remain Phase 3 work. Do not add hash-fragment URLs to the sitemap.
 - CI and PR review are pending. No production deployment has occurred from this branch.
+
+
+## DocFix Pro — Text-only simplification (2026-10-31)
+- Owner decision: remove DOCX Mode entirely; retain one text-only workspace supporting Bangla and English text.
+- Removed the DOCX upload/process/download interface and DOCX-specific browser processing code, JSZip CDN loader, and DOCX-only regression tests.
+- Kept Unicode text cleanup, dictionary-backed Bangla word separation, English spacing/camelCase cleanup, punctuation cleanup, blank-line normalization, and text-based Bijoy ANSI ↔ Unicode conversion.
+- Updated tool catalogue and SEO metadata to describe text-only behavior and both Bangla/English support.
+- Final script source scan confirms the DOCX/XML/ZIP processing helpers are removed. Verification in progress on branch `fix/docfix-text-only`; do not mark deployed until CI, PR review/merge, Pages deployment, and owner live checks are complete.
