@@ -2007,5 +2007,43 @@
       ],
       "tips": "Keep a copy of the original XML before making structural edits."
     }
+  },
+  {
+    "id": "pdfimages",
+    "title": "PDF Images Extractor",
+    "category": "Utilities",
+    "icon": "▧",
+    "slug": "pdf-images-extractor",
+    "description": "Extract supported embedded raster images from PDF pages and download them individually or as a ZIP.",
+    "tagline": "Save embedded images from PDF files",
+    "seo": {
+      "description": "Extract supported embedded raster images from PDF documents locally. Preview results and download images individually or as a ZIP archive.",
+      "steps": [
+        "Choose a PDF file up to 25 MB and 200 pages.",
+        "Select Extract Images and wait while supported embedded images are decoded in your browser.",
+        "Preview results, download individual files or choose Download All as ZIP."
+      ],
+      "features": [
+        "Finds supported embedded raster image objects in PDF pages.",
+        "Shows extracted image previews with page and image information.",
+        "Downloads individual images or bundles them into a ZIP archive.",
+        "Processes document bytes locally in your browser."
+      ],
+      "faqs": [
+        {
+          "question": "Are my PDF files uploaded?",
+          "answer": "No. PDF parsing and image extraction run locally in your browser. PDF.js and ZIP support load from public CDNs when needed."
+        },
+        {
+          "question": "Will every image in every PDF be extracted?",
+          "answer": "Common embedded raster objects are supported. Some unusual masks, inline encodings or unsupported formats may be skipped."
+        },
+        {
+          "question": "Does this extract images from scanned PDF pages?",
+          "answer": "It extracts embedded raster objects when available. It does not perform OCR or recreate a full-page scan as an original image."
+        }
+      ],
+      "tips": "Keep the original PDF. Color spaces, masks and transparency can affect extracted image appearance."
+    }
   }
 ]
