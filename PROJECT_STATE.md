@@ -9,10 +9,9 @@ Last updated: 2026-10-31
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Latest production commit after Phase C0 merge: `bb142624c26aae95fefe4778a1d5f4ace8ca6442` (Phase C0 catalogue/documentation cleanup).
-- Catalogue after Phase C1/C2 target: **55 unique tools**, **55 individual SEO guide pages**, and **57 sitemap URLs** (homepage + directory + 55 guides).
-- Phase C0 merge regression workflow #458 passed all regression tests and JavaScript syntax checks. GitHub Pages deployment #135 completed successfully.
-- Latest GitHub Pages deployment workflow #134 completed successfully.
+- Latest production commit: `c7d9a767005f188b2df6567645bf9d5bc7bcc6d3` (Phase C1 + C2 PDF tools).
+- Catalogue: **55 unique tools**, **55 individual SEO guide pages**, and **57 sitemap URLs** (homepage + directory + 55 guides).
+- Phase C1/C2 post-merge regression workflow #469 passed **156 tests, 156 passed, 0 failed**, including JavaScript syntax checks. GitHub Pages deployment #136 completed successfully.
 - The owner reports that Phase A and Phase B browser checks were successful. This is owner-reported QA; CI and deployment results are recorded separately.
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
 - No paid service or ToolNest backend is used. Some tools rely on third-party browser libraries or public APIs.
@@ -502,11 +501,13 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 
 
 
-## Phase C1 + C2 — PDF Page Organizer UX and PDF Images Extractor
+## Phase C1 + C2 — PDF Page Organizer UX and PDF Images Extractor (merged and deployed)
 
 - Owner authorized both phases together, including merge permission.
 - Phase C1 upgrades PDF Page Organizer with page thumbnails, desktop drag-and-drop reordering, accessible move-up/move-down controls for mobile, editable page order and existing global rotation. Files remain local; limits: 30 MB / 300 pages.
 - Phase C2 adds PDF Images Extractor for supported embedded raster image objects, preview cards, individual downloads and ZIP export. It is not OCR and does not promise extraction of every unusual image mask/encoding. Limits: 25 MB / 200 pages.
 - PDF.js 3.11.174, pdf-lib 1.17.1 and JSZip 3.10.1 load from public CDNs on demand; no backend, upload endpoint or paid service is introduced.
 - Catalogue metadata, app workspace wiring, standalone SEO guide, directory, sitemap, README, syntax workflow and regression tests are updated together.
-- Branch: `feature/phase-c1-c2-pdf-tools`. Implementation and CI/deployment verification pending; do not mark complete until tests and Pages deployment pass.
+- PR #93: https://github.com/apex-global-labs/online-tools-hub/pull/93 was squash-merged at `c7d9a767005f188b2df6567645bf9d5bc7bcc6d3`.
+- PR regression workflow #468 passed **156/156 tests**; post-merge main workflow #469 passed **156/156 tests**; Pages deployment #136 succeeded.
+- Live browser QA using representative PDFs on desktop and mobile has not been independently performed in this session; the owner should confirm drag/drop, mobile move buttons, extracted-image correctness and downloads with real files.
