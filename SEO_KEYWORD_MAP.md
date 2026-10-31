@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-30  
 Project: [ToolNest](https://apex-global-labs.github.io/online-tools-hub/)  
-Scope: 47 crawlable tool-guide pages
+Scope: 49 crawlable tool-guide pages
 
 ## Research method and confidence
 
@@ -33,7 +33,7 @@ Google recommends descriptive, concise titles, useful people-first content, anti
    - Robots.txt Generator = crawler directives; XML Sitemap Generator = URL inventory.
 6. Do not force the brand name into every keyword. Use ToolNest naturally in branding where helpful.
 
-## 47-tool keyword map
+## 49-tool keyword map
 
 | # | Tool / page | Primary keyword (one target) | Secondary keywords | Long-tail queries / FAQ angles | Search intent | Priority | Content strategy / page boundary | Target URL |
 |---:|---|---|---|---|---|---|---|---|
@@ -112,7 +112,10 @@ Google recommends descriptive, concise titles, useful people-first content, anti
 
 | 45 | PDF to JPG / PNG | **PDF to JPG converter** | convert PDF pages to PNG; PDF to image | Transactional / tool use | P1 | Explain page previews, selection, PNG/JPG, resolution and ZIP export. Keep separate from PDF Splitter, which exports PDF pages. | [pdf-to-image](https://apex-global-labs.github.io/online-tools-hub/tools/pdf-to-image/) |
 | 46 | PDF Text Extractor | **extract text from PDF** | copy text from PDF; PDF to TXT | extract selected PDF pages to text; copy PDF text online | Transactional / tool use | P1 | Explain selectable text extraction and page ranges. Clearly disclose that image-only scanned PDFs need OCR. | [pdf-text-extractor](https://apex-global-labs.github.io/online-tools-hub/tools/pdf-text-extractor/) |
-| 47 | PDF Watermark & Page Number | **add watermark to PDF** | PDF page number; PDF logo watermark | add a text watermark to selected PDF pages; number PDF pages online | Transactional / tool use | P2 | Explain text/logo overlays, opacity, page numbering and selected-page support. Do not imply digital signatures or encryption. | [pdf-watermark-page-number](https://apex-global-labs.github.io/online-tools-hub/tools/pdf-watermark-page-number/) |
+| 49 | PDF Watermark & Page Number | **add watermark to PDF** | PDF page number; PDF logo watermark | add a text watermark to selected PDF pages; number PDF pages online | Transactional / tool use | P2 | Explain text/logo overlays, opacity, page numbering and selected-page support. Do not imply digital signatures or encryption. | [pdf-watermark-page-number](https://apex-global-labs.github.io/online-tools-hub/tools/pdf-watermark-page-number/) |
+
+| 48 | ZIP File Manager | **create zip file online** | ZIP archive creator; extract ZIP files | create a ZIP archive in browser; extract selected ZIP entries | Transactional / tool use | P1 | Explain local archive creation, selected-entry extraction, password-protected archive limitation and file-size caps. | [zip-file-manager](https://apex-global-labs.github.io/online-tools-hub/tools/zip-file-manager/) |
+| 49 | Favicon Generator | **favicon generator** | create favicon online; PNG favicon sizes | generate favicon PNG files; create favicon.ico and HTML tags | Transactional / tool use | P1 | Explain supported source formats, generated sizes, PNG-based ICO output and local browser processing. | [favicon-generator](https://apex-global-labs.github.io/online-tools-hub/tools/favicon-generator/) |
 
 ## Recommended on-page implementation
 
