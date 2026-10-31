@@ -48,24 +48,24 @@ test("opening and closing a tool continue to toggle the workspace state", () => 
 
 
 test("workspace grid stylesheet is the final layout authority", () => {
-  const stylesheetLinks = [...html.matchAll(/<link\\b[^>]*rel=["']stylesheet["'][^>]*>/gi)].map(match => match[0]);
-  const gridIndex = stylesheetLinks.findIndex(link => /href=["']css\\/workspace-grid-layout\\.css(?:\\?[^"']*)?["']/.test(link));
+  const stylesheetLinks = [...html.matchAll(/<link\b[^>]*rel=["']stylesheet["'][^>]*>/gi)].map(match => match[0]);
+  const gridIndex = stylesheetLinks.findIndex(link => /href=["']css\/workspace-grid-layout\.css(?:\?[^"']*)?["']/.test(link));
   assert.ok(gridIndex >= 0, "workspace grid stylesheet must be linked");
   assert.equal(gridIndex, stylesheetLinks.length - 1, "workspace grid stylesheet must load after all other stylesheets");
-  assert.doesNotMatch(legacyCss, /body\\.tool-open\\s+#workspace\\s*\\{/,
+  assert.doesNotMatch(legacyCss, /body\.tool-open\s+#workspace\s*\{/,
     "legacy stylesheet must not redefine the workspace container");
-  assert.doesNotMatch(legacyCss, /position:\\s*fixed\\s*!important/,
+  assert.doesNotMatch(legacyCss, /position:\s*fixed\s*!important/,
     "legacy fixed overlay declarations must be removed");
-  assert.doesNotMatch(phase4Css, /\\.tool-open\\s+#(?:hero|tools|about)/,
+  assert.doesNotMatch(phase4Css, /\.tool-open\s+#(?:hero|tools|about)/,
     "homepage visibility belongs to the grid layout stylesheet");
 });
 
 test("workspace container owns its viewport grid geometry without !important overrides", () => {
-  const containerRule = css.match(/body\\.tool-open\\s*>\\s*#workspace\\s*\\{([^}]*)\\}/);
+  const containerRule = css.match(/body\.tool-open\s*>\s*#workspace\s*\{([^}]*)\}/);
   assert.ok(containerRule, "direct-child workspace container rule must exist");
-  assert.match(containerRule[1], /position:\\s*relative/);
-  assert.match(containerRule[1], /display:\\s*grid\\s*!important/);
-  assert.match(containerRule[1], /height:\\s*100dvh/);
-  assert.match(containerRule[1], /overflow:\\s*hidden/);
-  assert.doesNotMatch(containerRule[1], /position:\\s*fixed/);
+  assert.match(containerRule[1], /position:\s*relative/);
+  assert.match(containerRule[1], /display:\s*grid\s*!important/);
+  assert.match(containerRule[1], /height:\s*100dvh/);
+  assert.match(containerRule[1], /overflow:\s*hidden/);
+  assert.doesNotMatch(containerRule[1], /position:\s*fixed/);
 });
