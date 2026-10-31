@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-30  
 Project: [ToolNest](https://apex-global-labs.github.io/online-tools-hub/)  
-Scope: 42 existing crawlable tool-guide pages
+Scope: 43 existing crawlable tool-guide pages
 
 ## Research method and confidence
 
@@ -33,7 +33,7 @@ Google recommends descriptive, concise titles, useful people-first content, anti
    - Robots.txt Generator = crawler directives; XML Sitemap Generator = URL inventory.
 6. Do not force the brand name into every keyword. Use ToolNest naturally in branding where helpful.
 
-## 41-tool keyword map
+## 43-tool keyword map
 
 | # | Tool / page | Primary keyword (one target) | Secondary keywords | Long-tail queries / FAQ angles | Search intent | Priority | Content strategy / page boundary | Target URL |
 |---:|---|---|---|---|---|---|---|---|
@@ -122,3 +122,4 @@ Google recommends descriptive, concise titles, useful people-first content, anti
 - Google Search Central, [SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide): descriptive titles/URLs, user search phrasing, useful content and internal links.
 - Google Search Central, [Creating Helpful, Reliable, People-First Content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content): prioritize original, useful, accurate content rather than mass-produced keyword pages.
 - Qualitative online-tool directory language review (30 Oct 2026): [11zon](https://11zon.cc/tools/), [UtiloKit](https://utilokit.com/), [Great Online Apps](https://greatonlineapps.com/), [MegaTools](https://mega-convert.com/en/tools). These are used only to observe common task phrasing, not to claim search volume, keyword difficulty or ranking potential.
+| 43 | URL Shortener | **URL shortener** | shorten URL; free link shortener; short link generator | how to shorten a long website link; create a short URL with a custom alias | Transactional / tool use | P1 | Explain the third-party redirect provider, free anonymous limits, custom-alias rules and destination-link safety. Do not imply ToolNest owns or hosts the short-link domain. | [url-shortener](https://apex-global-labs.github.io/online-tools-hub/tools/url-shortener/) |

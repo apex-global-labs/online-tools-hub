@@ -77,7 +77,7 @@ test("time-zone converter rejects malformed dates and unknown zones", () => {
 test("all four new tools are registered with unique slugs and complete SEO metadata", () => {
   const metadata = JSON.parse(readFileSync(new URL("../js/tools-data.json", import.meta.url), "utf8"));
   const app = readFileSync(new URL("../app.js", import.meta.url), "utf8");
-  assert.equal(metadata.length, 42);
+  assert.equal(metadata.length, 43);
   for (const id of ["area", "land", "timezone", "numberwords"]) {
     const tool = metadata.find(item => item.id === id);
     assert.ok(tool, "missing metadata for " + id);
@@ -88,14 +88,14 @@ test("all four new tools are registered with unique slugs and complete SEO metad
     assert.match(app, new RegExp('case "' + id + '":return'));
     assert.match(app, new RegExp('case "' + id + '": \\{'));
   }
-  assert.equal(new Set(metadata.map(item => item.id)).size, 42);
-  assert.equal(new Set(metadata.map(item => item.slug)).size, 42);
+  assert.equal(new Set(metadata.map(item => item.id)).size, 43);
+  assert.equal(new Set(metadata.map(item => item.slug)).size, 43);
 });
 
 test("Phase 13 helper and stylesheet are loaded before app interactions", () => {
   const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
   assert.match(html, /css\/phase13-converters\.css/);
   assert.match(html, /js\/advanced-converters\.js[^\n]*defer/);
-  assert.match(html, /Search 42 free tools/);
+  assert.match(html, /Search 43 free tools/);
   assert.ok(html.indexOf("js/advanced-converters.js") < html.indexOf("app.js"));
 });
