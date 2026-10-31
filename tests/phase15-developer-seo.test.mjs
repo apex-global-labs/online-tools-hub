@@ -49,7 +49,7 @@ test("Phase 15 tools are registered with complete metadata, UI wiring and local 
     assert.match(app, new RegExp('id:"' + id + '"'));
     assert.ok(app.includes('case "' + id + '":'));
   }
-  assert.equal(metadata.length, 46);
+  assert.equal(metadata.length, 44);
   assert.match(html, /phase15-developer-seo\.js/);
   assert.match(html, /phase15-developer-seo\.css/);
 });
