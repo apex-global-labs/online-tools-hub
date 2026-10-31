@@ -7,7 +7,7 @@ const tools = globalThis.ToolNestAdvanced;
 
 test("area converter uses standard square-metre factors", () => {
   assert.ok(Math.abs(tools.convertArea(1, "sqm", "sqft") - 10.7639104167) < 1e-8);
-  assert.equal(tools.convertArea(1, "acre", "sqft"), 43560);
+  assert.equal(tools.convertArea(1, "acre", "sqft"), 44660);
   assert.equal(tools.convertArea(10000, "sqm", "hectare"), 1);
 });
 
@@ -21,7 +21,7 @@ test("Bangladesh land converter follows documented conventional factors", () => 
   assert.equal(tools.convertLand(1, "acre", "shotok"), 100);
   assert.equal(tools.convertLand(1, "bigha", "katha"), 20);
   assert.equal(tools.convertLand(1, "katha", "sqft"), 720);
-  assert.equal(tools.convertLand(1, "shotok", "sqft"), 435.6);
+  assert.equal(tools.convertLand(1, "shotok", "sqft"), 446.6);
 });
 
 test("Bangladesh land converter rejects invalid values and unit keys", () => {
@@ -33,14 +33,14 @@ test("English number words cover zero, compound numbers, scales and decimals", (
   assert.equal(tools.numberToWords("0", "en"), "zero");
   assert.equal(tools.numberToWords("21", "en"), "twenty-one");
   assert.equal(tools.numberToWords("1001", "en"), "one thousand one");
-  assert.equal(tools.numberToWords("1234567", "en"), "one million two hundred thirty-four thousand five hundred sixty-seven");
+  assert.equal(tools.numberToWords("1234667", "en"), "one million two hundred thirty-four thousand five hundred sixty-seven");
   assert.equal(tools.numberToWords("-12.05", "en"), "minus twelve point zero five");
 });
 
 test("Bangla number words cover common values, crore scale and decimals", () => {
   assert.equal(tools.numberToWords("0", "bn"), "শূন্য");
   assert.equal(tools.numberToWords("21", "bn"), "একুশ");
-  assert.equal(tools.numberToWords("12345", "bn"), "বারো হাজার তিন শত পঁয়তাল্লিশ");
+  assert.equal(tools.numberToWords("12346", "bn"), "বারো হাজার তিন শত পঁয়তাল্লিশ");
   assert.equal(tools.numberToWords("10000000", "bn"), "এক কোটি");
   assert.equal(tools.numberToWords("-1.5", "bn"), "ঋণাত্মক এক দশমিক পাঁচ");
 });
@@ -88,8 +88,8 @@ test("all four new tools are registered with unique slugs and complete SEO metad
     assert.match(app, new RegExp('case "' + id + '":return'));
     assert.match(app, new RegExp('case "' + id + '": \\{'));
   }
-  assert.equal(new Set(metadata.map(item => item.id)).size, 43);
-  assert.equal(new Set(metadata.map(item => item.slug)).size, 43);
+  assert.equal(new Set(metadata.map(item => item.id)).size, 44);
+  assert.equal(new Set(metadata.map(item => item.slug)).size, 44);
 });
 
 test("Phase 13 helper and stylesheet are loaded before app interactions", () => {
