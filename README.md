@@ -111,12 +111,14 @@ A static, browser-based multi-tool website. No backend or build step is required
 
 
 ### Phase B2 additions
-- PDF Page Organizer — reorder all pages with visual thumbnails, drag-and-drop and mobile move controls; optional global rotation; local processing, 30 MB / 300-page limits.
-- PDF Images Extractor — extract supported embedded raster image objects, preview and download individually or as ZIP; local processing, 25 MB / 200-page limits.
 - Text Sorter — alphabetical and numeric line sorting with case and blank-line options.
 - Find & Replace — first/all replacements with optional case-sensitive and whole-word matching.
 - JWT Decoder — local Base64URL header/payload decode only; no signature verification and no token upload.
 - XML Formatter — browser-native XML validation and indentation.
+
+### Phase C1 / C2 — PDF utilities
+- PDF Page Organizer — reorder all pages with visual thumbnails, drag-and-drop and mobile move controls; optional global rotation; local processing, 30 MB / 300-page limits.
+- PDF Images Extractor — extract supported embedded raster image objects, preview and download individually or as ZIP; local processing, 25 MB / 200-page limits. Only supported embedded raster image objects are extracted; this is not OCR and unsupported masks or encodings may be skipped.
 
 ## Search engine crawl files
 
