@@ -564,6 +564,7 @@ function wireTool(id){
  const src=()=>$("#sourceText")?.value??"";
  switch(id){
  case "docfix": { window.ToolNestDocFix?.init(); break; }
+ case "bijoyunicode": { window.ToolNestBijoyConverter?.init(); break; }
  case "urlshortener": {
   window.ToolNestUrlShortener?.init();
   bind("copy",()=>copyOutput());
