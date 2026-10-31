@@ -9,7 +9,7 @@ Last updated: 2026-10-31
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Current `main` head after the post-audit correction (PR #56): `b7f9855bddf19853d6700775a072eefce89a3693`. The URL Shortener feature itself was introduced in Phase 8C at `5d2293eca435def260a5102519c61eb602f6b65f`
+- Current `main` head after the documentation QA update (PR #57): `f6b24e20f2b7ed73aa83b37d9f50a01080a9a01e`. PR #56's CI correction is included in the parent history. The URL Shortener feature itself was introduced in Phase 8C at `5d2293eca435def260a5102519c61eb602f6b65f`
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
 - Catalogue: **43 unique tools**, **43 individual SEO guide pages**, and **45 sitemap URLs** (homepage + directory + 43 guides).
 - `app.js`, `js/tools-data.json`, the tool-guide directory and sitemap are expected to remain synchronized.
@@ -20,6 +20,7 @@ Last updated: 2026-10-31
 - QA-1 repository checks on the PR #56 merge commit confirmed 43 unique tool metadata records, 43 matching guide pages, and 45 unique sitemap URLs; no missing or duplicate tool slugs were found.
 - The owner reports that live-browser verification has been completed. The exact browser test cases, devices, and pass/fail results were not itemized in the project handover; do not interpret this as proof that every one of the 43 tools or every edge case was tested.
 - The assistant did not independently run a real-browser automation session. GitHub Actions regression success and Pages deployment success are separate from manual browser verification.
+- The QA-1/QA-2 documentation record was merged through PR #57 at `f6b24e20f2b7ed73aa83b37d9f50a01080a9a01e`; its PR-triggered regression workflow run #186 completed successfully. This documentation-only merge changed no site runtime files or deployment assets; no separate post-merge run is claimed here.
 - QA-2 source audit found Tailwind utility classes in both `index.html` and `app.js` (204 distinct class tokens in the inspected class/className attributes). The Tailwind CDN must not be removed until a locally generated stylesheet covers the required utilities and responsive variants and is visually checked; otherwise layout regressions are likely.
 - The root `style.css` contains repeated selectors used as later cascade overrides, but the audit found no identical selector-and-declaration block repeated verbatim. No CSS rules were deleted because their ordering may be intentional.
 - No application runtime code or styles were changed by this QA documentation update. A safe Tailwind self-hosting/build migration remains a separate optimization task requiring CSS coverage and browser regression checks.
