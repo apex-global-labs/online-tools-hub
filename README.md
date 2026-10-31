@@ -100,7 +100,6 @@ A static, browser-based multi-tool website. No backend or build step is required
 - PDF Watermark & Page Number — add text/logo overlays and page numbering
 - Image to PDF — combine PNG/JPEG images into a paginated PDF with paper settings
 - URL Shortener — create shareable short links with an optional custom alias through Spoo.me's free API v1 (no API key required)
-- Universal Doc Formatter & Spacing Fixer — clean pasted text or repair DOCX whitespace locally while retaining Word XML structure
 - IP Address Finder & Lookup
 
 ### IP Address Finder & Lookup
