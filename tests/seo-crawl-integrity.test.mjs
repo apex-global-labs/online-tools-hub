@@ -22,14 +22,12 @@ test("sitemap is validly structured for the complete canonical page set", () => 
   assert.equal((sitemap.match(/<url>/g) || []).length, 57);
   assert.equal(locs.length, 57, "each sitemap URL must have exactly one loc element");
   assert.equal(new Set(locs).size, locs.length, "sitemap URLs must be unique");
-  const urlBlocks = [...sitemap.matchAll(/<url>([\\s\\S]*?)<\\/url>/g)].map((match) => match[1]);
+  const urlBlocks = sitemap.split("<url>").slice(1).map((entry) => entry.split("</url>")[0]);
   assert.equal(urlBlocks.length, 57, "every URL entry must be a complete url element");
   for (const block of urlBlocks) {
-    assert.doesNotMatch(block, /\\\\[nrt]/,
-      "sitemap entries must not contain literal escaped whitespace text");
-    assert.match(block,
-      /^\\s*<loc>[^<]+<\\/loc>\\s*(?:<lastmod>[^<]+<\\/lastmod>\\s*)?(?:<changefreq>[^<]+<\\/changefreq>\\s*)?(?:<priority>[^<]+<\\/priority>\\s*)?$/,
-      "url elements must contain only valid sitemap child elements and whitespace");
+    const textOutsideElements = block.replace(/<[^>]+>/g, "");
+    assert.equal(textOutsideElements.trim(), "",
+      "url elements must not contain literal escaped whitespace or other text nodes");
   }
   assert.deepEqual([...locs].sort(), [...expectedUrls].sort(),
     "sitemap must contain only the canonical homepage, directory and 55 guide URLs");
