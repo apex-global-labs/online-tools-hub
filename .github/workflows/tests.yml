@@ -37,6 +37,6 @@ jobs:
           node --check js/seo-content.js
           node --check js/url-shortener.js
           node --check js/zip-manager.js
-          node --check js/favicon-generator.js
+          node --check js/favicon-generator.js\n          node --experimental-default-type=module --check js/phase-b2-tools.js
       - name: Run regression tests
         run: node --experimental-default-type=module --test tests/*.test.mjs
