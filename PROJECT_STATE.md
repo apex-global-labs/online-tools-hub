@@ -9,11 +9,20 @@ Last updated: 2026-10-31
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Latest verified production code commit: `820ee1659d08dfd4224b4ae7883491ebc5e36011` (PR #66 squash merge; Image to PDF). The preceding deep-audit code baseline was `78b260df82ad5ab16866ca635b620055f9b9af4e` (PR #64); earlier homepage and UX commits remain historical.
+- Latest verified production code commit: `dbb657f9a6ad37368b5b4a151d8e7bca6d1aa930` (PR #68 squash merge; full-screen tool workspace). The preceding Image to PDF baseline was `820ee1659d08dfd4224b4ae7883491ebc5e36011` (PR #66).
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
 - Catalogue: **44 unique tools**, **44 individual SEO guide pages**, and **46 sitemap URLs** (homepage + directory + 44 guides).
 - `app.js`, `js/tools-data.json`, the tool-guide directory and sitemap are expected to remain synchronized.
 - No paid service or ToolNest backend is used. Some tools rely on third-party browser libraries or public APIs.
+
+## Full-screen tool workspace update (2026-10-31)
+
+- PR #68 was squash-merged into `main` at `dbb657f9a6ad37368b5b4a151d8e7bca6d1aa930`.
+- All 44 tools use the shared full-screen workspace. The workspace is fixed to the viewport, has its own vertical scrolling, and covers the previous homepage content.
+- The welcome marquee, site header and footer are hidden while a tool is active. Background page scrolling is locked and restored when the visitor closes the tool or navigates back.
+- The same full-screen treatment applies to unknown-tool routes. Light/dark appearance follows the existing theme variables.
+- Added `tests/fullscreen-tool-workspace.test.mjs`; PR regression workflow **41180197356** passed: **118 tests, 118 passed, 0 failed**, including JavaScript syntax checks.
+- GitHub Pages post-merge deployment and independent real-browser visual verification have not yet been confirmed. Required visual QA: open multiple tool types, confirm no previous page/header/footer is visible, test workspace scrolling, close via All Tools/Escape/browser Back, verify theme, and repeat on a narrow mobile viewport.
 
 ## Phase 8A — Image to PDF (merged; live-browser QA pending)
 
