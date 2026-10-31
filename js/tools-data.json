@@ -1641,7 +1641,7 @@
     "description": "Clean Bangla and English spacing, separate joined Bengali words with a dictionary, and convert Bijoy ANSI ↔ Unicode in text or DOCX.",
     "tagline": "Repair text spacing and tidy Word documents",
     "seo": {
-      "description": "Fix Bangla and English spacing, separate joined Bengali words with a 454,650-entry dictionary, and convert Bijoy ANSI to Unicode or Unicode to Bijoy in your browser.",
+      "description": "Fix Bangla and English spacing, split joined Bengali words with a dictionary, and convert Bijoy ANSI to Unicode or Unicode to Bijoy.",
       "steps": [
         "Paste Unicode or Bijoy ANSI text, or choose a standard .docx file.",
         "Select cleanup, Bijoy-to-Unicode or Unicode-to-Bijoy conversion.",
