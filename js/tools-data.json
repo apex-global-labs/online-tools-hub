@@ -1641,7 +1641,7 @@
     "description": "Clean pasted text and repair DOCX spacing while keeping Word document structure and formatting intact.",
     "tagline": "Repair text spacing and tidy Word documents",
     "seo": {
-      "description": "Fix repeated spaces, tabs and punctuation spacing in pasted text or Word DOCX files. Process documents locally while preserving tables, paragraphs and formatting structure.",
+      "description": "Fix extra spaces and punctuation in pasted text or Word DOCX files. Supports Bangla and English with local processing that retains document structure.",
       "steps": [
         "Choose Text Mode to paste text, select cleanup options and run Fix Text.",
         "Choose DOCX Mode to upload a .docx Word file and select the spacing repairs to apply.",
