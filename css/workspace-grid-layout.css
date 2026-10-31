@@ -110,6 +110,29 @@ body.tool-open #toolPanel {
   margin-top: 0;
 }
 
+/* The tool controls occupy the first grid row; SEO content spans the full row below. */
+body.tool-open > #workspace > #toolSeoContent {
+  grid-column: 1 / -1;
+  justify-self: center;
+  align-self: start;
+  width: min(100% - 2rem, 72rem);
+  max-width: 72rem;
+  min-width: 0;
+  margin: 1.5rem auto 2rem;
+  position: relative;
+  clear: both;
+}
+
+body.tool-open .workspace-content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+body.tool-open #toolPanel {
+  flex: 0 0 auto;
+}
+
 body.tool-open .workspace-main-card {
   width: 100%;
   min-width: 0;
