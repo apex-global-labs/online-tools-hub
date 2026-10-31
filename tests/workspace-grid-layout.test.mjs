@@ -21,7 +21,7 @@ test("workspace is a direct body child with semantic sidebar and main content", 
 test("desktop workspace uses a two-column grid without fixed-position overlap", () => {
   assert.match(css, /grid-template-columns:\s*minmax\(15rem, 19rem\) minmax\(0, 1fr\)/);
   assert.match(css, /body\.tool-open > #workspace\s*\{[\s\S]*?display:\s*grid\s*!important/);
-  assert.match(css, /body\.tool-open > main\s*\{\s*display:\s*none\s*!important/);
+  assert.match(css, /body\.tool-open > \.welcome-marquee,[\s\S]*?body\.tool-open > main,[\s\S]*?display:\s*none\s*!important/);
   assert.doesNotMatch(css, /position:\s*fixed/);
 });
 
