@@ -15,9 +15,9 @@ const zipGuide=readFileSync(new URL("../tools/zip-file-manager/index.html",impor
 const faviconGuide=readFileSync(new URL("../tools/favicon-generator/index.html",import.meta.url),"utf8");
 
 test("Phase B1 registers exactly two unique tools",()=>{
- assert.equal(data.length,49);
- assert.equal(new Set(data.map(x=>x.id)).size,49);
- assert.equal(new Set(data.map(x=>x.slug)).size,49);
+ assert.equal(data.length,54);
+ assert.equal(new Set(data.map(x=>x.id)).size,54);
+ assert.equal(new Set(data.map(x=>x.slug)).size,54);
  for(const id of ["zipmanager","favicongenerator"])assert.equal(data.filter(x=>x.id===id).length,1);
 });
 test("both Phase B1 tools are wired into the workspace and loaded",()=>{
@@ -28,7 +28,7 @@ test("both Phase B1 tools are wired into the workspace and loaded",()=>{
 });
 test("ZIP path validation rejects traversal and absolute paths",()=>{
  assert.equal(Zip.safePath("docs/readme.txt"),"docs/readme.txt");
- assert.throws(()=>Zip.safePath("a".repeat(2049)),/too long/i);
+ assert.throws(()=>Zip.safePath("a".repeat(2054)),/too long/i);
  for(const path of ["../escape.txt","folder/../../escape.txt","/absolute.txt","C:\\temp\\file.txt","folder\\..\\escape.txt"])assert.throws(()=>Zip.safePath(path));
 });
 test("ZIP input validation enforces file count and byte limits",()=>{
@@ -59,7 +59,7 @@ test("Phase B1 SEO guides, directory and sitemap are synchronized",()=>{
   assert.match(directory,new RegExp("/tools/"+slug+"/"));
   assert.ok(readFileSync(new URL("../tools/"+slug+"/index.html",import.meta.url),"utf8").includes("rel=\"canonical\""));
  }
- assert.equal((sitemap.match(/<loc>/g)||[]).length,51);
+ assert.equal((sitemap.match(/<loc>/g)||[]).length,56);
  assert.match(zipGuide,/ZIP File Manager/);
  assert.match(faviconGuide,/Favicon Generator/);
  assert.ok(css.includes(".zip-manager")&&css.includes(".favicon-tool"));
