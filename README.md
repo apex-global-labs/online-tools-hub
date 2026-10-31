@@ -8,7 +8,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/phase2.css` — search/navigation styling, dark-mode contrast and animated sun/moon scene
 - `app.js` — tool catalogue, filters, workspace rendering, theme toggle and tool implementations
 - `js/live-search.js` — search autocomplete, keyboard navigation, category menu behavior and slash shortcut
-- `js/tools-data.json` — metadata for all 44 tools used by the modular hash router
+- `js/tools-data.json` — metadata for all 47 tools used by the modular hash router
 - `js/router.js` — route parsing/resolution
 - `js/router-bridge.js` — bridge from modular routes to the existing tool workspace
 - `css/phase10-image-tools.css` — responsive previews for the image utilities
@@ -19,6 +19,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `js/advanced-converters.js` — local area, Bangladesh land-unit, time-zone and number-to-words helpers
 - `js/phase15-developer-seo.js` — local robots.txt, XML sitemap and CSS gradient generators
 - `js/ip-tools.js` — IPv4/IPv6 validation and special-use range classification
+- `js/phase-a-pdf-tools.js` — PDF-to-image, selectable-text extraction and watermark/page-number processing in the browser
 - `js/pdf-splitter.js` — local PDF page extraction with individual PDF and ZIP downloads
 - `js/image-to-pdf.js` — local PNG/JPEG image conversion to a multi-page PDF
 - `js/url-shortener.js` — browser-side integration with a free third-party URL-shortening API
@@ -91,6 +92,9 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Number to Words Converter (English and Bangla)
 - Advanced PDF Merger — merge PDF files with page selection, file/page ordering and rotation
 - PDF Splitter — export selected PDF pages as separate files or a ZIP archive
+- PDF to JPG / PNG — render selected PDF pages as high-resolution images or a ZIP archive
+- PDF Text Extractor — extract selectable PDF text to copy or TXT
+- PDF Watermark & Page Number — add text/logo overlays and page numbering
 - Image to PDF — combine PNG/JPEG images into a paginated PDF with paper settings
 - URL Shortener — create shareable short links with an optional custom alias through Spoo.me's free API v1 (no API key required)
 - Universal Doc Formatter & Spacing Fixer — clean pasted text or repair DOCX whitespace locally while retaining Word XML structure
