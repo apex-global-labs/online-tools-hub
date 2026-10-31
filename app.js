@@ -284,7 +284,6 @@ function openTool(id,updateHistory=true){
  activeTool=tools.find(t=>t.id===id);
  if(!activeTool){showToolNotFound(id);return;}
  document.body.classList.add("tool-open");
- document.body.style.overflow="hidden";
  $("#workspaceTitle").textContent=activeTool.name;
  $("#workspaceDescription").textContent=activeTool.description;
  $("#toolMessage").textContent="";
