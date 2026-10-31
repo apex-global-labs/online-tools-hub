@@ -8,6 +8,8 @@ test("Bijoy converter is registered separately from text cleanup", async () => {
   assert.match(app, /case "bijoyunicode"/);
   const docfix = app.slice(app.indexOf('case "docfix":return form'), app.indexOf('case "bijoyunicode":return form'));
   assert.doesNotMatch(docfix, /docFixEncoding|bijoy-to-unicode|unicode-to-bijoy/);
+  const runtime = await readFile(new URL("../js/docfix-pro.js", import.meta.url), "utf8");
+  assert.doesNotMatch(runtime, /docFixEncoding/);
 });
 test("Bijoy converter exposes two editors and both conversion directions", async () => {
   const app = await readFile(new URL("../app.js", import.meta.url), "utf8");
