@@ -66,6 +66,8 @@ const tools = [
 const $ = (s,root=document)=>root.querySelector(s);
 let cardTools = tools;
 const grid=$("#toolGrid"), panel=$("#toolPanel"), workspace=$("#workspace");
+const featuredGrid=$("#featuredToolGrid");
+const featuredToolIds=["qr","pdfmerge","imagecompress","counter","password","json","urlshortener"];
 let activeCategory="All", activeTool=null;
 $("#year").textContent=new Date().getFullYear();
 
@@ -104,6 +106,12 @@ const cardTaglines={
  emi:"Understand monthly instalments and loan cost"
 };
 
+function renderFeaturedCards(){
+ if(!featuredGrid)return;
+ const featured=featuredToolIds.map(id=>cardTools.find(t=>t.id===id)).filter(Boolean);
+ featuredGrid.innerHTML=featured.map(t=>'<button class="featured-tool-card" type="button" data-tool="' + escapeHtml(t.id) + '" aria-label="Open ' + escapeHtml(t.name) + '"><span class="featured-tool-icon" aria-hidden="true">' + escapeHtml(t.icon) + '</span><span class="featured-tool-copy"><strong>' + escapeHtml(t.name) + '</strong><small>' + escapeHtml(t.description) + '</small></span><span class="featured-tool-arrow" aria-hidden="true">→</span></button>').join("");
+}
+
 function renderCards(){
  const q=$("#toolSearch").value.trim().toLowerCase();
  const filtered=cardTools.filter(t=>(activeCategory==="All"||t.category===activeCategory)&&`${t.name} ${t.description} ${t.category}`.toLowerCase().includes(q));
@@ -117,6 +125,9 @@ function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":
 $("#categoryFilters").addEventListener("click",e=>{const b=e.target.closest("[data-category]");if(!b)return;activeCategory=b.dataset.category;document.querySelectorAll(".filter-chip").forEach(x=>{const selected=x===b;x.classList.toggle("active",selected);x.setAttribute("aria-pressed",String(selected));});renderCards();});
 $("#toolSearch").addEventListener("input",renderCards);
 grid.addEventListener("click",e=>{const b=e.target.closest("[data-tool]");if(b)openTool(b.dataset.tool);});
+featuredGrid?.addEventListener("click",e=>{const b=e.target.closest("[data-tool]");if(b)openTool(b.dataset.tool);});
+
+renderFeaturedCards();
 
 function closeTool(updateHistory=true){
  workspace.classList.add("hidden");
