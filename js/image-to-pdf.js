@@ -204,6 +204,7 @@
         const scale = Math.min(availableWidth / embedded.width, availableHeight / embedded.height);
         const drawWidth = embedded.width * scale, drawHeight = embedded.height * scale;
         const page = output.addPage([pageWidth, pageHeight]);
+        page.drawRectangle({ x: 0, y: 0, width: pageWidth, height: pageHeight, color: PDF.rgb(1, 1, 1) });
         page.drawImage(embedded, {
           x: (pageWidth - drawWidth) / 2,
           y: (pageHeight - drawHeight) / 2,
