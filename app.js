@@ -65,6 +65,8 @@ const tools = [
 {id:"pdfmark",name:"PDF Watermark & Page Number",category:"Utilities",icon:"🔖",description:"Add a custom text watermark, logo and page numbers to PDF documents."},
 {id:"iptools",name:"IP Address Finder & Lookup",category:"Utilities",icon:"◎",description:"Find your public IP or look up public IP geolocation and network details."},
 {id:"urlshortener",name:"URL Shortener",category:"Utilities",icon:"🔗",description:"Turn long website addresses into short, shareable links with an optional custom alias."},
+{id:"zipmanager",name:"ZIP File Manager",category:"Utilities",icon:"▤",description:"Create ZIP archives from files or inspect and extract selected files in your browser."},
+{id:"favicongenerator",name:"Favicon Generator",category:"Image",icon:"◈",description:"Create common website favicon sizes, an ICO file and HTML icon tags from an image."},
 ];
 
 // Curated general-demand order (not first-party usage analytics).
