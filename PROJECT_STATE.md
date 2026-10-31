@@ -4,7 +4,7 @@ Last updated: 2026-10-31
 
 > **Authoritative status:** This section reflects the current verified repository state. Older phase notes below are historical records and must not override this status.
 
-## Phase A — Three PDF utilities added (implementation branch; CI and live QA pending)
+## Phase A — Three PDF utilities added (merged and deployed; real-file browser QA pending)
 
 - New tools: PDF to JPG / PNG, PDF Text Extractor, and PDF Watermark & Page Number.
 - PDF.js is loaded on demand for page rendering and selectable-text extraction; pdf-lib is loaded on demand for PDF modification; JSZip is loaded only for multi-image downloads.
@@ -12,7 +12,10 @@ Last updated: 2026-10-31
 - PDF Text Extractor reads selectable text only. It does not perform OCR on image-only scanned pages.
 - Watermark text is rendered to a transparent canvas overlay using browser-available fonts; non-Latin glyph appearance depends on device/browser font support.
 - No backend, paid API or document upload endpoint added.
-- Automated CI, production deployment and independent live-browser QA remain pending. Do not describe these tools as production-ready until those checks pass.
+- PR #84 was squash-merged into `main` at `d8ae533938e45d36ad9df519b72a7ce4800628f7`.
+- PR regression workflow **41211319136** passed: **136 tests, 136 passed, 0 failed**; JavaScript syntax checks passed.
+- GitHub Pages build and deployment workflow **41211355679** completed successfully for the merge commit.
+- Independent real-browser QA with representative PDFs, output files and mobile devices remains pending. CI and deployment success do not prove every PDF variant works on every browser/device.
 
 ## Retired tools
 
