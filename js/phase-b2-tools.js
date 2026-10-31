@@ -19,7 +19,7 @@ export function replaceText(text,find,replacement,{caseSensitive=false,wholeWord
 }
 export function decodeJwt(token){
  const parts=String(token).trim().split(".");
- if(parts.length!==3||parts.some(x=>!x))throw new Error("A JWT must contain three non-empty dot-separated parts.");
+ if(parts.length!==3||!parts[0]||!parts[1])throw new Error("A JWT must contain three non-empty dot-separated parts.");
  const decode=part=>{let raw=part.replace(/-/g,"+").replace(/_/g,"/");raw+="=".repeat((4-raw.length%4)%4);let binary;try{binary=atob(raw);}catch{throw new Error("The JWT contains invalid Base64URL data.");}const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));let text;try{text=new TextDecoder("utf-8",{fatal:true}).decode(bytes);}catch{throw new Error("The JWT payload is not valid UTF-8.");}try{return JSON.parse(text);}catch{throw new Error("The JWT header or payload is not valid JSON.");}};
  const header=decode(parts[0]),payload=decode(parts[1]);
  return {header,payload,signaturePresent:parts[2].length>0,expiration:Number.isFinite(payload.exp)?{timestamp:payload.exp,date:new Date(payload.exp*1000).toISOString(),expired:payload.exp*1000<Date.now()}:null};
@@ -27,13 +27,13 @@ export function decodeJwt(token){
 export function formatXml(source){
  const parser=new DOMParser(),doc=parser.parseFromString(String(source),"application/xml");
  if(doc.querySelector("parsererror"))throw new Error("Invalid XML. Check the tags, nesting and attributes.");
- const xml=new XMLSerializer().serializeToString(doc).replace(/>\\s*</g,"><").trim();
- const tokens=xml.match(/<!--[\\s\\S]*?-->|<\\?[\\s\\S]*?\\?>|<!\\[CDATA\\[[\\s\\S]*?\\]\\]>|<[^>]+>|[^<]+/g)||[];
+ const xml=new XMLSerializer().serializeToString(doc).replace(/>\s*</g,"><").trim();
+ const tokens=xml.match(/<!--[\s\S]*?-->|<\?[\s\S]*?\?>|<!\[CDATA\[[\s\S]*?\]\]>|<[^>]+>|[^<]+/g)||[];
  let depth=0,out=[];
  for(const token of tokens){if(!token.trim())continue;
-  if(/^<\\//.test(token))depth=Math.max(0,depth-1);
+  if(/^<\//.test(token))depth=Math.max(0,depth-1);
   out.push("  ".repeat(depth)+token.trim());
-  if(/^<(?![!?/])[^>]*[^/]?>$/.test(token)&&!/^<[^>]+\\/>$/.test(token)&&!/<\\//.test(token))depth++;
+  if(/^<(?![!?/])[^>]*[^/]?>$/.test(token)&&!/^<[^>]+\/>$/.test(token)&&!/<\//.test(token))depth++;
  }
  return out.join("\n");
 }
