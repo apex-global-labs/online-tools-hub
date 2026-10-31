@@ -15,7 +15,13 @@ Last updated: 2026-10-31
 - `app.js`, `js/tools-data.json`, the tool-guide directory and sitemap are expected to remain synchronized.
 - No paid service or ToolNest backend is used. Some tools rely on third-party browser libraries or public APIs.
 
-## Current three-phase UX update (2026-10-31)\n\n- Phase 1: Escape closes the active workspace; URL Shortener accepts public website domains without a scheme and normalizes them to HTTPS. PR #59 regression run #190 passed.\n- Phase 2: compacted the homepage hero, added seven popular quick-pick cards, category symbols, and a 14px English welcome marquee. PR #60 regression run #192 passed. Visual browser/device QA remains to be confirmed by the site owner; CI does not verify visual rendering.\n- Phase 3: tool cards are sorted by a curated general-demand heuristic and display Hot / High / Medium / Normal labels. These tiers are not measured from ToolNest usage analytics or an independently verified global usage dataset.\n\n## QA-1 / QA-2 — Release verification record (2026-10-31)
+## Current three-phase UX update (2026-10-31)
+
+- Phase 1: Escape closes the active workspace; URL Shortener accepts public website domains without a scheme and normalizes them to HTTPS. PR #59 regression run #190 passed.
+- Phase 2: compacted the homepage hero, added seven popular quick-pick cards, category symbols, and a 14px English welcome marquee. PR #60 regression run #192 passed. Visual browser/device QA remains to be confirmed by the site owner; CI does not verify visual rendering.
+- Phase 3: tool cards are sorted by a curated general-demand heuristic and display Hot / High / Medium / Normal labels. These tiers are not measured from ToolNest usage analytics or an independently verified global usage dataset.
+
+## QA-1 / QA-2 — Release verification record (2026-10-31)
 
 - QA-1 repository checks on the PR #56 merge commit confirmed 43 unique tool metadata records, 43 matching guide pages, and 45 unique sitemap URLs; no missing or duplicate tool slugs were found.
 - The owner reports that live-browser verification has been completed. The exact browser test cases, devices, and pass/fail results were not itemized in the project handover; do not interpret this as proof that every one of the 43 tools or every edge case was tested.
