@@ -1638,34 +1638,32 @@
     "category": "Text",
     "icon": "📝",
     "slug": "docfix-pro",
-    "description": "Clean pasted text and repair DOCX spacing while keeping Word document structure and formatting intact.",
+    "description": "Clean Bangla and English spacing, separate joined Bengali words with a dictionary, and convert Bijoy ANSI ↔ Unicode in text or DOCX.",
     "tagline": "Repair text spacing and tidy Word documents",
     "seo": {
-      "description": "Fix extra spaces and punctuation in pasted text or Word DOCX files. Supports Bangla and English with local processing that retains document structure.",
+      "description": "Fix Bangla and English spacing, split joined Bengali words with a dictionary, and convert Bijoy ANSI to Unicode or Unicode to Bijoy.",
       "steps": [
-        "Choose Text Mode to paste text, select cleanup options and run Fix Text.",
-        "Choose DOCX Mode to upload a .docx Word file and select the spacing repairs to apply.",
-        "Download the corrected text or repaired DOCX file and review it in Word before sharing."
+        "Paste Unicode or Bijoy ANSI text, or choose a standard .docx file.",
+        "Select cleanup, Bijoy-to-Unicode or Unicode-to-Bijoy conversion.",
+        "Run the tool, review the output, then copy or download it."
       ],
       "features": [
-        "Text Mode for pasted English and Bangla text.",
-        "DOCX Mode for Microsoft Word .docx documents up to 25 MB.",
-        "Conservative whitespace and punctuation cleanup with optional English camelCase splitting.",
-        "Edits Word text nodes without rebuilding tables, paragraphs or document styles.",
-        "Local browser processing; the document is not uploaded to ToolNest."
+        "Dictionary-backed Bangla joined-word segmentation using a bundled 454,650-entry word list.",
+        "Two-way Bijoy ANSI and Unicode conversion for text and DOCX runs.",
+        "Local browser processing for text and DOCX files; text is not uploaded to ToolNest."
       ],
       "faqs": [
         {
-          "question": "Does DocFix Pro support Bangla and English?",
-          "answer": "Yes. It preserves Unicode text and supports Bangla and English. Language-aware splitting of arbitrary joined Bangla words is not attempted."
+          "question": "Does DocFix Pro support Bijoy and Unicode?",
+          "answer": "Yes. Text and DOCX modes include Bijoy ANSI to Unicode and Unicode to Bijoy conversion. Bijoy output may require a compatible SutonnyMJ font for correct visual display."
         },
         {
-          "question": "Will my Word tables and formatting remain?",
-          "answer": "The DOCX mode edits text-node content inside the existing Word XML package rather than rebuilding the document. Table, paragraph, style and run elements are retained, but review the downloaded file in Word."
+          "question": "How does Bangla word separation work?",
+          "answer": "DocFix Pro uses a 454,650-entry Bengali word list and conservative dictionary segmentation. Unknown or ambiguous strings are left unchanged rather than split speculatively."
         },
         {
-          "question": "Can it automatically separate every joined word?",
-          "answer": "No. It handles repeated whitespace, punctuation spacing and optional English camelCase boundaries. Arbitrary joined words require language context."
+          "question": "Are my text and Word files uploaded?",
+          "answer": "No. Text and DOCX processing run locally in your browser. The Bijoy conversion module is loaded from a public CDN when required."
         }
       ],
       "tips": "Keep a copy of the original file. DOCX mode changes supported Word text nodes and retains the package structure; review the result in Word. Password-protected, macro-enabled .docm and legacy .doc files are not supported."
