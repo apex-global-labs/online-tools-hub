@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-30  
 Project: [ToolNest](https://apex-global-labs.github.io/online-tools-hub/)  
-Scope: 44 existing crawlable tool-guide pages
+Scope: 45 existing crawlable tool-guide pages
 
 ## Research method and confidence
 
@@ -33,7 +33,7 @@ Google recommends descriptive, concise titles, useful people-first content, anti
    - Robots.txt Generator = crawler directives; XML Sitemap Generator = URL inventory.
 6. Do not force the brand name into every keyword. Use ToolNest naturally in branding where helpful.
 
-## 44-tool keyword map
+## 45-tool keyword map
 
 | # | Tool / page | Primary keyword (one target) | Secondary keywords | Long-tail queries / FAQ angles | Search intent | Priority | Content strategy / page boundary | Target URL |
 |---:|---|---|---|---|---|---|---|---|
@@ -108,6 +108,8 @@ Google recommends descriptive, concise titles, useful people-first content, anti
 | Percent calculations | [Percentage Calculator](https://apex-global-labs.github.io/online-tools-hub/tools/percentage-calculator/) | Compound Interest Calculator; EMI / Loan Calculator |
 | Loan instalment estimates | [EMI / Loan Calculator](https://apex-global-labs.github.io/online-tools-hub/tools/emi-loan-calculator/) | Compound Interest Calculator; Percentage Calculator |
 | Compound growth estimates | [Compound Interest Calculator](https://apex-global-labs.github.io/online-tools-hub/tools/compound-interest-calculator/) | EMI / Loan Calculator |
+
+| 45 | Universal Doc Formatter & Spacing Fixer | **DOCX formatter** | Word document spacing fixer; DOCX text formatter; remove extra spaces in Word | how to fix missing spaces in a Word document; clean pasted Bangla and English text; preserve tables when formatting DOCX | Transactional / tool use | P2 | Explain conservative whitespace and punctuation cleanup, local DOCX processing and the limitation of language-agnostic word splitting. | [docfix-pro](https://apex-global-labs.github.io/online-tools-hub/tools/docfix-pro/) |
 
 ## Recommended on-page implementation
 
