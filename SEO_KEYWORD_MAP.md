@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-30  
 Project: [ToolNest](https://apex-global-labs.github.io/online-tools-hub/)  
-Scope: 43 existing crawlable tool-guide pages
+Scope: 44 existing crawlable tool-guide pages
 
 ## Research method and confidence
 
@@ -123,3 +123,4 @@ Google recommends descriptive, concise titles, useful people-first content, anti
 - Google Search Central, [Creating Helpful, Reliable, People-First Content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content): prioritize original, useful, accurate content rather than mass-produced keyword pages.
 - Qualitative online-tool directory language review (30 Oct 2026): [11zon](https://11zon.cc/tools/), [UtiloKit](https://utilokit.com/), [Great Online Apps](https://greatonlineapps.com/), [MegaTools](https://mega-convert.com/en/tools). These are used only to observe common task phrasing, not to claim search volume, keyword difficulty or ranking potential.
 | 43 | URL Shortener | **URL shortener** | shorten URL; free link shortener; short link generator | how to shorten a long website link; create a short URL with a custom alias | Transactional / tool use | P1 | Explain the third-party redirect provider, free anonymous limits, custom-alias rules and destination-link safety. Do not imply ToolNest owns or hosts the short-link domain. | [url-shortener](https://apex-global-labs.github.io/online-tools-hub/tools/url-shortener/) |
+| 44 | Image to PDF | **image to PDF converter** | JPG to PDF; PNG to PDF; convert pictures to PDF | combine multiple JPG images into one PDF; convert PNG images to A4 PDF | Transactional / tool use | P1 | Describe PNG/JPEG support, multi-image ordering, paper sizes, orientation, margins and local processing. Keep separate from PDF to Image. | [image-to-pdf](https://apex-global-labs.github.io/online-tools-hub/tools/image-to-pdf/) |
