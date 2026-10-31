@@ -9,11 +9,23 @@ Last updated: 2026-10-31
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Latest verified production code commit: `78b260df82ad5ab16866ca635b620055f9b9af4e` (PR #64 squash merge). The preceding homepage baseline was `fdf3f2546c21bbba5c8346030a21f28ab98e6224` (PR #63); PR #62 merged at `e855cb5943d78f37d97c871d16f5298b80016581`. The earlier PR #60 baseline (`a163996ef40519c319285d7e9645a72f7e1397a5`) and PR #59 functional fixes (`fc7fdb02457032dc1d483e2e9a097e44a3551a33`) remain historical.
+- Latest verified production code commit: `820ee1659d08dfd4224b4ae7883491ebc5e36011` (PR #66 squash merge; Image to PDF). The preceding deep-audit code baseline was `78b260df82ad5ab16866ca635b620055f9b9af4e` (PR #64); earlier homepage and UX commits remain historical.
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
-- Catalogue: **43 unique tools**, **43 individual SEO guide pages**, and **45 sitemap URLs** (homepage + directory + 43 guides).
+- Catalogue: **44 unique tools**, **44 individual SEO guide pages**, and **46 sitemap URLs** (homepage + directory + 44 guides).
 - `app.js`, `js/tools-data.json`, the tool-guide directory and sitemap are expected to remain synchronized.
 - No paid service or ToolNest backend is used. Some tools rely on third-party browser libraries or public APIs.
+
+## Phase 8A — Image to PDF (merged; live-browser QA pending)
+
+- PR #66 was squash-merged into `main` at commit `820ee1659d08dfd4224b4ae7883491ebc5e36011`.
+- Added the 44th tool, **Image to PDF**, with a dedicated workspace, browser-side processing module, responsive stylesheet and standalone SEO guide.
+- Supports multiple PNG/JPEG images, page reordering/removal, A4 / US Letter / US Legal paper, automatic / portrait / landscape orientation, 0 / 10 / 20 mm margins, PDF preview, download and clear.
+- Uses the existing `pdf-lib@1.17.1` dependency, loaded lazily from a public CDN. No new dependency, paid API or ToolNest upload endpoint was introduced. Selected image bytes are processed in the browser.
+- Limits: up to 20 images, 15 MB per image, 60 MB combined, 40 megapixels per image and 100 megapixels per job. Device memory can still constrain large jobs.
+- SEO integration: unique title/description/canonical URL, social metadata, WebApplication / BreadcrumbList / FAQPage structured data, visible guide content, directory link, sitemap URL and keyword-map row.
+- PR regression workflow **41179208669** completed successfully: **114 tests, 114 passed, 0 failed**; JavaScript syntax checks passed, including `js/image-to-pdf.js`.
+- The PR was merged after reviewing the implementation and passing CI. Post-merge GitHub Pages publication and real-browser visual QA have not been independently confirmed here. Do not describe the live tool as browser-verified until the owner tests it.
+- Required browser QA: upload several PNG/JPG images, reorder and remove pages, test each page size/orientation/margin combination, create and preview the PDF, download and open it, test transparent PNG behavior, clear/reopen the tool, and repeat on a mobile browser.
 
 ## Current three-phase UX update (2026-10-31)
 
