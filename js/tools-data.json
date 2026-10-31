@@ -1679,7 +1679,7 @@
     "description": "Convert Bangla text between Unicode and Bijoy ANSI in two side-by-side editors.",
     "tagline": "Convert Bangla in both directions",
     "seo": {
-      "description": "Convert Bangla text between Unicode and Bijoy ANSI with two side-by-side editors. Paste in either box, convert in the required direction, then copy or download the result.",
+      "description": "Convert Bangla text between Unicode and Bijoy ANSI with side-by-side editors. Copy or download either result in your browser.",
       "steps": [
         "Paste Unicode Bangla in the left editor or Bijoy ANSI text in the right editor.",
         "Choose Unicode → Bijoy or Bijoy → Unicode to convert the text into the opposite editor.",
