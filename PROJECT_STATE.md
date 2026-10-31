@@ -2,20 +2,13 @@
 
 Last updated: 2026-10-31
 
-> **Authoritative status:** This top section reflects the current verified repository state. Older phase notes below are historical records and must not override this status.
+> **Authoritative status:** This section reflects the current verified repository state. Older phase notes below are historical records and must not override this status.
 
-## DocFix Pro — Bangla spacing and Bijoy/Unicode upgrade (merged and deployed)
+## Retired tools
 
-- PR #77 introduced the Bengali dictionary and Bijoy/Unicode conversion. PR #78 improved contextual corrections. PR #79 was merged into `main` on 2026-10-31 at production commit `a04358d30b1c1008905943777ed5be0480f7e601`.
-- Uses a bundled 454,650-entry Bengali word list sourced from Sanjidh090/bangla-wordlist (the source repository states Unlicense/public-domain dedication) for local dictionary-backed segmentation.
-- Dictionary segmentation now supports up to 12 known word parts (previous cap: 5). This is a higher ceiling, not a promise to split every long or unknown compound correctly.
-- PR #78 added curated corrections and an exact regression test for the owner's complete UI-layout paragraph, including the bold heading and paragraph break.
-- PR #79 makes DOCX cleanup analyze adjacent Word text runs within each paragraph, allowing a Bengali joined word to be split even when Word stores its characters across formatted runs. Inserted spaces stay in the run containing the preceding character, preserving bold/italic run formatting. Explicit Word tabs and line breaks are treated as boundaries.
-- DOCX archive loading now tries cdnjs, jsDelivr and unpkg as fallbacks if one CDN is unavailable.
-- Text and DOCX modes expose cleanup and encoding conversion. Standard `.docx` files are supported; legacy `.doc`, macro-enabled `.docm` and password-protected files are not supported.
-- Bijoy output is legacy ANSI. Correct visual rendering requires a compatible SutonnyMJ font; ToolNest does not bundle a font with uncertain redistribution rights. Unicode output is standard Bangla text.
-- PR #79 CI workflow `41198961012` passed: 144/144 tests, 0 failures; JavaScript syntax checks passed. Post-merge main regression workflow `41199020150` passed with 144/144 tests. GitHub Pages deployment workflow `41199019328` succeeded.
-- Automated tests cover the exact requested text sample, seven-part dictionary segmentation, DOCX text split across three formatted runs, Word tab boundaries, Bijoy conversion directions through a deterministic injected engine, and DOCX XML structure. Manual browser upload/download QA with real DOCX files and manual Word verification are still required; do not claim every DOCX variant is verified.
+- Two Bangla text utilities have been permanently removed from the active catalogue, application workspace, router compatibility handling, dedicated assets, SEO guides, directory, sitemap and tool-specific tests.
+- Their dedicated runtime modules and styles were isolated from the other tools. The bundled dictionary assets were exclusive to the retired text-cleanup implementation and have been removed with it.
+- Legacy hash routes for the retired tools resolve to the standard not-found state. No redirect or compatibility fallback is retained.
 
 ## Repository and production baseline
 
@@ -24,16 +17,9 @@ Last updated: 2026-10-31
 - Production branch: `main`
 - Latest verified production code commit: `a04358d30b1c1008905943777ed5be0480f7e601` (PR #79 squash merge; DocFix Pro DOCX run-aware Bangla spacing fix). The preceding full-screen workspace baseline was `dbb657f9a6ad37368b5b4a151d8e7bca6d1aa930` (PR #68).
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
-- Catalogue: **45 unique tools**, **45 individual SEO guide pages**, and **47 sitemap URLs** (homepage + directory + 44 guides).
+- Catalogue: **44 unique tools**, **44 individual SEO guide pages**, and **46 sitemap URLs** (homepage + directory + 44 guides).
 - `app.js`, `js/tools-data.json`, the tool-guide directory and sitemap are expected to remain synchronized.
 - No paid service or ToolNest backend is used. Some tools rely on third-party browser libraries or public APIs.
-
-## DocFix Pro — current operating limits
-
-- DocFix Pro is registered as the 45th tool and is merged into `main`; text and DOCX processing run in the visitor's browser.
-- The Bengali word list and curated rules improve joined-word separation, but ambiguous and unfamiliar compounds may remain unchanged. Review the output before using it in a published or formal document.
-- Standard `.docx` files are supported. Macro-enabled `.docm`, legacy `.doc` and password-protected files are not supported.
-- CI and GitHub Pages deployment passed for PR #78. Independent live-browser testing of the deployed text workflow and manual Word-file validation remain owner QA items.
 
 ## Responsive sidebar/content workspace layout (2026-10-31)
 
@@ -457,10 +443,3 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - Individual crawlable tool pages and their sitemap entries remain Phase 3 work. Do not add hash-fragment URLs to the sitemap.
 - CI and PR review are pending. No production deployment has occurred from this branch.
 
-
-## DocFix Pro — Text-only simplification (2026-10-31)
-- Owner decision: remove DOCX Mode entirely; retain one text-only workspace supporting Bangla and English text.
-- Removed the DOCX upload/process/download interface and DOCX-specific browser processing code, JSZip CDN loader, and DOCX-only regression tests.
-- Kept Unicode text cleanup, dictionary-backed Bangla word separation, English spacing/camelCase cleanup, punctuation cleanup, blank-line normalization, and text-based Bijoy ANSI ↔ Unicode conversion.
-- Updated tool catalogue and SEO metadata to describe text-only behavior and both Bangla/English support.
-- Final script/source audit confirms the DOCX/XML/ZIP processing helpers and DOCX UI are removed. PR #80 was squash-merged to `main` (merge commit `117137d7195714fe1c5f3c3027179bf240056358`). GitHub Actions run #41200560038 passed: JavaScript syntax checks and all 138 regression tests passed. GitHub Pages deployment and live browser rendering remain unverified in this session; owner should confirm the published text-only workspace.

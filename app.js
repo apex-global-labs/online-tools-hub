@@ -62,12 +62,10 @@ const tools = [
 {id:"imagepdf",name:"Image to PDF",category:"Utilities",icon:"🖼️",description:"Convert multiple JPG, JPEG and PNG images into one PDF with page settings."},
 {id:"iptools",name:"IP Address Finder & Lookup",category:"Utilities",icon:"◎",description:"Find your public IP or look up public IP geolocation and network details."},
 {id:"urlshortener",name:"URL Shortener",category:"Utilities",icon:"🔗",description:"Turn long website addresses into short, shareable links with an optional custom alias."},
-{id:"docfix",name:"Bangla & English Text Formatter",category:"Text",icon:"📝",description:"Clean Bangla and English text spacing and separate joined Bengali words."},
-{id:"bijoyunicode",name:"Unicode ⇄ Bijoy Converter",category:"Text",icon:"⇄",description:"Convert Bangla text between Unicode and Bijoy ANSI in two side-by-side editors."}
 ];
 
 // Curated general-demand order (not first-party usage analytics).
-const popularityOrder=["qr","docfix","bijoyunicode","pdfmerge","pdfsplitter","imagepdf","imagecompress","imageresize","counter","json","password","imagecrop","imageformat","base64","urlshortener","url","unit","percentage","age","color","case","slug","markdown","csvjson","uuid","image64","base64image","forexcalc","emi","compound","timezone","iptools","diff","meta","sha256","duplines","whitespace","timestamp","htmlentities","loremipsum","area","land","numberwords","robots","sitemap","gradient"];
+const popularityOrder=["qr","pdfmerge","pdfsplitter","imagepdf","imagecompress","imageresize","counter","json","password","imagecrop","imageformat","base64","urlshortener","url","unit","percentage","age","color","case","slug","markdown","csvjson","uuid","image64","base64image","forexcalc","emi","compound","timezone","iptools","diff","meta","sha256","duplines","whitespace","timestamp","htmlentities","loremipsum","area","land","numberwords","robots","sitemap","gradient"];
 const popularityTierById=Object.fromEntries(popularityOrder.map((id,index)=>[id,index<7?"Hot":index<17?"High":index<30?"Medium":"Normal"]));
 tools.sort((a,b)=>popularityOrder.indexOf(a.id)-popularityOrder.indexOf(b.id));
 function getPopularityTier(id){return popularityTierById[id]||"Normal";}
@@ -299,7 +297,6 @@ function openTool(id,updateHistory=true){
  panel.innerHTML='<div class="workspace-main-card">'+toolMarkup(id)+'<div class="actions universal-tool-actions" aria-label="Common tool actions"><button id="universalCopy" type="button" class="btn-secondary">Copy result</button><button id="universalDownload" type="button" class="btn-secondary">Download result</button><button id="universalClear" type="button" class="btn-secondary">Clear</button></div></div>';
  wireTool(id);
  wireUniversalActions(id);
- if(id==="docfix")window.ToolNestDocFix?.init();
  if(updateHistory){
   const slug=meta.slug;
   const nextHash=slug?`#/tools/${slug}`:`#tool/${id}`;
@@ -318,7 +315,6 @@ function wireUniversalActions(id){
   return "";
  };
  bind("universalCopy",()=>{
-  if(id==="bijoyunicode"){window.ToolNestBijoyConverter?.copyLatest();return;}
   if(id==="pdfmerge"){message("PDF files are documents; use the Download Merged PDF button after merging.");return;}
   if(id==="pdfsplitter"){message("Select pages and split them before downloading PDF files.");return;}
   if(id==="imagepdf"){message("Image to PDF creates a document; use Download PDF after creating it.");return;}
@@ -336,7 +332,6 @@ function wireUniversalActions(id){
   navigator.clipboard.writeText(text).then(()=>message("Copied to clipboard.")).catch(()=>message("Clipboard access was blocked. Select and copy the result manually.","error"));
  });
  bind("universalDownload",()=>{
-  if(id==="bijoyunicode"){window.ToolNestBijoyConverter?.downloadLatest();return;}
   if(id==="pdfmerge"){ $("#pdfMergeDownload")?.click(); return; }
   if(id==="pdfsplitter"){ $("#pdfSplitDownload")?.click(); return; }
   if(id==="imagepdf"){ $("#imagePdfDownload")?.click(); return; }
@@ -363,12 +358,10 @@ function wireUniversalActions(id){
   message("Result downloaded as a text file.");
  });
  bind("universalClear",()=>{
-  if(id==="bijoyunicode"){window.ToolNestBijoyConverter?.clear();message("Tool cleared.");return;}
   // QR Studio keeps artwork and render state in local variables; use its own reset handler.
   if(id==="pdfmerge"){ $("#pdfMergeClear")?.click(); return; }
   if(id==="pdfsplitter"){ $("#pdfSplitClear")?.click(); return; }
   if(id==="imagepdf"){ $("#imagePdfClear")?.click(); return; }
-  if(id==="docfix"){window.ToolNestDocFix?.clear();message("Tool cleared.");return;}
   if(id==="urlshortener"){ window.ToolNestUrlShortener?.clear(); message("Tool cleared."); return; }
   if(id==="qr"){ $("#qrClear")?.click(); return; }
   if(id==="imageresize"||id==="imagecompress"){ $("#clearImage")?.click(); return; }
@@ -446,8 +439,6 @@ function toolMarkup(id){
  <div class="actions qr-download-actions"><button type="button" class="btn-primary" id="generate">Generate QR</button><button type="button" class="btn-primary" id="qrDownloadPng">Download PNG</button><button type="button" class="btn-secondary" id="qrDownloadSvg">Download SVG</button><button type="button" class="btn-secondary" id="qrClear">Clear</button></div><p id="qrStatus" class="qr-status" role="status" aria-live="polite"></p>
 </div>`);
 
-  case "docfix":return form(`<div class="docfix-tool"><div class="docfix-intro"><span class="docfix-kicker">TOOLNEST TEXT STUDIO</span><h3>Bangla &amp; English Text Formatter</h3><p>Clean Bangla and English text, fix spacing and punctuation, and separate joined Bengali words with a local dictionary.</p></div><section class="docfix-panel"><label class="field-label" for="docFixSource">Paste Bangla or English Unicode text</label><textarea class="field docfix-textarea" id="docFixSource" rows="10" placeholder="বাংলা অথবা English লেখা এখানে পেস্ট করুন..."></textarea><div class="docfix-options"><label><input id="docFixSpaces" type="checkbox" checked> Normalize repeated spaces and tabs</label><label><input id="docFixPunctuation" type="checkbox" checked> Fix spacing around punctuation</label><label><input id="docFixCamel" type="checkbox" checked> Separate English camelCase words</label><label><input id="docFixBanglaSpacing" type="checkbox" checked> Separate joined Bangla words using dictionary</label><label><input id="docFixBlankLines" type="checkbox"> Reduce 3+ blank lines to 2</label></div><div class="actions"><button type="button" class="btn-primary" id="docFixRunText">Fix Text</button><button type="button" class="btn-secondary" id="docFixCopyText">Copy Fixed Text</button></div><p class="docfix-privacy">Supports Bangla and English text cleanup only. For Bijoy ANSI ↔ Unicode conversion, use the separate Unicode ⇄ Bijoy Converter tool.</p></section><div class="docfix-status" id="docFixStatus" role="status" aria-live="polite">Ready. Paste Bangla or English text to begin.</div>${out()}<p class="docfix-privacy"><strong>Privacy:</strong> Text is processed locally in this browser and is not uploaded to ToolNest. The Bengali word list is included locally.</p></div>`);
-  case "bijoyunicode":return form(`<div class="bijoy-converter"><div class="bijoy-converter-intro"><span class="docfix-kicker">TOOLNEST BANGLA CONVERTER</span><h3>Unicode ⇄ Bijoy Converter</h3><p>Convert Bangla text in either direction. Paste text into either editor, choose the matching conversion button, and review the result in the opposite editor.</p></div><div class="bijoy-editor-grid"><section class="bijoy-editor-card"><div class="bijoy-editor-heading"><div><h4>Unicode বাংলা</h4><p>UTF-8 · Web, Facebook, mobile</p></div><span class="bijoy-format-tag">UNICODE</span></div><textarea class="field bijoy-editor bijoy-unicode" id="bijoyUnicodeInput" rows="12" placeholder="ইউনিকোড বাংলা লেখা এখানে পেস্ট করুন..."></textarea><div class="bijoy-editor-meta"><span id="bijoyUnicodeCount">0 characters</span><span>Unicode text</span></div><div class="bijoy-editor-actions"><button type="button" class="btn-secondary" id="copyUnicode">Copy</button><button type="button" class="btn-secondary" id="clearUnicode">Clear</button></div></section><section class="bijoy-editor-card"><div class="bijoy-editor-heading"><div><h4>Bijoy (SutonnyMJ)</h4><p>ANSI · Legacy print workflow</p></div><span class="bijoy-format-tag bijoy-tag">BIJOY ANSI</span></div><textarea class="field bijoy-editor bijoy-ansi" id="bijoyAnsiInput" rows="12" placeholder="বিজয় ANSI লেখা এখানে পেস্ট করুন..."></textarea><div class="bijoy-editor-meta"><span id="bijoyAnsiCount">0 characters</span><span>SutonnyMJ font recommended</span></div><div class="bijoy-editor-actions"><button type="button" class="btn-secondary" id="copyBijoy">Copy</button><button type="button" class="btn-secondary" id="clearBijoy">Clear</button></div></section></div><div class="bijoy-convert-controls"><button type="button" class="btn-primary" id="convertUnicodeToBijoy">Unicode → Bijoy <span aria-hidden="true">↓</span></button><button type="button" class="btn-secondary bijoy-swap" id="swapBijoyText" aria-label="Swap text between editors" title="Swap text between editors">⇄</button><button type="button" class="btn-primary" id="convertBijoyToUnicode">Bijoy → Unicode <span aria-hidden="true">↑</span></button></div><div class="bijoy-bottom-actions"><button type="button" class="btn-secondary" id="downloadUnicode">Download Unicode TXT</button><button type="button" class="btn-secondary" id="downloadBijoy">Download Bijoy TXT</button><button type="button" class="btn-secondary" id="clearBothBijoy">Clear Both</button></div><p id="bijoyConverterStatus" class="bijoy-converter-status" role="status" aria-live="polite">Ready. Paste Bangla text into either box to begin.</p><div class="bijoy-font-note"><strong>Note:</strong> Bijoy ANSI output may look like Latin characters unless a compatible SutonnyMJ font is installed and selected. Unicode text is recommended for websites, social media and mobile devices.</div><p class="docfix-privacy"><strong>Privacy:</strong> Conversion runs in your browser. Your text is not uploaded to ToolNest. The conversion engine loads from a public CDN when first used.</p></div>`);
  case "urlshortener":return form(`
 <div class="url-shortener-tool">
  <div class="url-shortener-intro"><span class="url-shortener-kicker">FREE LINK TOOL</span><h3>Shorten a long URL</h3><p>Create a shareable short link using a free external service. ToolNest does not host the redirect.</p></div>
@@ -566,8 +557,6 @@ function csvCell(value){
 function wireTool(id){
  const src=()=>$("#sourceText")?.value??"";
  switch(id){
- case "docfix": { window.ToolNestDocFix?.init(); break; }
- case "bijoyunicode": { window.ToolNestBijoyConverter?.init(); break; }
  case "urlshortener": {
   window.ToolNestUrlShortener?.init();
   bind("copy",()=>copyOutput());

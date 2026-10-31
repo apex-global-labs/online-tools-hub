@@ -109,8 +109,6 @@ Google recommends descriptive, concise titles, useful people-first content, anti
 | Loan instalment estimates | [EMI / Loan Calculator](https://apex-global-labs.github.io/online-tools-hub/tools/emi-loan-calculator/) | Compound Interest Calculator; Percentage Calculator |
 | Compound growth estimates | [Compound Interest Calculator](https://apex-global-labs.github.io/online-tools-hub/tools/compound-interest-calculator/) | EMI / Loan Calculator |
 
-| 45 | Bangla & English Text Formatter | **Bangla English text formatter** | Bangla text cleaner; English text formatter; joined Bangla word separator | how to clean Bangla and English text; separate joined Bengali words with a dictionary | Informational / tool use | P2 | Explain dictionary-backed Bangla word segmentation and conservative handling of unknown words. | [docfix-pro](https://apex-global-labs.github.io/online-tools-hub/tools/docfix-pro/) |
-| 46 | Unicode ⇄ Bijoy Converter | **Unicode to Bijoy converter** | Bijoy to Unicode converter; Bangla ANSI converter; SutonnyMJ text converter | convert Bangla Unicode text to Bijoy ANSI; convert Bijoy ANSI text to Unicode | Transactional / tool use | P2 | Explain both conversion directions, legacy ANSI font requirements, and checking converted text. | [unicode-bijoy-converter](https://apex-global-labs.github.io/online-tools-hub/tools/unicode-bijoy-converter/) |
 
 ## Recommended on-page implementation
 

@@ -1,3 +1,0 @@
-Bengali word list: https://github.com/Sanjidh090/bangla-wordlist
-The source repository states that the word list is released under the Unlicense (public-domain dedication).
-Included in ToolNest for local Bengali word segmentation. Source data is provided as-is.
