@@ -8,8 +8,8 @@ const renderer = readFileSync(new URL("../js/seo-content.js", import.meta.url), 
 const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const css = readFileSync(new URL("../css/phase6-seo-content.css", import.meta.url), "utf8");
 
-test("all 49 tools have complete, tool-specific SEO content", () => {
-  assert.equal(metadata.length, 49);
+test("all 54 tools have complete, tool-specific SEO content", () => {
+  assert.equal(metadata.length, 54);
   const catalogueStart = app.indexOf("const tools = [");
   const catalogueEnd = app.indexOf("\n];", catalogueStart);
   const catalogue = [...app.slice(catalogueStart, catalogueEnd).matchAll(/\{id:"([^"]+)",name:"([^"]+)"/g)];

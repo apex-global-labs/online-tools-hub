@@ -6,13 +6,13 @@ const map = readFileSync(new URL("../SEO_KEYWORD_MAP.md", import.meta.url), "utf
 const tools = JSON.parse(readFileSync(new URL("../js/tools-data.json", import.meta.url), "utf8"));
 const site = "https://apex-global-labs.github.io/online-tools-hub/";
 
-test("Phase 5 map assigns one unique primary keyword and exact guide URL to all 49 tools", () => {
+test("Phase 5 map assigns one unique primary keyword and exact guide URL to all 54 tools", () => {
   const rows = [...map.matchAll(/^\| (\d+) \| ([^|]+) \| \*\*([^*]+)\*\* \|.*?\| \[([^\]]+)\]\(([^)]+)\) \|$/gm)];
-  assert.equal(tools.length, 49);
-  assert.equal(rows.length, 49, "keyword map must contain exactly 49 tool rows");
-  assert.equal(new Set(rows.map((row) => row[3].trim().toLowerCase())).size, 49,
+  assert.equal(tools.length, 54);
+  assert.equal(rows.length, 54, "keyword map must contain exactly 54 tool rows");
+  assert.equal(new Set(rows.map((row) => row[3].trim().toLowerCase())).size, 54,
     "each tool must have a distinct primary keyword");
-  assert.equal(new Set(rows.map((row) => row[5])).size, 49,
+  assert.equal(new Set(rows.map((row) => row[5])).size, 54,
     "each tool must own a unique target URL");
   for (const row of rows) {
     const tool = tools.find((item) => item.title === row[2].trim());
