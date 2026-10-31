@@ -4,14 +4,16 @@ Last updated: 2026-10-31
 
 > **Authoritative status:** This top section reflects the current verified repository state. Older phase notes below are historical records and must not override this status.
 
-## DocFix Pro — Bangla spacing and Bijoy/Unicode upgrade (in progress)
+## DocFix Pro — Bangla spacing and Bijoy/Unicode upgrade (merged and deployed)
 
-- Branch: feature/docfix-bangla-spacing-bijoy.
-- Bundled a 454,650-entry Bengali word list sourced from Sanjidh090/bangla-wordlist; the source repository states that its list is released under the Unlicense/public-domain dedication.
-- Added conservative dictionary segmentation, explicit regression corrections for the supplied sample, two-way Bijoy ANSI ↔ Unicode conversion through the MIT-licensed unicode2ascii@1.1.0 package loaded on demand from esm.sh, and DOCX text-run conversion controls.
-- Bijoy output is legacy ANSI and needs a compatible SutonnyMJ font to display as Bengali; the font itself is not bundled.
-- Unknown or ambiguous joined strings are left unchanged. DOCX conversion updates text runs and font declarations; real-world DOCX samples still require manual verification in Word.
-- Do not mark complete until CI passes and the exact sample, real Bijoy fixture, and DOCX cases are verified.
+- PR #77 merged into main at production commit `6badc083a31e1e7a1bf27ab0d1fdb74d49748da1` on 2026-10-31.
+- Added a bundled 454,650-entry Bengali word list sourced from Sanjidh090/bangla-wordlist (the source repository states Unlicense/public-domain dedication) for local dictionary-backed segmentation.
+- Added curated corrections and a full regression test for the exact joined-word sentence supplied by the owner; unknown or ambiguous joined strings are left unchanged rather than split speculatively.
+- Added two-way Bijoy ANSI ↔ Unicode conversion using the MIT-licensed `unicode2ascii@1.1.0` package, loaded from esm.sh only when conversion is requested.
+- Text and DOCX modes expose cleanup and encoding conversion. DOCX conversion updates text runs and their font declarations while retaining the surrounding Word XML structure; test real files in Word before relying on a converted document.
+- Bijoy output is legacy ANSI. Correct visual rendering requires a compatible SutonnyMJ font; ToolNest does not bundle a font with uncertain redistribution rights. Unicode output is standard Bangla text.
+- CI regression run `41196624664` passed 139/139 tests; post-merge main regression run `41196678558` passed; GitHub Pages deployment run `41196678256` succeeded.
+- The CI test covers the exact sample, dictionary segmentation behavior, both conversion directions through a deterministic injected engine, and DOCX XML structure. A live browser round-trip against the external converter CDN and manual Word-file validation were not independently performed.
 
 ## Repository and production baseline
 
