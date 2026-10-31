@@ -3,7 +3,7 @@ export function sortLines(text,mode="az",ignoreCase=true,keepBlank=true){
  const lines=String(text).replace(/\r\n?/g,"\n").split("\n");
  const blanks=keepBlank?lines.filter(x=>!x.trim()):[];
  const values=lines.filter(x=>keepBlank||x.trim());
- const collator=new Intl.Collator(undefined,{numeric:mode==="numeric",sensitivity:ignoreCase?"base":"variant"});
+ const collator=new Intl.Collator(undefined,{numeric:mode==="numeric"||mode==="numeric-desc",sensitivity:ignoreCase?"base":"variant"});
  if(mode==="za"||mode==="numeric-desc")values.sort((a,b)=>-collator.compare(a,b));
  else values.sort((a,b)=>collator.compare(a,b));
  if(keepBlank){let i=0;return lines.map(x=>x.trim()?values.shift():x).join("\n");}
