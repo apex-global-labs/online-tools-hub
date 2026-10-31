@@ -66,7 +66,8 @@ test("opening and closing a tool toggle workspace visibility without inline scro
   assert.match(app, /workspace\.classList\.remove\("hidden"\)/);
   assert.match(app, /workspace\.classList\.add\("hidden"\)/);
   assert.doesNotMatch(app, /document\.body\.style\.overflow\s*=\s*["']hidden["']/);
-});\n
+});
+
 test("SEO guide is a full-width grid row below the sidebar and tool controls", async () => {
   const seoScript = await readFile(new URL("../js/seo-content.js", import.meta.url), "utf8");
   assert.match(seoScript, /workspace\.appendChild\(section\)/);
