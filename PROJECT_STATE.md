@@ -9,25 +9,24 @@ Last updated: 2026-10-31
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Latest verified production commit: `ffa23bfadb096e10f19982799cb2f2f1589f56cf` (catalogue baseline sync).
-- Catalogue: **54 unique tools**, **54 individual SEO guide pages**, and **56 sitemap URLs** (homepage + directory + 54 guides).
-- Latest regression workflow #455 passed **150 tests, 150 passed, 0 failed**, including JavaScript syntax checks.
+- Latest production commit after Phase C0 merge: `bb142624c26aae95fefe4778a1d5f4ace8ca6442` (Phase C0 catalogue/documentation cleanup).
+- Catalogue after Phase C1/C2 target: **55 unique tools**, **55 individual SEO guide pages**, and **57 sitemap URLs** (homepage + directory + 55 guides).
+- Phase C0 merge regression workflow #458 passed all regression tests and JavaScript syntax checks. GitHub Pages deployment #135 completed successfully.
 - Latest GitHub Pages deployment workflow #134 completed successfully.
 - The owner reports that Phase A and Phase B browser checks were successful. This is owner-reported QA; CI and deployment results are recorded separately.
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
 - No paid service or ToolNest backend is used. Some tools rely on third-party browser libraries or public APIs.
 - `app.js`, `js/tools-data.json`, `tools/index.html`, individual guide pages and `sitemap.xml` must remain synchronized.
 
-## Phase C0 — Catalogue and documentation cleanup (in progress; not merged)
+## Phase C0 — Catalogue and documentation cleanup (merged and deployed)
 
 - Feature branch: `feature/phase-c0-catalogue-docs-cleanup`.
 - Scope: remove duplicate Phase B2 links from the tool-guide directory, remove the retired Universal Doc Formatter entry from README, and add regression coverage for directory uniqueness and retired-tool documentation.
 - SEO keyword map audit found all 54 active slugs represented in its 54 primary-keyword rows; repeated URLs in its keyword-ownership cross-reference table are intentional. No SEO keyword-map rewrite is required.
-- PR #92: https://github.com/apex-global-labs/online-tools-hub/pull/92 (open; not merged).
-- PR regression workflow #456 passed **152 tests, 152 passed, 0 failed**, including the JavaScript syntax-check step.
+- PR #92: https://github.com/apex-global-labs/online-tools-hub/pull/92 was squash-merged at `bb142624c26aae95fefe4778a1d5f4ace8ca6442`.
+- PR regression workflow #457 passed 152/152 tests. Post-merge main workflow #458 passed, and Pages deployment #135 succeeded.
 - The directory now contains exactly 54 links for 54 unique active slugs. README no longer advertises the retired Universal Doc Formatter.
-- No production changes have been made. Merge and production release require explicit owner approval.
-- Merge and production release require explicit owner approval.
+- Phase C0 changes are now in production after the owner approved the merge. The duplicated directory entries are removed and README no longer advertises the retired formatter.
 
 ## Phase A — Three PDF utilities added (merged and deployed; owner-reported browser QA successful)
 
@@ -501,3 +500,13 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - Individual crawlable tool pages and their sitemap entries remain Phase 3 work. Do not add hash-fragment URLs to the sitemap.
 - CI and PR review are pending. No production deployment has occurred from this branch.
 
+
+
+## Phase C1 + C2 — PDF Page Organizer UX and PDF Images Extractor
+
+- Owner authorized both phases together, including merge permission.
+- Phase C1 upgrades PDF Page Organizer with page thumbnails, desktop drag-and-drop reordering, accessible move-up/move-down controls for mobile, editable page order and existing global rotation. Files remain local; limits: 30 MB / 300 pages.
+- Phase C2 adds PDF Images Extractor for supported embedded raster image objects, preview cards, individual downloads and ZIP export. It is not OCR and does not promise extraction of every unusual image mask/encoding. Limits: 25 MB / 200 pages.
+- PDF.js 3.11.174, pdf-lib 1.17.1 and JSZip 3.10.1 load from public CDNs on demand; no backend, upload endpoint or paid service is introduced.
+- Catalogue metadata, app workspace wiring, standalone SEO guide, directory, sitemap, README, syntax workflow and regression tests are updated together.
+- Branch: `feature/phase-c1-c2-pdf-tools`. Implementation and CI/deployment verification pending; do not mark complete until tests and Pages deployment pass.

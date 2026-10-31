@@ -1832,14 +1832,14 @@
     "description": "Reorder PDF pages and rotate pages locally in your browser.",
     "tagline": "Arrange PDF pages in the order you need",
     "seo": {
-      "description": "Reorder PDF pages and rotate every page before downloading an updated PDF. Files are processed locally in your browser.",
+      "description": "Reorder PDF pages with visual thumbnails and drag-and-drop, then rotate pages and download the updated PDF. Files stay in your browser.",
       "steps": [
         "Choose a PDF file up to 30 MB and 300 pages.",
-        "Edit the page order using comma-separated page numbers, such as 3,1,2.",
+        "Drag page thumbnails into the desired order, use the move buttons on mobile, or edit the comma-separated page sequence.",
         "Choose an optional rotation and download the organized PDF."
       ],
       "features": [
-        "Reorders every page using a complete page sequence.",
+        "Reorders every page with visual thumbnails, drag-and-drop and mobile-friendly move controls.",
         "Rotates all pages by 90, 180 or 270 degrees.",
         "Processes the document locally with pdf-lib."
       ],
@@ -1850,7 +1850,7 @@
         },
         {
           "question": "Can I omit pages?",
-          "answer": "This first version requires every page exactly once. Use the existing PDF Splitter if you need to extract selected pages."
+          "answer": "Every page must appear exactly once in the final order. Use PDF Splitter to extract selected pages."
         },
         {
           "question": "What are the limits?",
@@ -2006,6 +2006,44 @@
         }
       ],
       "tips": "Keep a copy of the original XML before making structural edits."
+    }
+  },
+  {
+    "id": "pdfimages",
+    "title": "PDF Images Extractor",
+    "category": "Utilities",
+    "icon": "▧",
+    "slug": "pdf-images-extractor",
+    "description": "Extract supported embedded raster images from PDF pages and download them individually or as a ZIP.",
+    "tagline": "Save embedded images from PDF files",
+    "seo": {
+      "description": "Extract supported embedded raster images from PDF documents locally. Preview results and download them individually or together as a ZIP archive.",
+      "steps": [
+        "Choose a PDF file up to 25 MB and 200 pages.",
+        "Select Extract Images and wait while supported embedded images are decoded in your browser.",
+        "Preview results, download individual files or choose Download All as ZIP."
+      ],
+      "features": [
+        "Finds supported embedded raster image objects in PDF pages.",
+        "Shows extracted image previews with page and image information.",
+        "Downloads individual images or bundles them into a ZIP archive.",
+        "Processes document bytes locally in your browser."
+      ],
+      "faqs": [
+        {
+          "question": "Are my PDF files uploaded?",
+          "answer": "No. PDF parsing and image extraction run locally. PDF.js and ZIP libraries load from public CDNs when needed."
+        },
+        {
+          "question": "Will every image in every PDF be extracted?",
+          "answer": "The tool supports common embedded raster objects. Some unusual image masks, inline encodings or unsupported formats may be skipped."
+        },
+        {
+          "question": "Does it perform OCR?",
+          "answer": "No. It extracts embedded raster image objects; it does not recognize text or convert a scanned page into a new image."
+        }
+      ],
+      "tips": "Keep the original PDF. Color profiles, transparency masks and PDF-specific image transformations can affect how an extracted image appears. Byte-for-byte recovery of the original source asset is not guaranteed."
     }
   }
 ]

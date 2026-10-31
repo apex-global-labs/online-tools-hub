@@ -68,6 +68,7 @@ const tools = [
 {id:"zipmanager",name:"ZIP File Manager",category:"Utilities",icon:"▤",description:"Create ZIP archives from files or inspect and extract selected files in your browser."},
 {id:"favicongenerator",name:"Favicon Generator",category:"Image",icon:"◈",description:"Create common website favicon sizes, an ICO file and HTML icon tags from an image."},
 {id:"pdforganizer",name:"PDF Page Organizer",category:"Utilities",icon:"▤",description:"Reorder PDF pages and rotate pages locally in your browser."},
+{id:"pdfimages",name:"PDF Images Extractor",category:"Utilities",icon:"▧",description:"Extract supported embedded raster images from PDF files locally."},
 {id:"textsorter",name:"Text Sorter",category:"Text",icon:"↕",description:"Sort lines alphabetically or numerically while controlling blank lines and letter case."},
 {id:"findreplace",name:"Find & Replace",category:"Text",icon:"⌕",description:"Find text and replace one or all matches with optional case and whole-word matching."},
 {id:"jwtdecoder",name:"JWT Decoder",category:"Developer",icon:"🔐",description:"Decode JWT header and payload locally without sending tokens to a server."},
@@ -75,7 +76,7 @@ const tools = [
 ];
 
 // Curated general-demand order (not first-party usage analytics).
-const popularityOrder=["qr","pdfmerge","pdfsplitter","pdftoimage","pdftext","pdfmark","imagepdf","imagecompress","imageresize","counter","json","password","imagecrop","imageformat","base64","urlshortener","url","unit","percentage","age","color","case","slug","markdown","csvjson","uuid","image64","base64image","forexcalc","emi","compound","timezone","iptools","diff","meta","sha256","duplines","whitespace","timestamp","htmlentities","loremipsum","area","land","numberwords","robots","sitemap","gradient"];
+const popularityOrder=["qr","pdfmerge","pdfsplitter","pdftoimage","pdfimages","pdftext","pdfmark","imagepdf","imagecompress","imageresize","counter","json","password","imagecrop","imageformat","base64","urlshortener","url","unit","percentage","age","color","case","slug","markdown","csvjson","uuid","image64","base64image","forexcalc","emi","compound","timezone","iptools","diff","meta","sha256","duplines","whitespace","timestamp","htmlentities","loremipsum","area","land","numberwords","robots","sitemap","gradient"];
 const popularityTierById=Object.fromEntries(popularityOrder.map((id,index)=>[id,index<7?"Hot":index<17?"High":index<30?"Medium":"Normal"]));
 tools.sort((a,b)=>popularityOrder.indexOf(a.id)-popularityOrder.indexOf(b.id));
 function getPopularityTier(id){return popularityTierById[id]||"Normal";}
@@ -352,6 +353,7 @@ function wireUniversalActions(id){
  });
  bind("universalDownload",()=>{
   if(id==="pdforganizer"){ $("#organizePdf")?.click(); return; }
+  if(id==="pdfimages"){ window.ToolNestPhaseC?.downloadZip(); return; }
   if(id==="zipmanager"){const selected=$("#zipFiles")?.files?.length;const checked=$("#zipEntryList")?.querySelectorAll("input:checked").length;if(selected)$("#zipCreate")?.click();else if(checked)$("#zipDownloadSelected")?.click();else message("Choose source files or inspect a ZIP archive first.");return;}
   if(id==="favicongenerator"){ $("#faviconGenerate")?.click(); return; }
   if(id==="pdfmerge"){ $("#pdfMergeDownload")?.click(); return; }
@@ -384,6 +386,7 @@ function wireUniversalActions(id){
  });
  bind("universalClear",()=>{
   if(id==="pdforganizer"){ $("#clearPdfOrganizer")?.click(); return; }
+  if(id==="pdfimages"){ window.ToolNestPhaseC?.clear(); return; }
   if(id==="zipmanager"){ $("#zipClear")?.click(); return; }
   if(id==="favicongenerator"){ $("#faviconClear")?.click(); return; }
   // QR Studio keeps artwork and render state in local variables; use its own reset handler.
@@ -569,11 +572,21 @@ function toolMarkup(id){
  case "imagecompress":return form('<div><label class="field-label" for="compressFile">Choose image (PNG, JPEG or WebP; max 10 MB)</label><input class="field" id="compressFile" type="file" accept="image/png,image/jpeg,image/webp"></div>' + select("compressFormat","Output format",[["image/webp","WebP"],["image/jpeg","JPEG"]]) + '<label class="field-label" for="compressQuality">Quality: <output id="compressQualityValue">75%</output></label><input class="field" id="compressQuality" type="range" min="10" max="95" value="75"><div class="actions">' + btn("compressImage","Compress image") + btn("clearImage","Clear image",false) + '</div>' + out() + '<div id="imageResultPreview" class="image-tool-preview" hidden></div><p class="muted text-sm">Lower quality can reduce file size but may reduce image detail. Review the preview before downloading.</p>');
 
  case "pdforganizer":return form(`
- <div class="b2-tool"><p class="muted text-sm">Reorder pages by entering a complete page sequence, then optionally rotate every page. Processing stays in your browser.</p>
- <label class="field-label" for="pdfOrganizeFile">Choose PDF (max 30 MB, 300 pages)</label><input class="field" id="pdfOrganizeFile" type="file" accept="application/pdf,.pdf">
- <label class="field-label" for="pdfPageOrder">New page order (comma-separated)</label><input class="field" id="pdfPageOrder" type="text" placeholder="Example: 3,1,2">
- <label class="field-label" for="pdfRotateAll">Rotate every page</label><select class="field" id="pdfRotateAll"><option value="0">No rotation</option><option value="90">90° clockwise</option><option value="180">180°</option><option value="270">270° clockwise</option></select>
- <div class="actions">${btn("organizePdf","Organize & Download PDF")}${btn("clearPdfOrganizer","Clear",false)}</div><p id="pdfOrganizeStatus" class="b2-status" role="status" aria-live="polite">Choose a PDF to inspect its page count.</p></div>`);
+<div class="pdf-organizer-tool"><div class="pdf-organizer-intro"><strong>PDF PAGE ORGANIZER</strong><p class="muted text-sm">Preview every page. Drag thumbnails to reorder on desktop, or use move buttons on any device. Files stay in your browser.</p></div>
+<label class="field-label" for="pdfOrganizeFile">Choose PDF (max 30 MB, 300 pages)</label><input class="field" id="pdfOrganizeFile" type="file" accept="application/pdf,.pdf">
+<div class="pdf-organizer-summary" id="pdfOrganizerSummary" role="status" aria-live="polite">No PDF selected.</div>
+<label class="field-label" for="pdfPageOrder">Page order (editable; comma-separated)</label><input class="field" id="pdfPageOrder" type="text" placeholder="Example: 3,1,2" inputmode="numeric">
+<label class="field-label" for="pdfRotateAll">Rotate every page</label><select class="field" id="pdfRotateAll"><option value="0">No rotation</option><option value="90">90° clockwise</option><option value="180">180°</option><option value="270">270° clockwise</option></select>
+<div class="pdf-organizer-grid" id="pdfOrganizerPages"><p class="pdf-organizer-empty">Upload a PDF to view page thumbnails.</p></div>
+<div class="actions"><button class="btn-primary" type="button" id="organizePdf" disabled>Organize &amp; Download PDF</button><button class="btn-secondary" type="button" id="clearPdfOrganizer">Clear</button></div>
+<p id="pdfOrganizeStatus" class="b2-status" role="status" aria-live="polite">Choose a PDF to inspect its page count.</p><p class="muted text-sm">Use the arrow buttons to reorder pages on mobile. Every page is retained exactly once.</p></div>`);
+case "pdfimages":return form(`
+<div class="pdf-images-tool"><div class="pdf-images-intro"><strong>PDF IMAGES EXTRACTOR</strong><p class="muted text-sm">Extract supported embedded raster images from PDF pages and save them individually or in a ZIP. Processing stays in your browser.</p></div>
+<label class="field-label" for="pdfExtractFile">Choose PDF (max 25 MB, 200 pages)</label><input class="field" id="pdfExtractFile" type="file" accept="application/pdf,.pdf">
+<div id="pdfExtractSummary" class="pdf-images-summary" role="status" aria-live="polite">No PDF selected.</div>
+<div class="actions"><button class="btn-primary" type="button" id="pdfExtractRun" disabled>Extract Images</button><button class="btn-secondary" type="button" id="pdfExtractZip" disabled>Download All as ZIP</button><button class="btn-secondary" type="button" id="pdfExtractClear">Clear</button></div>
+<p id="pdfExtractStatus" class="b2-status" role="status" aria-live="polite">Choose a PDF to begin.</p><div id="pdfExtractResults" class="pdf-images-results"><p class="pdf-images-empty">Extracted images will appear here.</p></div>
+<p class="muted text-sm">PDF data is processed locally. PDF.js and ZIP libraries load from public CDNs when needed. Some unusual masks or unsupported image encodings may be skipped.</p></div>`);
  case "textsorter":return form(`
  ${textarea("b2Input","Lines to sort","Banana\\nApple\\nOrange")}
  ${select("sortMode","Sort order",[["az","A → Z"],["za","Z → A"],["numeric","Numeric ascending"],["numeric-desc","Numeric descending"]])}
@@ -1463,7 +1476,8 @@ function wireTool(id){
  bind("convert",convertUnit); bind("copy",()=>copyOutput());
  break;
 
- case "pdforganizer": { window.ToolNestB2?.init(id); bind("copy",()=>copyOutput()); break; }
+ case "pdforganizer": { window.ToolNestPhaseC?.init(id); bind("copy",()=>copyOutput()); break; }
+ case "pdfimages": { window.ToolNestPhaseC?.init(id); bind("copy",()=>message("Use individual image downloads or Download All as ZIP.")); break; }
  case "textsorter": { window.ToolNestB2?.init(id); bind("copy",()=>copyOutput()); break; }
  case "findreplace": { window.ToolNestB2?.init(id); bind("copy",()=>copyOutput()); break; }
  case "jwtdecoder": { window.ToolNestB2?.init(id); bind("copy",()=>copyOutput()); break; }

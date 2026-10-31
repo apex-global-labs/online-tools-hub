@@ -29,7 +29,7 @@ test("XML sitemap generator rejects empty, unsafe, fragmented and oversized inpu
   assert.throws(() => tools.buildSitemapXml(Array(501).fill("https://example.com/").join("\n")), /up to 500/);
 });
 test("CSS gradient generator creates valid linear and radial declarations", () => {
-  assert.equal(tools.buildCssGradient({type:"linear",angle:45,colorA:"#abc",colorB:"#123456"}), "linear-gradient(45deg, #ABC, #123456)");
+  assert.equal(tools.buildCssGradient({type:"linear",angle:45,colorA:"#abc",colorB:"#123457"}), "linear-gradient(45deg, #ABC, #123457)");
   assert.equal(tools.buildCssGradient({type:"radial",colorA:"#fff",colorB:"#000"}), "radial-gradient(circle, #FFF, #000)");
 });
 test("CSS gradient generator rejects unsupported types, invalid colors and angles", () => {
@@ -49,7 +49,7 @@ test("Phase 15 tools are registered with complete metadata, UI wiring and local 
     assert.match(app, new RegExp('id:"' + id + '"'));
     assert.ok(app.includes('case "' + id + '":'));
   }
-  assert.equal(metadata.length, 54);
+  assert.equal(metadata.length, 55);
   assert.match(html, /phase15-developer-seo\.js/);
   assert.match(html, /phase15-developer-seo\.css/);
 });

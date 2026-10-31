@@ -8,7 +8,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/phase2.css` — search/navigation styling, dark-mode contrast and animated sun/moon scene
 - `app.js` — tool catalogue, filters, workspace rendering, theme toggle and tool implementations
 - `js/live-search.js` — search autocomplete, keyboard navigation, category menu behavior and slash shortcut
-- `js/tools-data.json` — metadata for all 54 tools used by the modular hash router
+- `js/tools-data.json` — metadata for all 55 tools used by the modular hash router
 - `js/router.js` — route parsing/resolution
 - `js/router-bridge.js` — bridge from modular routes to the existing tool workspace
 - `css/phase10-image-tools.css` — responsive previews for the image utilities
@@ -31,7 +31,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/ip-tools.css` — responsive IP lookup results and status styling
 - `css/phase13-converters.css` — responsive styling for advanced converters
 - `tools/` — static, individually crawlable tool guide pages and the tool-guide directory
-- `sitemap.xml` — homepage, tool directory and 54 canonical tool-page URLs
+- `sitemap.xml` — homepage, tool directory and 55 canonical tool-page URLs
 - `PROJECT_STATE.md` — current status, verification notes and next-step roadmap
 
 ## Current UI features
@@ -43,7 +43,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Theme preference is saved when browser storage is available
 - Responsive layout and reduced-motion support for the decorative scene
 
-## Tool catalogue (54)
+## Tool catalogue (55)
 
 ### Text
 - Text Case Converter
@@ -111,7 +111,8 @@ A static, browser-based multi-tool website. No backend or build step is required
 
 
 ### Phase B2 additions
-- PDF Page Organizer — reorder all PDF pages and optionally rotate every page; local processing, 30 MB / 300-page limits.
+- PDF Page Organizer — reorder all pages with visual thumbnails, drag-and-drop and mobile move controls; optional global rotation; local processing, 30 MB / 300-page limits.
+- PDF Images Extractor — extract supported embedded raster image objects, preview and download individually or as ZIP; local processing, 25 MB / 200-page limits.
 - Text Sorter — alphabetical and numeric line sorting with case and blank-line options.
 - Find & Replace — first/all replacements with optional case-sensitive and whole-word matching.
 - JWT Decoder — local Base64URL header/payload decode only; no signature verification and no token upload.
@@ -119,7 +120,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 
 ## Search engine crawl files
 
-- `sitemap.xml` lists the canonical homepage, the tool-guide directory and 54 individual static tool-guide URLs. Each guide has a unique title, meta description, canonical URL, visible instructions, features, FAQs and structured data. Interactive workspaces still open through the existing hash-based app routes; hash fragments are not listed as separate pages.
+- `sitemap.xml` lists the canonical homepage, the tool-guide directory and 55 individual static tool-guide URLs. Each guide has a unique title, meta description, canonical URL, visible instructions, features, FAQs and structured data. Interactive workspaces still open through the existing hash-based app routes; hash fragments are not listed as separate pages.
 - This is a GitHub Pages project site published under `/online-tools-hub/`. A `robots.txt` stored in this repository would be served at the project subpath, not the origin root (`https://apex-global-labs.github.io/robots.txt`) where host-wide crawl rules are expected. No repository-level `robots.txt` is provided; do not describe one as present.
 - The homepage has a canonical URL plus Open Graph and Twitter title/description metadata. A social preview image is not yet configured.
 - Search engines decide independently whether and how to crawl, index, and display the site. Inclusion in a sitemap does not guarantee indexing or rankings.
@@ -134,7 +135,7 @@ Open `index.html` in a modern browser while connected to the internet. Tailwind 
 4. Wait for GitHub Pages to publish the latest commit.
 
 ## Important notes
-- Tool processing is browser-based unless a tool explicitly fetches a public reference service (the currency converter retrieves exchange-rate data, and URL Shortener sends destination URLs to Spoo.me to create redirects). Advanced PDF Merger, PDF Splitter, PDF to JPG / PNG, PDF Text Extractor, PDF Watermark & Page Number and Image to PDF process documents locally in the browser. PDF.js, pdf-lib and JSZip are loaded from public CDNs on demand. Image Resizer and Image Compressor process local images in the browser; each input is limited to 10 MB.
+- Tool processing is browser-based unless a tool explicitly fetches a public reference service (the currency converter retrieves exchange-rate data, and URL Shortener sends destination URLs to Spoo.me to create redirects). Advanced PDF Merger, PDF Splitter, PDF to JPG / PNG, PDF Text Extractor, PDF Watermark & Page Number, PDF Page Organizer, PDF Images Extractor and Image to PDF process documents locally in the browser. PDF.js, pdf-lib and JSZip are loaded from public CDNs on demand. Image Resizer and Image Compressor process local images in the browser; each input is limited to 10 MB.
 - Avoid describing every tool as fully private: the currency converter makes a network request, and external libraries are loaded from CDNs.
 - Percentage, compound-interest and EMI calculators use local formulas. The currency selectors only format the displayed amount; they do not fetch exchange rates. These calculators provide estimates, not financial advice or lender offers.
 - Tailwind's browser CDN is convenient for a prototype; a production build can later compile and pin assets locally.

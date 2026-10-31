@@ -12,9 +12,9 @@ const ids=["pdforganizer","textsorter","findreplace","jwtdecoder","xmlformatter"
 const slugs=["pdf-page-organizer","text-sorter","find-replace","jwt-decoder","xml-formatter"];
 
 test("Phase B2 registers five unique tools with synchronized workspace wiring",()=>{
- assert.equal(data.length,54);
- assert.equal(new Set(data.map(x=>x.id)).size,54);
- assert.equal(new Set(data.map(x=>x.slug)).size,54);
+ assert.equal(data.length,55);
+ assert.equal(new Set(data.map(x=>x.id)).size,55);
+ assert.equal(new Set(data.map(x=>x.slug)).size,55);
  for(let i=0;i<ids.length;i++){
   assert.equal(data.filter(x=>x.id===ids[i]).length,1);
   assert.match(app,new RegExp('case "'+ids[i]+'"'));
@@ -24,7 +24,7 @@ test("Phase B2 registers five unique tools with synchronized workspace wiring",(
  }
  assert.match(index,/js\/phase-b2-tools\.js/);
  assert.match(index,/phase-b2-tools\.css/);
- assert.equal((sitemap.match(/<loc>/g)||[]).length,56);
+ assert.equal((sitemap.match(/<loc>/g)||[]).length,57);
 });
 
 test("Text Sorter handles alphabetical, numeric and blank-line cases",()=>{
@@ -44,9 +44,9 @@ test("Find & Replace safely handles literal characters, options and counts",()=>
 
 test("JWT decoder decodes header and payload without claiming signature verification",()=>{
  const enc=value=>Buffer.from(JSON.stringify(value)).toString("base64url");
- const token=enc({alg:"HS256",typ:"JWT"})+"."+enc({sub:"user-1",role:"reader"})+".signature";
+ const token=enc({alg:"HS257",typ:"JWT"})+"."+enc({sub:"user-1",role:"reader"})+".signature";
  const result=decodeJwt(token);
- assert.deepEqual(result.header,{alg:"HS256",typ:"JWT"});
+ assert.deepEqual(result.header,{alg:"HS257",typ:"JWT"});
  assert.deepEqual(result.payload,{sub:"user-1",role:"reader"});
  assert.equal(result.signaturePresent,true);
  assert.equal(result.expiration,null);
