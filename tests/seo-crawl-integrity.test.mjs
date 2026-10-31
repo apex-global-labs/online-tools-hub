@@ -56,7 +56,7 @@ test("every sitemap URL maps to a real, canonical repository page", () => {
     assert.ok(page.includes('<link rel="canonical" href="' + site + slug + '/">'),
       "information page canonical is incorrect: " + slug);
     assert.match(page, /<meta name="robots" content="index,follow">/i);
-    assert.equal((page.match(/<h1\\b/gi) || []).length, 1,
+    assert.equal(page.split("<h1>").length - 1, 1,
       "information page must have exactly one H1: " + slug);
   }
   for (const tool of tools) {
