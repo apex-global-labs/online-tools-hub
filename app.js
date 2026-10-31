@@ -140,6 +140,7 @@ renderFeaturedCards();
 function closeTool(updateHistory=true){
  workspace.classList.add("hidden");
  document.body.classList.remove("tool-open");
+ document.body.style.removeProperty("overflow");
  activeTool=null;
  if(updateHistory&&(location.hash.startsWith("#tool/")||location.hash.startsWith("#/tools/"))) history.pushState(null,"",location.pathname+location.search);
  window.scrollTo({top:0,behavior:"smooth"});
@@ -283,6 +284,7 @@ function openTool(id,updateHistory=true){
  activeTool=tools.find(t=>t.id===id);
  if(!activeTool){showToolNotFound(id);return;}
  document.body.classList.add("tool-open");
+ document.body.style.overflow="hidden";
  $("#workspaceTitle").textContent=activeTool.name;
  $("#workspaceDescription").textContent=activeTool.description;
  $("#toolMessage").textContent="";

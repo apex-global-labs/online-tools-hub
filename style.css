@@ -464,3 +464,77 @@ body.tool-open #closeWorkspace {
     flex: 1 1 auto;
   }
 }
+
+
+/* Full-screen tool workspace: completely replaces the directory view. */
+body.tool-open {
+  overflow: hidden;
+}
+
+body.tool-open > .welcome-marquee,
+body.tool-open > header,
+body.tool-open > footer {
+  display: none !important;
+}
+
+body.tool-open #workspace {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1000 !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  max-height: 100vh !important;
+  max-height: 100dvh !important;
+  margin: 0 !important;
+  padding: clamp(18px, 3.5vw, 48px) !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  box-shadow: none !important;
+  scrollbar-gutter: stable;
+}
+
+body.tool-open #workspaceBreadcrumb,
+body.tool-open .workspace-heading,
+body.tool-open #toolPanel,
+body.tool-open #toolMessage {
+  width: min(100%, 1120px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+body.tool-open .workspace-heading {
+  gap: 20px;
+}
+
+body.tool-open #toolPanel {
+  margin-top: clamp(20px, 3vh, 32px);
+}
+
+body.tool-open .workspace-main-card {
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  body.tool-open #workspace {
+    padding: 18px 14px 28px !important;
+  }
+
+  body.tool-open .workspace-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  body.tool-open #closeWorkspace {
+    align-self: flex-start;
+  }
+}
