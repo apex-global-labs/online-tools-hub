@@ -62,7 +62,7 @@ const tools = [
 {id:"imagepdf",name:"Image to PDF",category:"Utilities",icon:"🖼️",description:"Convert multiple JPG, JPEG and PNG images into one PDF with page settings."},
 {id:"iptools",name:"IP Address Finder & Lookup",category:"Utilities",icon:"◎",description:"Find your public IP or look up public IP geolocation and network details."},
 {id:"urlshortener",name:"URL Shortener",category:"Utilities",icon:"🔗",description:"Turn long website addresses into short, shareable links with an optional custom alias."},
-{id:"docfix",name:"Universal Doc Formatter & Spacing Fixer",category:"Text",icon:"📝",description:"Clean Bangla and English text spacing, separate joined Bengali words, and convert Bijoy ANSI ↔ Unicode."}
+{id:"docfix",name:"Bangla & English Text Formatter",category:"Text",icon:"📝",description:"Clean Bangla and English text spacing, separate joined Bengali words, and convert Bijoy ANSI ↔ Unicode."}
 ];
 
 // Curated general-demand order (not first-party usage analytics).
