@@ -63,11 +63,17 @@ const tools = [
 {id:"urlshortener",name:"URL Shortener",category:"Utilities",icon:"🔗",description:"Turn long website addresses into short, shareable links with an optional custom alias."},
 ];
 
+// Curated general-demand order (not first-party usage analytics).
+const popularityOrder=["qr","pdfmerge","pdfsplitter","imagecompress","imageresize","counter","json","password","imagecrop","imageformat","base64","urlshortener","url","unit","percentage","age","color","case","slug","markdown","csvjson","uuid","image64","base64image","forexcalc","emi","compound","timezone","iptools","diff","meta","sha256","duplines","whitespace","timestamp","htmlentities","loremipsum","area","land","numberwords","robots","sitemap","gradient"];
+const popularityTierById=Object.fromEntries(popularityOrder.map((id,index)=>[id,index<7?"Hot":index<17?"High":index<30?"Medium":"Normal"]));
+tools.sort((a,b)=>popularityOrder.indexOf(a.id)-popularityOrder.indexOf(b.id));
+function getPopularityTier(id){return popularityTierById[id]||"Normal";}
+
 const $ = (s,root=document)=>root.querySelector(s);
 let cardTools = tools;
 const grid=$("#toolGrid"), panel=$("#toolPanel"), workspace=$("#workspace");
 const featuredGrid=$("#featuredToolGrid");
-const featuredToolIds=["qr","pdfmerge","imagecompress","counter","password","json","urlshortener"];
+const featuredToolIds=["qr","pdfmerge","pdfsplitter","imagecompress","imageresize","counter","json"];
 let activeCategory="All", activeTool=null;
 $("#year").textContent=new Date().getFullYear();
 
@@ -109,13 +115,13 @@ const cardTaglines={
 function renderFeaturedCards(){
  if(!featuredGrid)return;
  const featured=featuredToolIds.map(id=>cardTools.find(t=>t.id===id)).filter(Boolean);
- featuredGrid.innerHTML=featured.map(t=>'<button class="featured-tool-card" type="button" data-tool="' + escapeHtml(t.id) + '" aria-label="Open ' + escapeHtml(t.name) + '"><span class="featured-tool-icon" aria-hidden="true">' + escapeHtml(t.icon) + '</span><span class="featured-tool-copy"><strong>' + escapeHtml(t.name) + '</strong><small>' + escapeHtml(t.description) + '</small></span><span class="featured-tool-arrow" aria-hidden="true">→</span></button>').join("");
+ featuredGrid.innerHTML=featured.map(t=>'<button class="featured-tool-card" type="button" data-tool="' + escapeHtml(t.id) + '" aria-label="Open ' + escapeHtml(t.name) + '"><span class="popularity-badge popularity-' + getPopularityTier(t.id).toLowerCase() + '">' + getPopularityTier(t.id) + '</span><span class="featured-tool-icon" aria-hidden="true">' + escapeHtml(t.icon) + '</span><span class="featured-tool-copy"><strong>' + escapeHtml(t.name) + '</strong><small>' + escapeHtml(t.description) + '</small></span><span class="featured-tool-arrow" aria-hidden="true">→</span></button>').join("");
 }
 
 function renderCards(){
  const q=$("#toolSearch").value.trim().toLowerCase();
  const filtered=cardTools.filter(t=>(activeCategory==="All"||t.category===activeCategory)&&`${t.name} ${t.description} ${t.category}`.toLowerCase().includes(q));
- grid.innerHTML=filtered.map(t=>`<button class="tool-card" type="button" data-tool="${t.id}" aria-label="Open ${escapeHtml(t.name)}"><span class="iconbox" aria-hidden="true">${escapeHtml(t.icon)}</span><span class="category mt-3">${escapeHtml(t.category==="Image"?"Images":t.category==="Developer"?"Dev Tools":t.category)}</span><h3>${escapeHtml(t.name)}</h3><p>${escapeHtml(t.description)}</p><span class="card-tagline">${escapeHtml(t.tagline||cardTaglines[t.id]||"Simple tools for everyday tasks")}</span><span class="launch">Open tool <span aria-hidden="true">→</span></span></button>`).join("");
+ grid.innerHTML=filtered.map(t=>`<button class="tool-card" type="button" data-tool="${t.id}" aria-label="Open ${escapeHtml(t.name)}"><span class="popularity-badge popularity-${getPopularityTier(t.id).toLowerCase()}">${getPopularityTier(t.id)}</span><span class="iconbox" aria-hidden="true">${escapeHtml(t.icon)}</span><span class="category mt-3">${escapeHtml(t.category==="Image"?"Images":t.category==="Developer"?"Dev Tools":t.category)}</span><h3>${escapeHtml(t.name)}</h3><p>${escapeHtml(t.description)}</p><span class="card-tagline">${escapeHtml(t.tagline||cardTaglines[t.id]||"Simple tools for everyday tasks")}</span><span class="launch">Open tool <span aria-hidden="true">→</span></span></button>`).join("");
  $("#resultsCount").textContent=`Showing ${filtered.length} of ${cardTools.length} tools`;
  $("#noResults").classList.toggle("hidden",filtered.length!==0);
 }
