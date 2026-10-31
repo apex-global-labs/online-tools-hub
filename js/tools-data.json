@@ -1746,5 +1746,81 @@
       ],
       "tips": "Preview the output before sharing. Non-Latin glyph appearance depends on fonts available in the browser."
     }
+  },
+  {
+    "id": "zipmanager",
+    "title": "ZIP File Manager",
+    "category": "Utilities",
+    "icon": "▤",
+    "slug": "zip-file-manager",
+    "description": "Create ZIP archives from files or inspect and extract selected files in your browser.",
+    "tagline": "Create and extract ZIP files locally",
+    "seo": {
+      "description": "Create ZIP archives from multiple local files or inspect and extract selected files from an existing ZIP. Files are processed in your browser with practical size and entry limits.",
+      "steps": [
+        "Choose files in the Create a ZIP archive section and select Create ZIP.",
+        "To extract, choose a ZIP file and select Inspect ZIP contents.",
+        "Select the files you need and download them together as a new ZIP archive."
+      ],
+      "features": [
+        "Create a ZIP archive from up to 100 local files.",
+        "Inspect ZIP entries and select files to extract into a new archive.",
+        "Processes files locally in the browser; no ToolNest upload endpoint.",
+        "Applies file-count, per-file, archive-size and expanded-size limits."
+      ],
+      "faqs": [
+        {
+          "question": "Are my files uploaded?",
+          "answer": "No. ZIP creation and extraction happen in your browser. The ZIP library is loaded from a public CDN when needed."
+        },
+        {
+          "question": "Can I extract password-protected ZIP files?",
+          "answer": "No. Password-protected archives are not supported."
+        },
+        {
+          "question": "What are the file limits?",
+          "answer": "The tool limits source files to 100 items, 25 MB per file and 100 MB total, with a 50 MB archive limit and 100 MB expanded extraction limit."
+        }
+      ],
+      "tips": "Only open archives from sources you trust. The tool blocks unsafe archive paths and limits the number and expanded size of entries."
+    }
+  },
+  {
+    "id": "favicongenerator",
+    "title": "Favicon Generator",
+    "category": "Image",
+    "icon": "◈",
+    "slug": "favicon-generator",
+    "description": "Create common website favicon sizes, an ICO file and HTML icon tags from an image.",
+    "tagline": "Make website icons in multiple sizes",
+    "seo": {
+      "description": "Generate website favicon PNG files in common sizes, a PNG-based ICO file and ready-to-use HTML icon tags from a PNG, JPEG or WebP image. Everything is processed locally in your browser.",
+      "steps": [
+        "Upload a PNG, JPEG or WebP image no larger than 10 MB.",
+        "Choose a background color and adjust the image padding.",
+        "Select Generate & Download Icon Pack to save the PNG sizes, ICO file and HTML snippet in one ZIP."
+      ],
+      "features": [
+        "Creates 16, 32, 48, 180, 192 and 512 pixel PNG icons.",
+        "Includes a 48×48 ICO file containing PNG image data.",
+        "Adjustable background color and image padding with preview.",
+        "Generates an HTML snippet for common browser and Apple touch icons."
+      ],
+      "faqs": [
+        {
+          "question": "Which image formats are supported?",
+          "answer": "PNG, JPEG and WebP images up to 10 MB are supported."
+        },
+        {
+          "question": "What files are included?",
+          "answer": "The ZIP contains six PNG sizes, a 48×48 ICO file and an HTML snippet with common favicon link tags."
+        },
+        {
+          "question": "Are images uploaded?",
+          "answer": "No. Image resizing and icon generation happen locally in your browser."
+        }
+      ],
+      "tips": "Use a simple square source image with a clear subject. Check the generated icon at 16×16 pixels because small details may not remain visible."
+    }
   }
 ]
