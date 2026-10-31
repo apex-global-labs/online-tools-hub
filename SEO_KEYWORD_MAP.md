@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-30  
 Project: [ToolNest](https://apex-global-labs.github.io/online-tools-hub/)  
-Scope: 46 existing crawlable tool-guide pages
+Scope: 47 crawlable tool-guide pages
 
 ## Research method and confidence
 
@@ -33,7 +33,7 @@ Google recommends descriptive, concise titles, useful people-first content, anti
    - Robots.txt Generator = crawler directives; XML Sitemap Generator = URL inventory.
 6. Do not force the brand name into every keyword. Use ToolNest naturally in branding where helpful.
 
-## 46-tool keyword map
+## 47-tool keyword map
 
 | # | Tool / page | Primary keyword (one target) | Secondary keywords | Long-tail queries / FAQ angles | Search intent | Priority | Content strategy / page boundary | Target URL |
 |---:|---|---|---|---|---|---|---|---|
@@ -110,9 +110,9 @@ Google recommends descriptive, concise titles, useful people-first content, anti
 | Compound growth estimates | [Compound Interest Calculator](https://apex-global-labs.github.io/online-tools-hub/tools/compound-interest-calculator/) | EMI / Loan Calculator |
 
 
-| 45 | PDF to JPG / PNG | **convert PDF pages to JPG PNG** | PDF Splitter; Image to PDF |
-| 46 | PDF Text Extractor | **extract text from PDF** | PDF to JPG / PNG; PDF Splitter |
-| 47 | PDF Watermark & Page Number | **add watermark and page numbers to PDF** | Advanced PDF Merger; PDF Splitter |
+| 45 | PDF to JPG / PNG | **PDF to JPG converter** | convert PDF pages to PNG; PDF to image | Transactional / tool use | P1 | Explain page previews, selection, PNG/JPG, resolution and ZIP export. Keep separate from PDF Splitter, which exports PDF pages. | [pdf-to-image](https://apex-global-labs.github.io/online-tools-hub/tools/pdf-to-image/) |
+| 46 | PDF Text Extractor | **extract text from PDF** | copy text from PDF; PDF to TXT | extract selected PDF pages to text; copy PDF text online | Transactional / tool use | P1 | Explain selectable text extraction and page ranges. Clearly disclose that image-only scanned PDFs need OCR. | [pdf-text-extractor](https://apex-global-labs.github.io/online-tools-hub/tools/pdf-text-extractor/) |
+| 47 | PDF Watermark & Page Number | **add watermark to PDF** | PDF page number; PDF logo watermark | add a text watermark to selected PDF pages; number PDF pages online | Transactional / tool use | P2 | Explain text/logo overlays, opacity, page numbering and selected-page support. Do not imply digital signatures or encryption. | [pdf-watermark-page-number](https://apex-global-labs.github.io/online-tools-hub/tools/pdf-watermark-page-number/) |
 
 ## Recommended on-page implementation
 
