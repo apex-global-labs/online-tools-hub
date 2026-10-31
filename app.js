@@ -320,6 +320,7 @@ function wireUniversalActions(id){
   return "";
  };
  bind("universalCopy",()=>{
+  if(id==="zipmanager"||id==="favicongenerator"){message("Use the tool-specific controls to create or download your files.");return;}
   if(id==="pdfmerge"){message("PDF files are documents; use the Download Merged PDF button after merging.");return;}
   if(id==="pdfsplitter"){message("Select pages and split them before downloading PDF files.");return;}
   if(id==="pdftoimage"){message("Convert selected PDF pages, then use Download Images / ZIP.");return;}
@@ -340,6 +341,8 @@ function wireUniversalActions(id){
   navigator.clipboard.writeText(text).then(()=>message("Copied to clipboard.")).catch(()=>message("Clipboard access was blocked. Select and copy the result manually.","error"));
  });
  bind("universalDownload",()=>{
+  if(id==="zipmanager"){const selected=$("#zipFiles")?.files?.length;const checked=$("#zipEntryList")?.querySelectorAll("input:checked").length;if(selected)$("#zipCreate")?.click();else if(checked)$("#zipDownloadSelected")?.click();else message("Choose source files or inspect a ZIP archive first.");return;}
+  if(id==="favicongenerator"){ $("#faviconGenerate")?.click(); return; }
   if(id==="pdfmerge"){ $("#pdfMergeDownload")?.click(); return; }
   if(id==="pdfsplitter"){ $("#pdfSplitDownload")?.click(); return; }
   if(id==="pdftoimage"){window.ToolNestPdfToImage?.download();return;}
@@ -369,6 +372,8 @@ function wireUniversalActions(id){
   message("Result downloaded as a text file.");
  });
  bind("universalClear",()=>{
+  if(id==="zipmanager"){ $("#zipClear")?.click(); return; }
+  if(id==="favicongenerator"){ $("#faviconClear")?.click(); return; }
   // QR Studio keeps artwork and render state in local variables; use its own reset handler.
   if(id==="pdfmerge"){ $("#pdfMergeClear")?.click(); return; }
   if(id==="pdfsplitter"){ $("#pdfSplitClear")?.click(); return; }
