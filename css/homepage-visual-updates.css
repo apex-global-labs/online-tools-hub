@@ -59,8 +59,8 @@
 /* Keep the welcome marquee visible while the page scrolls. The site header
    sits directly beneath it so neither sticky element covers the other. */
 body > .welcome-marquee{position:sticky;top:0;z-index:40}
-body > header{top:36px}
-@media(max-width:480px){body > header{top:34px}}
+body > header.sticky{top:36px}
+@media(max-width:480px){body > header.sticky{top:34px}}
 @media(prefers-reduced-motion:reduce){
   .welcome-marquee{height:36px;min-height:36px;padding:0 12px}
   .welcome-marquee-track{padding-left:0;white-space:nowrap;animation:none}
