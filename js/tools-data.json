@@ -1631,5 +1631,44 @@
       ],
       "tips": "Use clear, correctly oriented images and check their order before creating the PDF. Each image is limited to 15 MB and 40 megapixels; a job can contain up to 20 images, 60 MB combined and 100 megapixels total. Large jobs may be limited by available device memory."
     }
+  },
+  {
+    "id": "docfix",
+    "title": "Universal Doc Formatter & Spacing Fixer",
+    "category": "Text",
+    "icon": "📝",
+    "slug": "docfix-pro",
+    "description": "Clean pasted text and repair DOCX spacing while keeping Word document structure and formatting intact.",
+    "tagline": "Repair text spacing and tidy Word documents",
+    "seo": {
+      "description": "Fix repeated spaces, tabs and punctuation spacing in pasted text or Word DOCX files. Process documents locally while preserving tables, paragraphs and formatting structure.",
+      "steps": [
+        "Choose Text Mode to paste text, select cleanup options and run Fix Text.",
+        "Choose DOCX Mode to upload a .docx Word file and select the spacing repairs to apply.",
+        "Download the corrected text or repaired DOCX file and review it in Word before sharing."
+      ],
+      "features": [
+        "Text Mode for pasted English and Bangla text.",
+        "DOCX Mode for Microsoft Word .docx documents up to 25 MB.",
+        "Conservative whitespace and punctuation cleanup with optional English camelCase splitting.",
+        "Edits Word text nodes without rebuilding tables, paragraphs or document styles.",
+        "Local browser processing; the document is not uploaded to ToolNest."
+      ],
+      "faqs": [
+        {
+          "question": "Does DocFix Pro support Bangla and English?",
+          "answer": "Yes. It preserves Unicode text and supports Bangla and English. Language-aware splitting of arbitrary joined Bangla words is not attempted."
+        },
+        {
+          "question": "Will my Word tables and formatting remain?",
+          "answer": "The DOCX mode edits text-node content inside the existing Word XML package rather than rebuilding the document. Table, paragraph, style and run elements are retained, but review the downloaded file in Word."
+        },
+        {
+          "question": "Can it automatically separate every joined word?",
+          "answer": "No. It handles repeated whitespace, punctuation spacing and optional English camelCase boundaries. Arbitrary joined words require language context."
+        }
+      ],
+      "tips": "Keep a copy of the original file. DOCX mode changes supported Word text nodes and retains the package structure; review the result in Word. Password-protected, macro-enabled .docm and legacy .doc files are not supported."
+    }
   }
 ]
