@@ -46,6 +46,7 @@
   <link rel="stylesheet" href="css/url-shortener.css?v=20261031-url1">
   <link rel="stylesheet" href="css/phase15-developer-seo.css?v=20261030-phase15">
   <link rel="stylesheet" href="css/homepage-visual-updates.css?v=20261031-home3">
+  <link rel="stylesheet" href="css/workspace-grid-layout.css?v=20261031-gridlayout1">
 </head>
 <body>
   <div class="welcome-marquee" role="region" aria-label="Welcome message"><div class="welcome-marquee-track"><span>WELCOME TO TOOLNEST</span><span aria-hidden="true">✦</span><span>Your everyday tools — simple, fast and free.</span><span aria-hidden="true">✦</span><span>Explore 44 free online tools and get things done.</span></div></div>
@@ -122,15 +123,7 @@
       <a class="btn-primary mt-4 inline-flex" href="tools/">Browse all 44 tool guides →</a>
     </section>
 
-    <section id="workspace" class="workspace mb-14 hidden rounded-3xl border border-slate-200 p-5 dark:border-slate-800 md:p-8" aria-labelledby="workspaceTitle">
-      <nav id="workspaceBreadcrumb" class="workspace-breadcrumb" aria-label="Breadcrumb"></nav>
-      <div class="workspace-heading">
-        <div><p class="eyebrow">TOOL WORKSPACE</p><h2 id="workspaceTitle" class="mt-2 text-2xl font-extrabold"></h2><p id="workspaceDescription" class="mt-2 muted"></p></div>
-        <button id="closeWorkspace" class="btn-secondary workspace-back" type="button">← All tools</button>
-      </div>
-      <div id="toolPanel" class="workspace-panel"></div>
-      <p id="toolMessage" class="mt-4 text-sm" aria-live="polite"></p>
-    </section>
+
 
     <section id="about" class="mb-14 grid gap-6 rounded-3xl bg-slate-100 p-6 dark:bg-slate-900 md:grid-cols-3 md:p-8">
       <div><div class="feature-icon">⚡</div><h3 class="mt-3 font-bold">Quick and simple</h3><p class="mt-2 text-sm muted">Straightforward interfaces for everyday tasks.</p></div>
@@ -138,6 +131,23 @@
       <div><div class="feature-icon">📱</div><h3 class="mt-3 font-bold">Works on mobile</h3><p class="mt-2 text-sm muted">A responsive layout for desktop, tablet and phone screens.</p></div>
     </section>
   </main>
+
+  <section id="workspace" class="workspace hidden" aria-labelledby="workspaceTitle">
+    <aside class="workspace-sidebar" aria-label="Tool information and navigation">
+      <a class="workspace-brand" href="./" aria-label="ToolNest home"><span class="brand-mark">T</span><span>ToolNest</span></a>
+      <nav id="workspaceBreadcrumb" class="workspace-breadcrumb" aria-label="Breadcrumb"></nav>
+      <div class="workspace-heading">
+        <p class="eyebrow">TOOL WORKSPACE</p>
+        <h2 id="workspaceTitle" class="mt-2 text-2xl font-extrabold"></h2>
+        <p id="workspaceDescription" class="mt-2 muted"></p>
+      </div>
+      <button id="closeWorkspace" class="btn-secondary workspace-back" type="button">← All tools</button>
+    </aside>
+    <main class="workspace-content" aria-label="Tool controls and results">
+      <div id="toolPanel" class="workspace-panel"></div>
+      <p id="toolMessage" class="workspace-message" aria-live="polite"></p>
+    </main>
+  </section>
 
   <div id="toastNotice" class="toolnest-toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
