@@ -8,7 +8,7 @@ const EXTRA=["টুল","বক্স","বক্সটি","পেজ","পে
 let dictPromise=null,dictSet=null,bijoyPromise=null,bijoyOverride=null;
 const norm=s=>String(s).normalize("NFC");
 async function loadDictionary(){if(dictSet)return dictSet;if(!dictPromise){dictPromise=(async()=>{const texts=await Promise.all(DICTIONARY_FILES.map(async path=>{const r=await root.fetch(new URL(path,root.document.baseURI),{cache:"force-cache"});if(!r.ok)throw Error("বাংলা অভিধান লোড করা যায়নি। পেজটি রিফ্রেশ করে আবার চেষ্টা করুন।");return r.text();}));const set=new Set(EXTRA.map(norm));for(const raw of texts)for(const line of raw.split(/\r?\n/)){const w=norm(line.trim());if(w&&/^[\u0980-\u09FF]+$/u.test(w))set.add(w);}dictSet=set;return set;})().catch(e=>{dictPromise=null;throw e;});}return dictPromise;}
-function splitJoinedWord(word,dict){const w=norm(word);if(FIXES.has(w))return FIXES.get(w);if(!dict||dict.has(w)||Array.from(w).length<8)return w;const chars=Array.from(w),n=chars.length,dp=Array(n+1).fill(null);dp[n]={parts:[],score:0};for(let i=n-1;i>=0;i--){for(let j=i+2;j<=Math.min(n,i+22);j++){const part=chars.slice(i,j).join("");if(!dict.has(part)||!dp[j]||dp[j].parts.length>=5)continue;const cand={parts:[part,...dp[j].parts],score:dp[j].score+100+(part.length===2?2:0)-part.length*.01};if(!dp[i]||cand.parts.length<dp[i].parts.length||(cand.parts.length===dp[i].parts.length&&cand.score<dp[i].score))dp[i]=cand;}}return dp[0]&&dp[0].parts.length>=2?dp[0].parts.join(" "):w;}
+function splitJoinedWord(word,dict){const w=norm(word);if(FIXES.has(w))return FIXES.get(w);if(!dict||dict.has(w)||Array.from(w).length<8)return w;const chars=Array.from(w),n=chars.length,dp=Array(n+1).fill(null);dp[n]={parts:[],score:0};for(let i=n-1;i>=0;i--){for(let j=i+2;j<=Math.min(n,i+22);j++){const part=chars.slice(i,j).join("");if(!dict.has(part)||!dp[j]||dp[j].parts.length>=12)continue;const cand={parts:[part,...dp[j].parts],score:dp[j].score+100+(part.length===2?2:0)-part.length*.01};if(!dp[i]||cand.parts.length<dp[i].parts.length||(cand.parts.length===dp[i].parts.length&&cand.score<dp[i].score))dp[i]=cand;}}return dp[0]&&dp[0].parts.length>=2?dp[0].parts.join(" "):w;}
 function splitBanglaText(text,dict){return String(text??"").replace(/[\u0980-\u09FF]+/gu,w=>splitJoinedWord(w,dict));}
 function cleanText(v,o={},dict=null){let t=String(v??"").replace(/\r\n?/g,"\n").replace(/\u00a0/g," ");if(o.banglaSpacing===true){
 const key=norm(t).replace(/\\\s*\n/g," ").replace(/\s+/g," ").trim();
@@ -18,7 +18,41 @@ return '**"গুরুত্বপূর্ণ ইউআই লেআউট ফ
 function dec(v){return v.replace(/&(#x[0-9a-f]+|#\d+|amp|lt|gt|quot|apos);/gi,(e,c)=>{if(c==="amp")return"&";if(c==="lt")return"<";if(c==="gt")return">";if(c==="quot")return'"';if(c==="apos")return"'";let n=c[1].toLowerCase()==="x"?parseInt(c.slice(2),16):parseInt(c.slice(1),10);try{return Number.isFinite(n)?String.fromCodePoint(n):e;}catch(_){return e;}});}
 function enc(v){return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&apos;");}
 function normalizeRunText(v,o={},dict=null){let t=String(v).replace(/\u00a0/g," ");if(o.spaces!==false)t=t.replace(/[ \t]{2,}/g," ");if(o.camel===true)t=t.replace(/([\p{Ll}\d])([\p{Lu}])/gu,"$1 $2");if(o.punctuation!==false){t=t.replace(/[ \t]+([,;:!?।])/g,"$1");t=t.replace(/([,;:!?।])(?=[\p{L}\p{N}])/gu,"$1 ");}if(o.banglaSpacing===true)t=splitBanglaText(t,dict);return t;}
-function transformDocxXml(xml,o={},dict=null){if(typeof xml!=="string"||!/<w:(?:document|hdr|ftr|footnotes|endnotes)\b/.test(xml))throw Error("The Word XML part is invalid or unsupported.");let changedCount=0;const out=xml.replace(/(<w:t\b[^>]*>)([\s\S]*?)(<\/w:t>)/g,(all,open,value,close)=>{const before=dec(value),after=normalizeRunText(before,o,dict);if(after===before)return all;changedCount++;let tag=open;if(/^\s|\s$/.test(after)){if(!/\bxml:space\s*=/.test(tag))tag=tag.replace(/>$/,' xml:space="preserve">');else tag=tag.replace(/\bxml:space\s*=\s*["'][^"']*["']/,'xml:space="preserve"');}else tag=tag.replace(/\s+xml:space\s*=\s*["'][^"']*["']/,"");return tag+enc(after)+close;});return{xml:out,changedCount};}
+function transformDocxParagraph(paragraph,o={},dict=null){
+const nodeRe=/(<w:t\b[^>]*>)([\s\S]*?)(<\/w:t>)/g;
+const matches=[...paragraph.matchAll(nodeRe)];
+if(!matches.length)return{xml:paragraph,changedCount:0};
+const nodes=matches.map(m=>({open:m[1],close:m[3],original:dec(m[2]),text:normalizeRunText(dec(m[2]),{...o,banglaSpacing:false},null)}));
+const chars=[],owners=[];
+for(let ni=0;ni<nodes.length;ni++){
+if(ni){const gap=paragraph.slice(matches[ni-1].index+matches[ni-1][0].length,matches[ni].index);if(/<w:(?:tab|br|cr)\b/.test(gap)){chars.push("\u0000");owners.push(null);}}
+nodes[ni].chars=Array.from(nodes[ni].text);
+for(let ci=0;ci<nodes[ni].chars.length;ci++){chars.push(nodes[ni].chars[ci]);owners.push({node:ni,index:ci});}
+}
+const joined=chars.join("");const insertions=nodes.map(()=>new Set());
+if(o.banglaSpacing===true&&dict){
+for(const match of joined.matchAll(/[\u0980-\u09FF]+/gu)){
+const token=match[0],split=splitJoinedWord(token,dict);if(split===token)continue;
+const parts=split.split(" ");if(parts.join("")!==token)continue;
+let offset=0;for(let p=0;p<parts.length-1;p++){offset+=Array.from(parts[p]).length;const owner=owners[match.index+offset-1];if(owner)insertions[owner.node].add(owner.index);}
+}
+}
+let changedCount=0;const replacements=[];
+for(let ni=0;ni<nodes.length;ni++){
+const n=nodes[ni],out=[];for(let ci=0;ci<n.chars.length;ci++){out.push(n.chars[ci]);if(insertions[ni].has(ci))out.push(" ");}
+const after=out.join("");if(after!==n.original)changedCount++;
+let tag=n.open;if(/^\s|\s$/.test(after)){if(!/\bxml:space\s*=/.test(tag))tag=tag.replace(/>$/,' xml:space="preserve">');else tag=tag.replace(/\bxml:space\s*=\s*["'][^"']*["']/,'xml:space="preserve"');}else tag=tag.replace(/\s+xml:space\s*=\s*["'][^"']*["']/,"");
+replacements.push(tag+enc(after)+n.close);
+}
+let index=0;const out=paragraph.replace(nodeRe,()=>replacements[index++]);return{xml:out,changedCount};
+}
+function transformDocxXml(xml,o={},dict=null){
+if(typeof xml!=="string"||!/<w:(?:document|hdr|ftr|footnotes|endnotes)\b/.test(xml))throw Error("The Word XML part is invalid or unsupported.");
+let changedCount=0;const paragraphRe=/<w:p\b[^>]*>[\s\S]*?<\/w:p>/g;
+let out=xml.replace(paragraphRe,paragraph=>{const r=transformDocxParagraph(paragraph,o,dict);changedCount+=r.changedCount;return r.xml;});
+if(!/<w:p\b/.test(xml)){out=xml.replace(/(<w:t\b[^>]*>)([\s\S]*?)(<\/w:t>)/g,(all,open,value,close)=>{const before=dec(value),after=normalizeRunText(before,o,dict);if(after===before)return all;changedCount++;let tag=open;if(/^\s|\s$/.test(after)){if(!/\bxml:space\s*=/.test(tag))tag=tag.replace(/>$/,' xml:space="preserve">');}else tag=tag.replace(/\s+xml:space\s*=\s*["'][^"']*["']/,"");return tag+enc(after)+close;});}
+return{xml:out,changedCount};
+}
 async function loadBijoy(){if(bijoyOverride)return bijoyOverride;if(!bijoyPromise){bijoyPromise=import("https://esm.sh/unicode2ascii@1.1.0").then(m=>{const a=m.ConvertToASCII||m.default?.ConvertToASCII,u=m.ConvertToUnicode||m.default?.ConvertToUnicode;if(typeof a!=="function"||typeof u!=="function")throw Error("Bijoy converter functions were not found.");return{toBijoy:t=>a("bijoy",t),toUnicode:t=>u("bijoy",t)};}).catch(()=>{bijoyPromise=null;throw Error("Bijoy converter could not load. Check your internet connection.");});}return bijoyPromise;}
 function setBijoyEngine(engine){bijoyOverride=engine;bijoyPromise=null;}
 async function convertText(text,mode){if(mode==="cleanup")return String(text);const e=await loadBijoy();return mode==="bijoy-to-unicode"?e.toUnicode(text):e.toBijoy(text);}
