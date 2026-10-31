@@ -2,27 +2,29 @@
 
 Last updated: 2026-10-31
 
-> **Authoritative status:** This top section reflects the verified repository state. Older implementation notes are retained below as historical context and must not override this status.
+> **Authoritative status:** This top section reflects the current verified repository state. Older phase notes below are historical records and must not override this status.
 
 ## Repository and production baseline
 
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Current verified production baseline after Phase 8B PDF Splitter: `6f63d13955aaff18f84c0ecd60b215e6276f5286`
-- Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no backend or application build step.
-- Catalogue: **42 unique tools**; `app.js` and `js/tools-data.json` are synchronized.
-- No paid service or backend is used. Advanced PDF Merger and PDF Splitter use browser-side `pdf-lib`; PDF Splitter loads JSZip from a public CDN only when multiple outputs need a ZIP.
+- Current production baseline after Phase 8C Free URL Shortener: `5d2293eca435def260a5102519c61eb602f6b65f`
+- Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
+- Catalogue: **43 unique tools**, **43 individual SEO guide pages**, and **45 sitemap URLs** (homepage + directory + 43 guides).
+- `app.js`, `js/tools-data.json`, the tool-guide directory and sitemap are expected to remain synchronized.
+- No paid service or ToolNest backend is used. Some tools rely on third-party browser libraries or public APIs.
 
+## Phase 8C — Free URL Shortener (merged and deployed)
 
-## Phase 8C — Free URL Shortener (implementation branch; not yet released)
-
-- Feature branch: `feature/free-url-shortener`, based on the current `main` commit `37ac0cb4007a47d0fc176356a3b186fa825debe5`.
-- Adds a 43rd tool in the proposed branch: **URL Shortener**, with an optional custom alias, short-link output, copy/open actions, URL validation and a clear action.
+- PR #55 was squash-merged into `main` at commit `5d2293eca435def260a5102519c61eb602f6b65f` on 2026-10-31.
+- Added the 43rd tool: **URL Shortener**, with optional custom alias, short-link output, copy/open actions, URL validation and clear action.
 - The static GitHub Pages site has no backend. Link creation is delegated directly from the visitor's browser to Spoo.me's free anonymous shortening endpoint; ToolNest does not store the submitted destination URL.
-- Spoo.me's current API v1 documents anonymous limits of 20 requests per minute and 1,000 per day. No API key is required for anonymous shortening; anonymous links are not attached to an account and cannot be managed later through the API. The service, its terms, availability and limits are controlled by the provider and may change.
+- Spoo.me's documented anonymous limits at implementation time were 20 requests per minute and 1,000 per day. No API key is required for anonymous shortening; anonymous links are not attached to an account and cannot be managed later through the API. Provider terms, limits and availability may change.
 - Short links use the provider's domain, not a ToolNest-branded domain. Own-domain redirects, link management and analytics are not included.
-- The branch includes a dedicated SEO guide, directory and sitemap entries, keyword-map row, regression tests and user-facing disclosure about third-party processing. Automated CI and live browser/API verification are pending; do not mark this feature complete or deployed yet.
+- The feature includes a dedicated SEO guide, directory and sitemap entries, keyword-map row, regression tests and user-facing third-party-processing disclosure.
+- The owner confirmed the deployed URL Shortener works. This is owner-reported live verification, not an independently repeated browser/API test in this audit.
+- GitHub Actions regression workflow run #181 completed successfully with 105 tests passing and JavaScript syntax checks passing. The CI syntax-check step was subsequently found to omit `js/url-shortener.js`; a corrective CI change is being made in the post-audit branch.
 
 ## Phase 8B — PDF Splitter (merged and deployed; live browser verification pending)
 
@@ -155,7 +157,7 @@ Last updated: 2026-10-31
 
 - `index.html`: homepage, navigation, search, tool grid and workspace.
 - `app.js`: catalogue, tool rendering, interactions and tool implementations.
-- `js/tools-data.json`: 42 tool metadata records, descriptions, routes and per-tool SEO content.
+- `js/tools-data.json`: 43 tool metadata records, descriptions, routes and per-tool SEO content.
 - `js/router.js` and `js/router-bridge.js`: modern hash routes and legacy route compatibility.
 - `js/ip-tools.js` / `css/ip-tools.css`: IP validation, special-use classification and lookup presentation.
 - `js/pdf-merge.js` / `css/pdf-merge.css`: on-demand browser-side PDF merging, page selection/order/rotation and responsive controls.
@@ -164,7 +166,7 @@ Last updated: 2026-10-31
 - `js/advanced-converters.js`, `js/finance-calculators.js`: reusable converter and calculator helpers.
 - `js/seo-content.js`: tool guides, FAQs and dynamic FAQPage JSON-LD.
 - `tests/`: Node regression tests run by GitHub Actions.
-- `tools/`: static SEO guide directory and 42 individual crawlable pages (Phase 3 deployed; Advanced PDF Merger added in Phase 8A; PDF Splitter added in Phase 8B).
+- `tools/`: static SEO guide directory and 43 individual crawlable pages (including Advanced PDF Merger, PDF Splitter and URL Shortener).
 - `sitemap.xml`: canonical homepage, directory and individual tool guide URLs; no repository-level robots file is published because this is a path-prefixed GitHub Pages project site.
 
 ## Known limitations and release cautions
