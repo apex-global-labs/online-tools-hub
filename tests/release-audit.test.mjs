@@ -50,3 +50,19 @@ test("crawl documentation accurately describes the project-site sitemap and robo
   assert.doesNotMatch(readme, /- `robots\.txt` allows public crawling/);
   assert.match(readme, /A social preview image is not yet configured/);
 });
+
+
+test("tool-guide directory contains exactly one link for every active tool slug", () => {
+  const directory = read("../tools/index.html");
+  const tools = JSON.parse(read("../js/tools-data.json"));
+  const links = [...directory.matchAll(/href="https:\/\/apex-global-labs\.github\.io\/online-tools-hub\/tools\/([^/"]+)\//g)].map((match) => match[1]);
+  assert.equal(links.length, tools.length, "directory must have exactly one guide link per active tool");
+  assert.equal(new Set(links).size, links.length, "directory must not contain duplicate guide links");
+  assert.deepEqual([...links].sort(), tools.map((tool) => tool.slug).sort(), "directory slugs must match the active catalogue");
+});
+
+test("README does not advertise permanently retired tools", () => {
+  assert.doesNotMatch(readme, /Universal Doc Formatter|DocFix Pro|Unicode.*Bijoy/i);
+  assert.match(readme, /PDF Page Organizer/);
+  assert.match(readme, /54 tools/);
+});
