@@ -1586,10 +1586,6 @@
           "answer": "No. The free integration creates links on the external provider's domain. ToolNest does not currently provide its own redirect domain or link-management dashboard."
         },
         {
-          "question": "Is URL shortening free?",
-          "answer": "The integrated provider currently offers anonymous free use (currently 20 requests per minute and 1,000 per day) subject to provider rate limits. Availability, limits and provider terms may change."
-        },
-        {
           "question": "Does ToolNest store the URLs I shorten?",
           "answer": "ToolNest does not store the submitted URL. It is sent directly from your browser to the shortening provider, which processes and stores the short link under its own policies."
         }
