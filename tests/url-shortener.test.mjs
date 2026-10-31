@@ -13,6 +13,8 @@ test("accepts public HTTP and HTTPS URLs, adding HTTPS when a scheme is omitted"
   assert.equal(normalizeUrl("http://8.8.8.8"), "http://8.8.8.8/");
   assert.equal(normalizeUrl("http://198.51.200.1"), "http://198.51.200.1/");
   assert.equal(normalizeUrl("http://192.0.1.1"), "http://192.0.1.1/");
+  assert.equal(normalizeUrl("http://192.0.0.9"), "http://192.0.0.9/");
+  assert.equal(normalizeUrl("http://192.0.0.10"), "http://192.0.0.10/");
   assert.throws(() => normalizeUrl("http://localhost."));
   assert.equal(normalizeUrl("https://[2606:4700:4700::1111]/"), "https://[2606:4700:4700::1111]/");
   assert.equal(normalizeUrl("https://[2001:4860::1]/"), "https://[2001:4860::1]/");
