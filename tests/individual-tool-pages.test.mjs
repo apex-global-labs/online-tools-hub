@@ -11,7 +11,7 @@ const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
 
 test("all 44 tools have a unique, crawlable static HTML guide", () => {
   assert.equal(tools.length, 44);
-  assert.equal(new Set(tools.map((tool) => tool.slug)).size, 43);
+  assert.equal(new Set(tools.map((tool) => tool.slug)).size, 44);
   for (const tool of tools) {
     const html = read("../tools/" + tool.slug + "/index.html");
     const url = site + "tools/" + tool.slug + "/";
