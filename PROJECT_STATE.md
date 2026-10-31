@@ -2,9 +2,31 @@
 
 Last updated: 2026-10-31
 
-> **Authoritative status:** This section reflects the current verified repository state. Older phase notes below are historical records and must not override this status.
+> **Authoritative status:** This section reflects the latest verified production baseline. Older phase notes below are historical records and must not override it.
 
-## Phase A — Three PDF utilities added (merged and deployed; real-file browser QA pending)
+## Current production baseline
+
+- Repository: https://github.com/apex-global-labs/online-tools-hub
+- Live site: https://apex-global-labs.github.io/online-tools-hub/
+- Production branch: `main`
+- Latest verified production commit: `ffa23bfadb096e10f19982799cb2f2f1589f56cf` (catalogue baseline sync).
+- Catalogue: **54 unique tools**, **54 individual SEO guide pages**, and **56 sitemap URLs** (homepage + directory + 54 guides).
+- Latest regression workflow #455 passed **150 tests, 150 passed, 0 failed**, including JavaScript syntax checks.
+- Latest GitHub Pages deployment workflow #134 completed successfully.
+- The owner reports that Phase A and Phase B browser checks were successful. This is owner-reported QA; CI and deployment results are recorded separately.
+- Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
+- No paid service or ToolNest backend is used. Some tools rely on third-party browser libraries or public APIs.
+- `app.js`, `js/tools-data.json`, `tools/index.html`, individual guide pages and `sitemap.xml` must remain synchronized.
+
+## Phase C0 — Catalogue and documentation cleanup (in progress; not merged)
+
+- Feature branch: `feature/phase-c0-catalogue-docs-cleanup`.
+- Scope: remove duplicate Phase B2 links from the tool-guide directory, remove the retired Universal Doc Formatter entry from README, and add regression coverage for directory uniqueness and retired-tool documentation.
+- SEO keyword map audit found all 54 active slugs represented in its 54 primary-keyword rows; repeated URLs in its keyword-ownership cross-reference table are intentional. No SEO keyword-map rewrite is required.
+- No production changes have been made. PR, CI and merge status will be recorded after implementation and verification.
+- Merge and production release require explicit owner approval.
+
+## Phase A — Three PDF utilities added (merged and deployed; owner-reported browser QA successful)
 
 - New tools: PDF to JPG / PNG, PDF Text Extractor, and PDF Watermark & Page Number.
 - PDF.js 3.11.174 is loaded on demand for page previews, image rendering and selectable-text extraction; pdf-lib 1.17.1 is loaded on demand for PDF modification; JSZip 3.10.1 is loaded only for multi-image downloads.
@@ -25,7 +47,7 @@ Last updated: 2026-10-31
 - Favicon Generator accepts PNG/JPEG/WebP and exports common PNG sizes, a PNG-based ICO and HTML snippet. Both tools process files locally; JSZip is loaded on demand from a public CDN.
 - CI run #415 passed 145/145 tests and syntax checks. The owner separately confirmed real Browser QA success; this is owner-reported, not an independently observed test in this session.
 
-## Phase B2 — Five core utilities (merged; CI and GitHub Pages deployment passed; browser QA pending)
+## Phase B2 — Five core utilities (merged; CI, GitHub Pages deployment and owner-reported browser QA successful)
 
 - PR #89 was squash-merged into `main` at `9cce81e28a90dd859076933d5f5bcb7a3496e7b6`.
 - Catalogue: 54 unique tools, 54 individual guide pages and 56 sitemap URLs.
@@ -36,7 +58,7 @@ Last updated: 2026-10-31
 - GitHub Actions run **41218042778** (run #445) passed **150 tests, 150 passed, 0 failed**, including JavaScript syntax checks.
 - Post-merge integration commits **8722af8** and **1e89355** connect PDF Page Organizer to universal Copy / Download / Clear actions. Commit **697b361** corrects the B2 module script to load as an ES module before `app.js`.
 - GitHub Pages build and deployment run **41218210886** (run #132) completed successfully on 2026-10-31 at 16:09:05 UTC after the latest main-branch update.
-- Real-browser PDF output and mobile checks have not been independently performed in this session. The live URL could not be fetched by the independent page reader in this session; successful Pages deployment workflow is confirmed, but visual/live-content QA remains recommended.
+- The owner confirmed successful browser checks after deployment. This is owner-reported QA, not an independently repeated browser session in this audit.
 ## Retired tools
 
 - Two Bangla text utilities have been permanently removed from the active catalogue, application workspace, router compatibility handling, dedicated assets, SEO guides, directory, sitemap and tool-specific tests.
@@ -48,7 +70,7 @@ Last updated: 2026-10-31
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Latest verified main-branch code commit: `98059f45ea6eef2bb35a85239307891c9650001e` (Phase B2 post-merge integration and status update). The preceding full-screen workspace baseline was `dbb657f9a6ad37368b5b4a151d8e7bca6d1aa930` (PR #68).
+- Latest verified main-branch code commit: `ffa23bfadb096e10f19982799cb2f2f1589f56cf` (catalogue baseline sync).
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
 - Catalogue: **54 unique tools**, **54 individual SEO guide pages**, and **56 sitemap URLs** (homepage + directory + 54 guides).
 - `app.js`, `js/tools-data.json`, the tool-guide directory and sitemap are expected to remain synchronized.
