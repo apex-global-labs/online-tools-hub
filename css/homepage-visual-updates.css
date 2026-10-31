@@ -54,3 +54,17 @@
 .dark .popularity-normal{background:#334155;color:#cbd5e1}
 .featured-tool-card .popularity-badge{top:8px;right:8px;min-height:18px;padding:3px 6px;font-size:.56rem}
 @media(max-width:480px){.tool-grid .tool-card .popularity-badge{top:9px;right:9px;padding:3px 6px;font-size:.56rem}.featured-tool-card{padding-right:58px}.featured-tool-card .popularity-badge{top:7px;right:7px}}
+
+
+/* Keep the welcome marquee visible while the page scrolls. The site header
+   sits directly beneath it so neither sticky element covers the other. */
+body > .welcome-marquee{position:sticky;top:0;z-index:40}
+body > header{top:36px}
+@media(max-width:480px){body > header{top:34px}}
+@media(prefers-reduced-motion:reduce){
+  .welcome-marquee{height:36px;min-height:36px;padding:0 12px}
+  .welcome-marquee-track{padding-left:0;white-space:nowrap;animation:none}
+}
+@media(max-width:480px) and (prefers-reduced-motion:reduce){
+  .welcome-marquee{height:34px;min-height:34px}
+}
