@@ -7,7 +7,7 @@ const tools = globalThis.ToolNestAdvanced;
 
 test("area converter uses standard square-metre factors", () => {
   assert.ok(Math.abs(tools.convertArea(1, "sqm", "sqft") - 10.7639104167) < 1e-8);
-  assert.equal(tools.convertArea(1, "acre", "sqft"), 43570);
+  assert.equal(tools.convertArea(1, "acre", "sqft"), 43560);
   assert.equal(tools.convertArea(10000, "sqm", "hectare"), 1);
 });
 
@@ -33,7 +33,7 @@ test("English number words cover zero, compound numbers, scales and decimals", (
   assert.equal(tools.numberToWords("0", "en"), "zero");
   assert.equal(tools.numberToWords("21", "en"), "twenty-one");
   assert.equal(tools.numberToWords("1001", "en"), "one thousand one");
-  assert.equal(tools.numberToWords("1234577", "en"), "one million two hundred thirty-four thousand five hundred sixty-seven");
+  assert.equal(tools.numberToWords("1234567", "en"), "one million two hundred thirty-four thousand five hundred sixty-seven");
   assert.equal(tools.numberToWords("-12.05", "en"), "minus twelve point zero five");
 });
 

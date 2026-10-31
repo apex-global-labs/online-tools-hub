@@ -1832,7 +1832,7 @@
     "description": "Reorder PDF pages and rotate pages locally in your browser.",
     "tagline": "Arrange PDF pages in the order you need",
     "seo": {
-      "description": "Reorder PDF pages using visual thumbnails and drag-and-drop controls, then rotate pages before downloading an updated PDF. Files are processed locally in your browser.",
+      "description": "Reorder PDF pages with visual thumbnails and drag-and-drop, then rotate pages and download the updated PDF. Files stay in your browser.",
       "steps": [
         "Choose a PDF file up to 30 MB and 300 pages.",
         "Drag page thumbnails into the desired order, use the move buttons on mobile, or edit the comma-separated page sequence.",
