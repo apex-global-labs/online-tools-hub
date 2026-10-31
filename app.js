@@ -146,6 +146,7 @@ featuredGrid?.addEventListener("click",e=>{const b=e.target.closest("[data-tool]
 renderFeaturedCards();
 
 function closeTool(updateHistory=true){
+ window.__toolNestCurrentZip=null;
  workspace.classList.add("hidden");
  document.body.classList.remove("tool-open");
  document.body.style.removeProperty("overflow");
@@ -289,6 +290,7 @@ function bind(id,fn){
 }
 
 function openTool(id,updateHistory=true){
+ window.__toolNestCurrentZip=null;
  activeTool=tools.find(t=>t.id===id);
  if(!activeTool){showToolNotFound(id);return;}
  document.body.classList.add("tool-open");
