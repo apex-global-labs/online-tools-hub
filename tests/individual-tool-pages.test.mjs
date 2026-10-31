@@ -9,9 +9,9 @@ const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
   "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
 }[char]));
 
-test("all 49 tools have a unique, crawlable static HTML guide", () => {
-  assert.equal(tools.length, 49);
-  assert.equal(new Set(tools.map((tool) => tool.slug)).size, 49);
+test("all 54 tools have a unique, crawlable static HTML guide", () => {
+  assert.equal(tools.length, 54);
+  assert.equal(new Set(tools.map((tool) => tool.slug)).size, 54);
   for (const tool of tools) {
     const html = read("../tools/" + tool.slug + "/index.html");
     const url = site + "tools/" + tool.slug + "/";
@@ -29,9 +29,9 @@ test("all 49 tools have a unique, crawlable static HTML guide", () => {
   }
 });
 
-test("tool guide directory links to all 49 unique guide pages", () => {
+test("tool guide directory links to all 54 unique guide pages", () => {
   const directory = read("../tools/index.html");
-  assert.ok(directory.includes("<title>All ToolNest Tool Guides - 49 Free Online Tools</title>"));
+  assert.ok(directory.includes("<title>All ToolNest Tool Guides - 54 Free Online Tools</title>"));
   for (const tool of tools) {
     assert.ok(directory.includes('href="' + site + "tools/" + tool.slug + '/"'), "directory link missing for " + tool.id);
   }
@@ -40,7 +40,7 @@ test("tool guide directory links to all 49 unique guide pages", () => {
 test("homepage links visitors and crawlers to the tool guide directory", () => {
   const html = read("../index.html");
   assert.ok(html.includes('id="tool-guides"'));
-  assert.ok(html.includes('href="tools/">Browse all 49 tool guides'));
+  assert.ok(html.includes('href="tools/">Browse all 54 tool guides'));
 });
 
 test("all tool guides use unique concise metadata and practical tool-specific tips", () => {
