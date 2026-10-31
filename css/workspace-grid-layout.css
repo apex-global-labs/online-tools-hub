@@ -1,4 +1,4 @@
-/* Full-page tool workspace: independent sidebar and scrollable content grid. */
+/* Full-page tool workspace: independent sidebar and scrollable content grid. Responsive layout revision 2. */
 body.tool-open {
   overflow: hidden;
   background: var(--bg);
