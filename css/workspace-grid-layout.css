@@ -1,37 +1,38 @@
-/* Full-page tool workspace: independent sidebar and scrollable content grid. Responsive layout revision 2. */
+/* Workspace layout: normal document flow, with a responsive two-column grid. */
 body.tool-open {
-  overflow: hidden;
   background: var(--bg);
 }
 
+/* Keep the site header in normal flow; hide only the homepage and marquee. */
 body.tool-open > .welcome-marquee,
-body.tool-open > header,
 body.tool-open > main,
 body.tool-open > footer {
   display: none !important;
 }
 
+body.tool-open > header.sticky {
+  top: 0;
+}
+
 body.tool-open > #workspace {
   position: relative;
   isolation: isolate;
-  z-index: 1;
   display: grid !important;
-  grid-template-columns: minmax(15rem, 19rem) minmax(0, 1fr);
+  grid-template-columns: minmax(16rem, 20rem) minmax(0, 1fr);
   align-items: stretch;
   gap: 0;
-  width: 100%;
-  height: 100vh;
-  height: 100dvh;
-  min-height: 0;
-  max-width: none;
-  margin: 0;
+  width: min(100%, 88rem);
+  max-width: 88rem;
+  min-height: calc(100vh - 5rem);
+  min-height: calc(100dvh - 5rem);
+  margin: 0 auto;
   padding: 0;
-  overflow: hidden;
-  border: 0;
-  border-radius: 0;
+  overflow: visible;
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
   background: var(--bg);
   color: var(--text);
-  box-shadow: none;
+  box-shadow: 0 12px 36px rgba(15, 23, 42, .06);
 }
 
 body.tool-open .workspace-sidebar {
@@ -41,10 +42,8 @@ body.tool-open .workspace-sidebar {
   gap: 1.25rem;
   min-width: 0;
   min-height: 0;
-  height: 100%;
   padding: clamp(1.25rem, 2.5vw, 2.25rem);
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: visible;
   border-right: 1px solid var(--line);
   background: var(--panel);
 }
@@ -67,8 +66,8 @@ body.tool-open .workspace-breadcrumb {
 
 body.tool-open .workspace-heading {
   display: block;
-  margin: 0;
   min-width: 0;
+  margin: 0;
 }
 
 body.tool-open #workspaceTitle {
@@ -94,12 +93,8 @@ body.tool-open #closeWorkspace {
 body.tool-open .workspace-content {
   min-width: 0;
   min-height: 0;
-  height: 100%;
   padding: clamp(1rem, 3vw, 2.75rem);
-  overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-gutter: stable;
+  overflow: visible;
   background: var(--bg);
 }
 
@@ -135,17 +130,15 @@ body.tool-open .workspace-message:empty {
 }
 
 @media (max-width: 760px) {
-  body.tool-open {
-    overflow: hidden;
-  }
-
   body.tool-open > #workspace {
-    display: grid !important;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto minmax(0, 1fr);
-    height: 100vh;
-    height: 100dvh;
-    overflow: hidden;
+    min-height: 0;
+    width: 100%;
+    margin: 0;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+    box-shadow: none;
   }
 
   body.tool-open .workspace-sidebar {
@@ -153,10 +146,8 @@ body.tool-open .workspace-message:empty {
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     gap: .5rem 1rem;
-    height: auto;
-    max-height: 42dvh;
     padding: .85rem 1rem;
-    overflow-y: auto;
+    overflow: visible;
     border-right: 0;
     border-bottom: 1px solid var(--line);
   }
@@ -206,11 +197,8 @@ body.tool-open .workspace-message:empty {
   }
 
   body.tool-open .workspace-content {
-    height: auto;
-    min-height: 0;
     padding: 1rem;
-    overflow-y: auto;
-    overscroll-behavior: contain;
+    overflow: visible;
   }
 }
 
