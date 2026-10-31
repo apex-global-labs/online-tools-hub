@@ -17,7 +17,7 @@ test("Image to PDF is registered once in the application catalogue and router me
   assert.equal((catalogue.match(/id:"imagepdf"/g) || []).length, 1);
   assert.equal(metadata.filter(tool => tool.id === "imagepdf").length, 1);
   assert.equal(metadata.find(tool => tool.id === "imagepdf").slug, "image-to-pdf");
-  assert.equal(metadata.length, 44);
+  assert.equal(metadata.length, 45);
 });
 
 test("Image to PDF workspace exposes upload, settings, ordering, preview, download and clear controls", () => {
