@@ -2017,7 +2017,7 @@
     "description": "Extract supported embedded raster images from PDF pages and download them individually or as a ZIP.",
     "tagline": "Save embedded images from PDF files",
     "seo": {
-      "description": "Extract supported embedded raster images from PDF documents locally. Preview results and download images individually or as a ZIP archive.",
+      "description": "Extract supported embedded raster images from PDF documents locally. Preview results and download them individually or together as a ZIP archive.",
       "steps": [
         "Choose a PDF file up to 25 MB and 200 pages.",
         "Select Extract Images and wait while supported embedded images are decoded in your browser.",
