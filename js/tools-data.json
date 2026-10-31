@@ -1641,7 +1641,7 @@
     "description": "Clean Bangla and English spacing, punctuation and joined Bengali words with a dictionary.",
     "tagline": "Clean and format Bangla + English text",
     "seo": {
-      "description": "Clean Bangla and English text spacing, punctuation and joined Bengali words with a bundled dictionary. Use the separate Unicode ⇄ Bijoy Converter for legacy ANSI conversion.",
+      "description": "Clean Bangla and English text, fix spacing and punctuation, and separate joined Bengali words with a local dictionary.",
       "steps": [
         "Paste Bangla or English Unicode text into the editor.",
         "Choose the cleanup options you need, such as repeated-space normalization or dictionary-based Bangla word separation.",
@@ -1664,11 +1664,7 @@
         },
         {
           "question": "Can I convert Bijoy ANSI text here?",
-          "answer": "No. This tool is for Bangla and English text cleanup. Use the separate Unicode ⇄ Bijoy Converter for Bijoy ANSI and Unicode conversion."
-        },
-        {
-          "question": "Are my texts uploaded?",
-          "answer": "No. Text cleanup and dictionary segmentation run locally in your browser."
+          "answer": "No. Use the separate Unicode ⇄ Bijoy Converter for Bijoy ANSI and Unicode conversion."
         }
       ],
       "tips": "Keep a copy of the original text before cleanup. Review ambiguous joined words before publishing or using the result in a formal document."
