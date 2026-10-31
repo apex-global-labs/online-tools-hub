@@ -21,7 +21,7 @@ Last updated: 2026-10-31
 
 - Work branch: `feature/phase-b1-zip-favicon`, based on main HEAD `321e34e0a1bbaf1d164b8973db85cbfcf22aeebf`.
 - The main branch remains at 47 tools until this branch is reviewed and merged. The development branch catalogue contains 49 unique tools, including ZIP File Manager (`zip-file-manager`) and Favicon Generator (`favicon-generator`).
-- ZIP Manager creates archives from up to 100 files, 25 MB per file and 100 MB total; generated archive limit 50 MB. ZIP inspection accepts up to 50 MB, 1,000 entries, 25 MB per extracted entry and 100 MB expanded total. Selected files are repackaged as a new ZIP. Password-protected archives are unsupported.
+- ZIP Manager creates archives from up to 100 files, 25 MB per file and 50 MB total; generated archive limit 50 MB. ZIP inspection accepts up to 50 MB, 1,000 entries, 25 MB per extracted entry and 50 MB expanded total. Selected files are repackaged as a new ZIP. Password-protected archives are unsupported.
 - Favicon Generator accepts PNG/JPEG/WebP up to 10 MB and 4,096 pixels per side. It generates 16, 32, 48, 180, 192 and 512 pixel PNGs, a 48×48 ICO with embedded PNG data, and an HTML snippet.
 - Processing is local in the browser. JSZip 3.10.1 is loaded on demand from a public CDN. No backend, paid service or upload endpoint was introduced.
 - Added dedicated modules, responsive CSS, tool metadata, workspace wiring, two SEO guide pages, directory links, sitemap entries and automated tests. The development sitemap has 51 unique URLs (homepage, directory and 49 tool guides).
