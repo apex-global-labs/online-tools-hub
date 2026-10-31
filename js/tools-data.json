@@ -1888,6 +1888,10 @@
         {
           "question": "Does numeric sorting handle 2 and 10 correctly?",
           "answer": "Yes. It uses numeric-aware locale comparison."
+        },
+        {
+          "question": "Can I sort numbers as numbers instead of text?",
+          "answer": "Yes. Choose Numeric ascending or Numeric descending to sort values such as 2 and 10 in numeric order."
         }
       ],
       "tips": "Place one item on each line for predictable results."
@@ -1921,6 +1925,10 @@
         {
           "question": "Is my text uploaded?",
           "answer": "No. Find and replace runs locally in your browser."
+        },
+        {
+          "question": "Can I replace only the first match?",
+          "answer": "Yes. Turn off Replace all matches to replace only the first occurrence."
         }
       ],
       "tips": "Review the output before copying it into an important document."
@@ -1991,6 +1999,10 @@
         {
           "question": "Is XML sent to a server?",
           "answer": "No. Validation and formatting happen in your browser."
+        },
+        {
+          "question": "Does formatting change the meaning of XML?",
+          "answer": "The formatter parses valid XML and changes its indentation for readability. It does not intentionally change element names or values."
         }
       ],
       "tips": "Keep a copy of the original XML before making structural edits."
