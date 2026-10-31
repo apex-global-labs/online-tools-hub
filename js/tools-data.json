@@ -1631,5 +1631,120 @@
       ],
       "tips": "Use clear, correctly oriented images and check their order before creating the PDF. Each image is limited to 15 MB and 40 megapixels; a job can contain up to 20 images, 60 MB combined and 100 megapixels total. Large jobs may be limited by available device memory."
     }
+  },
+  {
+    "id": "pdftoimage",
+    "title": "PDF to JPG / PNG",
+    "category": "Utilities",
+    "icon": "🖼️",
+    "slug": "pdf-to-image",
+    "description": "Convert selected PDF pages into high-quality JPG or PNG images.",
+    "tagline": "Turn PDF pages into image files",
+    "seo": {
+      "description": "Convert selected PDF pages into JPG or PNG images with page previews, page-range selection and adjustable resolution. Processing stays in your browser.",
+      "steps": [
+        "Upload a PDF and preview its pages.",
+        "Select pages or a page range, choose PNG or JPG and set resolution and quality.",
+        "Convert the selection, then download the image or ZIP archive."
+      ],
+      "features": [
+        "Page thumbnails and individual page selection.",
+        "PNG lossless output or JPG with adjustable quality.",
+        "Standard, high and very-high resolution options.",
+        "Local browser processing; no ToolNest upload endpoint."
+      ],
+      "faqs": [
+        {
+          "question": "Can I convert only selected pages?",
+          "answer": "Yes. Select page checkboxes or apply a page range before converting."
+        },
+        {
+          "question": "Can I download every page separately?",
+          "answer": "Yes. A single page downloads as an image; multiple pages are packaged into a ZIP file."
+        },
+        {
+          "question": "Are my PDF files uploaded?",
+          "answer": "No. PDF rendering and image conversion happen in your browser. PDF.js and ZIP support are loaded from public CDNs when needed."
+        }
+      ],
+      "tips": "Choose PNG for sharp text and diagrams. JPG is useful when smaller image files are more important. Large exports are limited to protect device memory."
+    }
+  },
+  {
+    "id": "pdftext",
+    "title": "PDF Text Extractor",
+    "category": "Utilities",
+    "icon": "📝",
+    "slug": "pdf-text-extractor",
+    "description": "Extract selectable text from PDF pages and save it as a text file.",
+    "tagline": "Copy text from PDF documents",
+    "seo": {
+      "description": "Extract selectable text from PDF documents in your browser. Choose all pages or a custom range, then copy the extracted text or download it as TXT.",
+      "steps": [
+        "Upload a text-based PDF file.",
+        "Choose all pages or enter a page range, then select Extract Text.",
+        "Review the extracted text, copy it or download a TXT file."
+      ],
+      "features": [
+        "Extract text from all pages or selected page ranges.",
+        "Page separators identify the source page.",
+        "Copy to clipboard and download as a UTF-8 text file.",
+        "Local processing with PDF.js; no document upload."
+      ],
+      "faqs": [
+        {
+          "question": "Does it extract text from scanned PDFs?",
+          "answer": "No. This tool reads the selectable text layer inside a PDF. Image-only scanned pages need OCR, which is not included."
+        },
+        {
+          "question": "Can I extract only a few pages?",
+          "answer": "Yes. Enter a range such as 1-3,5 or leave the field blank for all pages."
+        },
+        {
+          "question": "Are my files uploaded?",
+          "answer": "No. PDF parsing and text extraction run locally in your browser."
+        }
+      ],
+      "tips": "Image-only scans need OCR first. Password-protected or damaged PDFs may not open."
+    }
+  },
+  {
+    "id": "pdfmark",
+    "title": "PDF Watermark & Page Number",
+    "category": "Utilities",
+    "icon": "🔖",
+    "slug": "pdf-watermark-page-number",
+    "description": "Add a custom text watermark, logo and page numbers to PDF documents.",
+    "tagline": "Brand and number your PDF pages",
+    "seo": {
+      "description": "Add a custom text watermark, optional logo and page numbers to PDF files. Adjust color, opacity, size, placement and page range with local browser processing.",
+      "steps": [
+        "Upload a PDF and enter watermark text or enable page numbers.",
+        "Choose the watermark style, color, opacity, size, page range and optional logo.",
+        "Apply the changes, review the PDF preview and download the updated file."
+      ],
+      "features": [
+        "Diagonal or centered text watermark with adjustable color, size and opacity.",
+        "Optional PNG/JPG logo overlay.",
+        "Optional page numbers with a starting number and left, center or right alignment.",
+        "Apply changes to all pages or a selected page range.",
+        "Watermark text is rendered through the browser canvas using fonts available on the device."
+      ],
+      "faqs": [
+        {
+          "question": "Can I watermark selected pages only?",
+          "answer": "Yes. Enter a range such as 1-3,5. Leave the field blank to apply changes to all pages."
+        },
+        {
+          "question": "Can I add page numbers without a watermark?",
+          "answer": "Yes. Enable Add page numbers and leave the watermark text empty."
+        },
+        {
+          "question": "Are PDF files uploaded?",
+          "answer": "No. The document is modified locally in your browser using pdf-lib and canvas."
+        }
+      ],
+      "tips": "Preview the output before sharing. Non-Latin glyph appearance depends on fonts available in the browser."
+    }
   }
 ]

@@ -1,0 +1,22 @@
+/* Phase A PDF utilities */
+.pdf-phase-tool{display:grid;gap:1rem;min-width:0;max-width:100%}
+.pdf-phase-intro{padding:1rem 1.1rem;border:1px solid var(--line);border-radius:1rem;background:linear-gradient(135deg,rgba(99,102,241,.09),rgba(6,182,212,.06))}
+.pdf-phase-kicker{font-size:.72rem;font-weight:900;letter-spacing:.12em;color:#6366f1}
+.pdf-phase-upload,.pdf-phase-settings{padding:1rem;border:1px dashed #818cf8;border-radius:1rem;background:rgba(99,102,241,.035);display:grid;gap:.7rem}
+.pdf-phase-summary{font-size:.9rem;font-weight:750;color:var(--muted)}
+.pdf-phase-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}
+.pdf-phase-field{display:grid;gap:.35rem;min-width:0}.pdf-phase-field label{font-size:.85rem;font-weight:750}
+.pdf-phase-pages{display:grid;grid-template-columns:repeat(auto-fill,minmax(115px,1fr));gap:.55rem;max-height:390px;overflow:auto;padding:.15rem}
+.pdf-phase-page{display:grid;grid-template-columns:auto 1fr;gap:.45rem;align-items:center;padding:.55rem;border:1px solid var(--line);border-radius:.75rem;background:var(--panel);font-size:.85rem;font-weight:750}
+.pdf-phase-page img{grid-column:1/-1;width:100%;max-height:145px;object-fit:contain;background:#fff;border-radius:.35rem}
+.pdf-phase-page input{accent-color:#4f46e5}
+.pdf-phase-empty{padding:1.4rem;text-align:center;border:1px dashed var(--line);border-radius:.8rem;color:var(--muted)}
+.pdf-phase-actions{display:flex;gap:.55rem;flex-wrap:wrap}.pdf-phase-actions button{min-height:44px}
+.pdf-phase-status{padding:.8rem 1rem;border-radius:.75rem;background:rgba(100,116,139,.09);color:var(--muted);font-size:.9rem}
+.pdf-phase-status.is-success{background:rgba(16,185,129,.1);color:#047857}.pdf-phase-status.is-error{background:rgba(239,68,68,.09);color:#b91c1c}
+.pdf-phase-privacy{padding:.9rem 1rem;border-left:3px solid #6366f1;background:rgba(99,102,241,.06);font-size:.86rem;line-height:1.6;color:var(--muted)}
+.pdf-phase-result{width:100%;min-height:260px;resize:vertical;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.pdf-phase-preview{width:100%;height:min(70vh,720px);border:1px solid var(--line);border-radius:.8rem;background:white}
+.pdf-phase-range{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:.5rem;align-items:end}.pdf-phase-range label{grid-column:1/-1;font-size:.85rem;font-weight:750}
+.pdf-phase-checks{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}.pdf-phase-checks label{display:flex;gap:.4rem;align-items:center;font-size:.9rem}
+@media(max-width:560px){.pdf-phase-grid{grid-template-columns:1fr}.pdf-phase-range{grid-template-columns:1fr 1fr}.pdf-phase-range label,.pdf-phase-range input{grid-column:1/-1}.pdf-phase-actions button{flex:1 1 140px}}
