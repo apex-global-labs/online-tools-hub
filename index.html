@@ -36,7 +36,7 @@
   <script src="js/image-to-pdf.js?v=20261031-imagepdf1" defer></script>
   <script src="js/url-shortener.js?v=20261031-url1" defer></script>
   <script src="app.js?v=20261031-flowfix1" defer></script>
-  <script src="js/seo-content.js?v=20261031-stackedseo1" defer></script>
+  <script src="js/seo-content.js?v=20261031-outerflex1" defer></script>
   <script type="module" src="js/router-bridge.js"></script>
   <script src="js/live-search.js" defer></script>
   <link rel="stylesheet" href="css/phase14-image-tools.css?v=20261030-phase14">
@@ -46,7 +46,7 @@
   <link rel="stylesheet" href="css/url-shortener.css?v=20261031-url1">
   <link rel="stylesheet" href="css/phase15-developer-seo.css?v=20261030-phase15">
   <link rel="stylesheet" href="css/homepage-visual-updates.css?v=20261031-home3">
-  <link rel="stylesheet" href="css/workspace-grid-layout.css?v=20261031-stackedseo1">
+  <link rel="stylesheet" href="css/workspace-grid-layout.css?v=20261031-outerflex1">
 </head>
 <body>
   <div class="welcome-marquee" role="region" aria-label="Welcome message"><div class="welcome-marquee-track"><span>WELCOME TO TOOLNEST</span><span aria-hidden="true">✦</span><span>Your everyday tools — simple, fast and free.</span><span aria-hidden="true">✦</span><span>Explore 44 free online tools and get things done.</span></div></div>
@@ -133,6 +133,7 @@
   </main>
 
   <section id="workspace" class="workspace hidden" aria-labelledby="workspaceTitle">
+    <div class="workspace-main-row">
     <aside class="workspace-sidebar" aria-label="Tool information and navigation">
       <a class="workspace-brand" href="./" aria-label="ToolNest home"><span class="brand-mark">T</span><span>ToolNest</span></a>
       <nav id="workspaceBreadcrumb" class="workspace-breadcrumb" aria-label="Breadcrumb"></nav>
@@ -147,6 +148,7 @@
       <div id="toolPanel" class="workspace-panel"></div>
       <p id="toolMessage" class="workspace-message" aria-live="polite"></p>
     </main>
+    </div>
   </section>
 
   <div id="toastNotice" class="toolnest-toast" role="status" aria-live="polite" aria-atomic="true"></div>
