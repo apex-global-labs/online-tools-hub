@@ -28,7 +28,7 @@ function getBranch(source, id) {
   return source.slice(start, next < 0 ? source.length : start + marker.length + next);
 }
 
-test("catalogue and router metadata contain the same 44 unique tool IDs", () => {
+test("catalogue and router metadata contain the same 47 unique tool IDs", () => {
   assert.equal(catalogIds.length, 47);
   assert.equal(new Set(catalogIds).size, catalogIds.length);
   assert.equal(metadata.length, 47);
