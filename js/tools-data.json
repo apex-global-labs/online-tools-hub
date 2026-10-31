@@ -1643,10 +1643,9 @@
     "seo": {
       "description": "Convert selected PDF pages into JPG or PNG images with page previews, page-range selection and adjustable resolution. Processing stays in your browser.",
       "steps": [
-        "Upload a PDF file from your device.",
-        "Preview the pages and select individual pages or enter a range such as 1-3,5.",
-        "Choose PNG or JPG, set resolution, and convert the selected pages.",
-        "Download one image directly or multiple images in a ZIP file."
+        "Upload a PDF and preview its pages.",
+        "Select pages or a page range, choose PNG or JPG and set resolution and quality.",
+        "Convert the selection, then download the image or ZIP archive."
       ],
       "features": [
         "Page thumbnails and individual page selection.",
@@ -1683,9 +1682,8 @@
       "description": "Extract selectable text from PDF documents in your browser. Choose all pages or a custom range, then copy the extracted text or download it as TXT.",
       "steps": [
         "Upload a text-based PDF file.",
-        "Optionally enter a page range such as 1-5,8; leave it blank to extract all pages.",
-        "Select Extract Text and review the result in the text area.",
-        "Copy the extracted text or download a TXT file."
+        "Choose all pages or enter a page range, then select Extract Text.",
+        "Review the extracted text, copy it or download a TXT file."
       ],
       "features": [
         "Extract text from all pages or selected page ranges.",
@@ -1721,10 +1719,9 @@
     "seo": {
       "description": "Add a custom text watermark, optional logo and page numbers to PDF files. Adjust color, opacity, size, placement and page range with local browser processing.",
       "steps": [
-        "Upload a PDF file.",
-        "Enter watermark text and choose its color, opacity, size and style.",
-        "Optionally add page numbers, choose their position, or upload a small PNG/JPG logo.",
-        "Choose Apply to PDF, review the preview and download the updated document."
+        "Upload a PDF and enter watermark text or enable page numbers.",
+        "Choose the watermark style, color, opacity, size, page range and optional logo.",
+        "Apply the changes, review the PDF preview and download the updated file."
       ],
       "features": [
         "Diagonal or centered text watermark with adjustable color, size and opacity.",
