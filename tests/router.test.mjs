@@ -77,3 +77,12 @@ test("metadata HTTP errors reject route resolution", async (t) => {
   mockMetadata(t, fixture, { fail: true });
   await assert.rejects(resolveRoute("#/tools/json-formatter"), /HTTP 503/);
 });
+
+
+test("Bijoy converter direct route survives stale metadata responses", async (t) => {
+  mockMetadata(t);
+  const route = await resolveRoute("#/tools/unicode-bijoy-converter");
+  assert.equal(route.name, "tool");
+  assert.equal(route.tool.id, "bijoyunicode");
+  assert.equal(route.tool.slug, "unicode-bijoy-converter");
+});
