@@ -26,6 +26,8 @@ test("Image to PDF workspace exposes upload, settings, ordering, preview, downlo
     assert.ok(app.includes('id="' + id + '"'), "missing workspace control " + id);
   }
   assert.match(app, /window\.ToolNestImageToPdf\?\.init\(\)/);
+  assert.match(app, /if\(id==="imagepdf"\)\{message\("Image to PDF creates a document/);
+  assert.match(app, /if\(id==="imagepdf"\)\{ \$\("#imagePdfDownload"\)\?\.click\(\); return; \}/);
 });
 
 test("Image to PDF uses existing pdf-lib lazily and supports PNG and JPEG page embedding", () => {
