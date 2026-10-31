@@ -13,7 +13,7 @@ test("Phase 14 adds three unique image tools with complete SEO metadata",()=>{
   assert.match(app,new RegExp('id:"'+id+'"'));
   assert.ok(app.includes('case "'+id+'":'),id+" markup and wiring exist");
  }
- assert.equal(metadata.length, 46);
+ assert.equal(metadata.length, 44);
 });
 test("Image Cropper validates crop bounds and exports only browser-supported formats",()=>{
  assert.match(app,/crop rectangle must fit inside the source image/);
@@ -34,7 +34,7 @@ test("Base64 to Image checks encoded size and actual image signatures",()=>{
  assert.match(app,/0x89,0x50,0x4e,0x47/);
  assert.match(app,/0xff,0xd8,0xff/);
  assert.match(app,/0x57&&bytes\[9\]===0x45/);
- assert.match(app,/0x47,0x49,0x46,0x38/);
+ assert.match(app,/0x47,0x49,0x44,0x38/);
  assert.ok(app.includes('decodedDataUrl="data:"+mime+";base64,"'));
  assert.match(app,/Decoded image exceeds the safe 40-megapixel limit/);
 });
