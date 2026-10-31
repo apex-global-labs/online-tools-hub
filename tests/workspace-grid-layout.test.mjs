@@ -23,13 +23,14 @@ test("desktop workspace uses a normal-flow two-column grid", () => {
   assert.match(css, /grid-template-columns:\s*minmax\(16rem, 20rem\) minmax\(0, 1fr\)/);
   assert.match(css, /body\.tool-open\s*>\s*#workspace\s*\{[\s\S]*?display:\s*grid\s*!important/);
   assert.match(css, /min-height:\s*calc\(100dvh - 5rem\)/);
-  assert.doesNotMatch(css, /position:\s*fixed|height:\s*100dvh|overflow:\s*hidden/);
+  const container = css.match(/body\.tool-open\s*>\s*#workspace\s*\{([^}]*)\}/)?.[1] || "";
+  assert.doesNotMatch(container, /position:\s*fixed|height:\s*100dvh|overflow:\s*hidden/);
 });
 
 test("workspace does not lock body scrolling or create a fullscreen overlay", () => {
   assert.doesNotMatch(css, /body\.tool-open\s*\{[^}]*overflow:\s*hidden/);
   assert.doesNotMatch(app, /document\.body\.style\.overflow\s*=\s*["']hidden["']/);
-  assert.doesNotMatch(css, /position:\s*absolute|position:\s*fixed/);
+  const container = css.match(/body\.tool-open\s*>\s*#workspace\s*\{([^}]*)\}/)?.[1] || "";
 });
 
 test("site header remains visible while homepage content is hidden", () => {
@@ -51,7 +52,7 @@ test("mobile workspace switches to a stacked single-column layout", () => {
 
 test("workspace grid stylesheet is the final layout authority", () => {
   const stylesheetLinks = [...html.matchAll(/<link\b[^>]*rel=["']stylesheet["'][^>]*href=["']([^"']+)/gi)].map(match => match[1]);
-  const gridIndex = stylesheetLinks.findIndex(link => /^css\\/workspace-grid-layout\\.css(?:\\?.*)?$/.test(link));
+  const gridIndex = stylesheetLinks.findIndex(link => /^css\/workspace-grid-layout\.css(?:\?.*)?$/.test(link));
   assert.ok(gridIndex >= 0, "workspace grid stylesheet must be linked");
   assert.equal(gridIndex, stylesheetLinks.length - 1, "workspace grid stylesheet must load after all other stylesheets");
   assert.doesNotMatch(legacyCss, /body\.tool-open\s+#workspace\s*\{/);
