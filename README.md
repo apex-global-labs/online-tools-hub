@@ -8,7 +8,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/phase2.css` — search/navigation styling, dark-mode contrast and animated sun/moon scene
 - `app.js` — tool catalogue, filters, workspace rendering, theme toggle and tool implementations
 - `js/live-search.js` — search autocomplete, keyboard navigation, category menu behavior and slash shortcut
-- `js/tools-data.json` — metadata for all 49 tools used by the modular hash router
+- `js/tools-data.json` — metadata for all 54 tools used by the modular hash router
 - `js/router.js` — route parsing/resolution
 - `js/router-bridge.js` — bridge from modular routes to the existing tool workspace
 - `css/phase10-image-tools.css` — responsive previews for the image utilities
@@ -43,7 +43,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Theme preference is saved when browser storage is available
 - Responsive layout and reduced-motion support for the decorative scene
 
-## Tool catalogue (49)
+## Tool catalogue (54)
 
 ### Text
 - Text Case Converter
@@ -110,9 +110,17 @@ A static, browser-based multi-tool website. No backend or build step is required
 - IP data is sent directly from the visitor's browser to the provider; ToolNest does not proxy or intentionally store the lookup input. The provider may process request data under its own policy.
 - The free endpoint does not include VPN/proxy/Tor detection. Location and coordinates are estimates, not a home address or exact GPS location.
 
+
+### Phase B2 additions
+- PDF Page Organizer — reorder all PDF pages and optionally rotate every page; local processing, 30 MB / 300-page limits.
+- Text Sorter — alphabetical and numeric line sorting with case and blank-line options.
+- Find & Replace — first/all replacements with optional case-sensitive and whole-word matching.
+- JWT Decoder — local Base64URL header/payload decode only; no signature verification and no token upload.
+- XML Formatter — browser-native XML validation and indentation.
+
 ## Search engine crawl files
 
-- `sitemap.xml` lists the canonical homepage, the tool-guide directory and 49 individual static tool-guide URLs. Each guide has a unique title, meta description, canonical URL, visible instructions, features, FAQs and structured data. Interactive workspaces still open through the existing hash-based app routes; hash fragments are not listed as separate pages.
+- `sitemap.xml` lists the canonical homepage, the tool-guide directory and 54 individual static tool-guide URLs. Each guide has a unique title, meta description, canonical URL, visible instructions, features, FAQs and structured data. Interactive workspaces still open through the existing hash-based app routes; hash fragments are not listed as separate pages.
 - This is a GitHub Pages project site published under `/online-tools-hub/`. A `robots.txt` stored in this repository would be served at the project subpath, not the origin root (`https://apex-global-labs.github.io/robots.txt`) where host-wide crawl rules are expected. No repository-level `robots.txt` is provided; do not describe one as present.
 - The homepage has a canonical URL plus Open Graph and Twitter title/description metadata. A social preview image is not yet configured.
 - Search engines decide independently whether and how to crawl, index, and display the site. Inclusion in a sitemap does not guarantee indexing or rankings.
