@@ -25,7 +25,7 @@ test("blocks IPv4 private, loopback, link-local, CGNAT and special-use ranges", 
 });
 
 test("blocks IPv6 loopback, unique-local, link-local, mapped and special-use addresses", () => {
-  const blocked = ["[::]", "[::1]", "[fc00::1]", "[fd12:3456:789a::1]", "[fe80::1]", "[febf::1]", "[::ffff:127.0.0.1]", "[::ffff:192.168.1.1]", "[::ffff:169.254.1.1]", "[2001:db8::1]", "[ff02::1]", "[64:ff9b::a00:1]", "[64:ff9b:1::a00:1]", "[100::1]", "[2002::1]", "[64:ff9b::a00:1]", "[64:ff9b:1::a00:1]", "[100::1]", "[2002::1]"];
+  const blocked = ["[::]", "[::1]", "[fc00::1]", "[fd12:3456:789a::1]", "[fe80::1]", "[febf::1]", "[::ffff:127.0.0.1]", "[::ffff:192.168.1.1]", "[::ffff:169.254.1.1]", "[2001:db8::1]", "[ff02::1]", "[64:ff9b::a00:1]", "[64:ff9b:1::a00:1]", "[100::1]", "[2002::1]"];
   for (const address of blocked) assert.throws(() => normalizeUrl(`http://${address}`), undefined, address);
 });
 
