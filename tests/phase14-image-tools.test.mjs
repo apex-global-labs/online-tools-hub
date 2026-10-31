@@ -33,7 +33,7 @@ test("Base64 to Image checks encoded size and actual image signatures",()=>{
  assert.match(app,/10\*1024\*1024/);
  assert.match(app,/0x89,0x50,0x4e,0x47/);
  assert.match(app,/0xff,0xd8,0xff/);
- assert.match(app,/0x57&&bytes\[9\]===0x46/);
+ assert.match(app,/0x57&&bytes\[9\]===0x45/);
  assert.match(app,/0x47,0x49,0x46,0x38/);
  assert.ok(app.includes('decodedDataUrl="data:"+mime+";base64,"'));
  assert.match(app,/Decoded image exceeds the safe 40-megapixel limit/);
