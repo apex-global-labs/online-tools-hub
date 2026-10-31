@@ -61,7 +61,7 @@ const tools = [
 {id:"pdfsplitter",name:"PDF Splitter",category:"Utilities",icon:"✂️",description:"Split a PDF into separate page files, select page ranges and download multiple pages as a ZIP archive."},
 {id:"imagepdf",name:"Image to PDF",category:"Utilities",icon:"🖼️",description:"Convert multiple JPG, JPEG and PNG images into one PDF with page settings."},
 {id:"iptools",name:"IP Address Finder & Lookup",category:"Utilities",icon:"◎",description:"Find your public IP or look up public IP geolocation and network details."},
-{id:"urlshortener",name:"URL Shortener",category:"Utilities",icon:"🔗",description:"Turn long website addresses into short, shareable links with an optional custom alias."},,
+{id:"urlshortener",name:"URL Shortener",category:"Utilities",icon:"🔗",description:"Turn long website addresses into short, shareable links with an optional custom alias."},
 {id:"docfix",name:"Universal Doc Formatter & Spacing Fixer",category:"Text",icon:"📝",description:"Clean text spacing and repair DOCX whitespace while preserving document structure."}
 ];
 
