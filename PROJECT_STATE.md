@@ -4,7 +4,7 @@ Last updated: 2026-10-31
 
 > **Authoritative status:** This section reflects the current verified repository state. Older phase notes below are historical records and must not override this status.
 
-## Phase A — Three PDF utilities added (merged and deployed; real-file browser QA pending)
+## Phase A — Three PDF utilities added (implementation branch; CI and live QA pending)
 
 - New tools: PDF to JPG / PNG, PDF Text Extractor, and PDF Watermark & Page Number.
 - PDF.js is loaded on demand for page rendering and selectable-text extraction; pdf-lib is loaded on demand for PDF modification; JSZip is loaded only for multi-image downloads.
@@ -12,10 +12,7 @@ Last updated: 2026-10-31
 - PDF Text Extractor reads selectable text only. It does not perform OCR on image-only scanned pages.
 - Watermark text is rendered to a transparent canvas overlay using browser-available fonts; non-Latin glyph appearance depends on device/browser font support.
 - No backend, paid API or document upload endpoint added.
-- PR #84 was squash-merged into `main` at `d8ae533938e45d36ad9df519b72a7ce4800628f7`.
-- PR regression workflow **41211319136** passed: **136 tests, 136 passed, 0 failed**; JavaScript syntax checks passed.
-- GitHub Pages build and deployment workflow **41211355679** completed successfully for the merge commit.
-- Independent real-browser QA with representative PDFs, output files and mobile devices remains pending. CI and deployment success do not prove every PDF variant works on every browser/device.
+- Automated CI, production deployment and independent live-browser QA remain pending. Do not describe these tools as production-ready until those checks pass.
 
 ## Retired tools
 
@@ -30,7 +27,7 @@ Last updated: 2026-10-31
 - Production branch: `main`
 - Latest verified production code commit: `a04358d30b1c1008905943777ed5be0480f7e601` (PR #79 squash merge; previous production baseline). The preceding full-screen workspace baseline was `dbb657f9a6ad37368b5b4a151d8e7bca6d1aa930` (PR #68).
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
-- Catalogue: **47 unique tools**, **47 individual SEO guide pages**, and **49 sitemap URLs** (homepage + directory + 44 guides).
+- Catalogue: **47 unique tools**, **47 individual SEO guide pages**, and **49 sitemap URLs** (homepage + directory + 47 guides).
 - `app.js`, `js/tools-data.json`, the tool-guide directory and sitemap are expected to remain synchronized.
 - No paid service or ToolNest backend is used. Some tools rely on third-party browser libraries or public APIs.
 
