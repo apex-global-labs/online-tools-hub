@@ -19,7 +19,7 @@ test("Phase B1 registers exactly two unique tools",()=>{
  for(const id of ["zipmanager","favicongenerator"])assert.equal(data.filter(x=>x.id===id).length,1);
 });
 test("both Phase B1 tools are wired into the workspace and loaded",()=>{
- for(const id of ["zipmanager","favicongenerator"])assert.match(app,new RegExp('case "'+id+'"'));
+ for(const id of ["zipmanager","favicongenerator"]){assert.match(app,new RegExp('case "'+id+'"'));assert.match(app,new RegExp('id:"'+id+'",name:'));}
  assert.match(index,/js\/zip-manager\.js/);
  assert.match(index,/js\/favicon-generator\.js/);
  assert.match(index,/phase-b1-file-tools\.css/);
