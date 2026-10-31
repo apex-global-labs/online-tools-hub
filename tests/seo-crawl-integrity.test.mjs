@@ -7,6 +7,7 @@ const site = "https://apex-global-labs.github.io/online-tools-hub/";
 const tools = JSON.parse(read("../js/tools-data.json"));
 const trustPages = ["about", "contact", "privacy", "terms"];
 const sitemap = read("../sitemap.xml");
+const robots = read("../robots.txt");
 const directory = read("../tools/index.html");
 const homepage = read("../index.html");
 
@@ -96,4 +97,12 @@ test("each guide links back to the directory and its matching interactive worksp
     assert.ok(guide.includes(site + "#/tools/" + tool.slug),
       "guide is missing the matching interactive workspace link: " + tool.slug);
   }
+});
+
+
+test("robots.txt allows public crawling and advertises the canonical sitemap", () => {
+  assert.match(robots, /^User-agent: \\*/m);
+  assert.match(robots, /^Allow: \\/$/m);
+  assert.match(robots, /^Sitemap: https:\\/\\/apex-global-labs\\.github\\.io\\/online-tools-hub\\/sitemap\\.xml$/m);
+  assert.doesNotMatch(robots, /^Disallow: \\/(?:|\\s*)$/m);
 });
