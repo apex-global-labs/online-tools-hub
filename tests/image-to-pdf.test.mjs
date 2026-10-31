@@ -36,6 +36,8 @@ test("Image to PDF uses existing pdf-lib lazily and supports PNG and JPEG page e
   assert.match(moduleSource, /output\.embedJpg\(item\.bytes\)/);
   assert.match(moduleSource, /output\.addPage\(\[pageWidth, pageHeight\]\)/);
   assert.match(moduleSource, /page\.drawImage\(embedded/);
+  assert.match(moduleSource, /if \(preview && state\.resultUrl\)/);
+  assert.match(moduleSource, /download\.disabled = state\.busy \|\| !state\.resultUrl/);
   assert.match(moduleSource, /application\/pdf/);
 });
 
