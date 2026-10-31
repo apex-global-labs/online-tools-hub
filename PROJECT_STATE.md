@@ -15,7 +15,7 @@ Last updated: 2026-10-31
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Latest verified production code commit: `a04358d30b1c1008905943777ed5be0480f7e601` (PR #79 squash merge; DocFix Pro DOCX run-aware Bangla spacing fix). The preceding full-screen workspace baseline was `dbb657f9a6ad37368b5b4a151d8e7bca6d1aa930` (PR #68).
+- Latest verified production code commit: `a04358d30b1c1008905943777ed5be0480f7e601` (PR #79 squash merge; previous production baseline). The preceding full-screen workspace baseline was `dbb657f9a6ad37368b5b4a151d8e7bca6d1aa930` (PR #68).
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
 - Catalogue: **44 unique tools**, **44 individual SEO guide pages**, and **46 sitemap URLs** (homepage + directory + 44 guides).
 - `app.js`, `js/tools-data.json`, the tool-guide directory and sitemap are expected to remain synchronized.
