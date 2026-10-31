@@ -5,6 +5,7 @@ import { existsSync, readFileSync } from "node:fs";
 const read = (path) => readFileSync(new URL(path, import.meta.url), "utf8");
 const site = "https://apex-global-labs.github.io/online-tools-hub/";
 const tools = JSON.parse(read("../js/tools-data.json"));
+const trustPages = ["about", "contact", "privacy", "terms"];
 const sitemap = read("../sitemap.xml");
 const directory = read("../tools/index.html");
 const homepage = read("../index.html");
@@ -13,17 +14,18 @@ const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[
 const expectedUrls = [
   site,
   site + "tools/",
-  ...tools.map((tool) => site + "tools/" + tool.slug + "/")
+  ...tools.map((tool) => site + "tools/" + tool.slug + "/"),
+  ...trustPages.map((slug) => site + slug + "/")
 ];
 
 test("sitemap is validly structured for the complete canonical page set", () => {
   assert.ok(sitemap.startsWith('<?xml version="1.0" encoding="UTF-8"?>'));
   assert.ok(sitemap.includes('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'));
-  assert.equal((sitemap.match(/<url>/g) || []).length, 57);
-  assert.equal(locs.length, 57, "each sitemap URL must have exactly one loc element");
+  assert.equal((sitemap.match(/<url>/g) || []).length, 61);
+  assert.equal(locs.length, 61, "each sitemap URL must have exactly one loc element");
   assert.equal(new Set(locs).size, locs.length, "sitemap URLs must be unique");
   const urlBlocks = sitemap.split("<url>").slice(1).map((entry) => entry.split("</url>")[0]);
-  assert.equal(urlBlocks.length, 57, "every URL entry must be a complete url element");
+  assert.equal(urlBlocks.length, 61, "every URL entry must be a complete url element");
   for (const block of urlBlocks) {
     let remaining = block;
     for (const tag of ["loc", "lastmod", "changefreq", "priority"]) {
@@ -34,7 +36,7 @@ test("sitemap is validly structured for the complete canonical page set", () => 
       "url elements must not contain literal escaped whitespace or unsupported content");
   }
   assert.deepEqual([...locs].sort(), [...expectedUrls].sort(),
-    "sitemap must contain only the canonical homepage, directory and 55 guide URLs");
+    "sitemap must contain only the canonical homepage, directory, 55 guide URLs and four trust pages");
   for (const url of locs) {
     assert.ok(url.startsWith(site), "URL must use the production project-site origin and path");
     assert.equal(new URL(url).search, "", "sitemap URLs must not contain query strings");
@@ -47,6 +49,16 @@ test("every sitemap URL maps to a real, canonical repository page", () => {
   assert.ok(existsSync(new URL("../tools/index.html", import.meta.url)));
   assert.equal(directory.match(/<link rel="canonical" href="([^"]+)"/)?.[1], site + "tools/");
   assert.match(directory, /<meta name="robots" content="index,follow">/i);
+  for (const slug of trustPages) {
+    const path = "../" + slug + "/index.html";
+    assert.ok(existsSync(new URL(path, import.meta.url)), "missing information page: " + slug);
+    const page = read(path);
+    assert.ok(page.includes('<link rel="canonical" href="' + site + slug + '/">'),
+      "information page canonical is incorrect: " + slug);
+    assert.match(page, /<meta name="robots" content="index,follow">/i);
+    assert.equal(page.split("<h1>").length - 1, 1,
+      "information page must have exactly one H1: " + slug);
+  }
   for (const tool of tools) {
     const path = "../tools/" + tool.slug + "/index.html";
     assert.ok(existsSync(new URL(path, import.meta.url)), "missing guide file for " + tool.slug);
@@ -64,6 +76,10 @@ test("every sitemap URL maps to a real, canonical repository page", () => {
 
 test("homepage and tool directory provide crawlable discovery links to all guides", () => {
   assert.ok(homepage.includes('href="tools/"'), "homepage must link to the tool-guide directory");
+  for (const slug of trustPages) {
+    assert.ok(homepage.includes('href="' + slug + '/"'), "homepage missing " + slug + " link");
+    assert.ok(directory.includes('href="' + site + slug + '/"'), "directory missing " + slug + " link");
+  }
   for (const tool of tools) {
     const guideUrl = site + "tools/" + tool.slug + "/";
     assert.ok(directory.includes('href="' + guideUrl + '"'),

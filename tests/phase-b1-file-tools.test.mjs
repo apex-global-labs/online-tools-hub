@@ -59,7 +59,7 @@ test("Phase B1 SEO guides, directory and sitemap are synchronized",()=>{
   assert.match(directory,new RegExp("/tools/"+slug+"/"));
   assert.ok(readFileSync(new URL("../tools/"+slug+"/index.html",import.meta.url),"utf8").includes("rel=\"canonical\""));
  }
- assert.equal((sitemap.match(/<loc>/g)||[]).length,57);
+ assert.equal((sitemap.match(/<loc>/g)||[]).length,61);
  assert.match(zipGuide,/ZIP File Manager/);
  assert.match(faviconGuide,/Favicon Generator/);
  assert.ok(css.includes(".zip-manager")&&css.includes(".favicon-tool"));

@@ -24,7 +24,7 @@ test("Phase B2 registers five unique tools with synchronized workspace wiring",(
  }
  assert.match(index,/js\/phase-b2-tools\.js/);
  assert.match(index,/phase-b2-tools\.css/);
- assert.equal((sitemap.match(/<loc>/g)||[]).length,57);
+ assert.equal((sitemap.match(/<loc>/g)||[]).length,61);
 });
 
 test("Text Sorter handles alphabetical, numeric and blank-line cases",()=>{
