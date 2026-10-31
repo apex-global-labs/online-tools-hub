@@ -69,7 +69,7 @@ test("README does not advertise permanently retired tools", () => {
 
 
 test("README assigns the Phase C PDF utilities to the correct release phase", () => {
-  const b2 = readme.split("### Phase B2 additions")[1].split("## Search engine crawl files")[0];
+  const b2 = readme.split("### Phase B2 additions")[1].split("### Phase C1 / C2 — PDF utilities")[0];
   const c = readme.split("### Phase C1 / C2 — PDF utilities")[1].split("## Search engine crawl files")[0];
   assert.doesNotMatch(b2, /PDF Page Organizer|PDF Images Extractor/);
   assert.match(c, /PDF Page Organizer/);
