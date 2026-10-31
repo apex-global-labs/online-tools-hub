@@ -20,11 +20,11 @@ test("homepage has useful title, description, canonical URL and social metadata"
   }
 });
 
-test("XML sitemap lists the homepage, directory and all 43 canonical tool guide pages", () => {
+test("XML sitemap lists the homepage, directory and all 46 canonical tool guide pages", () => {
   assert.match(sitemap, /^<\?xml version="1\.0" encoding="UTF-8"\?>/);
   assert.ok(sitemap.includes("<loc>" + siteUrl + "</loc>"));
   assert.ok(sitemap.includes("<loc>" + siteUrl + "tools/</loc>"));
-  assert.equal((sitemap.match(/<url>/g) || []).length, 47);
+  assert.equal((sitemap.match(/<url>/g) || []).length, 48);
   assert.doesNotMatch(sitemap, /#\/tools\//);
   for (const tool of JSON.parse(read("../js/tools-data.json"))) {
     assert.ok(sitemap.includes("<loc>" + siteUrl + "tools/" + tool.slug + "/</loc>"), "missing sitemap URL for " + tool.id);
