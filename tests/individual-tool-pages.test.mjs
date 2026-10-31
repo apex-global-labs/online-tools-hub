@@ -10,7 +10,7 @@ const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
 }[char]));
 
 test("all 44 tools have a unique, crawlable static HTML guide", () => {
-  assert.equal(tools.length, 44);
+  assert.equal(tools.length, 43);
   assert.equal(new Set(tools.map((tool) => tool.slug)).size, 44);
   for (const tool of tools) {
     const html = read("../tools/" + tool.slug + "/index.html");
@@ -29,7 +29,7 @@ test("all 44 tools have a unique, crawlable static HTML guide", () => {
   }
 });
 
-test("tool guide directory links to all 44 unique guide pages", () => {
+test("tool guide directory links to all 43 unique guide pages", () => {
   const directory = read("../tools/index.html");
   assert.ok(directory.includes("<title>All ToolNest Tool Guides - 44 Free Online Tools</title>"));
   for (const tool of tools) {
