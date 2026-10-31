@@ -3,22 +3,81 @@
   const API_URL = "https://spoo.me/api/v1/shorten";
   const DEFAULT_STATUS = "Ready. Paste a website address, with or without https://, to create a short link.";
 
+  function isBlockedIpv4(address) {
+    const parts = address.split(".").map(Number);
+    if (parts.length !== 4 || parts.some(part => !Number.isInteger(part) || part < 0 || part > 255)) return true;
+    const [a, b, c] = parts;
+    return a === 0 || a === 10 || a === 127 ||
+      (a === 100 && b >= 64 && b <= 127) ||
+      (a === 169 && b === 254) ||
+      (a === 172 && b >= 16 && b <= 31) ||
+      (a === 192 && (b === 0 || b === 2 || (b === 88 && c === 99) || b === 168)) ||
+      (a === 198 && (b === 18 || b === 19 || b === 51)) ||
+      (a === 203 && b === 0 && c === 113) || a >= 224;
+  }
+
+  function parseIpv6(hostname) {
+    const host = hostname.startsWith("[") && hostname.endsWith("]")
+      ? hostname.slice(1, -1).toLowerCase()
+      : hostname.toLowerCase();
+    if (!host.includes(":") || (host.match(/::/g) || []).length > 1) return null;
+    let input = host;
+    if (input.includes(".")) {
+      const lastColon = input.lastIndexOf(":");
+      if (lastColon < 0) return null;
+      const ipv4 = input.slice(lastColon + 1), octets = ipv4.split(".").map(Number);
+      if (octets.length !== 4 || octets.some((n, i) => !/^\d{1,3}$/.test(ipv4.split(".")[i]) || n < 0 || n > 255)) return null;
+      input = input.slice(0, lastColon + 1) + ((octets[0] << 8) | octets[1]).toString(16) + ":" + ((octets[2] << 8) | octets[3]).toString(16);
+    }
+    const halves = input.split("::");
+    const left = halves[0] ? halves[0].split(":") : [];
+    const right = halves.length === 2 && halves[1] ? halves[1].split(":") : [];
+    if (halves.length === 1 && left.length !== 8) return null;
+    const missing = 8 - left.length - right.length;
+    if ((halves.length === 2 && missing < 1) || missing < 0) return null;
+    const groups = [...left, ...Array(missing).fill("0"), ...right];
+    if (groups.length !== 8 || groups.some(group => !/^[0-9a-f]{1,4}$/.test(group))) return null;
+    return groups.map(group => parseInt(group, 16));
+  }
+
+  function isBlockedIpv6(hostname) {
+    const groups = parseIpv6(hostname);
+    if (!groups) return true;
+    if (groups.every(group => group === 0) || (groups.slice(0, 7).every(group => group === 0) && groups[7] === 1)) return true;
+    // Block all IPv4-mapped IPv6 addresses, including mapped private/local IPv4.
+    if (groups.slice(0, 5).every(group => group === 0) && groups[5] === 0xffff) return true;
+    const first = groups[0], second = groups[1];
+    return (first & 0xfe00) === 0xfc00 || // fc00::/7 unique-local
+      (first & 0xffc0) === 0xfe80 ||      // fe80::/10 link-local
+      (first & 0xff00) === 0xff00 ||      // ff00::/8 multicast
+      (first === 0x2001 && second <= 0x01ff) || // IETF protocol/special assignments
+      first === 0x2002 ||                // 6to4
+      (first === 0x0064 && second === 0xff9b && groups[2] === 0 && groups[3] === 0 && groups[4] === 0 && groups[5] === 0) || // NAT64 well-known /96
+      (first === 0x0064 && second === 0xff9b && groups[2] === 1) || // local-use NAT64 /48
+      (first === 0x0100 && groups.slice(1).every(group => group === 0)) || // 100::/64 discard-only
+      (first === 0x2001 && second === 0x0db8); // 2001:db8::/32 documentation
+  }
+
   function normalizeUrl(value) {
     const raw = String(value || "").trim();
     if (!raw) throw new Error("Enter a website URL first.");
     // Accept ordinary domains and www links without requiring visitors to type a scheme.
     // Explicit non-HTTP schemes remain rejected instead of being silently rewritten.
-    const candidate = /^https?:\/\//i.test(raw) || /^[a-z][a-z0-9+.-]*:\/\//i.test(raw)
-      ? raw
-      : "https://" + raw;
+    const candidate = /^https?:\/\//i.test(raw) || /^[a-z][a-z0-9+.-]*:\/\//i.test(raw) ? raw : "https://" + raw;
     let parsed;
     try { parsed = new URL(candidate); } catch (_) { throw new Error("Enter a valid website address, such as example.com or https://example.com."); }
     if (parsed.protocol !== "https:" && parsed.protocol !== "http:") throw new Error("Only HTTP and HTTPS website links can be shortened.");
     if (!parsed.hostname || parsed.username || parsed.password) throw new Error("Enter a valid public website URL without embedded login details.");
     const host = parsed.hostname.toLowerCase();
+    const isIpv6 = host.startsWith("[") && host.endsWith("]");
     const isIpv4 = /^(?:\d{1,3}\.){3}\d{1,3}$/.test(host);
-    if (!isIpv4 && !host.includes(".")) throw new Error("Enter a valid public domain name, such as example.com.");
-    if (host === "localhost" || host.endsWith(".localhost") || host.endsWith(".local") || host === "0.0.0.0" || host === "::1" || /^127\./.test(host) || /^10\./.test(host) || /^192\.168\./.test(host) || /^172\.(1[6-9]|2[0-9]|3[01])\./.test(host)) throw new Error("Local and private network addresses cannot be shortened.");
+    if (isIpv6) {
+      if (isBlockedIpv6(host)) throw new Error("Local, private and special-use network addresses cannot be shortened.");
+    } else if (isIpv4) {
+      if (isBlockedIpv4(host)) throw new Error("Local, private and special-use network addresses cannot be shortened.");
+    } else if (!host.includes(".") || host === "localhost" || host.endsWith(".localhost") || host.endsWith(".local")) {
+      throw new Error("Enter a valid public domain name, such as example.com.");
+    }
     return parsed.href;
   }
 
@@ -31,9 +90,7 @@
 
   async function createShortUrl(longUrl, alias = "", fetchImpl = root.fetch) {
     if (typeof fetchImpl !== "function") throw new Error("Your browser does not support the required network request.");
-    const url = normalizeUrl(longUrl);
-    const customAlias = validateAlias(alias);
-    const body = { long_url:url };
+    const url = normalizeUrl(longUrl), customAlias = validateAlias(alias), body = { long_url:url };
     if (customAlias) body.alias = customAlias;
     const response = await fetchImpl(API_URL, { method:"POST", headers:{ "Accept":"application/json", "Content-Type":"application/json" }, body:JSON.stringify(body) });
     let data = {};
