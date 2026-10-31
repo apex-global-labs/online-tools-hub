@@ -142,8 +142,9 @@ Open `index.html` in a modern browser while connected to the internet. Tailwind 
 - Phase 2 UI interactions have been manually spot-checked by the owner. The newest theme-persistence and keyboard-navigation changes should be re-tested on desktop and mobile after deployment.
 
 
-## Phase B1 — File and image utilities (development branch)
+## Phase B1 — ZIP File Manager and Favicon Generator (merged and deployed)
+- PR #88 was squash-merged into `main` at `3f68a6715af29bf2b4e42bb70a6a6d3691b2253a`.
 - ZIP File Manager creates archives from up to 100 local files (25 MB per file, 50 MB total, 50 MB output cap) and inspects ZIP archives up to 50 MB. Selected entries are repackaged into a downloadable ZIP. Extraction is limited to 1,000 entries, 25 MB per entry and 50 MB expanded total. Password-protected ZIP files are not supported.
 - Favicon Generator accepts PNG, JPEG and WebP images up to 10 MB and 4,096 pixels per side. It exports 16, 32, 48, 180, 192 and 512 pixel PNGs, a 48×48 ICO with embedded PNG data, and an HTML snippet in one ZIP.
-- Both tools process user files in the browser. JSZip 3.10.1 is loaded from a public CDN on demand; no ToolNest upload endpoint or paid service is used.
-- The Phase B1 regression workflow passed **145 tests, 145 passed, 0 failed**, including JavaScript syntax checks. This section describes the feature branch until its PR is merged. Real-browser desktop/mobile QA is still required before describing the tools as production-ready.
+- Both tools process files locally in the browser. JSZip 3.10.1 is loaded from a public CDN on demand; no ToolNest upload endpoint or paid service is used.
+- GitHub Actions run #415 passed 145/145 tests and syntax checks. The owner separately confirmed successful real-browser testing on desktop and mobile.
