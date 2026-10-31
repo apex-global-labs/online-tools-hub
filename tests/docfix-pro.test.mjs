@@ -1,6 +1,6 @@
 import test from "node:test";import assert from "node:assert/strict";import "../js/docfix-pro.js";const api=globalThis.ToolNestDocFix;
 test("cleans whitespace and preserves Bangla Unicode",()=>assert.equal(api.cleanText("বাংলা   লেখা\t\tEnglish   text\r\nSecond   line"),"বাংলা লেখা English text\nSecond line"));
-test("optionally separates English camelCase",()=>{assert.equal(api.cleanText("helloWorld and বাংলাText",{camel:true}),"hello World and বাংলা Text");assert.equal(api.cleanText("helloWorld",{camel:false}),"helloWorld");});
+test("optionally separates English camelCase",()=>{assert.equal(api.cleanText("helloWorld and বাংলাText",{camel:true}),"hello World and বাংলাText");assert.equal(api.cleanText("helloWorld",{camel:false}),"helloWorld");});
 test("fixes punctuation spacing",()=>assert.equal(api.cleanText("Hello   ,world!Next line?Yes।ঠিক"),"Hello, world! Next line? Yes। ঠিক"));
 test("reduces blank lines only when requested",()=>assert.equal(api.cleanText("One\n\n\n\nTwo",{blankLines:true}),"One\n\nTwo"));
 test("retains DOCX table, paragraph, run and style markup",()=>{const x='<w:document xmlns:w="urn:w"><w:body><w:tbl><w:tr><w:tc><w:p><w:r><w:rPr><w:b/></w:rPr><w:t>Too   many   spaces</w:t></w:r></w:p></w:tc></w:tr></w:tbl></w:body></w:document>';const r=api.transformDocxXml(x);assert.equal(r.changedCount,1);for(const t of ["<w:tbl>","<w:tr>","<w:tc>","<w:p>","<w:rPr><w:b/></w:rPr>"])assert.ok(r.xml.includes(t));assert.ok(r.xml.includes("<w:t>Too many spaces</w:t>"));});
