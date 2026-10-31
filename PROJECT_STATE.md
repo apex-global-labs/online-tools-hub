@@ -27,7 +27,7 @@ Last updated: 2026-10-31
 - Production branch: `main`
 - Latest verified production code commit: `a04358d30b1c1008905943777ed5be0480f7e601` (PR #79 squash merge; previous production baseline). The preceding full-screen workspace baseline was `dbb657f9a6ad37368b5b4a151d8e7bca6d1aa930` (PR #68).
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
-- Catalogue: **47 unique tools**, **47 individual SEO guide pages**, and **49 sitemap URLs** (homepage + directory + 44 guides).
+- Catalogue: **47 unique tools**, **47 individual SEO guide pages**, and **49 sitemap URLs** (homepage + directory + 47 guides).
 - `app.js`, `js/tools-data.json`, the tool-guide directory and sitemap are expected to remain synchronized.
 - No paid service or ToolNest backend is used. Some tools rely on third-party browser libraries or public APIs.
 
