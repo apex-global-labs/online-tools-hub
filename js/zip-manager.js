@@ -31,13 +31,6 @@ function init(){
  $("zipDownloadSelected").addEventListener("click",async()=>{try{const checks=[...list.querySelectorAll("input:checked")];if(!checks.length)throw new Error("Select at least one file to extract.");const JSZip=await loadZip(),out=new JSZip();for(const c of checks){const entry=zipEntry(c.dataset.entry);if(!entry)throw new Error("An archive entry could not be found.");const blob=await entry.async("blob");out.file(c.dataset.entry,blob);}const blob=await out.generateAsync({type:"blob",compression:"DEFLATE",compressionOptions:{level:4}});if(blob.size>MAX_ZIP_BYTES)throw new Error("The extracted archive exceeds the 50 MB download limit. Select fewer or smaller files.");download(blob,"toolnest-extracted-files.zip");say(checks.length+" file(s) extracted into a new ZIP.");}catch(e){say(e.message||"Extraction failed.",true);}});
  function zipEntry(name){return window.__toolNestCurrentZip?.file(name)||null;}
  const clear=$("zipClear");clear.addEventListener("click",()=>{files.value="";archive.value="";list.replaceChildren();list.hidden=true;extractBtn.disabled=true;$("zipDownloadSelected").disabled=true;window.__toolNestCurrentZip=null;say("Ready. Choose files to create a ZIP or select an archive to extract.");});
- // Keep a bounded reference to the parsed archive for selected-file extraction.
- const originalClick=extractBtn.onclick;void originalClick;
- const observer=new MutationObserver(()=>{});void observer;
- const originalExtract=extractBtn.addEventListener;
- // Rebind archive parsing to retain the selected in-memory archive.
- const parse=async()=>{const f=archive.files?.[0];if(!f)return;try{const JSZip=await loadZip();window.__toolNestCurrentZip=await JSZip.loadAsync(f,{checkCRC32:true});}catch{}};
- archive.addEventListener("change",parse);
 }
 const api={safePath,validateFiles,formatBytes,init,limits:{MAX_ZIP_BYTES,MAX_FILES,MAX_FILE_BYTES,MAX_TOTAL_BYTES,MAX_ENTRIES}};
 root.ToolNestZip=api;if(typeof module!=="undefined"&&module.exports)module.exports=api;
