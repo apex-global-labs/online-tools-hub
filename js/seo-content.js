@@ -11,7 +11,8 @@
   section.id = "toolSeoContent";
   section.className = "tool-seo-content";
   section.setAttribute("aria-label", "Tool guide and frequently asked questions");
-  toolMessage.insertAdjacentElement("afterend", section);
+  // Keep the SEO guide as a full-width sibling below the sidebar/tool row.
+  workspace.appendChild(section);
 
   let toolMetadata = [];
   let renderedToolId = "";
