@@ -315,6 +315,7 @@ function wireUniversalActions(id){
  bind("universalCopy",()=>{
   if(id==="pdfmerge"){message("PDF files are documents; use the Download Merged PDF button after merging.");return;}
   if(id==="pdfsplitter"){message("Select pages and split them before downloading PDF files.");return;}
+  if(id==="imagepdf"){message("Image to PDF creates a document; use Download PDF after creating it.");return;}
   const canvas=$("#qrCanvas");
   if(canvas){
    const value=$("#qrText")?.value.trim()||"";
@@ -331,6 +332,7 @@ function wireUniversalActions(id){
  bind("universalDownload",()=>{
   if(id==="pdfmerge"){ $("#pdfMergeDownload")?.click(); return; }
   if(id==="pdfsplitter"){ $("#pdfSplitDownload")?.click(); return; }
+  if(id==="imagepdf"){ $("#imagePdfDownload")?.click(); return; }
   const canvas=$("#qrCanvas");
   if(canvas){
    try{const a=document.createElement("a");a.href=canvas.toDataURL("image/png");a.download="toolnest-qr.png";a.click();message("QR code downloaded.");}
