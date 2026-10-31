@@ -7,7 +7,7 @@
   const MAX_IMAGE_PIXELS = 40_000_000;
   const MAX_TOTAL_PIXELS = 100_000_000;
   const MAX_DIMENSION = 12000;
-  const state = { items: [], busy: false, resultUrl: null, initialized: false };
+  const state = { items: [], busy: false, resultUrl: null };
   let pdfPromise = null;
   const $ = (selector) => document.querySelector(selector);
 
@@ -250,10 +250,8 @@
   }
 
   function init() {
-    if (state.initialized) { render(); return; }
     const input = $("#imagePdfFiles"), list = $("#imagePdfList"), drop = $("#imagePdfDrop");
     if (!input || !list || !drop) return;
-    state.initialized = true;
     input.addEventListener("change", () => addFiles(input.files));
     list.addEventListener("click", event => {
       const button = event.target.closest("[data-action]");
