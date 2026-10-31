@@ -4,10 +4,13 @@ import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 const { normalizeUrl, validateAlias, createShortUrl } = require("../js/url-shortener.js");
 
-test("accepts only complete public HTTP and HTTPS URLs", () => {
+test("accepts public HTTP and HTTPS URLs, adding HTTPS when a scheme is omitted", () => {
   assert.equal(normalizeUrl("https://example.com/path?q=1"), "https://example.com/path?q=1");
   assert.equal(normalizeUrl("http://example.com"), "http://example.com/");
-  for (const value of ["", "example.com", "javascript:alert(1)", "file:///tmp/test", "http://localhost", "http://127.0.0.1", "http://192.168.1.1", "http://10.0.0.2", "http://172.16.0.1", "https://user:pass@example.com"]) assert.throws(() => normalizeUrl(value));
+  assert.equal(normalizeUrl("example.com"), "https://example.com/");
+  assert.equal(normalizeUrl("www.example.com/long/path?x=1"), "https://www.example.com/long/path?x=1");
+  assert.equal(normalizeUrl("example.com:8080/path"), "https://example.com:8080/path");
+  for (const value of ["", "javascript:alert(1)", "file:///tmp/test", "ftp://example.com", "localhost", "http://localhost", "http://127.0.0.1", "http://192.168.1.1", "http://10.0.0.2", "http://172.16.0.1", "https://user:pass@example.com"]) assert.throws(() => normalizeUrl(value));
 });
 
 test("custom aliases are optional and limited to 3–16 letters, numbers, hyphens or underscores", () => {
