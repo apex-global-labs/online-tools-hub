@@ -329,7 +329,7 @@ function wireUniversalActions(id){
   return "";
  };
  bind("universalCopy",()=>{
-  if(id==="pdforganizer"){ $("#copyPdfPageOrder")?.click(); return; }
+  if(id==="pdforganizer"){ const order=$("#pdfPageOrder")?.value.trim()||""; if(!order){message("Inspect a PDF and set its page order first.","error");return;} if(!navigator.clipboard?.writeText){message("Clipboard access is unavailable. Select and copy the page order manually.","error");return;} navigator.clipboard.writeText(order).then(()=>message("Page order copied.")).catch(()=>message("Clipboard access was blocked.","error")); return; }
   if(id==="zipmanager"||id==="favicongenerator"){message("Use the tool-specific controls to create or download your files.");return;}
   if(id==="pdfmerge"){message("PDF files are documents; use the Download Merged PDF button after merging.");return;}
   if(id==="pdfsplitter"){message("Select pages and split them before downloading PDF files.");return;}
