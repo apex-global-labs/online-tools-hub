@@ -1,17 +1,24 @@
 (function (root) {
   "use strict";
   const API_URL = "https://spoo.me/api/v1/shorten";
-  const DEFAULT_STATUS = "Ready. Paste a complete website URL to create a short link.";
+  const DEFAULT_STATUS = "Ready. Paste a website address, with or without https://, to create a short link.";
 
   function normalizeUrl(value) {
     const raw = String(value || "").trim();
     if (!raw) throw new Error("Enter a website URL first.");
+    // Accept ordinary domains and www links without requiring visitors to type a scheme.
+    // Explicit non-HTTP schemes remain rejected instead of being silently rewritten.
+    const candidate = /^https?:\/\//i.test(raw) || /^[a-z][a-z0-9+.-]*:\/\//i.test(raw)
+      ? raw
+      : "https://" + raw;
     let parsed;
-    try { parsed = new URL(raw); } catch (_) { throw new Error("Enter a complete URL, including https:// or http://."); }
+    try { parsed = new URL(candidate); } catch (_) { throw new Error("Enter a valid website address, such as example.com or https://example.com."); }
     if (parsed.protocol !== "https:" && parsed.protocol !== "http:") throw new Error("Only HTTP and HTTPS website links can be shortened.");
     if (!parsed.hostname || parsed.username || parsed.password) throw new Error("Enter a valid public website URL without embedded login details.");
     const host = parsed.hostname.toLowerCase();
-    if (host === "localhost" || host.endsWith(".localhost") || host.endsWith(".local") || host === "0.0.0.0" || host === "::1" || /^127\./.test(host) || /^10\./.test(host) || /^192\.168\./.test(host) || /^172\.(1[6-9]|2[0-9]|3[01])\./.test(host)) throw new Error("Local and private network addresses cannot be shortened.");
+    const isIpv4 = /^(?:\\d{1,3}\\.){3}\\d{1,3}$/.test(host);
+    if (!isIpv4 && !host.includes(".")) throw new Error("Enter a valid public domain name, such as example.com.");
+    if (host === "localhost" || host.endsWith(".localhost") || host.endsWith(".local") || host === "0.0.0.0" || host === "::1" || /^127\\./.test(host) || /^10\\./.test(host) || /^192\\.168\\./.test(host) || /^172\\.(1[6-9]|2[0-9]|3[01])\\./.test(host)) throw new Error("Local and private network addresses cannot be shortened.");
     return parsed.href;
   }
 
