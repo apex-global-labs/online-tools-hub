@@ -106,12 +106,10 @@
     $("#downloadBijoy").addEventListener("click", () => download("#bijoyAnsiInput", "toolnest-bijoy-ansi.txt"));
     $("#clearBothBijoy").addEventListener("click", clear);
     $("#swapBijoyText").addEventListener("click", () => {
-      const value = unicode.value;
-      unicode.value = bijoy.value;
-      bijoy.value = value;
-      latest = null;
-      updateCounts();
-      status("Text moved between editors. Choose the correct conversion direction.");
+      const grid = $(".bijoy-editor-grid");
+      const cards = grid ? Array.from(grid.children) : [];
+      if (cards.length === 2) grid.insertBefore(cards[1], cards[0]);
+      status("Editor positions swapped. The Unicode and Bijoy text remain in their matching editors.");
     });
     updateCounts();
   }
