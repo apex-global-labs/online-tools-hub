@@ -101,8 +101,9 @@ test("each guide links back to the directory and its matching interactive worksp
 
 
 test("robots.txt allows public crawling and advertises the canonical sitemap", () => {
-  assert.match(robots, /^User-agent: \\*/m);
-  assert.match(robots, /^Allow: \\/$/m);
-  assert.match(robots, /^Sitemap: https:\\/\\/apex-global-labs\\.github\\.io\\/online-tools-hub\\/sitemap\\.xml$/m);
-  assert.doesNotMatch(robots, /^Disallow: \\/(?:|\\s*)$/m);
+  const lines = robots.split(/\r?\n/).map((line) => line.trim());
+  assert.ok(lines.includes("User-agent: *"));
+  assert.ok(lines.includes("Allow: /"));
+  assert.ok(lines.includes("Sitemap: " + site + "sitemap.xml"));
+  assert.ok(!lines.includes("Disallow: /"));
 });
