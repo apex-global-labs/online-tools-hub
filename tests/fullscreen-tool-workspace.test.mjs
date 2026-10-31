@@ -8,26 +8,30 @@ const [app, css, html] = await Promise.all([
   readFile(new URL("../index.html", import.meta.url), "utf8")
 ]);
 
-test("opening a tool locks the background page and enables the dedicated view", () => {
+test("opening a tool enables the in-flow workspace without locking the document", () => {
   assert.match(app, /document\.body\.classList\.add\("tool-open"\)/);
-  assert.match(app, /document\.body\.style\.overflow="hidden"/);
-  assert.match(css, /body\.tool-open\s*\{\s*overflow:\s*hidden;/);
+  assert.doesNotMatch(app, /document\.body\.style\.overflow\s*=\s*["']hidden["']/);
+  assert.doesNotMatch(css, /body\.tool-open\s*\{\s*overflow:\s*hidden/);
 });
 
-test("the tool workspace covers the full viewport and scrolls independently", () => {
-  assert.match(css, /body\.tool-open > #workspace\s*\{[\s\S]*?position:\s*relative/);
-  assert.match(css, /grid-template-columns:\s*minmax\(15rem, 19rem\) minmax\(0, 1fr\)/);
-  assert.match(css, /height:\s*100dvh/);
-  assert.match(css, /overflow:\s*hidden/);
-  assert.doesNotMatch(css, /position:\s*fixed/);
+test("workspace uses a normal-flow desktop grid and natural page scrolling", () => {
+  assert.match(css, /grid-template-columns:\s*minmax\(16rem, 20rem\) minmax\(0, 1fr\)/);
+  assert.match(css, /min-height:\s*calc\(100dvh - 5rem\)/);
+  assert.match(css, /overflow:\s*visible/);
+  const container = css.match(/body\.tool-open\s*>\s*#workspace\s*\{([^}]*)\}/)?.[1] || "";
 });
 
-test("the previous page chrome is hidden while a tool is active", () => {
-  assert.match(css, /body\.tool-open > \.welcome-marquee,[\s\S]*?body\.tool-open > header,[\s\S]*?body\.tool-open > main,[\s\S]*?body\.tool-open > footer\s*\{\s*display:\s*none\s*!important/);
-  assert.match(html, /id="workspace"/);
+test("the site header remains visible and the workspace is not an overlay", () => {
+  assert.doesNotMatch(css, /body\.tool-open\s*>\s*header\s*,/);
+  assert.match(css, /body\.tool-open\s*>\s*header\.sticky\s*\{\s*top:\s*0/);
+  assert.match(html, /<section id="workspace"/);
 });
 
-test("closing a tool restores normal page scrolling", () => {
+test("mobile layout stacks sidebar and tool content", () => {
+  assert.match(css, /@media\s*\(max-width:\s*760px\)[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\)/);
+});
+
+test("closing a tool restores the homepage state", () => {
   assert.match(app, /document\.body\.classList\.remove\("tool-open"\)/);
-  assert.match(app, /document\.body\.style\.removeProperty\("overflow"\)/);
+  assert.match(app, /workspace\.classList\.add\("hidden"\)/);
 });
