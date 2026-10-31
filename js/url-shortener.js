@@ -54,7 +54,7 @@
       first === 0x2002 ||                // 6to4
       (first === 0x0064 && second === 0xff9b && groups[2] === 0 && groups[3] === 0 && groups[4] === 0 && groups[5] === 0) || // NAT64 well-known /96
       (first === 0x0064 && second === 0xff9b && groups[2] === 1) || // local-use NAT64 /48
-      (first === 0x0100 && groups.slice(1).every(group => group === 0)) || // 100::/64 discard-only
+      (first === 0x0100 && groups.slice(1, 4).every(group => group === 0)) || // 100::/64 discard-only
       (first === 0x2001 && second === 0x0db8); // 2001:db8::/32 documentation
   }
 
