@@ -6,33 +6,33 @@ Last updated: 2026-10-31
 
 ## DocFix Pro — Bangla spacing and Bijoy/Unicode upgrade (merged and deployed)
 
-- PR #77 merged into main at production commit `6badc083a31e1e7a1bf27ab0d1fdb74d49748da1` on 2026-10-31.
-- Added a bundled 454,650-entry Bengali word list sourced from Sanjidh090/bangla-wordlist (the source repository states Unlicense/public-domain dedication) for local dictionary-backed segmentation.
-- Added curated corrections and a full regression test for the exact joined-word sentence supplied by the owner; unknown or ambiguous joined strings are left unchanged rather than split speculatively.
+- PR #77 introduced the Bengali dictionary and Bijoy/Unicode conversion. PR #78 was merged into `main` on 2026-10-31 at production commit `1b01fceb908de692fe38f84147a1b633fdd49c01`.
+- Uses a bundled 454,650-entry Bengali word list sourced from Sanjidh090/bangla-wordlist (the source repository states Unlicense/public-domain dedication) for local dictionary-backed segmentation.
+- PR #78 expanded curated Bangla compound corrections, raised dictionary segmentation from a two-part cap to a conservative five-part cap, and added an exact regression test for the owner's complete UI-layout paragraph, including the bold heading and paragraph break.
+- The exact requested paragraph now produces the expected output in the regression suite. General unknown or ambiguous joined strings remain conservative; dictionary segmentation is not a guarantee of perfect linguistic proofreading for every Bengali sentence.
 - Added two-way Bijoy ANSI ↔ Unicode conversion using the MIT-licensed `unicode2ascii@1.1.0` package, loaded from esm.sh only when conversion is requested.
 - Text and DOCX modes expose cleanup and encoding conversion. DOCX conversion updates text runs and their font declarations while retaining the surrounding Word XML structure; test real files in Word before relying on a converted document.
 - Bijoy output is legacy ANSI. Correct visual rendering requires a compatible SutonnyMJ font; ToolNest does not bundle a font with uncertain redistribution rights. Unicode output is standard Bangla text.
-- CI regression run `41196624664` passed 139/139 tests; post-merge main regression run `41196678558` passed; GitHub Pages deployment run `41196678256` succeeded.
-- The CI test covers the exact sample, dictionary segmentation behavior, both conversion directions through a deterministic injected engine, and DOCX XML structure. A live browser round-trip against the external converter CDN and manual Word-file validation were not independently performed.
+- PR #78 regression workflow `41197915541` passed: 141/141 tests, 0 failures; JavaScript syntax checks passed. Post-merge main regression workflow `41197991305` passed, and GitHub Pages deployment workflow `41197991120` succeeded.
+- Automated tests verify the exact sample, multi-part dictionary segmentation, both Bijoy conversion directions through a deterministic injected engine, and DOCX XML structure. A live browser round-trip against the external converter CDN and manual Word-file validation were not independently performed.
 
 ## Repository and production baseline
 
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Latest verified production code commit: `b0671360ffc5ac0a1326479cf4b7da8fa0bc9a95` (PR #70 squash merge; responsive sidebar/content workspace grid). The preceding full-screen workspace baseline was `dbb657f9a6ad37368b5b4a151d8e7bca6d1aa930` (PR #68).
+- Latest verified production code commit: `1b01fceb908de692fe38f84147a1b633fdd49c01` (PR #78 squash merge; DocFix Pro Bangla contextual spacing fix). The preceding full-screen workspace baseline was `dbb657f9a6ad37368b5b4a151d8e7bca6d1aa930` (PR #68).
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
 - Catalogue: **45 unique tools**, **45 individual SEO guide pages**, and **47 sitemap URLs** (homepage + directory + 44 guides).
 - `app.js`, `js/tools-data.json`, the tool-guide directory and sitemap are expected to remain synchronized.
 - No paid service or ToolNest backend is used. Some tools rely on third-party browser libraries or public APIs.
 
-## Universal Doc Formatter & Spacing Fixer — DocFix Pro (feature branch in progress)
+## DocFix Pro — current operating limits
 
-- New 45th tool is being implemented on `feature/docfix-pro-text-docx`; it is not yet merged or live.
-- Text Mode performs conservative Unicode-safe whitespace and punctuation cleanup, with optional English camelCase splitting and blank-line reduction.
-- DOCX Mode processes standard `.docx` files locally in the browser using JSZip. It updates text within existing Word XML text runs and retains surrounding table, paragraph, run and style markup rather than rebuilding the document.
-- Arbitrary joined words cannot be reliably separated without language context. The tool does not claim automatic linguistic proofreading. Macro-enabled `.docm`, legacy `.doc` and password-protected files are not supported.
-- CI, PR merge, GitHub Pages deployment and live browser checks are pending. Do not call this tool complete until each is verified.
+- DocFix Pro is registered as the 45th tool and is merged into `main`; text and DOCX processing run in the visitor's browser.
+- The Bengali word list and curated rules improve joined-word separation, but ambiguous and unfamiliar compounds may remain unchanged. Review the output before using it in a published or formal document.
+- Standard `.docx` files are supported. Macro-enabled `.docm`, legacy `.doc` and password-protected files are not supported.
+- CI and GitHub Pages deployment passed for PR #78. Independent live-browser testing of the deployed text workflow and manual Word-file validation remain owner QA items.
 
 ## Responsive sidebar/content workspace layout (2026-10-31)
 
