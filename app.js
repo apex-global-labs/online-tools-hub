@@ -318,6 +318,7 @@ function wireUniversalActions(id){
   return "";
  };
  bind("universalCopy",()=>{
+  if(id==="bijoyunicode"){window.ToolNestBijoyConverter?.copyLatest();return;}
   if(id==="pdfmerge"){message("PDF files are documents; use the Download Merged PDF button after merging.");return;}
   if(id==="pdfsplitter"){message("Select pages and split them before downloading PDF files.");return;}
   if(id==="imagepdf"){message("Image to PDF creates a document; use Download PDF after creating it.");return;}
@@ -335,6 +336,7 @@ function wireUniversalActions(id){
   navigator.clipboard.writeText(text).then(()=>message("Copied to clipboard.")).catch(()=>message("Clipboard access was blocked. Select and copy the result manually.","error"));
  });
  bind("universalDownload",()=>{
+  if(id==="bijoyunicode"){window.ToolNestBijoyConverter?.downloadLatest();return;}
   if(id==="pdfmerge"){ $("#pdfMergeDownload")?.click(); return; }
   if(id==="pdfsplitter"){ $("#pdfSplitDownload")?.click(); return; }
   if(id==="imagepdf"){ $("#imagePdfDownload")?.click(); return; }
@@ -361,6 +363,7 @@ function wireUniversalActions(id){
   message("Result downloaded as a text file.");
  });
  bind("universalClear",()=>{
+  if(id==="bijoyunicode"){window.ToolNestBijoyConverter?.clear();message("Tool cleared.");return;}
   // QR Studio keeps artwork and render state in local variables; use its own reset handler.
   if(id==="pdfmerge"){ $("#pdfMergeClear")?.click(); return; }
   if(id==="pdfsplitter"){ $("#pdfSplitClear")?.click(); return; }
