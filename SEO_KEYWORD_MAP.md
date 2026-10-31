@@ -123,6 +123,8 @@ Google recommends descriptive, concise titles, useful people-first content, anti
 | 53 | JWT Decoder | **JWT decoder online** | decode JWT token; JWT payload viewer | decode JWT header and payload locally without signature verification | Transactional / tool use | P1 | Clearly distinguish decoding from signature verification; never imply token validity. | [jwt-decoder](https://apex-global-labs.github.io/online-tools-hub/tools/jwt-decoder/) |
 | 54 | XML Formatter | **XML formatter online** | pretty print XML; XML validator | validate and indent XML markup in browser | Transactional / tool use | P2 | Explain browser-native parsing and that malformed XML is reported, not repaired. | [xml-formatter](https://apex-global-labs.github.io/online-tools-hub/tools/xml-formatter/) |
 
+| 55 | PDF Images Extractor | **extract images from PDF online** | PDF image extractor; save images from PDF | extract supported embedded raster images from PDF pages and download them individually or as a ZIP | Transactional / tool use | P1 | Explain supported embedded image objects, local browser processing, individual/ZIP downloads and unsupported masks or encodings. | [pdf-images-extractor](https://apex-global-labs.github.io/online-tools-hub/tools/pdf-images-extractor/) |
+
 ## Recommended on-page implementation
 
 - Keep each guide's existing unique title, meta description, canonical URL and H1 unless later evidence supports a carefully tested improvement.

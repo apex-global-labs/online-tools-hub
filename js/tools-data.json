@@ -1832,14 +1832,14 @@
     "description": "Reorder PDF pages and rotate pages locally in your browser.",
     "tagline": "Arrange PDF pages in the order you need",
     "seo": {
-      "description": "Reorder PDF pages and rotate every page before downloading an updated PDF. Files are processed locally in your browser.",
+      "description": "Reorder PDF pages using visual thumbnails and drag-and-drop controls, then rotate pages before downloading an updated PDF. Files are processed locally in your browser.",
       "steps": [
         "Choose a PDF file up to 30 MB and 300 pages.",
-        "Edit the page order using comma-separated page numbers, such as 3,1,2.",
+        "Drag page thumbnails into the desired order, use the move buttons on mobile, or edit the comma-separated page sequence.",
         "Choose an optional rotation and download the organized PDF."
       ],
       "features": [
-        "Reorders every page using a complete page sequence.",
+        "Reorders every page with visual thumbnails, drag-and-drop and mobile-friendly move controls.",
         "Rotates all pages by 90, 180 or 270 degrees.",
         "Processes the document locally with pdf-lib."
       ],
@@ -1850,7 +1850,7 @@
         },
         {
           "question": "Can I omit pages?",
-          "answer": "This first version requires every page exactly once. Use the existing PDF Splitter if you need to extract selected pages."
+          "answer": "Every page must appear exactly once in the final order. Use PDF Splitter if you need to extract selected pages."
         },
         {
           "question": "What are the limits?",
