@@ -43,8 +43,10 @@
   <link rel="stylesheet" href="css/pdf-splitter.css?v=20261031-pdfsplit1">
   <link rel="stylesheet" href="css/url-shortener.css?v=20261031-url1">
   <link rel="stylesheet" href="css/phase15-developer-seo.css?v=20261030-phase15">
+  <link rel="stylesheet" href="css/homepage-visual-updates.css?v=20261031-home1">
 </head>
 <body>
+  <div class="welcome-marquee" role="region" aria-label="Welcome message"><div class="welcome-marquee-track"><span>WELCOME TO TOOLNEST</span><span aria-hidden="true">✦</span><span>Your everyday tools — simple, fast and free.</span><span aria-hidden="true">✦</span><span>Explore 43 free online tools and get things done.</span></div></div>
   <header class="sticky top-0 z-30 border-b border-slate-200/70 bg-white/85 backdrop-blur dark:border-slate-800 dark:bg-slate-950/85">
     <nav class="site-nav mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 md:py-4">
       <a href="#" class="flex items-center gap-2 font-black tracking-tight text-xl" aria-label="ToolNest home"><span class="brand-mark">T</span><span>ToolNest</span></a>
@@ -52,12 +54,12 @@
         <details class="nav-categories">
           <summary>Categories <span aria-hidden="true">⌄</span></summary>
           <div class="category-menu">
-            <button type="button" data-nav-category="All">All tools</button>
-            <button type="button" data-nav-category="Text">Text Utilities</button>
-            <button type="button" data-nav-category="Image">Image Tools</button>
-            <button type="button" data-nav-category="Developer">Dev Tools</button>
-            <button type="button" data-nav-category="Calculators">Calculators</button>
-            <button type="button" data-nav-category="Utilities">Utilities</button>
+            <button type="button" data-nav-category="All"><span aria-hidden="true">✦</span> All tools</button>
+            <button type="button" data-nav-category="Text"><span aria-hidden="true">✎</span> Text Utilities</button>
+            <button type="button" data-nav-category="Image"><span aria-hidden="true">▧</span> Image Tools</button>
+            <button type="button" data-nav-category="Developer"><span aria-hidden="true">{ }</span> Dev Tools</button>
+            <button type="button" data-nav-category="Calculators"><span aria-hidden="true">∑</span> Calculators</button>
+            <button type="button" data-nav-category="Utilities"><span aria-hidden="true">⚡</span> Utilities</button>
           </div>
         </details>
         <a href="#about" class="nav-link hidden sm:inline">About</a>
@@ -67,11 +69,11 @@
   </header>
 
   <main class="mx-auto max-w-7xl px-4">
-    <section id="hero" class="hero my-6 overflow-hidden rounded-3xl px-6 py-12 md:my-10 md:px-12 md:py-16">
+    <section id="hero" class="hero my-3 overflow-hidden rounded-3xl px-5 py-7 md:my-5 md:px-10 md:py-9">
       <div class="hero-content relative z-10 max-w-3xl">
         <span class="eyebrow">SIMPLE · FAST · FREE</span>
-        <h1 class="mt-4 text-4xl font-black leading-tight tracking-tight md:text-6xl">Everyday tools.<br><span class="gradient-text">One simple place.</span></h1>
-        <p class="mt-5 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300 md:text-lg">Useful online utilities for writing, coding, images, colors and calculations — right in your browser.</p>
+        <h1 class="mt-3 text-3xl font-black leading-tight tracking-tight md:text-5xl">Everyday tools.<br><span class="gradient-text">One simple place.</span></h1>
+        <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-300 md:text-base">Useful online utilities for writing, coding, images, colors and calculations — right in your browser.</p>
         <div class="hero-search-area">
           <div class="search-wrap">
             <span aria-hidden="true">⌕</span>
@@ -80,7 +82,7 @@
           </div>
           <div id="searchSuggestions" class="search-suggestions hidden" role="listbox" aria-label="Tool search suggestions"></div>
         </div>
-        <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+        <div class="mt-4 flex flex-col gap-3 sm:flex-row">
           <a href="#tools" class="btn-primary">Explore all tools <span aria-hidden="true">→</span></a>
           <span class="self-center text-sm text-slate-500">No account needed · Browser-based processing</span>
         </div>
@@ -88,17 +90,23 @@
       <div class="hero-orb orb-one"></div><div class="hero-orb orb-two"></div>
     </section>
 
+
+    <section id="featured-tools" class="featured-tools-section" aria-labelledby="featuredToolsTitle">
+      <div class="featured-tools-heading"><div><p class="eyebrow">QUICK PICKS</p><h2 id="featuredToolsTitle">Popular tools</h2><p class="muted">Start with the tools people commonly need.</p></div><a href="#tools" class="featured-view-all">View all tools →</a></div>
+      <div id="featuredToolGrid" class="featured-tool-grid"></div>
+    </section>
+
     <section id="tools" class="pb-14">
       <div class="flex flex-col justify-between gap-5 md:flex-row md:items-end">
         <div><p class="eyebrow">THE TOOLBOX</p><h2 class="mt-2 text-3xl font-extrabold tracking-tight">Find your tool</h2><p class="mt-2 muted">Choose a category or search by name.</p></div>
       </div>
       <div id="categoryFilters" class="mt-6 flex flex-wrap gap-2">
-        <button class="filter-chip active" data-category="All" aria-pressed="true">All Tools</button>
-        <button class="filter-chip" data-category="Text" aria-pressed="false">Text Utilities</button>
-        <button class="filter-chip" data-category="Image" aria-pressed="false">Image Tools</button>
-        <button class="filter-chip" data-category="Developer" aria-pressed="false">Dev Tools</button>
-        <button class="filter-chip" data-category="Calculators" aria-pressed="false">Calculators</button>
-        <button class="filter-chip" data-category="Utilities" aria-pressed="false">Utilities</button>
+        <button class="filter-chip active" data-category="All" aria-pressed="true"><span class="category-symbol" aria-hidden="true">✦</span> All Tools</button>
+        <button class="filter-chip" data-category="Text" aria-pressed="false"><span class="category-symbol text-symbol" aria-hidden="true">✎</span> Text Utilities</button>
+        <button class="filter-chip" data-category="Image" aria-pressed="false"><span class="category-symbol image-symbol" aria-hidden="true">▧</span> Image Tools</button>
+        <button class="filter-chip" data-category="Developer" aria-pressed="false"><span class="category-symbol dev-symbol" aria-hidden="true">{ }</span> Dev Tools</button>
+        <button class="filter-chip" data-category="Calculators" aria-pressed="false"><span class="category-symbol calc-symbol" aria-hidden="true">∑</span> Calculators</button>
+        <button class="filter-chip" data-category="Utilities" aria-pressed="false"><span class="category-symbol utility-symbol" aria-hidden="true">⚡</span> Utilities</button>
       </div>
       <p id="resultsCount" class="mt-5 text-sm muted" aria-live="polite"></p>
       <div id="toolGrid" class="tool-grid mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"></div>
