@@ -1,0 +1,234 @@
+/* Full-page tool workspace: independent sidebar and scrollable content grid. Responsive layout revision 2. */
+body.tool-open {
+  overflow: hidden;
+  background: var(--bg);
+}
+
+body.tool-open > .welcome-marquee,
+body.tool-open > header,
+body.tool-open > main,
+body.tool-open > footer {
+  display: none !important;
+}
+
+body.tool-open > #workspace {
+  position: relative;
+  isolation: isolate;
+  z-index: 1;
+  display: grid !important;
+  grid-template-columns: minmax(15rem, 19rem) minmax(0, 1fr);
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background: var(--bg);
+  color: var(--text);
+  box-shadow: none;
+}
+
+body.tool-open .workspace-sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.25rem;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  padding: clamp(1.25rem, 2.5vw, 2.25rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-right: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.workspace-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  width: fit-content;
+  color: var(--text);
+  font-weight: 900;
+  text-decoration: none;
+  letter-spacing: -.02em;
+}
+
+body.tool-open .workspace-breadcrumb {
+  margin: .5rem 0 0;
+  overflow-wrap: anywhere;
+}
+
+body.tool-open .workspace-heading {
+  display: block;
+  margin: 0;
+  min-width: 0;
+}
+
+body.tool-open #workspaceTitle {
+  margin: .65rem 0;
+  color: var(--text);
+  font-size: clamp(1.45rem, 2vw, 2rem);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+body.tool-open #workspaceDescription {
+  max-width: 42ch;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+body.tool-open #closeWorkspace {
+  width: 100%;
+  margin-top: auto;
+  white-space: normal;
+}
+
+body.tool-open .workspace-content {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  padding: clamp(1rem, 3vw, 2.75rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  background: var(--bg);
+}
+
+body.tool-open #toolPanel,
+body.tool-open #toolMessage {
+  width: min(100%, 1100px);
+  min-width: 0;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+body.tool-open #toolPanel {
+  margin-top: 0;
+}
+
+body.tool-open .workspace-main-card {
+  width: 100%;
+  min-width: 0;
+}
+
+body.tool-open .tool-form {
+  width: 100%;
+  max-width: none;
+}
+
+body.tool-open .workspace-message {
+  margin-top: 1rem;
+  font-size: .9rem;
+}
+
+body.tool-open .workspace-message:empty {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  body.tool-open {
+    overflow: hidden;
+  }
+
+  body.tool-open > #workspace {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  body.tool-open .workspace-sidebar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: .5rem 1rem;
+    height: auto;
+    max-height: 42dvh;
+    padding: .85rem 1rem;
+    overflow-y: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  body.tool-open .workspace-brand {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  body.tool-open .workspace-breadcrumb {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin: 0;
+    font-size: .8rem;
+  }
+
+  body.tool-open .workspace-heading {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  body.tool-open #workspaceTitle {
+    margin: .2rem 0;
+    font-size: 1.2rem;
+  }
+
+  body.tool-open #workspaceDescription {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    font-size: .82rem;
+  }
+
+  body.tool-open .workspace-heading > .eyebrow {
+    font-size: .62rem;
+  }
+
+  body.tool-open #closeWorkspace {
+    grid-column: 2;
+    grid-row: 1;
+    width: auto;
+    min-width: 6.5rem;
+    margin: 0;
+    padding: .55rem .7rem;
+    font-size: .8rem;
+  }
+
+  body.tool-open .workspace-content {
+    height: auto;
+    min-height: 0;
+    padding: 1rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+@media (max-width: 380px) {
+  body.tool-open .workspace-sidebar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  body.tool-open #closeWorkspace {
+    grid-column: 1;
+    grid-row: 4;
+    justify-self: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.tool-open .workspace-content,
+  body.tool-open .workspace-sidebar {
+    scroll-behavior: auto;
+  }
+}
