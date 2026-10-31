@@ -1,24 +1,22 @@
-/* Workspace layout: normal document flow, with a responsive two-column grid. */
+/* Stable workspace structure: outer column flow, inner sidebar/tool row, SEO below. */
 body.tool-open {
   background: var(--bg);
 }
 
-/* Keep the site header in normal flow; hide only the homepage and marquee. */
+/* Keep the site header in normal flow; hide only homepage content. */
 body.tool-open > .welcome-marquee,
 body.tool-open > main,
 body.tool-open > footer {
   display: none !important;
 }
 
-body.tool-open > header.sticky {
-  top: 0;
-}
+body.tool-open > header.sticky { top: 0; }
 
 body.tool-open > #workspace {
   position: relative;
   isolation: isolate;
-  display: grid !important;
-  grid-template-columns: minmax(16rem, 20rem) minmax(0, 1fr);
+  display: flex !important;
+  flex-direction: column;
   align-items: stretch;
   gap: 0;
   width: min(100%, 88rem);
@@ -33,6 +31,16 @@ body.tool-open > #workspace {
   background: var(--bg);
   color: var(--text);
   box-shadow: 0 12px 36px rgba(15, 23, 42, .06);
+}
+
+/* This is the ONLY two-column row: sidebar and tool controls. */
+body.tool-open > #workspace > .workspace-main-row {
+  display: grid;
+  grid-template-columns: minmax(16rem, 20rem) minmax(0, 1fr);
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  min-width: 0;
 }
 
 body.tool-open .workspace-sidebar {
@@ -91,6 +99,9 @@ body.tool-open #closeWorkspace {
 }
 
 body.tool-open .workspace-content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   min-width: 0;
   min-height: 0;
   padding: clamp(1rem, 3vw, 2.75rem);
@@ -106,41 +117,19 @@ body.tool-open #toolMessage {
   margin-left: auto;
 }
 
-body.tool-open #toolPanel {
-  margin-top: 0;
-}
+body.tool-open #toolPanel { margin-top: 0; flex: 0 0 auto; }
+body.tool-open .workspace-main-card { width: 100%; min-width: 0; }
+body.tool-open .tool-form { width: 100%; max-width: none; }
 
-/* The tool controls occupy the first grid row; SEO content spans the full row below. */
 body.tool-open > #workspace > #toolSeoContent {
-  grid-column: 1 / -1;
-  justify-self: center;
-  align-self: start;
+  display: block;
+  position: relative;
+  clear: both;
+  align-self: center;
   width: min(100% - 2rem, 72rem);
   max-width: 72rem;
   min-width: 0;
   margin: 1.5rem auto 2rem;
-  position: relative;
-  clear: both;
-}
-
-body.tool-open .workspace-content {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
-
-body.tool-open #toolPanel {
-  flex: 0 0 auto;
-}
-
-body.tool-open .workspace-main-card {
-  width: 100%;
-  min-width: 0;
-}
-
-body.tool-open .tool-form {
-  width: 100%;
-  max-width: none;
 }
 
 body.tool-open .workspace-message {
@@ -148,13 +137,10 @@ body.tool-open .workspace-message {
   font-size: .9rem;
 }
 
-body.tool-open .workspace-message:empty {
-  display: none;
-}
+body.tool-open .workspace-message:empty { display: none; }
 
 @media (max-width: 760px) {
   body.tool-open > #workspace {
-    grid-template-columns: minmax(0, 1fr);
     min-height: 0;
     width: 100%;
     margin: 0;
@@ -162,6 +148,10 @@ body.tool-open .workspace-message:empty {
     border-left: 0;
     border-radius: 0;
     box-shadow: none;
+  }
+
+  body.tool-open > #workspace > .workspace-main-row {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   body.tool-open .workspace-sidebar {
@@ -175,10 +165,7 @@ body.tool-open .workspace-message:empty {
     border-bottom: 1px solid var(--line);
   }
 
-  body.tool-open .workspace-brand {
-    grid-column: 1;
-    grid-row: 1;
-  }
+  body.tool-open .workspace-brand { grid-column: 1; grid-row: 1; }
 
   body.tool-open .workspace-breadcrumb {
     grid-column: 1 / -1;
@@ -187,10 +174,7 @@ body.tool-open .workspace-message:empty {
     font-size: .8rem;
   }
 
-  body.tool-open .workspace-heading {
-    grid-column: 1;
-    grid-row: 3;
-  }
+  body.tool-open .workspace-heading { grid-column: 1; grid-row: 3; }
 
   body.tool-open #workspaceTitle {
     margin: .2rem 0;
@@ -205,9 +189,7 @@ body.tool-open .workspace-message:empty {
     font-size: .82rem;
   }
 
-  body.tool-open .workspace-heading > .eyebrow {
-    font-size: .62rem;
-  }
+  body.tool-open .workspace-heading > .eyebrow { font-size: .62rem; }
 
   body.tool-open #closeWorkspace {
     grid-column: 2;
@@ -219,27 +201,16 @@ body.tool-open .workspace-message:empty {
     font-size: .8rem;
   }
 
-  body.tool-open .workspace-content {
-    padding: 1rem;
-    overflow: visible;
-  }
+  body.tool-open .workspace-content { padding: 1rem; overflow: visible; }
+  body.tool-open > #workspace > #toolSeoContent { width: calc(100% - 2rem); margin: 1.25rem auto; }
 }
 
 @media (max-width: 380px) {
-  body.tool-open .workspace-sidebar {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  body.tool-open #closeWorkspace {
-    grid-column: 1;
-    grid-row: 4;
-    justify-self: start;
-  }
+  body.tool-open .workspace-sidebar { grid-template-columns: minmax(0, 1fr); }
+  body.tool-open #closeWorkspace { grid-column: 1; grid-row: 4; justify-self: start; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   body.tool-open .workspace-content,
-  body.tool-open .workspace-sidebar {
-    scroll-behavior: auto;
-  }
+  body.tool-open .workspace-sidebar { scroll-behavior: auto; }
 }

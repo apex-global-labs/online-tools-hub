@@ -10,21 +10,22 @@ const [app, css, html, legacyCss, phase4Css] = await Promise.all([
   readFile(new URL("../css/phase4-workspace.css", import.meta.url), "utf8")
 ]);
 
-test("workspace is a direct body child with semantic sidebar and main content", () => {
+test("workspace is a direct body child with a nested semantic sidebar/tool row", () => {
   const mainEnd = html.indexOf("</main>");
   const workspaceStart = html.indexOf('<section id="workspace"');
-  assert.ok(mainEnd > -1 && workspaceStart > mainEnd, "workspace must sit outside the homepage main");
-  assert.match(html, /<aside class="workspace-sidebar"/);
+  assert.ok(mainEnd > -1 && workspaceStart > mainEnd, "workspace must sit outside homepage main");
+  assert.match(html, /<div class="workspace-main-row">\s*<aside class="workspace-sidebar"/);
   assert.match(html, /<main class="workspace-content"/);
   assert.match(html, /id="closeWorkspace"/);
 });
 
-test("desktop workspace uses a normal-flow two-column grid", () => {
+test("outer workspace is a one-column flex container and inner row is two-column grid", () => {
+  assert.match(css, /body\.tool-open\s*>\s*#workspace\s*\{[\s\S]*?display:\s*flex\s*!important/);
+  assert.match(css, /flex-direction:\s*column/);
+  assert.match(css, /body\.tool-open\s*>\s*#workspace\s*>\s*\.workspace-main-row\s*\{[\s\S]*?display:\s*grid/);
   assert.match(css, /grid-template-columns:\s*minmax\(16rem, 20rem\) minmax\(0, 1fr\)/);
-  assert.match(css, /body\.tool-open\s*>\s*#workspace\s*\{[\s\S]*?display:\s*grid\s*!important/);
-  assert.match(css, /min-height:\s*calc\(100dvh - 5rem\)/);
-  const container = css.match(/body\.tool-open\s*>\s*#workspace\s*\{([^}]*)\}/)?.[1] || "";
-  assert.doesNotMatch(container, /position:\s*fixed|height:\s*100dvh|overflow:\s*hidden/);
+  const outer = css.match(/body\.tool-open\s*>\s*#workspace\s*\{([^}]*)\}/)?.[1] || "";
+  assert.doesNotMatch(outer, /grid-template-columns|position:\s*fixed|height:\s*100dvh|overflow:\s*hidden/);
 });
 
 test("workspace does not lock body scrolling or create a fullscreen overlay", () => {
@@ -39,28 +40,28 @@ test("site header remains visible while homepage content is hidden", () => {
   assert.match(css, /body\.tool-open\s*>\s*header\.sticky\s*\{\s*top:\s*0/);
 });
 
-test("desktop sidebar and content remain in the same grid without independent clipping", () => {
+test("sidebar and tool controls share only the nested row without clipping", () => {
   assert.match(css, /\.workspace-sidebar\s*\{[\s\S]*?border-right:\s*1px solid/);
   assert.match(css, /\.workspace-content\s*\{[\s\S]*?overflow:\s*visible/);
   assert.match(css, /\.workspace-sidebar\s*\{[\s\S]*?overflow:\s*visible/);
 });
 
-test("mobile workspace switches to a stacked single-column layout", () => {
-  assert.match(css, /@media\s*\(max-width:\s*760px\)[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\)/);
+test("mobile workspace stacks the nested sidebar/tool row in one column", () => {
+  assert.match(css, /@media\s*\(max-width:\s*760px\)[\s\S]*?\.workspace-main-row\s*\{\s*grid-template-columns:\s*minmax\(0, 1fr\)/);
   assert.match(css, /@media\s*\(max-width:\s*760px\)[\s\S]*?\.workspace-content\s*\{\s*padding:\s*1rem;\s*overflow:\s*visible/);
 });
 
 test("workspace grid stylesheet is the final layout authority", () => {
   const stylesheetLinks = [...html.matchAll(/<link\b[^>]*rel=["']stylesheet["'][^>]*href=["']([^"']+)/gi)].map(match => match[1]);
   const gridIndex = stylesheetLinks.findIndex(link => /^css\/workspace-grid-layout\.css(?:\?.*)?$/.test(link));
-  assert.ok(gridIndex >= 0, "workspace grid stylesheet must be linked");
-  assert.equal(gridIndex, stylesheetLinks.length - 1, "workspace grid stylesheet must load after all other stylesheets");
+  assert.ok(gridIndex >= 0, "workspace stylesheet must be linked");
+  assert.equal(gridIndex, stylesheetLinks.length - 1, "workspace stylesheet must load last");
   assert.doesNotMatch(legacyCss, /body\.tool-open\s+#workspace\s*\{/);
   assert.doesNotMatch(legacyCss, /position:\s*fixed\s*!important/);
   assert.doesNotMatch(phase4Css, /\.tool-open\s+#(?:hero|tools|about)/);
 });
 
-test("opening and closing a tool toggle workspace visibility without inline scroll locks", () => {
+test("opening and closing a tool toggles workspace visibility without inline scroll locks", () => {
   assert.match(app, /document\.body\.classList\.add\("tool-open"\)/);
   assert.match(app, /document\.body\.classList\.remove\("tool-open"\)/);
   assert.match(app, /workspace\.classList\.remove\("hidden"\)/);
@@ -68,11 +69,10 @@ test("opening and closing a tool toggle workspace visibility without inline scro
   assert.doesNotMatch(app, /document\.body\.style\.overflow\s*=\s*["']hidden["']/);
 });
 
-test("SEO guide is a full-width grid row below the sidebar and tool controls", async () => {
+test("SEO guide is a sibling below the nested sidebar/tool row", async () => {
   const seoScript = await readFile(new URL("../js/seo-content.js", import.meta.url), "utf8");
   assert.match(seoScript, /workspace\.appendChild\(section\)/);
-  assert.doesNotMatch(seoScript, /toolMessage\.insertAdjacentElement\(["']afterend["']/);
-  assert.match(css, /body\.tool-open\s*>\s*#workspace\s*>\s*#toolSeoContent\s*\{[^}]*grid-column:\s*1\s*\/\s*-1/);
-  assert.match(css, /body\.tool-open\s*>\s*#workspace\s*>\s*#toolSeoContent\s*\{[^}]*position:\s*relative/);
-  assert.match(css, /body\.tool-open\s*\.workspace-content\s*\{[^}]*display:\s*flex[^}]*flex-direction:\s*column/);
+  assert.match(css, /body\.tool-open\s*>\s*#workspace\s*>\s*#toolSeoContent/);
+  assert.match(css, /body\.tool-open\s*>\s*#workspace\s*>\s*\.workspace-main-row/);
+  assert.match(html, /<\/div>\s*<\/section>\s*<div id="toastNotice"/);
 });
