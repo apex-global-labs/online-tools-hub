@@ -29,6 +29,7 @@ jobs:
           node --check js/ip-tools.js
           node --check js/pdf-merge.js
           node --check js/pdf-splitter.js
+          node --check js/phase-a-pdf-tools.js
           node --check js/image-to-pdf.js
           node --experimental-default-type=module --check js/router.js
           node --experimental-default-type=module --check js/router-bridge.js
