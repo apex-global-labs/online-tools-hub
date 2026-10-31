@@ -1850,7 +1850,7 @@
         },
         {
           "question": "Can I omit pages?",
-          "answer": "Every page must appear exactly once in the final order. Use PDF Splitter if you need to extract selected pages."
+          "answer": "Every page must appear exactly once in the final order. Use PDF Splitter to extract selected pages."
         },
         {
           "question": "What are the limits?",
