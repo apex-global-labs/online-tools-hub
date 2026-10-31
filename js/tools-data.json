@@ -1668,5 +1668,43 @@
       ],
       "tips": "Keep a copy of your original text before converting Bijoy and Unicode. Bijoy output may require a compatible SutonnyMJ font."
     }
+  },
+  {
+    "id": "bijoyunicode",
+    "title": "Unicode ⇄ Bijoy Converter",
+    "category": "Text",
+    "icon": "⇄",
+    "slug": "unicode-bijoy-converter",
+    "description": "Convert Bangla text between Unicode and Bijoy ANSI in two side-by-side editors.",
+    "tagline": "Convert Bangla in both directions",
+    "seo": {
+      "description": "Convert Bangla text between Unicode and Bijoy ANSI with two side-by-side editors. Paste in either box, convert in the required direction, then copy or download the result.",
+      "steps": [
+        "Paste Unicode Bangla in the left editor or Bijoy ANSI text in the right editor.",
+        "Choose Unicode → Bijoy or Bijoy → Unicode to convert the text into the opposite editor.",
+        "Review the result, then copy or download the required text."
+      ],
+      "features": [
+        "Two side-by-side editors for Unicode and Bijoy ANSI.",
+        "Independent conversion buttons for both directions.",
+        "Copy, clear and TXT download controls for each format.",
+        "Browser-based conversion; pasted text is not uploaded to ToolNest."
+      ],
+      "faqs": [
+        {
+          "question": "Why does Bijoy text look like English characters?",
+          "answer": "Bijoy ANSI stores legacy character codes. To display the Bangla glyphs correctly, use a compatible SutonnyMJ font in an application that supports it."
+        },
+        {
+          "question": "Which side should I paste my text into?",
+          "answer": "Paste standard Bangla Unicode into the Unicode editor and legacy Bijoy ANSI text into the Bijoy editor. Then select the conversion button for the direction you need."
+        },
+        {
+          "question": "Is my text uploaded to ToolNest?",
+          "answer": "No. The conversion runs in your browser. The conversion module is loaded from a public CDN when first needed."
+        }
+      ],
+      "tips": "Keep the original text before converting. Check names, punctuation and conjuncts after conversion. Bijoy output may require a compatible SutonnyMJ font."
+    }
   }
 ]
