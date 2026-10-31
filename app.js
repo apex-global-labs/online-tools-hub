@@ -298,6 +298,7 @@ function openTool(id,updateHistory=true){
  panel.innerHTML='<div class="workspace-main-card">'+toolMarkup(id)+'<div class="actions universal-tool-actions" aria-label="Common tool actions"><button id="universalCopy" type="button" class="btn-secondary">Copy result</button><button id="universalDownload" type="button" class="btn-secondary">Download result</button><button id="universalClear" type="button" class="btn-secondary">Clear</button></div></div>';
  wireTool(id);
  wireUniversalActions(id);
+ if(id==="docfix")window.ToolNestDocFix?.init();
  if(updateHistory){
   const slug=meta.slug;
   const nextHash=slug?`#/tools/${slug}`:`#tool/${id}`;
