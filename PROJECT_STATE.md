@@ -17,19 +17,22 @@ Last updated: 2026-10-31
 - Post-merge main regression workflow **41211622198** also passed **138 tests, 138 passed, 0 failed**.
 - Independent real-browser QA with representative PDFs, output files and mobile devices remains pending. CI and deployment success do not prove every PDF variant works on every browser/device.
 
-## Phase B1 — ZIP File Manager and Favicon Generator (development branch; not yet merged)
+## Phase B1 — ZIP File Manager and Favicon Generator (merged; owner-reported browser QA successful)
 
-- Work branch: `feature/phase-b1-zip-favicon`, based on main HEAD `321e34e0a1bbaf1d164b8973db85cbfcf22aeebf`.
-- The main branch remains at 47 tools until this branch is reviewed and merged. The development branch catalogue contains 49 unique tools, including ZIP File Manager (`zip-file-manager`) and Favicon Generator (`favicon-generator`).
-- ZIP Manager creates archives from up to 100 files, 25 MB per file and 50 MB total; generated archive limit 50 MB. ZIP inspection accepts up to 50 MB, 1,000 entries, 25 MB per extracted entry and 50 MB expanded total. Selected files are repackaged as a new ZIP. Password-protected archives are unsupported.
-- Favicon Generator accepts PNG/JPEG/WebP up to 10 MB and 4,096 pixels per side. It generates 16, 32, 48, 180, 192 and 512 pixel PNGs, a 48×48 ICO with embedded PNG data, and an HTML snippet.
-- Processing is local in the browser. JSZip 3.10.1 is loaded on demand from a public CDN. No backend, paid service or upload endpoint was introduced.
-- Added dedicated modules, responsive CSS, tool metadata, workspace wiring, two SEO guide pages, directory links, sitemap entries and automated tests. The development sitemap has 51 unique URLs (homepage, directory and 49 tool guides).
-- Initial test coverage checks unique IDs/slugs, workspace and script wiring, ZIP path traversal rejection, archive limits, supported image formats and ICO header structure.
-- **CI:** GitHub Actions run **41215187748** (run #414) passed: **145 tests, 145 passed, 0 failed**; all JavaScript syntax checks passed.
-- **Browser QA:** real ZIP creation/extraction and favicon generation still need manual desktop/mobile browser verification. Do not claim production readiness until these interactions are tested.
-- PR #88 remains open and unmerged. Main still has 47 tools; no GitHub Pages deployment of Phase B1 has occurred.
+- PR #88 was squash-merged into `main` at `3f68a6715af29bf2b4e42bb70a6a6d3691b2253a` after the owner confirmed successful desktop/mobile browser testing and authorized the merge.
+- Production catalogue baseline after merge: 49 unique tools, 49 individual guide pages and 51 sitemap URLs.
+- ZIP File Manager supports local ZIP creation and selected-entry extraction with strict archive/path/size limits. Password-protected ZIP archives are unsupported.
+- Favicon Generator accepts PNG/JPEG/WebP and exports common PNG sizes, a PNG-based ICO and HTML snippet. Both tools process files locally; JSZip is loaded on demand from a public CDN.
+- CI run #415 passed 145/145 tests and syntax checks. The owner separately confirmed real Browser QA success; this is owner-reported, not an independently observed test in this session.
 
+## Phase B2 — Five core utilities (development branch; QA and release pending)
+
+- Branch: `feature/phase-b2-core-utilities`, based on the merged Phase B1 main branch.
+- Adds PDF Page Organizer, Text Sorter, Find & Replace, JWT Decoder and XML Formatter. Catalogue target: 54 unique tools; guide directory and sitemap target: 56 URLs.
+- PDF Page Organizer uses pdf-lib loaded on demand; it reorders all pages using an explicit complete page sequence and optionally rotates every page. Limits: 30 MB and 300 pages. It does not delete or duplicate pages.
+- Text Sorter supports A–Z, Z–A and numeric sorting; Find & Replace supports first/all matches, case-sensitive and whole-word options; JWT Decoder locally decodes header/payload only and never verifies signatures; XML Formatter uses the browser XML parser and serializer.
+- No paid API, backend, token upload or ToolNest file-upload endpoint is added. PDF processing is local; pdf-lib is loaded from a public CDN on demand.
+- Automated tests and JavaScript syntax checks must pass before PR creation. Real-browser PDF output and mobile checks remain pending; do not call the branch production-ready until those checks are completed.
 ## Retired tools
 
 - Two Bangla text utilities have been permanently removed from the active catalogue, application workspace, router compatibility handling, dedicated assets, SEO guides, directory, sitemap and tool-specific tests.
