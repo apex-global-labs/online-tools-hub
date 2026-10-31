@@ -14,7 +14,6 @@ Last updated: 2026-10-31
 - SEO follow-up PRs #96–#99 are merged: sitemap XML/keyword-map correction, four crawlable trust pages, a temporary `robots.txt` addition, and its subsequent removal after confirming GitHub Pages project-site scope.
 - Latest main regression workflow #490 (run `41225613017`) passed **157/157 tests** with JavaScript syntax checks. GitHub Pages deployment workflow #143 (run `41225612121`) completed successfully for the same commit.
 - The owner reports that Phase A and Phase B browser checks were successful. This is owner-reported QA; CI and deployment results are recorded separately.
-- The owner reports that Phase A and Phase B browser checks were successful. This is owner-reported QA; CI and deployment results are recorded separately.
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
 - No paid service or ToolNest backend is used. Some tools rely on third-party browser libraries or public APIs.
 - `app.js`, `js/tools-data.json`, `tools/index.html`, individual guide pages and `sitemap.xml` must remain synchronized.
