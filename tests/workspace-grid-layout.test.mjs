@@ -30,12 +30,12 @@ test("desktop workspace uses a normal-flow two-column grid", () => {
 test("workspace does not lock body scrolling or create a fullscreen overlay", () => {
   assert.doesNotMatch(css, /body\.tool-open\s*\{[^}]*overflow:\s*hidden/);
   assert.doesNotMatch(app, /document\.body\.style\.overflow\s*=\s*["']hidden["']/);
-  const container = css.match(/body\.tool-open\s*>\s*#workspace\s*\{([^}]*)\}/)?.[1] || "";
+  assert.doesNotMatch(css, /position:\s*absolute|position:\s*fixed/);
 });
 
 test("site header remains visible while homepage content is hidden", () => {
   assert.match(css, /body\.tool-open\s*>\s*\.welcome-marquee,[\s\S]*?body\.tool-open\s*>\s*main,[\s\S]*?body\.tool-open\s*>\s*footer/);
-  assert.doesNotMatch(css, /body\.tool-open\s*>\s*header/);
+  assert.doesNotMatch(css, /body\.tool-open\s*>\s*header\s*,/);
   assert.match(css, /body\.tool-open\s*>\s*header\.sticky\s*\{\s*top:\s*0/);
 });
 
