@@ -9,11 +9,21 @@ Last updated: 2026-10-31
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Latest verified production code commit: `dbb657f9a6ad37368b5b4a151d8e7bca6d1aa930` (PR #68 squash merge; full-screen tool workspace). The preceding Image to PDF baseline was `820ee1659d08dfd4224b4ae7883491ebc5e36011` (PR #66).
+- Latest verified production code commit: `b0671360ffc5ac0a1326479cf4b7da8fa0bc9a95` (PR #70 squash merge; responsive sidebar/content workspace grid). The preceding full-screen workspace baseline was `dbb657f9a6ad37368b5b4a151d8e7bca6d1aa930` (PR #68).
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
 - Catalogue: **44 unique tools**, **44 individual SEO guide pages**, and **46 sitemap URLs** (homepage + directory + 44 guides).
 - `app.js`, `js/tools-data.json`, the tool-guide directory and sitemap are expected to remain synchronized.
 - No paid service or ToolNest backend is used. Some tools rely on third-party browser libraries or public APIs.
+
+## Responsive sidebar/content workspace layout (2026-10-31)
+
+- PR #70 was squash-merged into `main` at `b0671360ffc5ac0a1326479cf4b7da8fa0bc9a95`.
+- Replaced the earlier fixed overlay approach with a semantic workspace outside the homepage's constrained `<main>`: an `<aside>` for branding, breadcrumb, tool details and return navigation, plus a `<main>` for tool controls and results.
+- Desktop uses CSS Grid with a bounded sidebar and flexible content column. Mobile switches to a stacked single-column layout.
+- Previous homepage, header, footer and marquee are hidden while a tool is active. Sidebar and tool content have constrained independent scrolling; `min-width: 0` / `min-height: 0` prevent grid overflow and clipping.
+- Added `tests/workspace-grid-layout.test.mjs` for semantic structure, desktop grid, independent scrolling, responsive breakpoints and existing open/close behavior.
+- Regression workflow **41181389281** passed: **123 tests, 123 passed, 0 failed**; JavaScript syntax check passed.
+- Live Pages deployment and real-browser visual QA remain to be independently confirmed. Verify at desktop, tablet and mobile widths, including long forms, page scroll, return navigation and browser Back.
 
 ## Full-screen tool workspace update (2026-10-31)
 
