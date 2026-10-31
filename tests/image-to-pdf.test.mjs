@@ -17,7 +17,7 @@ test("Image to PDF is registered once in the application catalogue and router me
   assert.equal((catalogue.match(/id:"imagepdf"/g) || []).length, 1);
   assert.equal(metadata.filter(tool => tool.id === "imagepdf").length, 1);
   assert.equal(metadata.find(tool => tool.id === "imagepdf").slug, "image-to-pdf");
-  assert.equal(metadata.length, 44);
+  assert.equal(metadata.length, 45);
 });
 
 test("Image to PDF workspace exposes upload, settings, ordering, preview, download and clear controls", () => {
@@ -70,7 +70,7 @@ test("Image to PDF guide, directory, sitemap, homepage and keyword map are synch
   assert.match(guide, /How to Use Image to PDF/);
   assert.match(directory, /tools\/image-to-pdf\//);
   assert.match(sitemap, /tools\/image-to-pdf\//);
-  assert.equal((sitemap.match(/<url>/g) || []).length, 46);
+  assert.equal((sitemap.match(/<url>/g) || []).length, 47);
   assert.match(keywordMap, /\| 44 \| Image to PDF \| \*\*image to PDF converter\*\*/);
   assert.match(homepage, /js\/image-to-pdf\.js/);
   assert.match(homepage, /css\/image-to-pdf\.css/);
