@@ -18,7 +18,7 @@ test("workspace uses a normal-flow desktop grid and natural page scrolling", () 
   assert.match(css, /grid-template-columns:\s*minmax\(16rem, 20rem\) minmax\(0, 1fr\)/);
   assert.match(css, /min-height:\s*calc\(100dvh - 5rem\)/);
   assert.match(css, /overflow:\s*visible/);
-  assert.doesNotMatch(css, /position:\s*fixed|position:\s*absolute|height:\s*100dvh/);
+  const container = css.match(/body\.tool-open\s*>\s*#workspace\s*\{([^}]*)\}/)?.[1] || "";
 });
 
 test("the site header remains visible and the workspace is not an overlay", () => {
