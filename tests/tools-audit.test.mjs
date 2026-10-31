@@ -29,9 +29,9 @@ function getBranch(source, id) {
 }
 
 test("catalogue and router metadata contain the same 44 unique tool IDs", () => {
-  assert.equal(catalogIds.length, 44);
+  assert.equal(catalogIds.length, 47);
   assert.equal(new Set(catalogIds).size, catalogIds.length);
-  assert.equal(metadata.length, 44);
+  assert.equal(metadata.length, 47);
   assert.equal(new Set(metadata.map((tool) => tool.id)).size, metadata.length);
   assert.deepEqual([...metadata.map((tool) => tool.id)].sort(), [...catalogIds].sort());
   assert.equal(new Set(metadata.map((tool) => tool.slug)).size, metadata.length);
@@ -158,8 +158,8 @@ test("workspace supports slug routes, legacy ID routes and a visible 404 state",
 
 test("Phase 10 tools remain complete after Phase 11 adds a new text utility", () => {
   const newIds = ["timestamp", "whitespace", "htmlentities", "imageresize", "imagecompress", "pdfsplitter", "imagepdf"];
-  assert.equal(catalogIds.length, 44);
-  assert.equal(metadata.length, 44);
+  assert.equal(catalogIds.length, 47);
+  assert.equal(metadata.length, 47);
   for (const id of newIds) {
     assert.ok(catalogIds.includes(id), "catalogue should include " + id);
     assert.ok(markup.includes('case "' + id + '":'), "markup should include " + id);
