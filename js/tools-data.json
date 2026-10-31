@@ -1638,35 +1638,40 @@
     "category": "Text",
     "icon": "📝",
     "slug": "docfix-pro",
-    "description": "Clean Bangla and English spacing, separate joined Bengali words with a dictionary, and convert Bijoy ANSI ↔ Unicode in text.",
+    "description": "Clean Bangla and English spacing, punctuation and joined Bengali words with a dictionary.",
     "tagline": "Clean and format Bangla + English text",
     "seo": {
-      "description": "Clean Bangla and English spacing, split joined Bengali words with a dictionary, and convert Bijoy ANSI to Unicode or Unicode to Bijoy.",
+      "description": "Clean Bangla and English text spacing, punctuation and joined Bengali words with a bundled dictionary. Use the separate Unicode ⇄ Bijoy Converter for legacy ANSI conversion.",
       "steps": [
-        "Paste Bangla or English text in Unicode or Bijoy ANSI format.",
-        "Choose text cleanup or a supported Bijoy conversion.",
-        "Run the formatter, review the result, then copy or download the text."
+        "Paste Bangla or English Unicode text into the editor.",
+        "Choose the cleanup options you need, such as repeated-space normalization or dictionary-based Bangla word separation.",
+        "Select Fix Text, review the result, then copy or download it."
       ],
       "features": [
         "Dictionary-backed Bangla joined-word segmentation using a bundled Bengali word list.",
-        "Two-way Bijoy ANSI and Unicode conversion for pasted text.",
+        "Bangla and English whitespace and punctuation cleanup.",
+        "Optional English camelCase separation and blank-line normalization.",
         "Local browser text processing; text is not uploaded to ToolNest."
       ],
       "faqs": [
         {
           "question": "Does the tool support both Bangla and English?",
-          "answer": "Yes. You can paste Bangla and English together for spacing, punctuation and formatting cleanup. Bijoy conversion is intended for Bangla legacy ANSI text."
+          "answer": "Yes. Paste Bangla and English Unicode text together for spacing, punctuation and formatting cleanup."
         },
         {
           "question": "How does Bangla word separation work?",
           "answer": "The tool uses a Bengali word list and conservative dictionary segmentation. Unknown or ambiguous strings are left unchanged rather than split speculatively."
         },
         {
+          "question": "Can I convert Bijoy ANSI text here?",
+          "answer": "No. This tool is for Bangla and English text cleanup. Use the separate Unicode ⇄ Bijoy Converter for Bijoy ANSI and Unicode conversion."
+        },
+        {
           "question": "Are my texts uploaded?",
-          "answer": "No. Text cleanup runs locally in your browser. The Bijoy conversion module loads from a public CDN only when required."
+          "answer": "No. Text cleanup and dictionary segmentation run locally in your browser."
         }
       ],
-      "tips": "Keep a copy of your original text before converting Bijoy and Unicode. Bijoy output may require a compatible SutonnyMJ font."
+      "tips": "Keep a copy of the original text before cleanup. Review ambiguous joined words before publishing or using the result in a formal document."
     }
   },
   {
