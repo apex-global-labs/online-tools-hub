@@ -9,11 +9,20 @@ Last updated: 2026-10-31
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Current production baseline after Phase 8C Free URL Shortener: `5d2293eca435def260a5102519c61eb602f6b65f`
+- Current `main` head after the post-audit correction (PR #56): `b7f9855bddf19853d6700775a072eefce89a3693`. The URL Shortener feature itself was introduced in Phase 8C at `5d2293eca435def260a5102519c61eb602f6b65f`
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
 - Catalogue: **43 unique tools**, **43 individual SEO guide pages**, and **45 sitemap URLs** (homepage + directory + 43 guides).
 - `app.js`, `js/tools-data.json`, the tool-guide directory and sitemap are expected to remain synchronized.
 - No paid service or ToolNest backend is used. Some tools rely on third-party browser libraries or public APIs.
+
+## QA-1 / QA-2 — Release verification record (2026-10-31)
+
+- QA-1 repository checks on the PR #56 merge commit confirmed 43 unique tool metadata records, 43 matching guide pages, and 45 unique sitemap URLs; no missing or duplicate tool slugs were found.
+- The owner reports that live-browser verification has been completed. The exact browser test cases, devices, and pass/fail results were not itemized in the project handover; do not interpret this as proof that every one of the 43 tools or every edge case was tested.
+- The assistant did not independently run a real-browser automation session. GitHub Actions regression success and Pages deployment success are separate from manual browser verification.
+- QA-2 source audit found Tailwind utility classes in both `index.html` and `app.js` (204 distinct class tokens in the inspected class/className attributes). The Tailwind CDN must not be removed until a locally generated stylesheet covers the required utilities and responsive variants and is visually checked; otherwise layout regressions are likely.
+- The root `style.css` contains repeated selectors used as later cascade overrides, but the audit found no identical selector-and-declaration block repeated verbatim. No CSS rules were deleted because their ordering may be intentional.
+- No application runtime code or styles were changed by this QA documentation update. A safe Tailwind self-hosting/build migration remains a separate optimization task requiring CSS coverage and browser regression checks.
 
 ## Phase 8C — Free URL Shortener (merged and deployed)
 
@@ -24,7 +33,7 @@ Last updated: 2026-10-31
 - Short links use the provider's domain, not a ToolNest-branded domain. Own-domain redirects, link management and analytics are not included.
 - The feature includes a dedicated SEO guide, directory and sitemap entries, keyword-map row, regression tests and user-facing third-party-processing disclosure.
 - The owner confirmed the deployed URL Shortener works. This is owner-reported live verification, not an independently repeated browser/API test in this audit.
-- GitHub Actions regression workflow run #181 completed successfully with 105 tests passing and JavaScript syntax checks passing. The CI syntax-check step was subsequently found to omit `js/url-shortener.js`; a corrective CI change is being made in the post-audit branch.
+- GitHub Actions regression workflow run #181 completed successfully with 105 tests passing. A follow-up audit found that its syntax-check list omitted `js/url-shortener.js`; PR #56 corrected this by adding `node --check js/url-shortener.js` to `.github/workflows/tests.yml`. PR #56 was merged into `main` at `b7f9855bddf19853d6700775a072eefce89a3693` on 2026-10-31. Its regression workflow run #185 and GitHub Pages deployment run #89 both completed successfully.
 
 ## Phase 8B — PDF Splitter (merged and deployed; live browser verification pending)
 
