@@ -13,7 +13,7 @@ function validateFiles(files){
  if(files.length>MAX_FILES)throw new Error("Choose no more than 100 files per ZIP.");
  let total=0;
  for(const file of files){if(file.size>MAX_FILE_BYTES)throw new Error(file.name+" exceeds the 25 MB per-file limit.");total+=file.size;}
- if(total>MAX_TOTAL_BYTES)throw new Error("The selected files exceed the 100 MB total limit.");
+ if(total>MAX_TOTAL_BYTES)throw new Error("The selected files exceed the 50 MB total limit.");
  return {count:files.length,totalBytes:total};
 }
 function formatBytes(n){if(n<1024)return n+" B";const u=["KB","MB","GB"];let v=n/1024,i=0;while(v>=1024&&i<u.length-1){v/=1024;i++;}return v.toFixed(v>=10?1:2)+" "+u[i];}
