@@ -18,3 +18,5 @@ test("Phase A scripts and styles are included",()=>{assert.match(index,/phase-a-
 test("Phase A guide pages, directory and sitemap are synchronized",()=>{for(const slug of ["pdf-to-image","pdf-text-extractor","pdf-watermark-page-number"]){assert.match(directory,new RegExp("tools/"+slug+"/"));assert.match(sitemap,new RegExp("tools/"+slug+"/"));}assert.equal((sitemap.match(/<url>/g)||[]).length,49);for(const guide of guides){assert.match(guide,/<title>/);assert.match(guide,/"FAQPage"/);assert.match(guide,/How to Use/);}});
 
 test("Replacing or clearing a selected PDF releases previous document state",()=>{assert.match(modules,/if\(state\.pdf\)\{try\{state\.pdf\.destroy\(\)/);assert.match(modules,/state\.outputs=\[\]/);assert.match(modules,/state\.text=""/);assert.match(modules,/state\.previewUrl\)URL\.revokeObjectURL/);assert.match(modules,/pdfMarkFiles"\)\.disabled=true/);});
+
+test("PDF watermark canvas rendering is bounded for oversized pages",()=>{assert.match(modules,/MAX_CANVAS_PIXELS=16_000_000/);assert.match(modules,/Math\.sqrt\(MAX_CANVAS_PIXELS\/\(dims\.width\*dims\.height\)\)/);assert.match(modules,/if\(!ctx\)throw new Error/);});
