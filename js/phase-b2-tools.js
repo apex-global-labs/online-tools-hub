@@ -44,7 +44,7 @@ function loadPdfLib(){
 function downloadBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);}
 export function parsePageOrder(raw,count){
  const values=String(raw).split(",").map(x=>x.trim());
- if(values.some(x=>!/^\\d+$/.test(x)))throw new Error("Enter every page number once, separated by commas (example: 3,1,2).");
+ if(values.some(x=>!/^\d+$/.test(x)))throw new Error("Enter every page number once, separated by commas (example: 3,1,2).");
  const nums=values.map(Number);
  if(nums.length!==count||new Set(nums).size!==count||nums.some(n=>n<1||n>count))throw new Error("The order must contain each page number from 1 to "+count+" exactly once.");
  return nums.map(n=>n-1);
