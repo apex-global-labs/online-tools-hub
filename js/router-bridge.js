@@ -4,7 +4,7 @@
  * Connects the new #/tools/:slug router to the existing tool workspace
  * without replacing the current tool implementations or card rendering.
  */
-import { initRouter } from "./router.js";
+import { initRouter } from "./router.js?v=20261031-bijoy-route2";
 
 function startRouterBridge() {
   initRouter((route) => {
