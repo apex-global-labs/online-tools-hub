@@ -15,7 +15,7 @@ test("PDF Splitter is registered once in the application catalogue and router me
   assert.equal((catalogue.match(/id:"pdfsplitter"/g) || []).length, 1);
   assert.equal(metadata.filter(tool => tool.id === "pdfsplitter").length, 1);
   assert.equal(metadata.find(tool => tool.id === "pdfsplitter").slug, "pdf-splitter");
-  assert.equal(metadata.length, 44);
+  assert.equal(metadata.length, 45);
 });
 
 test("PDF Splitter workspace exposes upload, page selection, range, split, download and clear controls", () => {
