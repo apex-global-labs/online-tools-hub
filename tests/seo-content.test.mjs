@@ -8,7 +8,7 @@ const renderer = readFileSync(new URL("../js/seo-content.js", import.meta.url), 
 const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const css = readFileSync(new URL("../css/phase6-seo-content.css", import.meta.url), "utf8");
 
-test("all 44 tools have complete, tool-specific SEO content", () => {
+test("all 43 tools have complete, tool-specific SEO content", () => {
   assert.equal(metadata.length, 44);
   const catalogueStart = app.indexOf("const tools = [");
   const catalogueEnd = app.indexOf("\n];", catalogueStart);
