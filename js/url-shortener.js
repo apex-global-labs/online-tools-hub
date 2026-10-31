@@ -12,7 +12,7 @@
       (a === 169 && b === 254) ||
       (a === 172 && b >= 16 && b <= 31) ||
       (a === 192 && (b === 0 || b === 2 || (b === 88 && c === 99) || b === 168)) ||
-      (a === 198 && (b === 18 || b === 19 || b === 51)) ||
+      (a === 198 && (b === 18 || b === 19 || (b === 51 && c === 100))) ||
       (a === 203 && b === 0 && c === 113) || a >= 224;
   }
 
@@ -69,13 +69,14 @@
     if (parsed.protocol !== "https:" && parsed.protocol !== "http:") throw new Error("Only HTTP and HTTPS website links can be shortened.");
     if (!parsed.hostname || parsed.username || parsed.password) throw new Error("Enter a valid public website URL without embedded login details.");
     const host = parsed.hostname.toLowerCase();
+    const domainHost = host.endsWith(".") ? host.slice(0, -1) : host;
     const isIpv6 = host.startsWith("[") && host.endsWith("]");
-    const isIpv4 = /^(?:\d{1,3}\.){3}\d{1,3}$/.test(host);
+    const isIpv4 = /^(?:\d{1,3}\.){3}\d{1,3}$/.test(domainHost);
     if (isIpv6) {
       if (isBlockedIpv6(host)) throw new Error("Local, private and special-use network addresses cannot be shortened.");
     } else if (isIpv4) {
-      if (isBlockedIpv4(host)) throw new Error("Local, private and special-use network addresses cannot be shortened.");
-    } else if (!host.includes(".") || host === "localhost" || host.endsWith(".localhost") || host.endsWith(".local")) {
+      if (isBlockedIpv4(domainHost)) throw new Error("Local, private and special-use network addresses cannot be shortened.");
+    } else if (!domainHost.includes(".") || domainHost === "localhost" || domainHost.endsWith(".localhost") || domainHost.endsWith(".local")) {
       throw new Error("Enter a valid public domain name, such as example.com.");
     }
     return parsed.href;
