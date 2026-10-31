@@ -20,7 +20,7 @@ Google recommends descriptive, concise titles, useful people-first content, anti
 
 1. Keep the **Primary keyword** as the main query theme for its assigned guide URL.
 2. Do not create another page targeting the same primary phrase or near-identical intent.
-3. Preserve the existing 41 canonical guide URLs; do not rename slugs as part of this phase.
+3. Preserve the existing 55 canonical guide URLs; do not rename slugs as part of this phase.
 4. Keep closely related variants on one page when the tool performs the same task.
 5. Maintain explicit boundaries for similar tools:
    - Unit Converter = length, weight and temperature; Area Converter = area units; Bangladesh Land Unit Converter = local land measures.
