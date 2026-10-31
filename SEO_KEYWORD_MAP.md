@@ -109,7 +109,7 @@ Google recommends descriptive, concise titles, useful people-first content, anti
 | Loan instalment estimates | [EMI / Loan Calculator](https://apex-global-labs.github.io/online-tools-hub/tools/emi-loan-calculator/) | Compound Interest Calculator; Percentage Calculator |
 | Compound growth estimates | [Compound Interest Calculator](https://apex-global-labs.github.io/online-tools-hub/tools/compound-interest-calculator/) | EMI / Loan Calculator |
 
-| 45 | Universal Doc Formatter & Spacing Fixer | **DOCX formatter** | Word document spacing fixer; DOCX text formatter; remove extra spaces in Word | how to fix missing spaces in a Word document; clean pasted Bangla and English text; preserve tables when formatting DOCX | Transactional / tool use | P2 | Explain conservative whitespace and punctuation cleanup, local DOCX processing and the limitation of language-agnostic word splitting. | [docfix-pro](https://apex-global-labs.github.io/online-tools-hub/tools/docfix-pro/) |
+| 45 | Bangla & English Text Formatter | **Bangla English text formatter** | Bangla text cleaner; English text formatter; joined Bangla word separator | how to clean Bangla and English text; separate joined Bengali words with a dictionary; convert Bijoy ANSI to Unicode text | Informational / tool use | P2 | Explain dictionary-backed Bangla word segmentation, Unicode and Bijoy text conversion, and conservative handling of unknown words. | [docfix-pro](https://apex-global-labs.github.io/online-tools-hub/tools/docfix-pro/) |
 
 ## Recommended on-page implementation
 
