@@ -35,7 +35,7 @@ test("ZIP input validation enforces file count and byte limits",()=>{
  assert.deepEqual(Zip.validateFiles([{name:"a.txt",size:12},{name:"b.txt",size:20}]),{count:2,totalBytes:32});
  assert.throws(()=>Zip.validateFiles([]),/at least one file/i);
  assert.throws(()=>Zip.validateFiles([{name:"large.bin",size:Zip.limits.MAX_FILE_BYTES+1}]),/25 MB/i);
- assert.throws(()=>Zip.validateFiles([{name:"a.bin",size:Zip.limits.MAX_TOTAL_BYTES+1}]),/50 MB total/i);
+ assert.throws(()=>Zip.validateFiles([{name:"a.bin",size:Zip.limits.MAX_FILE_BYTES},{name:"b.bin",size:Zip.limits.MAX_FILE_BYTES},{name:"c.bin",size:1}]),/50 MB total/i);
  assert.throws(()=>Zip.validateFiles(Array.from({length:101},(_,i)=>({name:i+".txt",size:1}))),/100 files/i);
 });
 test("favicon generator accepts only supported image formats and size limits",()=>{
