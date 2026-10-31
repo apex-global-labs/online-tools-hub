@@ -25,9 +25,13 @@ test("sitemap is validly structured for the complete canonical page set", () => 
   const urlBlocks = sitemap.split("<url>").slice(1).map((entry) => entry.split("</url>")[0]);
   assert.equal(urlBlocks.length, 57, "every URL entry must be a complete url element");
   for (const block of urlBlocks) {
-    const textOutsideElements = block.replace(/<[^>]+>/g, "");
-    assert.equal(textOutsideElements.trim(), "",
-      "url elements must not contain literal escaped whitespace or other text nodes");
+    let remaining = block;
+    for (const tag of ["loc", "lastmod", "changefreq", "priority"]) {
+      const element = new RegExp("<" + tag + ">[^<]*</" + tag + ">", "g");
+      remaining = remaining.replace(element, "");
+    }
+    assert.equal(remaining.trim(), "",
+      "url elements must not contain literal escaped whitespace or unsupported content");
   }
   assert.deepEqual([...locs].sort(), [...expectedUrls].sort(),
     "sitemap must contain only the canonical homepage, directory and 55 guide URLs");
