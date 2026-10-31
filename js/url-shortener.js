@@ -16,9 +16,9 @@
     if (parsed.protocol !== "https:" && parsed.protocol !== "http:") throw new Error("Only HTTP and HTTPS website links can be shortened.");
     if (!parsed.hostname || parsed.username || parsed.password) throw new Error("Enter a valid public website URL without embedded login details.");
     const host = parsed.hostname.toLowerCase();
-    const isIpv4 = /^(?:\\d{1,3}\\.){3}\\d{1,3}$/.test(host);
+    const isIpv4 = /^(?:\d{1,3}\.){3}\d{1,3}$/.test(host);
     if (!isIpv4 && !host.includes(".")) throw new Error("Enter a valid public domain name, such as example.com.");
-    if (host === "localhost" || host.endsWith(".localhost") || host.endsWith(".local") || host === "0.0.0.0" || host === "::1" || /^127\\./.test(host) || /^10\\./.test(host) || /^192\\.168\\./.test(host) || /^172\\.(1[6-9]|2[0-9]|3[01])\\./.test(host)) throw new Error("Local and private network addresses cannot be shortened.");
+    if (host === "localhost" || host.endsWith(".localhost") || host.endsWith(".local") || host === "0.0.0.0" || host === "::1" || /^127\./.test(host) || /^10\./.test(host) || /^192\.168\./.test(host) || /^172\.(1[6-9]|2[0-9]|3[01])\./.test(host)) throw new Error("Local and private network addresses cannot be shortened.");
     return parsed.href;
   }
 
