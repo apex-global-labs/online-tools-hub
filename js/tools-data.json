@@ -1822,5 +1822,178 @@
       ],
       "tips": "Use a simple square source image with a clear subject. Check the generated icon at 16×16 pixels because small details may not remain visible."
     }
+  },
+  {
+    "id": "pdforganizer",
+    "title": "PDF Page Organizer",
+    "category": "Utilities",
+    "icon": "▤",
+    "slug": "pdf-page-organizer",
+    "description": "Reorder PDF pages and rotate pages locally in your browser.",
+    "tagline": "Arrange PDF pages in the order you need",
+    "seo": {
+      "description": "Reorder PDF pages and rotate every page before downloading an updated PDF. Files are processed locally in your browser.",
+      "steps": [
+        "Choose a PDF file up to 30 MB and 300 pages.",
+        "Edit the page order using comma-separated page numbers, such as 3,1,2.",
+        "Choose an optional rotation and download the organized PDF."
+      ],
+      "features": [
+        "Reorders every page using a complete page sequence.",
+        "Rotates all pages by 90, 180 or 270 degrees.",
+        "Processes the document locally with pdf-lib."
+      ],
+      "faqs": [
+        {
+          "question": "Are my PDF files uploaded?",
+          "answer": "No. The PDF is processed locally in your browser. The PDF editing library is loaded from a public CDN when needed."
+        },
+        {
+          "question": "Can I omit pages?",
+          "answer": "This first version requires every page exactly once. Use the existing PDF Splitter if you need to extract selected pages."
+        },
+        {
+          "question": "What are the limits?",
+          "answer": "PDF files are limited to 30 MB and 300 pages."
+        }
+      ],
+      "tips": "Enter every page number exactly once. For example, 3,1,2 places the third page first."
+    }
+  },
+  {
+    "id": "textsorter",
+    "title": "Text Sorter",
+    "category": "Text",
+    "icon": "↕",
+    "slug": "text-sorter",
+    "description": "Sort lines alphabetically or numerically while controlling blank lines and letter case.",
+    "tagline": "Put text lines in the order you need",
+    "seo": {
+      "description": "Sort text lines A to Z, Z to A or numerically. Choose case handling and preserve blank lines without uploading your text.",
+      "steps": [
+        "Paste or type one item per line.",
+        "Choose alphabetical or numeric sorting and your blank-line preference.",
+        "Select Sort lines, then copy or download the result."
+      ],
+      "features": [
+        "Alphabetical ascending and descending order.",
+        "Numeric sorting for values such as 2, 10 and 100.",
+        "Optional case-insensitive comparison and blank-line preservation."
+      ],
+      "faqs": [
+        {
+          "question": "Is sorting done online?",
+          "answer": "Sorting runs locally in your browser; your text is not sent to a server."
+        },
+        {
+          "question": "Does numeric sorting handle 2 and 10 correctly?",
+          "answer": "Yes. It uses numeric-aware locale comparison."
+        }
+      ],
+      "tips": "Place one item on each line for predictable results."
+    }
+  },
+  {
+    "id": "findreplace",
+    "title": "Find & Replace",
+    "category": "Text",
+    "icon": "⌕",
+    "slug": "find-replace",
+    "description": "Find text and replace one or all matches with optional case and whole-word matching.",
+    "tagline": "Make quick, controlled text changes",
+    "seo": {
+      "description": "Find text and replace one or all occurrences with optional case-sensitive and whole-word matching. All editing happens in your browser.",
+      "steps": [
+        "Paste the text you want to edit.",
+        "Enter the phrase to find and its replacement.",
+        "Choose matching options and select Find & Replace."
+      ],
+      "features": [
+        "Replace the first match or all matches.",
+        "Optional case-sensitive matching.",
+        "Optional whole-word matching with Unicode-aware boundaries."
+      ],
+      "faqs": [
+        {
+          "question": "Does this tool change my original text?",
+          "answer": "The original input remains in its box; the changed text appears separately in the result."
+        },
+        {
+          "question": "Is my text uploaded?",
+          "answer": "No. Find and replace runs locally in your browser."
+        }
+      ],
+      "tips": "Review the output before copying it into an important document."
+    }
+  },
+  {
+    "id": "jwtdecoder",
+    "title": "JWT Decoder",
+    "category": "Developer",
+    "icon": "🔐",
+    "slug": "jwt-decoder",
+    "description": "Decode JWT header and payload locally without sending tokens to a server.",
+    "tagline": "Inspect JWT claims in your browser",
+    "seo": {
+      "description": "Decode the header and payload of a JSON Web Token locally. No token is sent to a server. Signature verification is not performed.",
+      "steps": [
+        "Paste a three-part JWT into the input box.",
+        "Select Decode JWT to read the header and payload.",
+        "Review the optional expiration claim and copy the decoded result."
+      ],
+      "features": [
+        "Decodes Base64URL-encoded header and payload.",
+        "Displays a readable JSON result and expiration time when available.",
+        "Runs locally without sending the token or a secret to a server."
+      ],
+      "faqs": [
+        {
+          "question": "Does this verify the JWT signature?",
+          "answer": "No. It only decodes the header and payload. A decoded token is not proof that its signature or claims are valid."
+        },
+        {
+          "question": "Is the token uploaded?",
+          "answer": "No. Decoding happens locally in your browser."
+        },
+        {
+          "question": "Should I paste a production access token?",
+          "answer": "Avoid sharing sensitive credentials. Treat tokens as secrets even when using a local decoder."
+        }
+      ],
+      "tips": "Never trust claims until the token's signature and relevant claims have been verified by the intended application."
+    }
+  },
+  {
+    "id": "xmlformatter",
+    "title": "XML Formatter",
+    "category": "Developer",
+    "icon": "⌘",
+    "slug": "xml-formatter",
+    "description": "Validate and format XML into readable, indented markup in your browser.",
+    "tagline": "Turn compact XML into readable markup",
+    "seo": {
+      "description": "Validate and format XML with readable indentation in your browser. Invalid XML is reported before a formatted result is produced.",
+      "steps": [
+        "Paste XML into the input box.",
+        "Select Format XML to validate and indent the markup.",
+        "Copy or download the formatted result."
+      ],
+      "features": [
+        "Checks XML syntax using the browser's XML parser.",
+        "Adds readable indentation to valid XML.",
+        "Processes input locally without an external API."
+      ],
+      "faqs": [
+        {
+          "question": "Does it repair invalid XML?",
+          "answer": "No. It reports parsing errors; fix the XML source before formatting."
+        },
+        {
+          "question": "Is XML sent to a server?",
+          "answer": "No. Validation and formatting happen in your browser."
+        }
+      ],
+      "tips": "Keep a copy of the original XML before making structural edits."
+    }
   }
 ]
