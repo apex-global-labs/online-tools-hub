@@ -43,19 +43,21 @@
   function isBlockedIpv6(hostname) {
     const groups = parseIpv6(hostname);
     if (!groups) return true;
-    if (groups.every(group => group === 0) || (groups.slice(0, 7).every(group => group === 0) && groups[7] === 1)) return true;
+    if (groups.every(group => group === 0) || groups.slice(0, 6).every(group => group === 0)) return true; // unspecified, loopback and deprecated IPv4-compatible forms
     // Block all IPv4-mapped IPv6 addresses, including mapped private/local IPv4.
     if (groups.slice(0, 5).every(group => group === 0) && groups[5] === 0xffff) return true;
     const first = groups[0], second = groups[1];
     return (first & 0xfe00) === 0xfc00 || // fc00::/7 unique-local
       (first & 0xffc0) === 0xfe80 ||      // fe80::/10 link-local
+      (first & 0xffc0) === 0xfec0 ||      // fec0::/10 deprecated site-local
       (first & 0xff00) === 0xff00 ||      // ff00::/8 multicast
       (first === 0x2001 && second <= 0x01ff) || // IETF protocol/special assignments
       first === 0x2002 ||                // 6to4
       (first === 0x0064 && second === 0xff9b && groups[2] === 0 && groups[3] === 0 && groups[4] === 0 && groups[5] === 0) || // NAT64 well-known /96
       (first === 0x0064 && second === 0xff9b && groups[2] === 1) || // local-use NAT64 /48
       (first === 0x0100 && groups.slice(1, 4).every(group => group === 0)) || // 100::/64 discard-only
-      (first === 0x2001 && second === 0x0db8); // 2001:db8::/32 documentation
+      (first === 0x2001 && second === 0x0db8) || // 2001:db8::/32 documentation
+      (first === 0x3fff && second <= 0x0fff); // 3fff::/20 documentation
   }
 
   function normalizeUrl(value) {
