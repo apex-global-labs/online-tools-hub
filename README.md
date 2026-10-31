@@ -125,3 +125,8 @@ Open `index.html` in a modern browser while connected to the internet. Tailwind 
 - Percentage, compound-interest and EMI calculators use local formulas. The currency selectors only format the displayed amount; they do not fetch exchange rates. These calculators provide estimates, not financial advice or lender offers.
 - Tailwind's browser CDN is convenient for a prototype; a production build can later compile and pin assets locally.
 - Phase 2 UI interactions have been manually spot-checked by the owner. The newest theme-persistence and keyboard-navigation changes should be re-tested on desktop and mobile after deployment.
+
+
+### Bengali dictionary attribution
+
+DocFix Pro includes the Bengali word list from https://github.com/Sanjidh090/bangla-wordlist, containing 454,650 entries. The source repository states that the list is released under the Unlicense (public-domain dedication). It is used locally for conservative Bengali word segmentation.
