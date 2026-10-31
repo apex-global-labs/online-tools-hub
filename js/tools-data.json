@@ -1694,7 +1694,7 @@
       "faqs": [
         {
           "question": "Does it extract text from scanned PDFs?",
-          "answer": "No. This tool extracts a PDF's selectable text layer. Image-only scanned pages need OCR, which is not included."
+          "answer": "No. This tool reads the selectable text layer inside a PDF. Image-only scanned pages need OCR, which is not included."
         },
         {
           "question": "Can I extract only a few pages?",
