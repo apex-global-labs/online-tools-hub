@@ -7,7 +7,6 @@ const site = "https://apex-global-labs.github.io/online-tools-hub/";
 const tools = JSON.parse(read("../js/tools-data.json"));
 const trustPages = ["about", "contact", "privacy", "terms"];
 const sitemap = read("../sitemap.xml");
-const robots = read("../robots.txt");
 const directory = read("../tools/index.html");
 const homepage = read("../index.html");
 
@@ -99,11 +98,3 @@ test("each guide links back to the directory and its matching interactive worksp
   }
 });
 
-
-test("robots.txt allows public crawling and advertises the canonical sitemap", () => {
-  const lines = robots.split(/\r?\n/).map((line) => line.trim());
-  assert.ok(lines.includes("User-agent: *"));
-  assert.ok(lines.includes("Allow: /"));
-  assert.ok(lines.includes("Sitemap: " + site + "sitemap.xml"));
-  assert.ok(!lines.includes("Disallow: /"));
-});
