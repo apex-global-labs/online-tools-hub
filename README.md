@@ -115,7 +115,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Search engines decide independently whether and how to crawl, index, and display the site. Inclusion in a sitemap does not guarantee indexing or rankings.
 
 ## Run locally
-Open `index.html` in a modern browser while connected to the internet. Tailwind CSS and `qr-code-styling` are loaded from CDNs. PDF tools load `pdf-lib` on demand; PDF Splitter loads JSZip only when downloading multiple page files as a ZIP. Image to PDF supports up to 20 PNG/JPEG images (15 MB each, 60 MB total) and creates one page per image. URL Shortener sends submitted destination URLs directly to Spoo.me; anonymous API use is currently limited to 20 requests per minute and 1,000 per day.
+Open `index.html` in a modern browser while connected to the internet. Tailwind CSS and `qr-code-styling` are loaded from CDNs. PDF.js loads on demand for PDF-to-image and PDF text extraction; `pdf-lib` loads on demand for PDF editing; JSZip loads only when a tool needs a multi-file ZIP download. Image to PDF supports up to 20 PNG/JPEG images (15 MB each, 60 MB total) and creates one page per image. URL Shortener sends submitted destination URLs directly to Spoo.me; anonymous API use is currently limited to 20 requests per minute and 1,000 per day.
 
 ## Deploy with GitHub Pages
 1. Open repository **Settings → Pages**.
@@ -124,7 +124,7 @@ Open `index.html` in a modern browser while connected to the internet. Tailwind 
 4. Wait for GitHub Pages to publish the latest commit.
 
 ## Important notes
-- Tool processing is browser-based unless a tool explicitly fetches a public reference service (the currency converter retrieves exchange-rate data, and URL Shortener sends destination URLs to Spoo.me to create redirects). Advanced PDF Merger, PDF Splitter and Image to PDF process files locally; PDF Splitter uses a public CDN for ZIP packaging when multiple page files are downloaded. Image Resizer and Image Compressor process local images in the browser; each input is limited to 10 MB.
+- Tool processing is browser-based unless a tool explicitly fetches a public reference service (the currency converter retrieves exchange-rate data, and URL Shortener sends destination URLs to Spoo.me to create redirects). Advanced PDF Merger, PDF Splitter, PDF to JPG / PNG, PDF Text Extractor, PDF Watermark & Page Number and Image to PDF process documents locally in the browser. PDF.js, pdf-lib and JSZip are loaded from public CDNs on demand. Image Resizer and Image Compressor process local images in the browser; each input is limited to 10 MB.
 - Avoid describing every tool as fully private: the currency converter makes a network request, and external libraries are loaded from CDNs.
 - Percentage, compound-interest and EMI calculators use local formulas. The currency selectors only format the displayed amount; they do not fetch exchange rates. These calculators provide estimates, not financial advice or lender offers.
 - Tailwind's browser CDN is convenient for a prototype; a production build can later compile and pin assets locally.
