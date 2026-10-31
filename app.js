@@ -61,11 +61,12 @@ const tools = [
 {id:"pdfsplitter",name:"PDF Splitter",category:"Utilities",icon:"✂️",description:"Split a PDF into separate page files, select page ranges and download multiple pages as a ZIP archive."},
 {id:"imagepdf",name:"Image to PDF",category:"Utilities",icon:"🖼️",description:"Convert multiple JPG, JPEG and PNG images into one PDF with page settings."},
 {id:"iptools",name:"IP Address Finder & Lookup",category:"Utilities",icon:"◎",description:"Find your public IP or look up public IP geolocation and network details."},
-{id:"urlshortener",name:"URL Shortener",category:"Utilities",icon:"🔗",description:"Turn long website addresses into short, shareable links with an optional custom alias."},
+{id:"urlshortener",name:"URL Shortener",category:"Utilities",icon:"🔗",description:"Turn long website addresses into short, shareable links with an optional custom alias."},,
+{id:"docfix",name:"Universal Doc Formatter & Spacing Fixer",category:"Text",icon:"📝",description:"Clean text spacing and repair DOCX whitespace while preserving document structure."}
 ];
 
 // Curated general-demand order (not first-party usage analytics).
-const popularityOrder=["qr","pdfmerge","pdfsplitter","imagepdf","imagecompress","imageresize","counter","json","password","imagecrop","imageformat","base64","urlshortener","url","unit","percentage","age","color","case","slug","markdown","csvjson","uuid","image64","base64image","forexcalc","emi","compound","timezone","iptools","diff","meta","sha256","duplines","whitespace","timestamp","htmlentities","loremipsum","area","land","numberwords","robots","sitemap","gradient"];
+const popularityOrder=["qr","docfix","pdfmerge","pdfsplitter","imagepdf","imagecompress","imageresize","counter","json","password","imagecrop","imageformat","base64","urlshortener","url","unit","percentage","age","color","case","slug","markdown","csvjson","uuid","image64","base64image","forexcalc","emi","compound","timezone","iptools","diff","meta","sha256","duplines","whitespace","timestamp","htmlentities","loremipsum","area","land","numberwords","robots","sitemap","gradient"];
 const popularityTierById=Object.fromEntries(popularityOrder.map((id,index)=>[id,index<7?"Hot":index<17?"High":index<30?"Medium":"Normal"]));
 tools.sort((a,b)=>popularityOrder.indexOf(a.id)-popularityOrder.indexOf(b.id));
 function getPopularityTier(id){return popularityTierById[id]||"Normal";}
@@ -79,6 +80,7 @@ let activeCategory="All", activeTool=null;
 $("#year").textContent=new Date().getFullYear();
 
 const cardTaglines={
+ docfix:"Repair text spacing and tidy Word documents",
  pdfmerge:"Merge PDFs and control every page",
  pdfsplitter:"Extract pages into separate PDF files",
  imagepdf:"Turn pictures into a single PDF",
@@ -361,6 +363,7 @@ function wireUniversalActions(id){
   if(id==="pdfmerge"){ $("#pdfMergeClear")?.click(); return; }
   if(id==="pdfsplitter"){ $("#pdfSplitClear")?.click(); return; }
   if(id==="imagepdf"){ $("#imagePdfClear")?.click(); return; }
+  if(id==="docfix"){window.ToolNestDocFix?.clear();message("Tool cleared.");return;}
   if(id==="urlshortener"){ window.ToolNestUrlShortener?.clear(); message("Tool cleared."); return; }
   if(id==="qr"){ $("#qrClear")?.click(); return; }
   if(id==="imageresize"||id==="imagecompress"){ $("#clearImage")?.click(); return; }
@@ -438,6 +441,7 @@ function toolMarkup(id){
  <div class="actions qr-download-actions"><button type="button" class="btn-primary" id="generate">Generate QR</button><button type="button" class="btn-primary" id="qrDownloadPng">Download PNG</button><button type="button" class="btn-secondary" id="qrDownloadSvg">Download SVG</button><button type="button" class="btn-secondary" id="qrClear">Clear</button></div><p id="qrStatus" class="qr-status" role="status" aria-live="polite"></p>
 </div>`);
 
+ case "docfix":return form(`<div class="docfix-tool"><div class="docfix-intro"><span class="docfix-kicker">TOOLNEST DOCUMENT STUDIO</span><h3>Universal Doc Formatter &amp; Spacing Fixer</h3><p>Clean pasted text or repair whitespace inside a Word document. DOCX files are processed locally in your browser.</p></div><div class="docfix-mode-switch" role="group" aria-label="Choose document mode"><button type="button" class="btn-primary" id="docFixTextMode" aria-pressed="true">Text Mode</button><button type="button" class="btn-secondary" id="docFixDocxMode" aria-pressed="false">DOCX Mode</button></div><section id="docFixTextPanel" class="docfix-panel"><label class="field-label" for="docFixSource">Paste text to clean</label><textarea class="field docfix-textarea" id="docFixSource" rows="10" placeholder="Paste text here..."></textarea><div class="docfix-options"><label><input id="docFixSpaces" type="checkbox" checked> Normalize repeated spaces and tabs</label><label><input id="docFixPunctuation" type="checkbox" checked> Fix spacing around punctuation</label><label><input id="docFixCamel" type="checkbox" checked> Separate English camelCase words</label><label><input id="docFixBlankLines" type="checkbox"> Reduce 3+ blank lines to 2</label></div><div class="actions"><button type="button" class="btn-primary" id="docFixRunText">Fix Text</button><button type="button" class="btn-secondary" id="docFixCopyText">Copy Fixed Text</button></div></section><section id="docFixDocxPanel" class="docfix-panel" hidden><label class="field-label" for="docFixFile">Choose a Microsoft Word document (.docx)</label><input class="field" id="docFixFile" type="file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"><div class="docfix-docx-options"><label><input id="docFixDocxSpaces" type="checkbox" checked> Normalize repeated spaces and tabs</label><label><input id="docFixDocxPunctuation" type="checkbox" checked> Fix punctuation spacing</label><label><input id="docFixDocxCamel" type="checkbox"> Separate English camelCase words</label></div><p class="muted text-sm">Maximum 25 MB. Word paragraphs, tables, headers and footers are checked. Existing table, paragraph, style and run markup is retained. Arbitrary joined words cannot be reliably separated without language context.</p><div class="actions"><button type="button" class="btn-primary" id="docFixProcessDocx">Fix DOCX File</button><button type="button" class="btn-secondary" id="docFixDownloadDocx" disabled>Download Fixed DOCX</button></div></section><div class="docfix-status" id="docFixStatus" role="status" aria-live="polite">Ready. Choose Text Mode or DOCX Mode.</div>${out()}<p class="docfix-privacy"><strong>Privacy:</strong> Text and Word files are processed in this browser and are not uploaded to ToolNest. The ZIP library loads from a public CDN when DOCX processing starts.</p></div>`);
  case "urlshortener":return form(`
 <div class="url-shortener-tool">
  <div class="url-shortener-intro"><span class="url-shortener-kicker">FREE LINK TOOL</span><h3>Shorten a long URL</h3><p>Create a shareable short link using a free external service. ToolNest does not host the redirect.</p></div>
@@ -556,6 +560,7 @@ function csvCell(value){
 function wireTool(id){
  const src=()=>$("#sourceText")?.value??"";
  switch(id){
+ case "docfix": { window.ToolNestDocFix?.init(); break; }
  case "urlshortener": {
   window.ToolNestUrlShortener?.init();
   bind("copy",()=>copyOutput());
