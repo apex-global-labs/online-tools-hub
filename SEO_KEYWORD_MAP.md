@@ -110,6 +110,10 @@ Google recommends descriptive, concise titles, useful people-first content, anti
 | Compound growth estimates | [Compound Interest Calculator](https://apex-global-labs.github.io/online-tools-hub/tools/compound-interest-calculator/) | EMI / Loan Calculator |
 
 
+| 45 | PDF to JPG / PNG | **convert PDF pages to JPG PNG** | PDF Splitter; Image to PDF |
+| 46 | PDF Text Extractor | **extract text from PDF** | PDF to JPG / PNG; PDF Splitter |
+| 47 | PDF Watermark & Page Number | **add watermark and page numbers to PDF** | Advanced PDF Merger; PDF Splitter |
+
 ## Recommended on-page implementation
 
 - Keep each guide's existing unique title, meta description, canonical URL and H1 unless later evidence supports a carefully tested improvement.
