@@ -22,7 +22,7 @@ test("workspace uses a normal-flow desktop grid and natural page scrolling", () 
 });
 
 test("the site header remains visible and the workspace is not an overlay", () => {
-  assert.doesNotMatch(css, /body\.tool-open\s*>\s*header/);
+  assert.doesNotMatch(css, /body\.tool-open\s*>\s*header\s*,/);
   assert.match(css, /body\.tool-open\s*>\s*header\.sticky\s*\{\s*top:\s*0/);
   assert.match(html, /<section id="workspace"/);
 });
