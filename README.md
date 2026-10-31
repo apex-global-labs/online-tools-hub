@@ -8,7 +8,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/phase2.css` — search/navigation styling, dark-mode contrast and animated sun/moon scene
 - `app.js` — tool catalogue, filters, workspace rendering, theme toggle and tool implementations
 - `js/live-search.js` — search autocomplete, keyboard navigation, category menu behavior and slash shortcut
-- `js/tools-data.json` — metadata for all 46 tools used by the modular hash router
+- `js/tools-data.json` — metadata for all 44 tools used by the modular hash router
 - `js/router.js` — route parsing/resolution
 - `js/router-bridge.js` — bridge from modular routes to the existing tool workspace
 - `css/phase10-image-tools.css` — responsive previews for the image utilities
@@ -27,7 +27,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/ip-tools.css` — responsive IP lookup results and status styling
 - `css/phase13-converters.css` — responsive styling for advanced converters
 - `tools/` — static, individually crawlable tool guide pages and the tool-guide directory
-- `sitemap.xml` — homepage, tool directory and 46 canonical tool-page URLs
+- `sitemap.xml` — homepage, tool directory and 44 canonical tool-page URLs
 - `PROJECT_STATE.md` — current status, verification notes and next-step roadmap
 
 ## Current UI features
@@ -105,7 +105,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 
 ## Search engine crawl files
 
-- `sitemap.xml` lists the canonical homepage, the tool-guide directory and 46 individual static tool-guide URLs. Each guide has a unique title, meta description, canonical URL, visible instructions, features, FAQs and structured data. Interactive workspaces still open through the existing hash-based app routes; hash fragments are not listed as separate pages.
+- `sitemap.xml` lists the canonical homepage, the tool-guide directory and 44 individual static tool-guide URLs. Each guide has a unique title, meta description, canonical URL, visible instructions, features, FAQs and structured data. Interactive workspaces still open through the existing hash-based app routes; hash fragments are not listed as separate pages.
 - This is a GitHub Pages project site published under `/online-tools-hub/`. A `robots.txt` stored in this repository would be served at the project subpath, not the origin root (`https://apex-global-labs.github.io/robots.txt`) where host-wide crawl rules are expected. No repository-level `robots.txt` is provided; do not describe one as present.
 - The homepage has a canonical URL plus Open Graph and Twitter title/description metadata. A social preview image is not yet configured.
 - Search engines decide independently whether and how to crawl, index, and display the site. Inclusion in a sitemap does not guarantee indexing or rankings.
@@ -125,8 +125,3 @@ Open `index.html` in a modern browser while connected to the internet. Tailwind 
 - Percentage, compound-interest and EMI calculators use local formulas. The currency selectors only format the displayed amount; they do not fetch exchange rates. These calculators provide estimates, not financial advice or lender offers.
 - Tailwind's browser CDN is convenient for a prototype; a production build can later compile and pin assets locally.
 - Phase 2 UI interactions have been manually spot-checked by the owner. The newest theme-persistence and keyboard-navigation changes should be re-tested on desktop and mobile after deployment.
-
-
-### Bengali dictionary attribution
-
-DocFix Pro includes the Bengali word list from https://github.com/Sanjidh090/bangla-wordlist, containing 454,650 entries. The source repository states that the list is released under the Unlicense (public-domain dedication). It is used locally for conservative Bengali word segmentation.

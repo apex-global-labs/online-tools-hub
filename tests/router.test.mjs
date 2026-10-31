@@ -79,10 +79,11 @@ test("metadata HTTP errors reject route resolution", async (t) => {
 });
 
 
-test("Bijoy converter direct route survives stale metadata responses", async (t) => {
+test("retired tool routes resolve to the standard not-found state", async (t) => {
   mockMetadata(t);
-  const route = await resolveRoute("#/tools/unicode-bijoy-converter");
-  assert.equal(route.name, "tool");
-  assert.equal(route.tool.id, "bijoyunicode");
-  assert.equal(route.tool.slug, "unicode-bijoy-converter");
+  for (const slug of ["docfix-pro", "unicode-bijoy-converter"]) {
+    const route = await resolveRoute("#/tools/" + slug);
+    assert.equal(route.name, "not-found");
+    assert.equal(route.slug, slug);
+  }
 });

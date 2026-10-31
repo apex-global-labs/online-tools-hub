@@ -7,7 +7,7 @@
  * the legacy #tool/:id links remain supported by app.js.
  */
 
-const TOOLS_DATA_URL = new URL("./tools-data.json?v=20261031-bijoy-route2", import.meta.url);
+const TOOLS_DATA_URL = new URL("./tools-data.json?v=20261031-retire-tools1", import.meta.url);
 
 export async function loadToolsData() {
   const response = await fetch(TOOLS_DATA_URL, { cache: "no-store" });
@@ -50,19 +50,7 @@ export async function resolveRoute(hash = window.location.hash) {
   const normalizedSlug = route.slug.toLowerCase();
   const tool = tools.find((item) => item.slug.toLowerCase() === normalizedSlug);
 
-  // Keep this newly added tool reachable if an older cached metadata response
-  // is served by a browser or intermediary after a deployment.
-  const compatibilityTools = {
-    "unicode-bijoy-converter": {
-      id: "bijoyunicode",
-      title: "Unicode ⇄ Bijoy Converter",
-      slug: "unicode-bijoy-converter",
-      category: "Text",
-      description: "Convert Bangla text between Unicode and Bijoy ANSI in two side-by-side editors."
-    }
-  };
-  const compatibleTool = compatibilityTools[normalizedSlug];
-  const resolvedTool = tool || compatibleTool;
+  const resolvedTool = tool;
 
   return resolvedTool
     ? { name: "tool", tool: resolvedTool }
