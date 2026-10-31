@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-30  
 Project: [ToolNest](https://apex-global-labs.github.io/online-tools-hub/)  
-Scope: 49 crawlable tool-guide pages
+Scope: 54 crawlable tool-guide pages
 
 ## Research method and confidence
 
@@ -33,7 +33,7 @@ Google recommends descriptive, concise titles, useful people-first content, anti
    - Robots.txt Generator = crawler directives; XML Sitemap Generator = URL inventory.
 6. Do not force the brand name into every keyword. Use ToolNest naturally in branding where helpful.
 
-## 49-tool keyword map
+## 54-tool keyword map
 
 | # | Tool / page | Primary keyword (one target) | Secondary keywords | Long-tail queries / FAQ angles | Search intent | Priority | Content strategy / page boundary | Target URL |
 |---:|---|---|---|---|---|---|---|---|
@@ -116,6 +116,12 @@ Google recommends descriptive, concise titles, useful people-first content, anti
 
 | 48 | ZIP File Manager | **create zip file online** | ZIP archive creator; extract ZIP files | create a ZIP archive in browser; extract selected ZIP entries | Transactional / tool use | P1 | Explain local archive creation, selected-entry extraction, password-protected archive limitation and file-size caps. | [zip-file-manager](https://apex-global-labs.github.io/online-tools-hub/tools/zip-file-manager/) |
 | 49 | Favicon Generator | **favicon generator** | create favicon online; PNG favicon sizes | generate favicon PNG files; create favicon.ico and HTML tags | Transactional / tool use | P1 | Explain supported source formats, generated sizes, PNG-based ICO output and local browser processing. | [favicon-generator](https://apex-global-labs.github.io/online-tools-hub/tools/favicon-generator/) |
+
+| 50 | PDF Page Organizer | **reorder PDF pages online** | organize PDF pages; rotate PDF pages | rearrange PDF pages and rotate all pages in browser | Transactional / tool use | P1 | Distinguish from PDF Splitter: reorder all pages in one document, with optional rotation. | [pdf-page-organizer](https://apex-global-labs.github.io/online-tools-hub/tools/pdf-page-organizer/) |
+| 51 | Text Sorter | **sort text lines online** | alphabetical text sorter; numeric line sorting | sort a list A to Z, Z to A or numerically | Transactional / tool use | P1 | Explain locale-aware alphabetical and numeric sorting, case and blank-line options. | [text-sorter](https://apex-global-labs.github.io/online-tools-hub/tools/text-sorter/) |
+| 52 | Find & Replace | **find and replace text online** | replace words in text; bulk text replacement | replace all matching phrases with case and whole-word options | Transactional / tool use | P1 | Explain literal search, first/all replacement and matching controls. | [find-replace](https://apex-global-labs.github.io/online-tools-hub/tools/find-replace/) |
+| 53 | JWT Decoder | **JWT decoder online** | decode JWT token; JWT payload viewer | decode JWT header and payload locally without signature verification | Transactional / tool use | P1 | Clearly distinguish decoding from signature verification; never imply token validity. | [jwt-decoder](https://apex-global-labs.github.io/online-tools-hub/tools/jwt-decoder/) |
+| 54 | XML Formatter | **XML formatter online** | pretty print XML; XML validator | validate and indent XML markup in browser | Transactional / tool use | P2 | Explain browser-native parsing and that malformed XML is reported, not repaired. | [xml-formatter](https://apex-global-labs.github.io/online-tools-hub/tools/xml-formatter/) |
 
 ## Recommended on-page implementation
 
