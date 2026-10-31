@@ -2032,15 +2032,15 @@
       "faqs": [
         {
           "question": "Are my PDF files uploaded?",
-          "answer": "No. PDF parsing and image extraction run locally in your browser. PDF.js and ZIP support load from public CDNs when needed."
+          "answer": "No. PDF parsing and image extraction run locally. PDF.js and ZIP libraries load from public CDNs when needed."
         },
         {
           "question": "Will every image in every PDF be extracted?",
-          "answer": "Common embedded raster objects are supported. Some unusual masks, inline encodings or unsupported formats may be skipped."
+          "answer": "The tool supports common embedded raster objects. Some unusual image masks, inline encodings or unsupported formats may be skipped."
         },
         {
           "question": "Does this extract images from scanned PDF pages?",
-          "answer": "It extracts embedded raster objects when available. It does not perform OCR or recreate a full-page scan as an original image."
+          "answer": "No. It extracts embedded raster image objects; it does not recognize text or convert a scanned page into a new image."
         }
       ],
       "tips": "Keep the original PDF. Color profiles, transparency masks and PDF-specific image transformations can affect how an extracted image appears. Byte-for-byte recovery of the original source asset is not guaranteed."
