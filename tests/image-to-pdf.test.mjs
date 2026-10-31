@@ -70,7 +70,7 @@ test("Image to PDF guide, directory, sitemap, homepage and keyword map are synch
   assert.match(guide, /How to Use Image to PDF/);
   assert.match(directory, /tools\/image-to-pdf\//);
   assert.match(sitemap, /tools\/image-to-pdf\//);
-  assert.equal((sitemap.match(/<url>/g) || []).length, 46);
+  assert.equal((sitemap.match(/<url>/g) || []).length, 47);
   assert.match(keywordMap, /\| 44 \| Image to PDF \| \*\*image to PDF converter\*\*/);
   assert.match(homepage, /js\/image-to-pdf\.js/);
   assert.match(homepage, /css\/image-to-pdf\.css/);
