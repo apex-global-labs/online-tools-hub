@@ -9,7 +9,7 @@ Last updated: 2026-10-31
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Current verified `main` production commit: `fdf3f2546c21bbba5c8346030a21f28ab98e6224` (PR #63 merge commit). PR #62 merged at `e855cb5943d78f37d97c871d16f5298b80016581`; PR #63 merged the selector-specificity correction at the current `main` commit. The earlier PR #60 baseline (`a163996ef40519c319285d7e9645a72f7e1397a5`) and PR #59 functional fixes (`fc7fdb02457032dc1d483e2e9a097e44a3551a33`) remain historical.
+- Latest verified production code commit: `78b260df82ad5ab16866ca635b620055f9b9af4e` (PR #64 squash merge). The preceding homepage baseline was `fdf3f2546c21bbba5c8346030a21f28ab98e6224` (PR #63); PR #62 merged at `e855cb5943d78f37d97c871d16f5298b80016581`. The earlier PR #60 baseline (`a163996ef40519c319285d7e9645a72f7e1397a5`) and PR #59 functional fixes (`fc7fdb02457032dc1d483e2e9a097e44a3551a33`) remain historical.
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
 - Catalogue: **43 unique tools**, **43 individual SEO guide pages**, and **45 sitemap URLs** (homepage + directory + 43 guides).
 - `app.js`, `js/tools-data.json`, the tool-guide directory and sitemap are expected to remain synchronized.
@@ -23,14 +23,14 @@ Last updated: 2026-10-31
 
 ## Deep audit remediation — URL Shortener and project-state record (2026-10-31)
 
-- Verified production `main` at `fdf3f2546c21bbba5c8346030a21f28ab98e6224`. PR #62 merged at `e855cb5943d78f37d97c871d16f5298b80016581`; PR #63 merged at the current `main` commit. Their scope was the sticky welcome marquee/header positioning and homepage stylesheet cache key.
+- Verified homepage baseline `main` at `fdf3f2546c21bbba5c8346030a21f28ab98e6224`. PR #62 merged at `e855cb5943d78f37d97c871d16f5298b80016581`; PR #63 merged at that homepage baseline. Their scope was the sticky welcome marquee/header positioning and homepage stylesheet cache key.
 - Post-merge `main` regression workflow **41173495989** completed successfully. GitHub Pages build/deployment workflow **41173494784** completed successfully for `fdf3f2546c21bbba5c8346030a21f28ab98e6224`. This confirms the Pages workflow reported success; it is not an independent real-browser visual check.
 - Deep audit Finding 1: URL Shortener hostname validation did not fully cover IPv6 loopback, IPv6 unique-local/link-local, IPv4 link-local, CGNAT and IPv4-mapped IPv6 forms. Remediation is being delivered in PR #64 on branch `fix/url-shortener-private-ip-validation`.
-- PR #64 updates `js/url-shortener.js` and `tests/url-shortener.test.mjs`. Its GitHub Actions regression run **41176001988** completed successfully: JavaScript syntax-check step PASS and complete repository regression-test step PASS. Targeted local URL Shortener tests also passed **6/6**.
+- PR #64 updated `js/url-shortener.js` and `tests/url-shortener.test.mjs`. Final PR regression run **41176068456** completed successfully: JavaScript syntax-check step PASS and complete repository regression-test step PASS. Targeted local URL Shortener tests passed **6/6**.
 - The URL is validated before it is submitted to Spoo.me. ToolNest does not fetch the destination URL itself; describe this as URL input validation, not an SSRF vulnerability.
 - Finding 2 — reduced-motion marquee text visibility — was explicitly excluded by the project owner. Do not change its CSS, markup or behavior as part of this remediation.
 - Finding 3 — this project-state documentation update — is included in PR #64. Historical phase records below are retained; this current status section supersedes stale production-baseline wording.
-- PR #64 has not been merged. Its changes are not yet part of the production site and no post-merge deployment is claimed. Merge only after the CI result and code review are confirmed; verify the resulting main commit and Pages deployment after merge.
+- PR #64 was squash-merged into `main` at `78b260df82ad5ab16866ca635b620055f9b9af4e` after CI PASS and code review. Post-merge `main` regression workflow **41176112027** completed successfully. GitHub Pages build/deployment workflow **41176111922** completed successfully for the merge commit. The deployment workflow confirms publication completed; it does not replace real-browser visual verification.
 - Manual live-browser visual verification has not been independently performed in this remediation. Do not report visual QA as passed based only on CI or the Pages deployment workflow.
 ## QA-1 / QA-2 — Release verification record (2026-10-31)
 
