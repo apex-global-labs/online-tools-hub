@@ -35,6 +35,8 @@ jobs:
           node --experimental-default-type=module --check js/router-bridge.js
           node --check js/live-search.js
           node --check js/seo-content.js
-          node --check js/url-shortener.js\n          node --check js/zip-manager.js\n          node --check js/favicon-generator.js
+          node --check js/url-shortener.js
+          node --check js/zip-manager.js
+          node --check js/favicon-generator.js
       - name: Run regression tests
         run: node --experimental-default-type=module --test tests/*.test.mjs
