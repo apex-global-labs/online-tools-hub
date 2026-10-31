@@ -60,12 +60,15 @@ const tools = [
 {id:"pdfmerge",name:"Advanced PDF Merger",category:"Utilities",icon:"📄",description:"Combine PDFs, select and reorder pages, rotate pages and download a custom merged PDF."},
 {id:"pdfsplitter",name:"PDF Splitter",category:"Utilities",icon:"✂️",description:"Split a PDF into separate page files, select page ranges and download multiple pages as a ZIP archive."},
 {id:"imagepdf",name:"Image to PDF",category:"Utilities",icon:"🖼️",description:"Convert multiple JPG, JPEG and PNG images into one PDF with page settings."},
+{id:"pdftoimage",name:"PDF to JPG / PNG",category:"Utilities",icon:"🖼️",description:"Convert selected PDF pages into high-quality JPG or PNG images."},
+{id:"pdftext",name:"PDF Text Extractor",category:"Utilities",icon:"📝",description:"Extract selectable text from PDF pages and save it as a text file."},
+{id:"pdfmark",name:"PDF Watermark & Page Number",category:"Utilities",icon:"🔖",description:"Add a custom text watermark, logo and page numbers to PDF documents."},
 {id:"iptools",name:"IP Address Finder & Lookup",category:"Utilities",icon:"◎",description:"Find your public IP or look up public IP geolocation and network details."},
 {id:"urlshortener",name:"URL Shortener",category:"Utilities",icon:"🔗",description:"Turn long website addresses into short, shareable links with an optional custom alias."},
 ];
 
 // Curated general-demand order (not first-party usage analytics).
-const popularityOrder=["qr","pdfmerge","pdfsplitter","imagepdf","imagecompress","imageresize","counter","json","password","imagecrop","imageformat","base64","urlshortener","url","unit","percentage","age","color","case","slug","markdown","csvjson","uuid","image64","base64image","forexcalc","emi","compound","timezone","iptools","diff","meta","sha256","duplines","whitespace","timestamp","htmlentities","loremipsum","area","land","numberwords","robots","sitemap","gradient"];
+const popularityOrder=["qr","pdfmerge","pdfsplitter","pdftoimage","pdftext","pdfmark","imagepdf","imagecompress","imageresize","counter","json","password","imagecrop","imageformat","base64","urlshortener","url","unit","percentage","age","color","case","slug","markdown","csvjson","uuid","image64","base64image","forexcalc","emi","compound","timezone","iptools","diff","meta","sha256","duplines","whitespace","timestamp","htmlentities","loremipsum","area","land","numberwords","robots","sitemap","gradient"];
 const popularityTierById=Object.fromEntries(popularityOrder.map((id,index)=>[id,index<7?"Hot":index<17?"High":index<30?"Medium":"Normal"]));
 tools.sort((a,b)=>popularityOrder.indexOf(a.id)-popularityOrder.indexOf(b.id));
 function getPopularityTier(id){return popularityTierById[id]||"Normal";}
@@ -81,6 +84,9 @@ $("#year").textContent=new Date().getFullYear();
 const cardTaglines={
  pdfmerge:"Merge PDFs and control every page",
  pdfsplitter:"Extract pages into separate PDF files",
+ pdftoimage:"Turn PDF pages into image files",
+ pdftext:"Extract selectable PDF text to TXT",
+ pdfmark:"Add watermarks and page numbers to PDFs",
  imagepdf:"Turn pictures into a single PDF",
  urlshortener:"Turn long URLs into easy-to-share short links",
  case:"Make every word fit your style",
@@ -316,6 +322,9 @@ function wireUniversalActions(id){
  bind("universalCopy",()=>{
   if(id==="pdfmerge"){message("PDF files are documents; use the Download Merged PDF button after merging.");return;}
   if(id==="pdfsplitter"){message("Select pages and split them before downloading PDF files.");return;}
+  if(id==="pdftoimage"){message("Convert selected PDF pages, then use Download Images / ZIP.");return;}
+  if(id==="pdftext"){window.ToolNestPdfText?.copy();return;}
+  if(id==="pdfmark"){message("Apply your watermark or page numbers before downloading.");return;}
   if(id==="imagepdf"){message("Image to PDF creates a document; use Download PDF after creating it.");return;}
   const canvas=$("#qrCanvas");
   if(canvas){
@@ -333,6 +342,9 @@ function wireUniversalActions(id){
  bind("universalDownload",()=>{
   if(id==="pdfmerge"){ $("#pdfMergeDownload")?.click(); return; }
   if(id==="pdfsplitter"){ $("#pdfSplitDownload")?.click(); return; }
+  if(id==="pdftoimage"){window.ToolNestPdfToImage?.download();return;}
+  if(id==="pdftext"){window.ToolNestPdfText?.download();return;}
+  if(id==="pdfmark"){window.ToolNestPdfMark?.download();return;}
   if(id==="imagepdf"){ $("#imagePdfDownload")?.click(); return; }
   const canvas=$("#qrCanvas");
   if(canvas){
@@ -360,6 +372,9 @@ function wireUniversalActions(id){
   // QR Studio keeps artwork and render state in local variables; use its own reset handler.
   if(id==="pdfmerge"){ $("#pdfMergeClear")?.click(); return; }
   if(id==="pdfsplitter"){ $("#pdfSplitClear")?.click(); return; }
+  if(id==="pdftoimage"){window.ToolNestPdfToImage?.clear();return;}
+  if(id==="pdftext"){window.ToolNestPdfText?.clear();return;}
+  if(id==="pdfmark"){window.ToolNestPdfMark?.clear();return;}
   if(id==="imagepdf"){ $("#imagePdfClear")?.click(); return; }
   if(id==="urlshortener"){ window.ToolNestUrlShortener?.clear(); message("Tool cleared."); return; }
   if(id==="qr"){ $("#qrClear")?.click(); return; }
@@ -464,6 +479,9 @@ function toolMarkup(id){
  <div class="image-pdf-preview-wrap"><strong>PDF Preview</strong><iframe id="imagePdfPreview" title="Generated PDF preview" hidden></iframe></div>
  <div class="image-pdf-privacy"><strong>Privacy:</strong> Images are processed locally in this browser and are not uploaded to ToolNest. The PDF library loads from a public CDN when needed. Each image is limited to 40 megapixels and each job to 100 megapixels total; very large jobs may be limited by device memory.</div>
 </div>`);
+ case "pdftoimage":return form("<div class=\"pdf-phase-tool\"><div class=\"pdf-phase-intro\"><span class=\"pdf-phase-kicker\">TOOLNEST PDF IMAGE STUDIO</span><h3>PDF to JPG / PNG</h3><p>Preview PDF pages, choose exactly which pages to export, set image format and resolution, then download one image or a ZIP. Files stay in your browser.</p></div><div class=\"pdf-phase-upload\"><label class=\"field-label\" for=\"pdfImageFiles\">Choose one PDF file</label><input class=\"field\" id=\"pdfImageFiles\" type=\"file\" accept=\"application/pdf,.pdf\"><p class=\"muted text-sm\">Maximum 30 MB · 120 pages · 40 exported pages per job.</p></div><p class=\"pdf-phase-summary\" id=\"pdfImageSummary\">No PDF selected.</p><div class=\"pdf-phase-grid\"><div class=\"pdf-phase-field\"><label for=\"pdfImageFormat\">Image format</label><select class=\"field\" id=\"pdfImageFormat\"><option value=\"png\">PNG (lossless)</option><option value=\"jpg\">JPG (smaller files)</option></select></div><div class=\"pdf-phase-field\"><label for=\"pdfImageScale\">Resolution</label><select class=\"field\" id=\"pdfImageScale\"><option value=\"1\">Standard (1×)</option><option value=\"1.5\" selected>High (1.5×)</option><option value=\"2\">Very high (2×)</option></select></div><div class=\"pdf-phase-field\"><label for=\"pdfImageQuality\">JPG quality <output id=\"pdfImageQualityValue\">88%</output></label><input class=\"field\" id=\"pdfImageQuality\" type=\"range\" min=\"55\" max=\"100\" value=\"88\"></div></div><div class=\"pdf-phase-range\"><label for=\"pdfImageRange\">Select page range (optional)</label><input class=\"field\" id=\"pdfImageRange\" placeholder=\"Example: 1-3,5\"><button class=\"btn-secondary\" type=\"button\" id=\"pdfImageApplyRange\" disabled>Apply</button><button class=\"btn-secondary\" type=\"button\" id=\"pdfImageSelectAll\" disabled>All</button><button class=\"btn-secondary\" type=\"button\" id=\"pdfImageSelectNone\" disabled>None</button></div><div class=\"pdf-phase-pages\" id=\"pdfImagePages\"><p class=\"pdf-phase-empty\">Upload a PDF to see page previews.</p></div><div class=\"pdf-phase-actions actions\"><button class=\"btn-primary\" type=\"button\" id=\"pdfImageRun\" disabled>Convert Selected Pages</button><button class=\"btn-secondary\" type=\"button\" id=\"pdfImageDownload\" disabled>Download Images / ZIP</button><button class=\"btn-secondary\" type=\"button\" id=\"pdfImageClear\">Clear</button></div><p class=\"pdf-phase-status\" id=\"pdfImageStatus\" role=\"status\" aria-live=\"polite\">Ready. Add a PDF to begin.</p><p class=\"pdf-phase-privacy\"><strong>Privacy:</strong> PDF pages are rendered locally using PDF.js. The PDF is not uploaded to ToolNest. PDF.js and ZIP support load from public CDNs when needed.</p></div>");
+ case "pdftext":return form("<div class=\"pdf-phase-tool\"><div class=\"pdf-phase-intro\"><span class=\"pdf-phase-kicker\">TOOLNEST PDF TEXT STUDIO</span><h3>PDF Text Extractor</h3><p>Extract selectable text from every page or a custom page range. Copy the result or download a TXT file. Scanned-image OCR is not included.</p></div><div class=\"pdf-phase-upload\"><label class=\"field-label\" for=\"pdfTextFiles\">Choose a PDF file</label><input class=\"field\" id=\"pdfTextFiles\" type=\"file\" accept=\"application/pdf,.pdf\"><p class=\"muted text-sm\">Maximum 25 MB · 200 pages. Text-based PDFs only; image-only scans require OCR.</p></div><div class=\"pdf-phase-field\"><label for=\"pdfTextRange\">Page range (optional)</label><input class=\"field\" id=\"pdfTextRange\" placeholder=\"Example: 1-5,8\"></div><div class=\"pdf-phase-actions actions\"><button class=\"btn-primary\" type=\"button\" id=\"pdfTextRun\" disabled>Extract Text</button><button class=\"btn-secondary\" type=\"button\" id=\"pdfTextCopy\">Copy Text</button><button class=\"btn-secondary\" type=\"button\" id=\"pdfTextDownload\">Download TXT</button><button class=\"btn-secondary\" type=\"button\" id=\"pdfTextClear\">Clear</button></div><p class=\"pdf-phase-status\" id=\"pdfTextStatus\" role=\"status\" aria-live=\"polite\">Ready. Add a text-based PDF to begin.</p><label class=\"field-label\" for=\"pdfTextResult\">Extracted text</label><textarea class=\"field pdf-phase-result\" id=\"pdfTextResult\" rows=\"14\" placeholder=\"Extracted text will appear here…\" spellcheck=\"false\"></textarea><p class=\"pdf-phase-privacy\"><strong>Privacy:</strong> PDF text is extracted locally using PDF.js. Your document is not uploaded. Scanned PDFs with no text layer are not OCR-processed.</p></div>");
+ case "pdfmark":return form("<div class=\"pdf-phase-tool\"><div class=\"pdf-phase-intro\"><span class=\"pdf-phase-kicker\">TOOLNEST PDF DOCUMENT STUDIO</span><h3>PDF Watermark &amp; Page Number</h3><p>Add a readable text watermark, optional logo and page numbers. Choose the pages and style, preview the updated PDF, then download.</p></div><div class=\"pdf-phase-upload\"><label class=\"field-label\" for=\"pdfMarkFiles\">Choose a PDF file</label><input class=\"field\" id=\"pdfMarkFiles\" type=\"file\" accept=\"application/pdf,.pdf\"><p class=\"muted text-sm\">Maximum 30 MB · 150 pages. Password-protected PDFs are not supported.</p></div><div class=\"pdf-phase-grid\"><div class=\"pdf-phase-field\"><label for=\"pdfMarkText\">Watermark text</label><input class=\"field\" id=\"pdfMarkText\" maxlength=\"100\" placeholder=\"CONFIDENTIAL\"></div><div class=\"pdf-phase-field\"><label for=\"pdfMarkColor\">Text color</label><input class=\"field\" id=\"pdfMarkColor\" type=\"color\" value=\"#64748b\"></div><div class=\"pdf-phase-field\"><label for=\"pdfMarkOpacity\">Opacity <output id=\"pdfMarkOpacityValue\">22%</output></label><input class=\"field\" id=\"pdfMarkOpacity\" type=\"range\" min=\"5\" max=\"70\" value=\"22\"></div><div class=\"pdf-phase-field\"><label for=\"pdfMarkSize\">Text size <output id=\"pdfMarkSizeValue\">42 px</output></label><input class=\"field\" id=\"pdfMarkSize\" type=\"range\" min=\"14\" max=\"90\" value=\"42\"></div><div class=\"pdf-phase-field\"><label for=\"pdfMarkStyle\">Watermark style</label><select class=\"field\" id=\"pdfMarkStyle\"><option value=\"diagonal\">Diagonal</option><option value=\"center\">Centered</option></select></div><div class=\"pdf-phase-field\"><label for=\"pdfMarkRange\">Pages (optional)</label><input class=\"field\" id=\"pdfMarkRange\" placeholder=\"All pages or 1-3,5\"></div></div><div class=\"pdf-phase-settings\"><div class=\"pdf-phase-checks\"><label><input type=\"checkbox\" id=\"pdfMarkNumbers\"> Add page numbers</label></div><div class=\"pdf-phase-grid\"><div class=\"pdf-phase-field\"><label for=\"pdfMarkStart\">Starting number</label><input class=\"field\" id=\"pdfMarkStart\" type=\"number\" min=\"1\" max=\"99999\" value=\"1\"></div><div class=\"pdf-phase-field\"><label for=\"pdfMarkNumberPosition\">Number position</label><select class=\"field\" id=\"pdfMarkNumberPosition\"><option value=\"center\">Bottom center</option><option value=\"left\">Bottom left</option><option value=\"right\">Bottom right</option></select></div></div><div class=\"pdf-phase-field\"><label for=\"pdfMarkLogo\">Optional logo (PNG/JPG, max 5 MB)</label><input class=\"field\" id=\"pdfMarkLogo\" type=\"file\" accept=\"image/png,image/jpeg\"><label for=\"pdfMarkLogoOpacity\">Logo opacity <output id=\"pdfMarkLogoOpacityValue\">80%</output></label><input class=\"field\" id=\"pdfMarkLogoOpacity\" type=\"range\" min=\"10\" max=\"100\" value=\"80\"></div></div><div class=\"pdf-phase-actions actions\"><button class=\"btn-primary\" type=\"button\" id=\"pdfMarkRun\">Apply to PDF</button><button class=\"btn-secondary\" type=\"button\" id=\"pdfMarkDownload\" disabled>Download PDF</button><button class=\"btn-secondary\" type=\"button\" id=\"pdfMarkClear\">Clear</button></div><p class=\"pdf-phase-status\" id=\"pdfMarkStatus\" role=\"status\" aria-live=\"polite\">Ready. Add a PDF to begin.</p><iframe class=\"pdf-phase-preview\" id=\"pdfMarkPreview\" title=\"Updated PDF preview\" hidden></iframe><p class=\"pdf-phase-privacy\"><strong>Privacy:</strong> PDF editing and watermark rendering happen locally in your browser using pdf-lib and the browser canvas. Your document is not uploaded to ToolNest.</p></div>");
  case "pdfsplitter":return form(`
 <div class="pdf-split-tool">
  <div class="pdf-split-intro"><span class="pdf-split-kicker">TOOLNEST DOCUMENT STUDIO</span><h3>PDF Splitter</h3><p>Export each selected page as a separate PDF. Choose individual pages or enter a page range. Files are processed locally in your browser.</p></div>
@@ -561,6 +579,9 @@ function wireTool(id){
   bind("copy",()=>copyOutput());
   break;
  }
+ case "pdftoimage": { window.ToolNestPdfToImage?.init(); break; }
+ case "pdftext": { window.ToolNestPdfText?.init(); break; }
+ case "pdfmark": { window.ToolNestPdfMark?.init(); break; }
  case "pdfsplitter": {
   window.ToolNestPdfSplitter?.init();
   break;
