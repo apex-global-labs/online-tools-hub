@@ -23,7 +23,10 @@ Last updated: 2026-10-31
 - Feature branch: `feature/phase-c0-catalogue-docs-cleanup`.
 - Scope: remove duplicate Phase B2 links from the tool-guide directory, remove the retired Universal Doc Formatter entry from README, and add regression coverage for directory uniqueness and retired-tool documentation.
 - SEO keyword map audit found all 54 active slugs represented in its 54 primary-keyword rows; repeated URLs in its keyword-ownership cross-reference table are intentional. No SEO keyword-map rewrite is required.
-- No production changes have been made. PR, CI and merge status will be recorded after implementation and verification.
+- PR #92: https://github.com/apex-global-labs/online-tools-hub/pull/92 (open; not merged).
+- PR regression workflow #456 passed **152 tests, 152 passed, 0 failed**, including the JavaScript syntax-check step.
+- The directory now contains exactly 54 links for 54 unique active slugs. README no longer advertises the retired Universal Doc Formatter.
+- No production changes have been made. Merge and production release require explicit owner approval.
 - Merge and production release require explicit owner approval.
 
 ## Phase A — Three PDF utilities added (merged and deployed; owner-reported browser QA successful)
