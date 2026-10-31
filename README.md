@@ -20,6 +20,8 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `js/phase15-developer-seo.js` — local robots.txt, XML sitemap and CSS gradient generators
 - `js/ip-tools.js` — IPv4/IPv6 validation and special-use range classification
 - `js/phase-a-pdf-tools.js` — PDF-to-image, selectable-text extraction and watermark/page-number processing in the browser
+- `js/phase-c-pdf-tools.js` — PDF Page Organizer and PDF Images Extractor modules
+- `css/phase-c-pdf-tools.css` — responsive styling for the Phase C PDF tools
 - `js/pdf-splitter.js` — local PDF page extraction with individual PDF and ZIP downloads
 - `js/image-to-pdf.js` — local PNG/JPEG image conversion to a multi-page PDF
 - `js/url-shortener.js` — browser-side integration with a free third-party URL-shortening API
@@ -111,12 +113,14 @@ A static, browser-based multi-tool website. No backend or build step is required
 
 
 ### Phase B2 additions
-- PDF Page Organizer — reorder all pages with visual thumbnails, drag-and-drop and mobile move controls; optional global rotation; local processing, 30 MB / 300-page limits.
-- PDF Images Extractor — extract supported embedded raster image objects, preview and download individually or as ZIP; local processing, 25 MB / 200-page limits.
 - Text Sorter — alphabetical and numeric line sorting with case and blank-line options.
 - Find & Replace — first/all replacements with optional case-sensitive and whole-word matching.
 - JWT Decoder — local Base64URL header/payload decode only; no signature verification and no token upload.
 - XML Formatter — browser-native XML validation and indentation.
+
+### Phase C1 / C2 — PDF utilities
+- PDF Page Organizer — reorder all pages with visual thumbnails, drag-and-drop and mobile move controls; optional global rotation; local processing, 30 MB / 300-page limits.
+- PDF Images Extractor — extract supported embedded raster image objects, preview and download individually or as ZIP; local processing, 25 MB / 200-page limits. Only supported embedded raster image objects are extracted; this is not OCR and unsupported masks or encodings may be skipped.
 
 ## Search engine crawl files
 
