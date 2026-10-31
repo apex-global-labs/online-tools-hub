@@ -1,0 +1,18 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+const app=readFileSync(new URL("../app.js",import.meta.url),"utf8");
+const index=readFileSync(new URL("../index.html",import.meta.url),"utf8");
+const modules=readFileSync(new URL("../js/phase-a-pdf-tools.js",import.meta.url),"utf8");
+const css=readFileSync(new URL("../css/phase-a-pdf-tools.css",import.meta.url),"utf8");
+const metadata=JSON.parse(readFileSync(new URL("../js/tools-data.json",import.meta.url),"utf8"));
+const sitemap=readFileSync(new URL("../sitemap.xml",import.meta.url),"utf8");
+const directory=readFileSync(new URL("../tools/index.html",import.meta.url),"utf8");
+const guides=["pdf-to-image","pdf-text-extractor","pdf-watermark-page-number"].map(s=>readFileSync(new URL("../tools/"+s+"/index.html",import.meta.url),"utf8"));
+test("Phase A registers exactly three new tools in both catalogues",()=>{for(const id of ["pdftoimage","pdftext","pdfmark"]){assert.equal((app.match(new RegExp('id:"'+id+'"',"g"))||[]).length,1);assert.equal(metadata.filter(x=>x.id===id).length,1);}assert.equal(metadata.length,47);});
+test("PDF to Image exposes page selection, range, format, resolution and downloads",()=>{for(const id of ["pdfImageFiles","pdfImagePages","pdfImageRange","pdfImageFormat","pdfImageScale","pdfImageRun","pdfImageDownload","pdfImageClear"])assert.ok(app.includes('id="'+id+'"'));assert.match(modules,/pdf\.js\/3\.11\.174/);assert.match(modules,/MAX_EXPORT=40/);assert.match(modules,/new Zip\(\)/);});
+test("PDF Text Extractor extracts selectable text and supports page range, copy and TXT",()=>{for(const id of ["pdfTextFiles","pdfTextRange","pdfTextRun","pdfTextResult","pdfTextCopy","pdfTextDownload","pdfTextClear"])assert.ok(app.includes('id="'+id+'"'));assert.match(modules,/getTextContent\(\)/);assert.match(modules,/No selectable text found/);assert.match(app,/Scanned-image OCR is not included/);});
+test("PDF Watermark supports text, logo, opacity, page ranges and numbering",()=>{for(const id of ["pdfMarkFiles","pdfMarkText","pdfMarkLogo","pdfMarkOpacity","pdfMarkNumbers","pdfMarkRange","pdfMarkRun","pdfMarkDownload","pdfMarkPreview"])assert.ok(app.includes('id="'+id+'"'));assert.match(modules,/PDFDocument\.load/);assert.match(modules,/drawImage/);assert.match(modules,/canvas\.toBlob/);});
+test("Phase A libraries are loaded on demand and document bytes are not uploaded",()=>{assert.match(modules,/cdnjs\.cloudflare\.com\/ajax\/libs\/pdf\.js/);assert.match(modules,/unpkg\.com\/pdf-lib@1\.17\.1/);assert.doesNotMatch(modules,/fetch\s*\(|XMLHttpRequest|sendBeacon/);});
+test("Phase A scripts and styles are included",()=>{assert.match(index,/phase-a-pdf-tools\.js/);assert.match(index,/phase-a-pdf-tools\.css/);assert.ok(css.includes("@media(max-width:560px)"));});
+test("Phase A guide pages, directory and sitemap are synchronized",()=>{for(const slug of ["pdf-to-image","pdf-text-extractor","pdf-watermark-page-number"]){assert.match(directory,new RegExp("tools/"+slug+"/"));assert.match(sitemap,new RegExp("tools/"+slug+"/"));}assert.equal((sitemap.match(/<url>/g)||[]).length,49);for(const guide of guides){assert.match(guide,/<title>/);assert.match(guide,/"FAQPage"/);assert.match(guide,/How to Use/);}});
