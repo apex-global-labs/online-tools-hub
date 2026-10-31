@@ -51,7 +51,7 @@ test("mobile workspace switches to a stacked single-column layout", () => {
 
 test("workspace grid stylesheet is the final layout authority", () => {
   const stylesheetLinks = [...html.matchAll(/<link\b[^>]*rel=["']stylesheet["'][^>]*href=["']([^"']+)/gi)].map(match => match[1]);
-  const gridIndex = stylesheetLinks.findIndex(link => /href=["']?css\/workspace-grid-layout\.css(?:\?[^"']*)?/.test(link));
+  const gridIndex = stylesheetLinks.findIndex(link => /^css\\/workspace-grid-layout\\.css(?:\\?.*)?$/.test(link));
   assert.ok(gridIndex >= 0, "workspace grid stylesheet must be linked");
   assert.equal(gridIndex, stylesheetLinks.length - 1, "workspace grid stylesheet must load after all other stylesheets");
   assert.doesNotMatch(legacyCss, /body\.tool-open\s+#workspace\s*\{/);
