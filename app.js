@@ -569,7 +569,7 @@ function toolMarkup(id){
  case "pdforganizer":return form(`
  <div class="b2-tool"><p class="muted text-sm">Reorder pages by entering a complete page sequence, then optionally rotate every page. Processing stays in your browser.</p>
  <label class="field-label" for="pdfOrganizeFile">Choose PDF (max 30 MB, 300 pages)</label><input class="field" id="pdfOrganizeFile" type="file" accept="application/pdf,.pdf">
- <label class="field-label" for="pdfPageOrder">New page order (comma-separated)</label><input class="field" id="pdfPageOrder" class="field" type="text" placeholder="Example: 3,1,2">
+ <label class="field-label" for="pdfPageOrder">New page order (comma-separated)</label><input class="field" id="pdfPageOrder" type="text" placeholder="Example: 3,1,2">
  <label class="field-label" for="pdfRotateAll">Rotate every page</label><select class="field" id="pdfRotateAll"><option value="0">No rotation</option><option value="90">90° clockwise</option><option value="180">180°</option><option value="270">270° clockwise</option></select>
  <div class="actions">${btn("organizePdf","Organize & Download PDF")}${btn("clearPdfOrganizer","Clear",false)}</div><p id="pdfOrganizeStatus" class="b2-status" role="status" aria-live="polite">Choose a PDF to inspect its page count.</p></div>`);
  case "textsorter":return form(`
