@@ -1,8 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import Zip from "../js/zip-manager.js";
-import Favicon from "../js/favicon-generator.js";
+await import("../js/zip-manager.js");
+await import("../js/favicon-generator.js");
+const Zip=globalThis.ToolNestZip;
+const Favicon=globalThis.ToolNestFavicon;
 const app=readFileSync(new URL("../app.js",import.meta.url),"utf8");
 const index=readFileSync(new URL("../index.html",import.meta.url),"utf8");
 const css=readFileSync(new URL("../css/phase-b1-file-tools.css",import.meta.url),"utf8");
