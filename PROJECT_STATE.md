@@ -11,9 +11,17 @@ Last updated: 2026-10-31
 - Production branch: `main`
 - Latest verified production code commit: `b0671360ffc5ac0a1326479cf4b7da8fa0bc9a95` (PR #70 squash merge; responsive sidebar/content workspace grid). The preceding full-screen workspace baseline was `dbb657f9a6ad37368b5b4a151d8e7bca6d1aa930` (PR #68).
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
-- Catalogue: **44 unique tools**, **44 individual SEO guide pages**, and **46 sitemap URLs** (homepage + directory + 44 guides).
+- Catalogue: **45 unique tools**, **45 individual SEO guide pages**, and **47 sitemap URLs** (homepage + directory + 44 guides).
 - `app.js`, `js/tools-data.json`, the tool-guide directory and sitemap are expected to remain synchronized.
 - No paid service or ToolNest backend is used. Some tools rely on third-party browser libraries or public APIs.
+
+## Universal Doc Formatter & Spacing Fixer — DocFix Pro (feature branch in progress)
+
+- New 45th tool is being implemented on `feature/docfix-pro-text-docx`; it is not yet merged or live.
+- Text Mode performs conservative Unicode-safe whitespace and punctuation cleanup, with optional English camelCase splitting and blank-line reduction.
+- DOCX Mode processes standard `.docx` files locally in the browser using JSZip. It updates text within existing Word XML text runs and retains surrounding table, paragraph, run and style markup rather than rebuilding the document.
+- Arbitrary joined words cannot be reliably separated without language context. The tool does not claim automatic linguistic proofreading. Macro-enabled `.docm`, legacy `.doc` and password-protected files are not supported.
+- CI, PR merge, GitHub Pages deployment and live browser checks are pending. Do not call this tool complete until each is verified.
 
 ## Responsive sidebar/content workspace layout (2026-10-31)
 
