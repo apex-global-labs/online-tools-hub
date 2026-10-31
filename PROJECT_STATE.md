@@ -9,11 +9,17 @@ Last updated: 2026-10-31
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Current `main` head after the documentation QA update (PR #57): `f6b24e20f2b7ed73aa83b37d9f50a01080a9a01e`. PR #56's CI correction is included in the parent history. The URL Shortener feature itself was introduced in Phase 8C at `5d2293eca435def260a5102519c61eb602f6b65f`
+- Current production baseline before this three-phase homepage update: `a163996ef40519c319285d7e9645a72f7e1397a5` (PR #60). Phase 1 functional fixes were merged in PR #59 (`fc7fdb02457032dc1d483e2e9a097e44a3551a33`).
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
 - Catalogue: **43 unique tools**, **43 individual SEO guide pages**, and **45 sitemap URLs** (homepage + directory + 43 guides).
 - `app.js`, `js/tools-data.json`, the tool-guide directory and sitemap are expected to remain synchronized.
 - No paid service or ToolNest backend is used. Some tools rely on third-party browser libraries or public APIs.
+
+## Current three-phase UX update (2026-10-31)
+
+- Phase 1: Escape closes the active workspace; URL Shortener accepts public website domains without a scheme and normalizes them to HTTPS. PR #59 regression run #190 passed.
+- Phase 2: compacted the homepage hero, added seven popular quick-pick cards, category symbols, and a 14px English welcome marquee. PR #60 regression run #192 passed. Visual browser/device QA remains to be confirmed by the site owner; CI does not verify visual rendering.
+- Phase 3: tool cards are sorted by a curated general-demand heuristic and display Hot / High / Medium / Normal labels. These tiers are not measured from ToolNest usage analytics or an independently verified global usage dataset.
 
 ## QA-1 / QA-2 — Release verification record (2026-10-31)
 
