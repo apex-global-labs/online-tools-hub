@@ -28,6 +28,7 @@ test("both Phase B1 tools are wired into the workspace and loaded",()=>{
 });
 test("ZIP path validation rejects traversal and absolute paths",()=>{
  assert.equal(Zip.safePath("docs/readme.txt"),"docs/readme.txt");
+ assert.throws(()=>Zip.safePath("a".repeat(2049)),/too long/i);
  for(const path of ["../escape.txt","folder/../../escape.txt","/absolute.txt","C:\\temp\\file.txt","folder\\..\\escape.txt"])assert.throws(()=>Zip.safePath(path));
 });
 test("ZIP input validation enforces file count and byte limits",()=>{
