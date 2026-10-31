@@ -29,7 +29,7 @@ test("all 45 tools have a unique, crawlable static HTML guide", () => {
   }
 });
 
-test("tool guide directory links to all 43 unique guide pages", () => {
+test("tool guide directory links to all 45 unique guide pages", () => {
   const directory = read("../tools/index.html");
   assert.ok(directory.includes("<title>All ToolNest Tool Guides - 45 Free Online Tools</title>"));
   for (const tool of tools) {
