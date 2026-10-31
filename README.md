@@ -31,7 +31,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/ip-tools.css` — responsive IP lookup results and status styling
 - `css/phase13-converters.css` — responsive styling for advanced converters
 - `tools/` — static, individually crawlable tool guide pages and the tool-guide directory
-- `sitemap.xml` — homepage, tool directory and 49 canonical tool-page URLs
+- `sitemap.xml` — homepage, tool directory and 54 canonical tool-page URLs
 - `PROJECT_STATE.md` — current status, verification notes and next-step roadmap
 
 ## Current UI features
