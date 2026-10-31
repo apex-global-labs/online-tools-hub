@@ -25,16 +25,17 @@ Last updated: 2026-10-31
 - Favicon Generator accepts PNG/JPEG/WebP and exports common PNG sizes, a PNG-based ICO and HTML snippet. Both tools process files locally; JSZip is loaded on demand from a public CDN.
 - CI run #415 passed 145/145 tests and syntax checks. The owner separately confirmed real Browser QA success; this is owner-reported, not an independently observed test in this session.
 
-## Phase B2 — Five core utilities (merged; CI passed; real-browser QA pending)
+## Phase B2 — Five core utilities (merged; CI passed; browser QA and live deployment confirmation pending)
 
 - PR #89 was squash-merged into `main` at `9cce81e28a90dd859076933d5f5bcb7a3496e7b6`.
-- Catalogue now contains 54 unique tools, 54 individual guide pages and 56 sitemap URLs.
-- Added PDF Page Organizer, Text Sorter, Find & Replace, JWT Decoder and XML Formatter. Homepage metadata, search catalogue, JSON router metadata, directory, sitemap, SEO keyword map and individual guides are synchronized.
-- PDF Page Organizer uses pdf-lib loaded on demand. It reorders every page using a complete page sequence and optionally rotates every page. Limits: 30 MB and 300 pages. It does not delete or duplicate pages.
-- Text Sorter supports alphabetical and numeric ordering with case and blank-line options. Find & Replace supports first/all literal matches, case-sensitive and whole-word options. JWT Decoder locally decodes header/payload only and never verifies signatures. XML Formatter uses the browser XML parser and serializer.
+- Catalogue: 54 unique tools, 54 individual guide pages and 56 sitemap URLs.
+- Added PDF Page Organizer, Text Sorter, Find & Replace, JWT Decoder and XML Formatter. Homepage metadata/search, app catalogue, JSON router metadata, directory, sitemap, SEO keyword map and guides are synchronized.
+- PDF Page Organizer uses pdf-lib loaded on demand; it reorders every page using a complete page sequence and optionally rotates every page. Limits: 30 MB and 300 pages.
+- Text Sorter supports alphabetical and numeric ordering with case and blank-line options. Find & Replace supports first/all literal matches, case-sensitive and whole-word options. JWT Decoder locally decodes header/payload only and does not verify signatures. XML Formatter uses the browser XML parser and serializer.
 - No paid API, backend, token upload or ToolNest file-upload endpoint was added. PDF processing remains local; pdf-lib is loaded from a public CDN on demand.
 - GitHub Actions run **41218042778** (run #445) passed **150 tests, 150 passed, 0 failed**, including JavaScript syntax checks.
-- Real-browser PDF output and mobile checks have not been independently performed in this session. PR merge and CI success do not substitute for browser QA. GitHub Pages deployment status was not independently confirmed at the time of this update.
+- Post-merge integration commits **8722af8** and **1e89355** connect PDF Page Organizer to universal Copy / Download / Clear actions. Commit **697b361** corrects the B2 module script to load as an ES module before `app.js`.
+- Real-browser PDF output and mobile checks have not been independently performed in this session. GitHub Pages deployment and live URL serving status could not be independently confirmed. Do not treat CI or merge success as browser QA or deployment confirmation.
 ## Retired tools
 
 - Two Bangla text utilities have been permanently removed from the active catalogue, application workspace, router compatibility handling, dedicated assets, SEO guides, directory, sitemap and tool-specific tests.
