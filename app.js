@@ -59,12 +59,13 @@ const tools = [
 {id:"gradient",name:"CSS Gradient Generator",category:"Developer",icon:"🎨",description:"Create reusable linear and radial CSS gradient backgrounds."},
 {id:"pdfmerge",name:"Advanced PDF Merger",category:"Utilities",icon:"📄",description:"Combine PDFs, select and reorder pages, rotate pages and download a custom merged PDF."},
 {id:"pdfsplitter",name:"PDF Splitter",category:"Utilities",icon:"✂️",description:"Split a PDF into separate page files, select page ranges and download multiple pages as a ZIP archive."},
+{id:"imagepdf",name:"Image to PDF",category:"Utilities",icon:"🖼️",description:"Convert multiple JPG, JPEG and PNG images into one PDF with page settings."},
 {id:"iptools",name:"IP Address Finder & Lookup",category:"Utilities",icon:"◎",description:"Find your public IP or look up public IP geolocation and network details."},
 {id:"urlshortener",name:"URL Shortener",category:"Utilities",icon:"🔗",description:"Turn long website addresses into short, shareable links with an optional custom alias."},
 ];
 
 // Curated general-demand order (not first-party usage analytics).
-const popularityOrder=["qr","pdfmerge","pdfsplitter","imagecompress","imageresize","counter","json","password","imagecrop","imageformat","base64","urlshortener","url","unit","percentage","age","color","case","slug","markdown","csvjson","uuid","image64","base64image","forexcalc","emi","compound","timezone","iptools","diff","meta","sha256","duplines","whitespace","timestamp","htmlentities","loremipsum","area","land","numberwords","robots","sitemap","gradient"];
+const popularityOrder=["qr","pdfmerge","pdfsplitter","imagepdf","imagecompress","imageresize","counter","json","password","imagecrop","imageformat","base64","urlshortener","url","unit","percentage","age","color","case","slug","markdown","csvjson","uuid","image64","base64image","forexcalc","emi","compound","timezone","iptools","diff","meta","sha256","duplines","whitespace","timestamp","htmlentities","loremipsum","area","land","numberwords","robots","sitemap","gradient"];
 const popularityTierById=Object.fromEntries(popularityOrder.map((id,index)=>[id,index<7?"Hot":index<17?"High":index<30?"Medium":"Normal"]));
 tools.sort((a,b)=>popularityOrder.indexOf(a.id)-popularityOrder.indexOf(b.id));
 function getPopularityTier(id){return popularityTierById[id]||"Normal";}
@@ -80,6 +81,7 @@ $("#year").textContent=new Date().getFullYear();
 const cardTaglines={
  pdfmerge:"Merge PDFs and control every page",
  pdfsplitter:"Extract pages into separate PDF files",
+ imagepdf:"Turn pictures into a single PDF",
  urlshortener:"Turn long URLs into easy-to-share short links",
  case:"Make every word fit your style",
  slug:"Turn titles into clean URLs",
@@ -355,6 +357,7 @@ function wireUniversalActions(id){
   // QR Studio keeps artwork and render state in local variables; use its own reset handler.
   if(id==="pdfmerge"){ $("#pdfMergeClear")?.click(); return; }
   if(id==="pdfsplitter"){ $("#pdfSplitClear")?.click(); return; }
+  if(id==="imagepdf"){ $("#imagePdfClear")?.click(); return; }
   if(id==="urlshortener"){ window.ToolNestUrlShortener?.clear(); message("Tool cleared."); return; }
   if(id==="qr"){ $("#qrClear")?.click(); return; }
   if(id==="imageresize"||id==="imagecompress"){ $("#clearImage")?.click(); return; }
@@ -441,6 +444,22 @@ function toolMarkup(id){
  <div id="shortUrlResultLink" class="url-shortener-result-link" hidden></div>
  <p id="shortUrlStatus" class="url-shortener-status" role="status" aria-live="polite">Ready. Paste a complete website URL to create a short link.</p>
  <p class="url-shortener-note"><strong>Privacy:</strong> The destination URL is sent directly to Spoo.me to create the redirect. ToolNest does not store it. Anonymous use is currently limited by the provider (published anonymous limit: 20 requests per minute and 1,000 per day); availability and terms may change. Only shorten links you trust.</p>
+</div>`);
+ case "imagepdf":return form(`
+<div class="image-pdf-tool">
+ <div class="image-pdf-intro"><span class="image-pdf-kicker">TOOLNEST DOCUMENT STUDIO</span><h3>Image to PDF</h3><p>Combine PNG and JPEG images into one PDF. Arrange the page order, choose paper size, orientation and margins, then preview and download. Images are processed locally in your browser.</p></div>
+ <div class="image-pdf-drop" id="imagePdfDrop"><label class="field-label" for="imagePdfFiles">Choose images (PNG, JPG or JPEG)</label><input class="field" id="imagePdfFiles" type="file" accept="image/png,image/jpeg,.png,.jpg,.jpeg" multiple><p class="muted text-sm">You can also drag images here. Up to 20 images · 15 MB each · 60 MB total. PNG and JPEG only.</p></div>
+ <div class="image-pdf-summary" id="imagePdfSummary" role="status" aria-live="polite">No images selected.</div>
+ <div class="image-pdf-settings">
+  <div class="image-pdf-setting"><label for="imagePdfPageSize">Page size</label><select class="field" id="imagePdfPageSize"><option value="a4">A4</option><option value="letter">US Letter</option><option value="legal">US Legal</option></select></div>
+  <div class="image-pdf-setting"><label for="imagePdfOrientation">Orientation</label><select class="field" id="imagePdfOrientation"><option value="auto">Automatic (match image)</option><option value="portrait">Portrait</option><option value="landscape">Landscape</option></select></div>
+  <div class="image-pdf-setting"><label for="imagePdfMargin">Page margin</label><select class="field" id="imagePdfMargin"><option value="0">No margin</option><option value="10" selected>10 mm</option><option value="20">20 mm</option></select></div>
+ </div>
+ <div class="image-pdf-list" id="imagePdfList"><div class="image-pdf-empty">Your selected images and page order will appear here.</div></div>
+ <div class="image-pdf-actions actions"><button type="button" class="btn-primary" id="imagePdfCreate" disabled>Create PDF</button><button type="button" class="btn-secondary" id="imagePdfDownload" disabled>Download PDF</button><button type="button" class="btn-secondary" id="imagePdfClear">Clear All</button></div>
+ <p class="image-pdf-status" id="imagePdfStatus" role="status" aria-live="polite">Ready. Add PNG or JPEG images to begin.</p>
+ <div class="image-pdf-preview-wrap"><strong>PDF Preview</strong><iframe id="imagePdfPreview" title="Generated PDF preview" hidden></iframe></div>
+ <div class="image-pdf-privacy"><strong>Privacy:</strong> Images are processed locally in this browser and are not uploaded to ToolNest. The PDF library loads from a public CDN when needed. Each image is limited to 40 megapixels and each job to 100 megapixels total; very large jobs may be limited by device memory.</div>
 </div>`);
  case "pdfsplitter":return form(`
 <div class="pdf-split-tool">
@@ -541,6 +560,10 @@ function wireTool(id){
  }
  case "pdfsplitter": {
   window.ToolNestPdfSplitter?.init();
+  break;
+ }
+ case "imagepdf": {
+  window.ToolNestImageToPdf?.init();
   break;
  }
  case "pdfmerge": {
