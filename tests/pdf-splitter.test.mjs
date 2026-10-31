@@ -67,6 +67,6 @@ test("PDF Splitter guide includes unique metadata, instructions, FAQs and relate
 
 test("PDF Splitter is represented in the canonical sitemap and keyword map", () => {
   assert.match(sitemap, /tools\/pdf-splitter\//);
-  assert.equal((sitemap.match(/<url>/g) || []).length, 57);
+  assert.equal((sitemap.match(/<url>/g) || []).length, 61);
   assert.match(keywordMap, /\| 42 \| PDF Splitter \| \*\*split PDF pages\*\*/);
 });
