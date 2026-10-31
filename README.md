@@ -20,6 +20,8 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `js/phase15-developer-seo.js` — local robots.txt, XML sitemap and CSS gradient generators
 - `js/ip-tools.js` — IPv4/IPv6 validation and special-use range classification
 - `js/phase-a-pdf-tools.js` — PDF-to-image, selectable-text extraction and watermark/page-number processing in the browser
+- `js/phase-c-pdf-tools.js` — PDF Page Organizer and PDF Images Extractor modules
+- `css/phase-c-pdf-tools.css` — responsive styling for the Phase C PDF tools
 - `js/pdf-splitter.js` — local PDF page extraction with individual PDF and ZIP downloads
 - `js/image-to-pdf.js` — local PNG/JPEG image conversion to a multi-page PDF
 - `js/url-shortener.js` — browser-side integration with a free third-party URL-shortening API
