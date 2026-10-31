@@ -26,7 +26,9 @@ Last updated: 2026-10-31
 - Processing is local in the browser. JSZip 3.10.1 is loaded on demand from a public CDN. No backend, paid service or upload endpoint was introduced.
 - Added dedicated modules, responsive CSS, tool metadata, workspace wiring, two SEO guide pages, directory links, sitemap entries and automated tests. The development sitemap has 51 unique URLs (homepage, directory and 49 tool guides).
 - Initial test coverage checks unique IDs/slugs, workspace and script wiring, ZIP path traversal rejection, archive limits, supported image formats and ICO header structure.
-- **QA status:** automated CI and real-browser verification are pending. Do not merge or claim production readiness until the complete regression workflow passes and browser checks are performed.
+- **CI:** GitHub Actions run **41215187748** (run #414) passed: **145 tests, 145 passed, 0 failed**; all JavaScript syntax checks passed.
+- **Browser QA:** real ZIP creation/extraction and favicon generation still need manual desktop/mobile browser verification. Do not claim production readiness until these interactions are tested.
+- PR #88 remains open and unmerged. Main still has 47 tools; no GitHub Pages deployment of Phase B1 has occurred.
 
 ## Retired tools
 
