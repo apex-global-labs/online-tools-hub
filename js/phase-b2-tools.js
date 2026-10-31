@@ -2,7 +2,7 @@ const MAX_PDF_BYTES=30*1024*1024,MAX_PDF_PAGES=300;
 export function sortLines(text,mode="az",ignoreCase=true,keepBlank=true){
  const lines=String(text).replace(/\r\n?/g,"\n").split("\n");
  const blanks=keepBlank?lines.filter(x=>!x.trim()):[];
- const values=lines.filter(x=>keepBlank||x.trim());
+ const values=lines.filter(x=>x.trim());
  const collator=new Intl.Collator(undefined,{numeric:mode==="numeric"||mode==="numeric-desc",sensitivity:ignoreCase?"base":"variant"});
  if(mode==="za"||mode==="numeric-desc")values.sort((a,b)=>-collator.compare(a,b));
  else values.sort((a,b)=>collator.compare(a,b));
