@@ -159,7 +159,17 @@ window.addEventListener("popstate",()=>{
  closeTool(false);
 });
 
-document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();$("#toolSearch").focus();}});
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape"&&document.body.classList.contains("tool-open")){
+  e.preventDefault();
+  closeTool();
+  return;
+ }
+ if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){
+  e.preventDefault();
+  $("#toolSearch").focus();
+ }
+});
 
 // Restore the visitor's last selected theme, when storage is available.
 try {
