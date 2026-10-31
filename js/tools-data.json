@@ -1756,7 +1756,7 @@
     "description": "Create ZIP archives from files or inspect and extract selected files in your browser.",
     "tagline": "Create and extract ZIP files locally",
     "seo": {
-      "description": "Create ZIP archives from multiple local files or inspect and extract selected files from an existing ZIP. Files are processed in your browser with practical size and entry limits.",
+      "description": "Create ZIP archives or extract selected files from ZIP files. Processing stays in your browser with clear file and size limits.",
       "steps": [
         "Choose files in the Create a ZIP archive section and select Create ZIP.",
         "To extract, choose a ZIP file and select Inspect ZIP contents.",
@@ -1794,7 +1794,7 @@
     "description": "Create common website favicon sizes, an ICO file and HTML icon tags from an image.",
     "tagline": "Make website icons in multiple sizes",
     "seo": {
-      "description": "Generate website favicon PNG files in common sizes, a PNG-based ICO file and ready-to-use HTML icon tags from a PNG, JPEG or WebP image. Everything is processed locally in your browser.",
+      "description": "Generate favicon PNG sizes, an ICO file and HTML tags from PNG, JPEG or WebP images. Processing stays in your browser.",
       "steps": [
         "Upload a PNG, JPEG or WebP image no larger than 10 MB.",
         "Choose a background color and adjust the image padding.",
