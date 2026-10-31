@@ -2039,7 +2039,7 @@
           "answer": "The tool supports common embedded raster objects. Some unusual image masks, inline encodings or unsupported formats may be skipped."
         },
         {
-          "question": "Does this extract images from scanned PDF pages?",
+          "question": "Does it perform OCR?",
           "answer": "No. It extracts embedded raster image objects; it does not recognize text or convert a scanned page into a new image."
         }
       ],
