@@ -307,7 +307,8 @@ Last updated: 2026-10-31
 - `js/advanced-converters.js`, `js/finance-calculators.js`: reusable converter and calculator helpers.
 - `js/seo-content.js`: tool guides, FAQs and dynamic FAQPage JSON-LD.
 - `tests/`: Node regression tests run by GitHub Actions.
-- `tools/`: static SEO guide directory and 55 individual crawlable tool pages, plus the four separate information/policy pages (`about/`, `contact/`, `privacy/`, `terms/`).
+- `tools/`: static SEO guide directory and 55 individual crawlable tool pages.
+- Root-level `about/`, `contact/`, `privacy/` and `terms/`: separate crawlable information/policy pages.
 - `sitemap.xml`: 61 canonical URLs (homepage, directory, 55 tool guides and four information/policy pages); no repository-level `robots.txt` is published because this is a path-prefixed GitHub Pages project site.
 
 ## Known limitations and release cautions
