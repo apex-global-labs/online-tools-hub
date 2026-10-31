@@ -33,7 +33,8 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/ip-tools.css` — responsive IP lookup results and status styling
 - `css/phase13-converters.css` — responsive styling for advanced converters
 - `tools/` — static, individually crawlable tool guide pages and the tool-guide directory
-- `sitemap.xml` — homepage, tool directory and 55 canonical tool-page URLs
+- `about/`, `contact/`, `privacy/`, `terms/` — crawlable project information and policy pages
+- `sitemap.xml` — 61 canonical URLs: homepage, tool directory, 55 tool guides and four information/policy pages
 - `PROJECT_STATE.md` — current status, verification notes and next-step roadmap
 
 ## Current UI features
@@ -139,8 +140,8 @@ Open `index.html` in a modern browser while connected to the internet. Tailwind 
 4. Wait for GitHub Pages to publish the latest commit.
 
 ## Important notes
-- Tool processing is browser-based unless a tool explicitly fetches a public reference service (the currency converter retrieves exchange-rate data, and URL Shortener sends destination URLs to Spoo.me to create redirects). Advanced PDF Merger, PDF Splitter, PDF to JPG / PNG, PDF Text Extractor, PDF Watermark & Page Number, PDF Page Organizer, PDF Images Extractor and Image to PDF process documents locally in the browser. PDF.js, pdf-lib and JSZip are loaded from public CDNs on demand. Image Resizer and Image Compressor process local images in the browser; each input is limited to 10 MB.
-- Avoid describing every tool as fully private: the currency converter makes a network request, and external libraries are loaded from CDNs.
+- Tool processing is browser-based unless a tool explicitly fetches a public reference service. The currency converter requests reference rates from `open.er-api.com`; IP lookup sends the requested IP to `ipwho.is` (IPWHOIS.io); URL Shortener sends destination URLs to Spoo.me. Advanced PDF Merger, PDF Splitter, PDF to JPG / PNG, PDF Text Extractor, PDF Watermark & Page Number, PDF Page Organizer, PDF Images Extractor and Image to PDF process documents locally in the browser. PDF.js, pdf-lib and JSZip are loaded from public CDNs on demand. Image Resizer and Image Compressor process local images in the browser; each input is limited to 10 MB.
+- Avoid describing every tool as fully private: the currency converter, IP lookup and URL Shortener make external requests, and external libraries are loaded from CDNs.
 - Percentage, compound-interest and EMI calculators use local formulas. The currency selectors only format the displayed amount; they do not fetch exchange rates. These calculators provide estimates, not financial advice or lender offers.
 - Tailwind's browser CDN is convenient for a prototype; a production build can later compile and pin assets locally.
 - Phase 2 UI interactions have been manually spot-checked by the owner. The newest theme-persistence and keyboard-navigation changes should be re-tested on desktop and mobile after deployment.

@@ -9,9 +9,10 @@ Last updated: 2026-10-31
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Latest production runtime commit: `18cda0ea59719cef70fe0d206c277fd892cc45f6` (Phase C3 documentation and regression-guard release; no runtime code changed).
-- Catalogue: **55 unique tools**, **55 individual SEO guide pages**, and **57 sitemap URLs** (homepage + directory + 55 guides).
-- Phase C1/C2 regression workflow #469 passed **156/156**. Baseline documentation commit `0cf3d8b` passed workflow #470 (**156/156**) and Pages deployment #137. Phase C3 PR #94 was squash-merged at `18cda0ea59719cef70fe0d206c277fd892cc45f6`; PR workflow #473 passed **157/157**, post-merge main workflow #474 passed, and GitHub Pages deployment #138 completed successfully for the same commit.
+- Latest production commit: `69096c6d21387d26ad1f93633152b57db7dd7940` (SEO-0 correction; removes an ineffective project-path `robots.txt` and its invalid test).
+- Catalogue: **55 unique tools**, **55 individual SEO guide pages**, and **61 sitemap URLs** (homepage + directory + 55 guides + About, Contact, Privacy and Terms).
+- SEO follow-up PRs #96–#99 are merged: sitemap XML/keyword-map correction, four crawlable trust pages, a temporary `robots.txt` addition, and its subsequent removal after confirming GitHub Pages project-site scope.
+- Latest main regression workflow #490 (run `41225613017`) passed **157/157 tests** with JavaScript syntax checks. GitHub Pages deployment workflow #143 (run `41225612121`) completed successfully for the same commit.
 - The owner reports that Phase A and Phase B browser checks were successful. This is owner-reported QA; CI and deployment results are recorded separately.
 - Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
 - No paid service or ToolNest backend is used. Some tools rely on third-party browser libraries or public APIs.
@@ -24,8 +25,18 @@ Last updated: 2026-10-31
 - Verified the CI workflow checks JavaScript syntax for the active runtime modules and runs the complete `tests/*.test.mjs` suite. Main workflow #470 completed successfully: **156 tests passed, 0 failed**. GitHub Pages deployment #137 completed successfully for the same baseline commit.
 - Findings: the production-baseline commit recorded above in the prior state document was stale by one documentation commit; README incorrectly grouped the Phase C1/C2 PDF tools under Phase B2. These documentation issues are corrected in the Phase C3 changes.
 - No runtime defect was established by the source/CI audit that justified changing application behavior. Runtime code and the 55-tool catalogue are therefore intentionally unchanged in this documentation-focused remediation.
-- Security/privacy review: file processing is performed in the browser for the documented local tools; URL Shortener sends submitted URLs to Spoo.me and IP lookup sends lookup requests to IPWHOIS.io. Some browser libraries are loaded from public CDNs, and the Tailwind browser CDN remains in use. Do not describe all tools as fully offline or all data as never leaving the browser.
+- Security/privacy review: file processing is performed in the browser for the documented local tools. The URL Shortener sends destination URLs to Spoo.me; IP lookup requests go to `ipwho.is` (IPWHOIS.io); the Forex Currency Converter requests reference rates from `open.er-api.com`. Tailwind, QR/PDF libraries and other browser resources are loaded from public CDNs. Do not describe all tools as fully offline or all data as never leaving the browser.
+- Google Search Console property ownership, sitemap submission, indexed-page counts, impressions, clicks, CTR and average position have not been verified from an authenticated Search Console report. Repository tests and public search-result spot checks cannot substitute for that data.
 - Limits: CI and GitHub Pages deployment success do not prove visual behavior on every browser/device. Independent real-browser testing of every tool, every file variant, and mobile memory limits remains outside what the automated repository audit can certify.
+
+## SEO follow-up after Phase C3 — sitemap, trust pages and crawl policy (merged and deployed)
+
+- PR #96 (`9ee805cbfaea6fc09f0189df5ea46cf6ca55b918`) corrected malformed escaped whitespace in `sitemap.xml`, aligned the keyword map to 55 guides and added regression coverage.
+- PR #97 (`f4d77abce7015b35817f3a11e1e07331ca320169`) added crawlable About, Contact, Privacy and Terms pages, linked them from the homepage and directory, and included them in the sitemap.
+- PR #98 briefly added a repository-level `robots.txt`; PR #99 (`69096c6d21387d26ad1f93633152b57db7dd7940`) correctly removed it and removed the misleading test. A GitHub Pages project site under `/online-tools-hub/` cannot publish this repository's file at the host-root `/robots.txt` path. Do not re-add it as a repository-level file.
+- Current sitemap inventory: 61 unique canonical URLs (homepage + directory + 55 tool guides + four information/policy pages). The active SEO keyword map remains scoped to the 55 tool-guide pages.
+- The latest main regression workflow #490 passed 157/157 tests, and Pages deployment workflow #143 succeeded for commit `69096c6d21387d26ad1f93633152b57db7dd7940`.
+- Google Search Console indexing and performance data are still unverified. Obtain actual impressions, clicks, CTR, average position and page/query reports from the authenticated property before choosing content priorities or claiming ranking improvements.
 
 ## Phase C0 — Catalogue and documentation cleanup (merged and deployed)
 
@@ -287,7 +298,7 @@ Last updated: 2026-10-31
 
 - `index.html`: homepage, navigation, search, tool grid and workspace.
 - `app.js`: catalogue, tool rendering, interactions and tool implementations.
-- `js/tools-data.json`: 43 tool metadata records, descriptions, routes and per-tool SEO content.
+- `js/tools-data.json`: 55 tool metadata records, descriptions, routes and per-tool SEO content.
 - `js/router.js` and `js/router-bridge.js`: modern hash routes and legacy route compatibility.
 - `js/ip-tools.js` / `css/ip-tools.css`: IP validation, special-use classification and lookup presentation.
 - `js/pdf-merge.js` / `css/pdf-merge.css`: on-demand browser-side PDF merging, page selection/order/rotation and responsive controls.
@@ -296,14 +307,16 @@ Last updated: 2026-10-31
 - `js/advanced-converters.js`, `js/finance-calculators.js`: reusable converter and calculator helpers.
 - `js/seo-content.js`: tool guides, FAQs and dynamic FAQPage JSON-LD.
 - `tests/`: Node regression tests run by GitHub Actions.
-- `tools/`: static SEO guide directory and 43 individual crawlable pages (including Advanced PDF Merger, PDF Splitter and URL Shortener).
-- `sitemap.xml`: canonical homepage, directory and individual tool guide URLs; no repository-level robots file is published because this is a path-prefixed GitHub Pages project site.
+- `tools/`: static SEO guide directory and 55 individual crawlable tool pages.
+- Root-level `about/`, `contact/`, `privacy/` and `terms/`: separate crawlable information/policy pages.
+- `sitemap.xml`: 61 canonical URLs (homepage, directory, 55 tool guides and four information/policy pages); no repository-level `robots.txt` is published because this is a path-prefixed GitHub Pages project site.
 
 ## Known limitations and release cautions
 
 - No automated real-browser end-to-end suite is currently part of the active CI workflow. A historical browser-test PR exists but is not merged; do not assume it runs.
 - Interactive tool workspaces continue to use hash-based routes; static SEO guide pages are separate HTML documents and link to the corresponding interactive workspace.
-- Third-party browser resources include Tailwind and qr-code-styling CDNs. Currency conversion and IP lookup call external services; those tools are not fully offline.
+- Third-party browser resources include Tailwind, QR/PDF libraries and other CDNs. Currency conversion, IP lookup and URL shortening call external services; those tools are not fully offline.
+- Search Console impressions, clicks, CTR, average position and actual indexed-page counts are not available in the repository and must be measured from the authenticated Google Search Console property.
 - IP geolocation is approximate and depends on the external provider's availability and data coverage.
 - QR image blending can reduce scan reliability; exported QR images should be scan-tested.
 - Phase 4 Escape-key workspace issue remains deferred. Search suggestion Escape handling is a separate behavior.

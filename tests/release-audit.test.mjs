@@ -57,6 +57,18 @@ test("crawl documentation accurately describes the project-site sitemap and robo
 });
 
 
+test("privacy policy discloses the external services used by live tools and public CDNs", () => {
+  const privacy = read("../privacy/index.html");
+  const app = read("../app.js");
+  const shortener = read("../js/url-shortener.js");
+  for (const host of ["spoo.me", "ipwho.is", "open.er-api.com", "cdn.tailwindcss.com", "unpkg.com", "cdnjs.cloudflare.com"]) {
+    assert.ok(privacy.includes(host), "privacy policy is missing disclosure for " + host);
+  }
+  assert.ok(app.includes("https://ipwho.is/"), "IP lookup endpoint changed; review privacy disclosure");
+  assert.ok(app.includes("https://open.er-api.com/v6/latest/"), "currency endpoint changed; review privacy disclosure");
+  assert.ok(shortener.includes("https://spoo.me/api/v1/shorten"), "URL shortener endpoint changed; review privacy disclosure");
+});
+
 test("tool-guide directory contains exactly one link for every active tool slug", () => {
   const directory = read("../tools/index.html");
   const tools = JSON.parse(read("../js/tools-data.json"));
