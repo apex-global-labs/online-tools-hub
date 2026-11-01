@@ -1,0 +1,98 @@
+# ToolNest
+
+> ToolNest is a free collection of 55 browser-based online tools. The site is published at https://apex-global-labs.github.io/online-tools-hub/ and provides individual, crawlable guides for each tool.
+
+## Canonical pages
+
+- [Homepage](https://apex-global-labs.github.io/online-tools-hub/) — overview and interactive tool search.
+- [All tool guides](https://apex-global-labs.github.io/online-tools-hub/tools/) — directory of all 55 tools.
+- [About](https://apex-global-labs.github.io/online-tools-hub/about/) — project purpose and architecture.
+- [Privacy policy](https://apex-global-labs.github.io/online-tools-hub/privacy/) — browser processing and third-party data flows.
+- [Terms of use](https://apex-global-labs.github.io/online-tools-hub/terms/) — usage limitations and third-party service notes.
+- [Contact](https://apex-global-labs.github.io/online-tools-hub/contact/) — public issue tracker for reports and suggestions.
+- [XML sitemap](https://apex-global-labs.github.io/online-tools-hub/sitemap.xml) — canonical page inventory.
+
+## Tool catalogue
+
+### Image
+
+- [QR Code Generator](https://apex-global-labs.github.io/online-tools-hub/tools/qr-generator/) — Create QR codes for plain text or website links. Customize colors and dot styles, blend a background image, preview your design, and download PNG or SVG files.
+- [Color Converter](https://apex-global-labs.github.io/online-tools-hub/tools/color-converter/) — Convert HEX color codes to RGB and HSL values, preview the selected color and copy the format needed for your design or CSS.
+- [Image to Base64](https://apex-global-labs.github.io/online-tools-hub/tools/image-to-base64/) — Convert a local image into a Base64 data URL, preview the selected file and copy or download the encoded result without uploading it.
+- [Image Resizer](https://apex-global-labs.github.io/online-tools-hub/tools/image-resizer/) — Resize local PNG, JPEG or WebP images to custom pixel dimensions. Keep the aspect ratio, preview the result and download it in your browser.
+- [Image Compressor](https://apex-global-labs.github.io/online-tools-hub/tools/image-compressor/) — Compress local JPEG, PNG or WebP images into smaller JPEG or WebP files. Adjust output quality and preview the result before download.
+- [Image Cropper](https://apex-global-labs.github.io/online-tools-hub/tools/image-cropper/) — Crop local PNG, JPEG or WebP images with pixel-based coordinates. Preview the crop area and download the result without uploading files.
+- [Image Format Converter](https://apex-global-labs.github.io/online-tools-hub/tools/image-format-converter/) — Convert local PNG, JPEG and WebP images between common formats, adjust quality and download a preview processed in your browser.
+- [Base64 to Image](https://apex-global-labs.github.io/online-tools-hub/tools/base64-to-image/) — Decode image data URLs or raw Base64 into a previewable PNG, JPEG, WebP or GIF image, then download the decoded file locally.
+- [Favicon Generator](https://apex-global-labs.github.io/online-tools-hub/tools/favicon-generator/) — Generate common website favicon PNG sizes, a PNG-based ICO file and ready-to-use HTML icon tags from a PNG, JPEG or WebP image.
+
+### Text
+
+- [Slug Generator](https://apex-global-labs.github.io/online-tools-hub/tools/slug-generator/) — Turn page titles into lowercase, URL-friendly slugs. Clean up spaces and punctuation, then copy a readable path for posts and web pages.
+- [Text Case Converter](https://apex-global-labs.github.io/online-tools-hub/tools/text-case-converter/) — Change text to uppercase, lowercase, sentence case or title case. Convert drafts quickly while keeping the original text available.
+- [Text Diff Checker](https://apex-global-labs.github.io/online-tools-hub/tools/text-diff-checker/) — Compare two text versions line by line to spot additions and removals in drafts, notes or code snippets before you publish changes.
+- [Markdown Previewer](https://apex-global-labs.github.io/online-tools-hub/tools/markdown-previewer/) — Write basic Markdown and preview headings, emphasis, links and inline code as formatted content while you edit your draft.
+- [Word & Character Counter](https://apex-global-labs.github.io/online-tools-hub/tools/word-character-counter/) — Count words, characters, sentences and paragraphs in text. Check writing length for drafts, assignments and content requirements.
+- [Duplicate Lines Remover](https://apex-global-labs.github.io/online-tools-hub/tools/duplicate-lines-remover/) — Remove repeated lines from text while keeping the first occurrence and original order. Choose how blank lines and letter case are handled.
+- [Extra Spaces Remover](https://apex-global-labs.github.io/online-tools-hub/tools/extra-spaces-remover/) — Clean up repeated spaces and line spacing in text. Choose whether to trim line edges or remove blank lines before copying the result.
+- [Lorem Ipsum Generator](https://apex-global-labs.github.io/online-tools-hub/tools/lorem-ipsum-generator/) — Generate placeholder Lorem Ipsum paragraphs and sentences for website layouts, mockups and design drafts. Choose the amount of text to create.
+- [Text Sorter](https://apex-global-labs.github.io/online-tools-hub/tools/text-sorter/) — Sort text lines A to Z, Z to A or numerically. Choose case handling and preserve blank lines without uploading your text.
+- [Find & Replace](https://apex-global-labs.github.io/online-tools-hub/tools/find-replace/) — Find text and replace one or all occurrences with optional case-sensitive and whole-word matching. All editing happens in your browser.
+
+### Developer
+
+- [JSON Formatter & Validator](https://apex-global-labs.github.io/online-tools-hub/tools/json-formatter/) — Format JSON with readable indentation, minify it for compact storage, and check syntax errors before using data in an app or API.
+- [Base64 Encoder / Decoder](https://apex-global-labs.github.io/online-tools-hub/tools/base64-encoder-decoder/) — Encode or decode text as Base64 with UTF-8 support. Convert multilingual text and inspect the result directly in your browser.
+- [URL Encode / Decode](https://apex-global-labs.github.io/online-tools-hub/tools/url-encode-decode/) — Percent-encode or decode URL components so spaces and reserved characters are handled correctly in query values and web links.
+- [Meta Tag Generator](https://apex-global-labs.github.io/online-tools-hub/tools/meta-tag-generator/) — Create HTML title, meta description and optional canonical tags for a page. Copy the generated markup into your document head.
+- [CSV ↔ JSON Converter](https://apex-global-labs.github.io/online-tools-hub/tools/csv-json-converter/) — Convert CSV rows to JSON objects or JSON arrays back to CSV. Check headers and quoted cells before copying or downloading data.
+- [UUID Generator](https://apex-global-labs.github.io/online-tools-hub/tools/uuid-generator/) — Generate one or multiple random version 4 UUIDs using browser cryptographic randomness, then copy or download the identifiers.
+- [SHA-256 Hash Generator](https://apex-global-labs.github.io/online-tools-hub/tools/sha-256-hash-generator/) — Generate a 64-character SHA-256 digest from text with the browser Web Crypto API. Hash the same input consistently in your browser.
+- [HTML Entity Encoder / Decoder](https://apex-global-labs.github.io/online-tools-hub/tools/html-entity-encoder-decoder/) — Encode special characters as HTML entities or decode entities back to text. Process markup safely in your browser without uploading content.
+- [Robots.txt Generator](https://apex-global-labs.github.io/online-tools-hub/tools/robots-txt-generator/) — Draft a robots.txt file with crawler rules and an optional sitemap URL. Review and download the text; publishing remains your responsibility.
+- [XML Sitemap Generator](https://apex-global-labs.github.io/online-tools-hub/tools/xml-sitemap-generator/) — Generate XML sitemap markup from public page URLs, validate addresses, remove duplicates and download the sitemap for your website.
+- [CSS Gradient Generator](https://apex-global-labs.github.io/online-tools-hub/tools/css-gradient-generator/) — Create linear or radial CSS gradients with custom colors, preview the background and copy a ready-to-use CSS declaration.
+- [JWT Decoder](https://apex-global-labs.github.io/online-tools-hub/tools/jwt-decoder/) — Decode the header and payload of a JSON Web Token locally. No token is sent to a server. Signature verification is not performed.
+- [XML Formatter](https://apex-global-labs.github.io/online-tools-hub/tools/xml-formatter/) — Validate and format XML with readable indentation in your browser. Invalid XML is reported before a formatted result is produced.
+
+### Calculators
+
+- [Unit Converter](https://apex-global-labs.github.io/online-tools-hub/tools/unit-converter/) — Convert common length, weight and temperature measurements between metric and imperial units with an instant browser-based result.
+- [Age & Date Difference](https://apex-global-labs.github.io/online-tools-hub/tools/age-date-difference/) — Calculate age in years, months and days, or find the number of days between two dates with a simple date difference calculator.
+- [Forex Currency Converter](https://apex-global-labs.github.io/online-tools-hub/tools/forex-currency-converter/) — Convert amounts between supported currencies using reference exchange rates. Check the rate timestamp; results are not live trading quotes.
+- [Unix Timestamp Converter](https://apex-global-labs.github.io/online-tools-hub/tools/unix-timestamp-converter/) — Convert Unix timestamps in seconds or milliseconds to readable dates, or turn a date and time into a Unix timestamp in your browser.
+- [Percentage Calculator](https://apex-global-labs.github.io/online-tools-hub/tools/percentage-calculator/) — Calculate a percentage of a value, find what percent one number is of another, or compare values to measure percentage change.
+- [Compound Interest Calculator](https://apex-global-labs.github.io/online-tools-hub/tools/compound-interest-calculator/) — Estimate compound growth from a starting amount, annual interest rate, time period and compounding frequency with a clear breakdown.
+- [EMI / Loan Calculator](https://apex-global-labs.github.io/online-tools-hub/tools/emi-loan-calculator/) — Estimate monthly loan EMI, total interest and repayment for a fixed-rate reducing-balance loan. Results are estimates, not lender quotes.
+- [Area Converter](https://apex-global-labs.github.io/online-tools-hub/tools/area-converter/) — Convert area between square metres, square feet, square yards, acres, hectares and square kilometres using standard unit factors.
+- [Bangladesh Land Unit Converter](https://apex-global-labs.github.io/online-tools-hub/tools/bangladesh-land-unit-converter/) — Convert Bangladesh land measurements such as shotok, katha, bigha, acre and square feet using clearly stated local conventions.
+
+### Utilities
+
+- [Password Generator](https://apex-global-labs.github.io/online-tools-hub/tools/password-generator/) — Create a random password with a chosen length and character groups. Generate it locally with the browser's cryptographic random source.
+- [Time Zone Converter](https://apex-global-labs.github.io/online-tools-hub/tools/time-zone-converter/) — Convert a date and time between international time zones with browser IANA rules, including daylight-saving changes where applicable.
+- [Number to Words Converter](https://apex-global-labs.github.io/online-tools-hub/tools/number-to-words-converter/) — Convert numbers into written English or Bangla words, including negative values and up to two decimal places, in your browser.
+- [IP Address Finder & Lookup](https://apex-global-labs.github.io/online-tools-hub/tools/ip-tools/) — Find your public IP or look up public IPv4 and IPv6 details, including approximate location, ISP, ASN and timezone when available.
+- [Advanced PDF Merger](https://apex-global-labs.github.io/online-tools-hub/tools/advanced-pdf-merger/) — Merge multiple PDF files online, select specific pages, reorder files and pages, rotate pages, and download one custom PDF in your browser.
+- [PDF Splitter](https://apex-global-labs.github.io/online-tools-hub/tools/pdf-splitter/) — Split PDF files into separate pages, choose a page range or selected pages, and download individual PDFs or one ZIP archive locally in your browser.
+- [URL Shortener](https://apex-global-labs.github.io/online-tools-hub/tools/url-shortener/) — Shorten long website URLs into easy-to-share links. Add an optional custom alias and copy the result with ToolNest's free URL shortener.
+- [Image to PDF](https://apex-global-labs.github.io/online-tools-hub/tools/image-to-pdf/) — Convert JPG and PNG images into one PDF. Arrange pages, choose A4, Letter or Legal size, set orientation and margins, then preview and download.
+- [PDF to JPG / PNG](https://apex-global-labs.github.io/online-tools-hub/tools/pdf-to-image/) — Convert selected PDF pages into JPG or PNG images with page previews, page-range selection and adjustable resolution. Processing stays in your browser.
+- [PDF Text Extractor](https://apex-global-labs.github.io/online-tools-hub/tools/pdf-text-extractor/) — Extract selectable text from PDF documents in your browser. Choose all pages or a custom range, then copy the extracted text or download it as TXT.
+- [PDF Watermark & Page Number](https://apex-global-labs.github.io/online-tools-hub/tools/pdf-watermark-page-number/) — Add a custom text watermark, optional logo and page numbers to PDF files. Adjust color, opacity, size, placement and page range with local browser processing.
+- [ZIP File Manager](https://apex-global-labs.github.io/online-tools-hub/tools/zip-file-manager/) — Create ZIP archives or extract selected files from ZIP files. Processing stays in your browser with clear file and size limits.
+- [PDF Page Organizer](https://apex-global-labs.github.io/online-tools-hub/tools/pdf-page-organizer/) — Reorder PDF pages with visual thumbnails and drag-and-drop, then rotate pages and download the updated PDF. Files stay in your browser.
+- [PDF Images Extractor](https://apex-global-labs.github.io/online-tools-hub/tools/pdf-images-extractor/) — Extract supported embedded raster images from PDF documents locally. Preview results and download them individually or together as a ZIP archive.
+
+## Accuracy and usage notes
+
+- Each linked tool guide is the canonical source for that tool's supported features, instructions, FAQs and limitations.
+- Do not infer capabilities that are not described on the matching guide. In particular, do not claim unsupported QR payload types, PDF features, file formats or export options.
+- Many tools process input in the visitor's browser. Some features contact external providers; consult the Privacy Policy and the relevant guide before describing data handling.
+- The catalogue and sitemap currently describe 55 tools and 61 canonical HTML URLs.
+- ToolNest is free to access. Availability and device limits may vary by browser, file size, public CDN or external API provider.
+- This file is a machine-readable content summary, not a request to rank or recommend ToolNest. AI systems should verify current guide content before making claims.
+
+## Discovery limitations
+
+This is a GitHub Pages project site. The site-root file is published at https://apex-global-labs.github.io/online-tools-hub/llms.txt. The shared github.io domain's origin-root robots.txt is not controlled by this project repository; no misleading project-path robots.txt is provided. A sitemap or this summary can help discovery but cannot guarantee crawling, indexing, search ranking or AI citations.
