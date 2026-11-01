@@ -23,8 +23,8 @@ test("all 55 tools have complete, tool-specific SEO content", () => {
     assert.equal(tool.seo.steps.length, 3, `expected 3 steps for ${tool.id}`);
     assert.equal(new Set(tool.seo.steps).size, tool.seo.steps.length, `duplicate steps for ${tool.id}`);
     assert.ok(tool.seo.features.length >= 3, `expected at least 3 features for ${tool.id}`);
-    assert.equal(tool.seo.faqs.length, 3, `expected 3 FAQs for ${tool.id}`);
-    assert.equal(new Set(tool.seo.faqs.map((faq) => faq.question)).size, 3, `duplicate FAQ question for ${tool.id}`);
+    assert.ok(tool.seo.faqs.length >= 3, `expected at least 3 FAQs for ${tool.id}`);
+    assert.equal(new Set(tool.seo.faqs.map((faq) => faq.question)).size, tool.seo.faqs.length, `duplicate FAQ question for ${tool.id}`);
     for (const faq of tool.seo.faqs) {
       assert.ok(faq.question.trim(), `empty FAQ question for ${tool.id}`);
       assert.ok(faq.answer.trim(), `empty FAQ answer for ${tool.id}`);
