@@ -82,6 +82,14 @@
         {
           "question": "Can I use the result directly on my website?",
           "answer": "Yes, after checking that it is readable, accurate and unique for the page."
+        },
+        {
+          "question": "How do I make a good URL slug?",
+          "answer": "Use a short phrase that describes the page, remove unnecessary words, and keep the wording readable. Check the result before publishing."
+        },
+        {
+          "question": "Should I change a slug after a page is published?",
+          "answer": "Avoid changing an established URL without a plan. If a change is necessary, configure a permanent redirect from the old URL to the new one."
         }
       ],
       "tips": "Keep slugs short, descriptive and stable. Before changing a published URL, plan a redirect from the old address."
@@ -119,6 +127,14 @@
         {
           "question": "Is my text sent to a server?",
           "answer": "No. Text case conversion runs in your browser."
+        },
+        {
+          "question": "Which text case should I use for headings?",
+          "answer": "Title Case or Sentence case can work for headings depending on your style guide. Choose one convention and use it consistently."
+        },
+        {
+          "question": "Does changing text case change the meaning?",
+          "answer": "The tool changes letter capitalization, not the underlying words. Review names, acronyms and language-specific capitalization after conversion."
         }
       ],
       "tips": "Review names, abbreviations and product codes after changing case because capitalization can carry meaning."
@@ -201,6 +217,14 @@
         {
           "question": "Why might decoding fail?",
           "answer": "The input may not be valid Base64 or may not represent valid UTF-8 text."
+        },
+        {
+          "question": "Is Base64 encryption?",
+          "answer": "No. Base64 is an encoding format, not encryption. Anyone who has the encoded text can decode it, so do not use it to protect passwords or secrets."
+        },
+        {
+          "question": "Why does decoded text look incorrect?",
+          "answer": "The input may not be valid Base64 text, or it may represent binary data rather than UTF-8 text. Check that you selected the correct operation and input."
         }
       ],
       "tips": "Base64 is an encoding format, not encryption. Do not use it to conceal passwords or protect private information."
@@ -238,6 +262,14 @@
         {
           "question": "Are the results rounded?",
           "answer": "The displayed result is rounded to a practical precision; the conversion uses standard unit factors."
+        },
+        {
+          "question": "Which unit categories can I convert?",
+          "answer": "This converter supports common length, weight and temperature units. Select the matching category before choosing the source and target units."
+        },
+        {
+          "question": "Why is a temperature conversion different from a length conversion?",
+          "answer": "Temperature scales use offsets as well as scale factors. Celsius, Fahrenheit and Kelvin therefore require a temperature formula rather than a simple multiplier."
         }
       ],
       "tips": "Check both selected units before using a converted measurement in technical, construction or safety-related work."
@@ -275,6 +307,14 @@
         {
           "question": "Are my dates stored?",
           "answer": "No. The date calculation is performed in your browser."
+        },
+        {
+          "question": "Does the age calculator account for leap years?",
+          "answer": "The result is calculated from the selected calendar dates, so the number of days can vary around leap years and month lengths."
+        },
+        {
+          "question": "Which date should I enter to calculate age?",
+          "answer": "Enter the person's date of birth as the start date and the date you want to calculate age on as the end date."
         }
       ],
       "tips": "Check the date format and the intended time zone when comparing records created near midnight or across regions."
@@ -312,6 +352,14 @@
         {
           "question": "Why is my HEX value invalid?",
           "answer": "Check that it contains only hexadecimal characters and has exactly three or six digits."
+        },
+        {
+          "question": "What is the difference between HEX, RGB and HSL?",
+          "answer": "HEX represents color with hexadecimal channel values, RGB uses red, green and blue components, and HSL describes hue, saturation and lightness."
+        },
+        {
+          "question": "Why does a color look different on another screen?",
+          "answer": "Display calibration, brightness, color profiles and browser settings can change how the same digital color appears."
         }
       ],
       "tips": "Check text-to-background contrast and accessibility in the actual design before finalizing a color palette."
@@ -349,6 +397,14 @@
         {
           "question": "Are my texts uploaded?",
           "answer": "No. The comparison runs locally in your browser."
+        },
+        {
+          "question": "How should I compare two versions of a document?",
+          "answer": "Paste the original text into the first box and the revised text into the second. Compare the added and removed line markers to review changes."
+        },
+        {
+          "question": "Does a line diff detect every wording change?",
+          "answer": "It compares text line by line. A changed sentence may appear as a removed line and an added line rather than a word-level edit."
         }
       ],
       "tips": "Keep line breaks consistent in both versions. Whitespace changes may appear as differences in the comparison."
@@ -386,6 +442,14 @@
         {
           "question": "Is my draft saved automatically?",
           "answer": "No. The preview exists in the current browser session unless you copy or save your text."
+        },
+        {
+          "question": "Which Markdown syntax can I preview?",
+          "answer": "The preview supports common headings, emphasis, links and inline code. Check the rendered result for formatting that depends on advanced Markdown extensions."
+        },
+        {
+          "question": "Is Markdown preview the same as publishing a web page?",
+          "answer": "No. It is a local preview of supported formatting. Your publishing platform may apply different themes, extensions or sanitization rules."
         }
       ],
       "tips": "Preview the result before publishing, especially links and any Markdown syntax outside the tool's supported subset."
@@ -423,6 +487,14 @@
         {
           "question": "Why does decoding show an error?",
           "answer": "The input may contain an incomplete or invalid percent-encoding sequence."
+        },
+        {
+          "question": "When should I URL-encode text?",
+          "answer": "Encode data that is being placed inside a URL component, such as a query parameter, especially when it contains spaces or reserved characters."
+        },
+        {
+          "question": "Should I encode an entire URL or only part of it?",
+          "answer": "Usually encode individual components or parameter values, not the complete URL structure. Encoding separators such as ? and & can change how the address is interpreted."
         }
       ],
       "tips": "Encode only the query value or path component you need. Encoding an entire URL can also encode its structural separators."
@@ -460,6 +532,14 @@
         {
           "question": "Is a canonical URL required?",
           "answer": "No. It is optional here; use it when you have a preferred canonical address for the page."
+        },
+        {
+          "question": "What should I write in a meta description?",
+          "answer": "Summarize the page accurately in natural language and explain what a searcher will get from it. Avoid keyword lists or promises the page does not fulfill."
+        },
+        {
+          "question": "Does generating meta tags guarantee a higher Google ranking?",
+          "answer": "No. Metadata helps describe a page and can influence how it appears in search, but it does not guarantee indexing, rankings or a particular search snippet."
         }
       ],
       "tips": "Write a unique title and description that accurately match the page. Meta tags help describe content but cannot guarantee rankings."
@@ -497,6 +577,14 @@
         {
           "question": "How are nested JSON values handled?",
           "answer": "Nested values are represented as JSON text within the corresponding CSV cell."
+        },
+        {
+          "question": "How does this converter treat the first CSV row?",
+          "answer": "The first row is used as the JSON object keys. Make sure it contains the column names you want before converting."
+        },
+        {
+          "question": "Why must CSV values sometimes be quoted?",
+          "answer": "Quotes keep commas, line breaks or quote characters inside a cell from being mistaken for column separators. Properly quoted cells preserve the intended field values."
         }
       ],
       "tips": "Keep column names consistent and check commas, quotes and embedded line breaks before converting important data."
@@ -534,6 +622,14 @@
         {
           "question": "Can I generate several UUIDs at once?",
           "answer": "Yes. Choose a quantity from 1 to 100 before generating."
+        },
+        {
+          "question": "What is a version 4 UUID used for?",
+          "answer": "A version 4 UUID is a randomly generated identifier often used for database records, files, sessions and other objects that need a unique-looking ID."
+        },
+        {
+          "question": "Can I use a generated UUID as a password?",
+          "answer": "A UUID is designed as an identifier, not as a user-facing password. Use a dedicated password generator for account credentials."
         }
       ],
       "tips": "UUIDs can identify records and resources, but they should not be used as passwords, access tokens or secret credentials."
@@ -571,6 +667,14 @@
         {
           "question": "Why does SHA-256 require HTTPS?",
           "answer": "The browser Web Crypto API is restricted to secure contexts in supported browsers."
+        },
+        {
+          "question": "Can I recover the original text from a SHA-256 hash?",
+          "answer": "No. SHA-256 is a one-way cryptographic hash function; it is designed to produce a digest, not to provide a reversible encoding."
+        },
+        {
+          "question": "Will the same text always produce the same SHA-256 value?",
+          "answer": "Yes. The same byte sequence produces the same SHA-256 digest. Even a small input change produces a different digest."
         }
       ],
       "tips": "A plain SHA-256 hash is not a password-storage method. Passwords require a dedicated password-hashing algorithm."
@@ -608,6 +712,14 @@
         {
           "question": "What is the supported password length?",
           "answer": "You can choose a length from 8 to 128 characters."
+        },
+        {
+          "question": "Why should I use a randomly generated password?",
+          "answer": "A random password avoids predictable personal details and common patterns. Use a different password for every important account."
+        },
+        {
+          "question": "Where should I store a generated password?",
+          "answer": "Store it in a reputable password manager rather than in an unsecured note or shared document. Never send it to someone else."
         }
       ],
       "tips": "Use a different password for each account and store it in a trusted password manager. Avoid reusing generated passwords."
@@ -645,6 +757,14 @@
         {
           "question": "Is my image uploaded?",
           "answer": "No. The selected file is read locally by your browser."
+        },
+        {
+          "question": "What is an image Base64 data URL?",
+          "answer": "It is a text representation of image bytes with a data URL prefix that identifies the media type. It can be embedded in some HTML or CSS contexts."
+        },
+        {
+          "question": "Why is the Base64 result much larger than the image file?",
+          "answer": "Base64 represents binary data using text characters, which adds overhead compared with the original binary file."
         }
       ],
       "tips": "Base64 text can be much larger than the original image. Use a data URL only when embedding image data is appropriate."
@@ -682,6 +802,14 @@
         {
           "question": "Are bank fees included?",
           "answer": "No. Bank, card, transfer and exchange-provider fees are not included."
+        },
+        {
+          "question": "Are the displayed exchange rates live trading prices?",
+          "answer": "No. The converter shows reference rates retrieved from its rate provider. They may differ from prices offered by banks, exchange services or trading platforms."
+        },
+        {
+          "question": "Why can the converted amount differ from what a bank pays?",
+          "answer": "Banks and payment providers may apply spreads, service fees and their own rate updates. Check the provider's final quote before making a transaction."
         }
       ],
       "tips": "Treat displayed rates as reference values. Banks and payment providers may apply different rates, spreads or fees."
@@ -764,6 +892,14 @@
         {
           "question": "Are uppercase and lowercase lines considered duplicates?",
           "answer": "No. Lines are compared exactly, including letter case and spacing."
+        },
+        {
+          "question": "Does the duplicate remover keep the first matching line?",
+          "answer": "Yes. It keeps the first occurrence and removes later repeated lines while preserving the order of the remaining lines."
+        },
+        {
+          "question": "Are lines with different capitalization treated as duplicates?",
+          "answer": "Check the exact output for your text: case and whitespace can affect whether two lines are considered identical."
         }
       ],
       "tips": "Review the output before copying, especially when repeated lines may represent meaningful records or data entries."
@@ -801,6 +937,14 @@
         {
           "question": "Does this tool use my local time zone?",
           "answer": "Timestamp values represent UTC time. When converting a local date and time, your browser applies its current time zone."
+        },
+        {
+          "question": "What is the difference between seconds and milliseconds timestamps?",
+          "answer": "A Unix timestamp in seconds counts seconds since the Unix epoch; a millisecond timestamp counts thousandths of a second. Selecting the wrong unit produces an incorrect date."
+        },
+        {
+          "question": "Why can a timestamp show a different local time?",
+          "answer": "The timestamp represents a point in time, while the displayed clock time depends on the selected or device time zone."
         }
       ],
       "tips": "Confirm whether the source timestamp uses seconds or milliseconds. Choosing the wrong unit changes the resulting date."
@@ -838,6 +982,14 @@
         {
           "question": "Does Extra Spaces Remover send my text to a server?",
           "answer": "No. The cleanup runs locally in your browser."
+        },
+        {
+          "question": "Can I remove blank lines without joining paragraphs?",
+          "answer": "Use the blank-line option only when you want those empty lines removed. Review the result if paragraph spacing carries meaning in your text."
+        },
+        {
+          "question": "Does cleaning spaces change words or punctuation?",
+          "answer": "The tool is intended to normalize repeated spaces and tabs and optionally trim line edges. Review the result when spacing inside code or fixed-width text matters."
         }
       ],
       "tips": "Review code and alignment-sensitive text after cleanup because spaces can be meaningful in some file formats."
@@ -875,6 +1027,14 @@
         {
           "question": "Does it support numeric entities?",
           "answer": "Yes. The browser's HTML character-reference parser supports common named and numeric references."
+        },
+        {
+          "question": "Why encode angle brackets in HTML text?",
+          "answer": "Encoding characters such as < and > helps display them as text instead of having them interpreted as markup in an HTML context."
+        },
+        {
+          "question": "Does decoding HTML entities make the result safe to insert into a web page?",
+          "answer": "No. Decoded text may contain markup or scripts. Treat it as untrusted input and use context-appropriate escaping and sanitization before displaying it."
         }
       ],
       "tips": "Entity encoding is not a complete HTML sanitizer. Use context-appropriate escaping and safe rendering for untrusted content."
@@ -912,6 +1072,14 @@
         {
           "question": "What image sizes are supported?",
           "answer": "This version accepts PNG, JPEG and WebP files up to 10 MB and limits output dimensions to 4096 by 4096 pixels."
+        },
+        {
+          "question": "What pixel dimensions should I use for an image?",
+          "answer": "Choose dimensions that match the space where the image will appear. Avoid enlarging a small source image too much because it can look soft."
+        },
+        {
+          "question": "Will resizing always reduce image file size?",
+          "answer": "Not necessarily. File size also depends on image format, compression and image content. Check the downloaded result."
         }
       ],
       "tips": "Keep the aspect ratio enabled when resizing photos to avoid distortion. Choose dimensions that suit the final display."
@@ -994,6 +1162,14 @@
         {
           "question": "Is the generated text uploaded?",
           "answer": "No. The text is generated locally in your browser and is not uploaded to ToolNest."
+        },
+        {
+          "question": "When should I use Lorem Ipsum text?",
+          "answer": "Use placeholder text to test layouts and visual spacing before final copy is ready. Replace it with meaningful content before publishing."
+        },
+        {
+          "question": "Does Lorem Ipsum improve SEO?",
+          "answer": "No. Placeholder text does not provide useful information to searchers. Publish original, relevant page content instead."
         }
       ],
       "tips": "Use placeholder text only while testing layouts. Replace it with accurate, useful and accessible content before publishing."
@@ -1031,6 +1207,14 @@
         {
           "question": "Can I use this calculator offline?",
           "answer": "Yes. The calculation runs locally in your browser and does not need an exchange-rate service or account."
+        },
+        {
+          "question": "How do I calculate what percentage one number is of another?",
+          "answer": "Divide the part by the whole and multiply by 100. Make sure the whole is not zero."
+        },
+        {
+          "question": "How is percentage change different from percentage points?",
+          "answer": "Percentage change compares a relative difference with the starting value. Percentage points describe the direct difference between two percentages."
         }
       ],
       "tips": "Choose the right calculation: percentage of a value, percentage share and percentage change answer different questions."
@@ -1068,6 +1252,14 @@
         {
           "question": "Does this include tax, fees or extra deposits?",
           "answer": "No. This estimate assumes a fixed rate and principal with no additional deposits, withdrawals, fees or taxes."
+        },
+        {
+          "question": "What does compounding frequency mean?",
+          "answer": "It is how often interest is added to the balance. More frequent compounding can change the estimated result when the rate and term are held constant."
+        },
+        {
+          "question": "Does this calculator predict an investment return?",
+          "answer": "No. It provides a mathematical estimate based on the values entered and does not account for taxes, fees, changing rates or investment risk."
         }
       ],
       "tips": "Treat the result as an estimate. Real accounts may include fees, taxes, changing rates or deposits not represented here."
@@ -1105,6 +1297,14 @@
         {
           "question": "What happens if the interest rate is zero?",
           "answer": "The loan amount is divided evenly across the selected number of monthly instalments, with no interest added."
+        },
+        {
+          "question": "What does EMI mean in a loan calculation?",
+          "answer": "EMI means Equated Monthly Instalment: a fixed monthly payment estimate for a loan with a fixed rate and tenure."
+        },
+        {
+          "question": "Does the EMI estimate include bank fees and insurance?",
+          "answer": "No. The estimate is based on the entered principal, annual interest rate and tenure. Lender fees, insurance and other charges may increase the actual cost."
         }
       ],
       "tips": "Compare this estimate with the lender's official repayment schedule, including fees, insurance and any rate changes."
@@ -1142,6 +1342,14 @@
         {
           "question": "Is my input sent to a server?",
           "answer": "No. Area conversion is calculated in your browser."
+        },
+        {
+          "question": "Are square feet and square metres interchangeable area units?",
+          "answer": "Yes. They measure the same quantity using different unit systems. The converter applies standard unit conversion factors."
+        },
+        {
+          "question": "Is an area conversion the same as a land-price estimate?",
+          "answer": "No. It converts area units only. Land value depends on location, legal records, plot shape and market conditions."
         }
       ],
       "tips": "Confirm the unit shown on the source document before converting. Local naming conventions can differ."
@@ -1179,6 +1387,14 @@
         {
           "question": "Does the converter replace a land survey?",
           "answer": "No. It is a reference calculator and does not replace official survey, deed review or local land-record guidance."
+        },
+        {
+          "question": "Why should I confirm the local land-unit convention?",
+          "answer": "Land-unit usage and customary definitions can vary by locality and transaction. Confirm the applicable measurement with the relevant land office or a qualified surveyor."
+        },
+        {
+          "question": "Can this conversion replace a deed or official land survey?",
+          "answer": "No. It is a calculation aid based on the stated common convention, not an official survey, title check or legal measurement."
         }
       ],
       "tips": "Land-unit conventions can vary locally. Verify the applicable standard against the deed and local land office before a transaction."
@@ -1216,6 +1432,14 @@
         {
           "question": "Is an internet time service required?",
           "answer": "No external time API is called. Conversion uses the browser's built-in internationalization support."
+        },
+        {
+          "question": "Why does a time-zone conversion change during the year?",
+          "answer": "Some regions observe daylight-saving time, so their UTC offset changes seasonally. The converter uses the browser's IANA time-zone data where available."
+        },
+        {
+          "question": "What should I do when a local time does not exist?",
+          "answer": "A clock change can skip some local times. Choose another valid time or verify the event schedule with the organizer."
         }
       ],
       "tips": "Always select the relevant date. UTC offsets can change during the year when daylight-saving rules apply."
@@ -1253,6 +1477,14 @@
         {
           "question": "Does it support Bangla output?",
           "answer": "Yes. Select বাংলা to receive the number words in Bangla."
+        },
+        {
+          "question": "Can I convert decimal numbers into words?",
+          "answer": "Yes. The converter supports negative values and up to two decimal places. Check the selected language and the result before using it in a formal document."
+        },
+        {
+          "question": "Should I use number words for legal or financial documents without review?",
+          "answer": "No. Verify names, amounts, decimal wording and local document conventions before submitting a legal, banking or official form."
         }
       ],
       "tips": "For formal documents, check spelling and the required number-word convention before using the generated wording."
@@ -1290,6 +1522,14 @@
         {
           "question": "Which formats can I export?",
           "answer": "You can export PNG, JPEG or WebP when the browser supports the selected format."
+        },
+        {
+          "question": "How do I crop an image to an exact size?",
+          "answer": "Enter the crop's pixel position and dimensions, then review the preview to confirm that the selected area contains the subject you need."
+        },
+        {
+          "question": "Will cropping improve image resolution?",
+          "answer": "Cropping removes pixels outside the selected area; it does not add detail to the remaining image. A small crop may have fewer pixels than the original."
         }
       ],
       "tips": "Use the preview to confirm crop boundaries and keep a copy of the original image before exporting."
@@ -1327,6 +1567,14 @@
         {
           "question": "Why might a format fail?",
           "answer": "Some browsers may not support exporting every format. The tool checks the actual output type and reports unsupported exports."
+        },
+        {
+          "question": "Which image format should I choose for a website?",
+          "answer": "WebP can offer efficient web delivery, PNG is useful when lossless quality or transparency matters, and JPEG is commonly used for photographs."
+        },
+        {
+          "question": "Why can a converted JPEG look different?",
+          "answer": "JPEG uses lossy compression and does not preserve transparency. Choose a suitable quality setting and inspect the result before using it."
         }
       ],
       "tips": "Choose PNG when transparency matters, JPEG for widely compatible photos, and WebP when the target platform supports it."
@@ -1364,6 +1612,14 @@
         {
           "question": "Is the Base64 sent to a server?",
           "answer": "No. Decoding and previewing happen locally in your browser."
+        },
+        {
+          "question": "Why does a Base64 image need a valid file signature?",
+          "answer": "The file signature helps identify the actual image format. A string that looks like Base64 may still contain data that is not a supported image."
+        },
+        {
+          "question": "Can I decode any Base64 string into an image?",
+          "answer": "No. The decoded bytes must represent a supported image format such as PNG, JPEG, WebP or GIF and remain within the tool's size limit."
         }
       ],
       "tips": "Large Base64 strings are difficult to inspect and share. Use data URLs only where embedding image data is appropriate."
@@ -1401,6 +1657,14 @@
         {
           "question": "Can this tool submit the file to search engines?",
           "answer": "No. It creates the file text only; you must publish it on your own website."
+        },
+        {
+          "question": "Does robots.txt prevent a page from appearing in search results?",
+          "answer": "Not by itself. Robots.txt controls crawling, not guaranteed indexing or removal. A blocked URL may still be known to search engines from other signals."
+        },
+        {
+          "question": "Where should a robots.txt file be published?",
+          "answer": "It is normally served from the root of the host, such as https://example.com/robots.txt. This tool generates the text but does not publish it."
         }
       ],
       "tips": "Robots.txt is a crawler directive, not a privacy barrier. Never rely on it to protect confidential pages."
@@ -1438,6 +1702,14 @@
         {
           "question": "How many URLs can I add?",
           "answer": "This version accepts up to 500 URLs in one sitemap. Larger websites should use a sitemap workflow that can create sitemap indexes."
+        },
+        {
+          "question": "Which URLs should I include in an XML sitemap?",
+          "answer": "Include canonical, indexable URLs that you want search engines to discover. Avoid redirecting, duplicate, blocked or noindex URLs."
+        },
+        {
+          "question": "Does creating a sitemap guarantee that Google will index every URL?",
+          "answer": "No. A sitemap helps discovery but does not guarantee crawling, indexing or rankings. Each page must still meet search-engine quality and technical requirements."
         }
       ],
       "tips": "Include canonical, indexable URLs only. A sitemap helps search engines discover pages but does not guarantee indexing."
@@ -1475,6 +1747,14 @@
         {
           "question": "Can I use the generated CSS in my website?",
           "answer": "Yes. Copy the background declaration into a CSS rule and adjust it to match your design."
+        },
+        {
+          "question": "What is the difference between a linear and radial gradient?",
+          "answer": "A linear gradient blends colors along a straight direction, while a radial gradient spreads colors outward from a point or shape."
+        },
+        {
+          "question": "How do I use the generated gradient on a website?",
+          "answer": "Copy the CSS declaration into the relevant stylesheet rule and preview it in your own page layout before publishing."
         }
       ],
       "tips": "Check text contrast against the gradient at different screen sizes before using it as a page background."
@@ -1514,6 +1794,14 @@
         {
           "question": "Why can the city or coordinates be wrong?",
           "answer": "VPNs, mobile networks, proxies, ISP routing and database coverage can cause an IP location estimate to point to a nearby or different area. Coordinates are approximate."
+        },
+        {
+          "question": "Can an IP lookup identify someone's exact home address?",
+          "answer": "No. IP geolocation is approximate and may show a network provider location or broad area rather than a person's home or exact position."
+        },
+        {
+          "question": "Why can two IP lookup services show different locations?",
+          "answer": "Providers use different databases, update schedules and network observations. VPNs, mobile networks and carrier routing can also affect estimates."
         }
       ],
       "tips": "IP geolocation is approximate and may show an ISP gateway or VPN exit point rather than a person's actual location."
@@ -1551,6 +1839,14 @@
         {
           "question": "Are my PDF files uploaded to ToolNest?",
           "answer": "No. The tool processes PDF files in your browser and does not upload them to the ToolNest server. Very large files may be limited by your device memory."
+        },
+        {
+          "question": "Can I merge only selected pages from each PDF?",
+          "answer": "Yes. Choose the pages or page ranges you want, arrange their order, and review the sequence before creating the merged PDF."
+        },
+        {
+          "question": "Will merging PDFs change the original files?",
+          "answer": "The tool creates a new output document in your browser. Keep your source files if you may need to repeat or revise the merge."
         }
       ],
       "tips": "Check the page selection and order before merging. Keep a copy of your original PDFs, especially when working with important documents."
@@ -1589,6 +1885,14 @@
         {
           "question": "Does PDF Splitter upload my document?",
           "answer": "No. PDF processing happens locally in your browser. The PDF and ZIP libraries are loaded from public CDNs when needed; your document is not sent to ToolNest."
+        },
+        {
+          "question": "How can I split a PDF into selected page ranges?",
+          "answer": "Choose the individual pages or ranges you need, then export the selected pages as separate PDF files."
+        },
+        {
+          "question": "Does splitting a PDF upload my document?",
+          "answer": "The tool processes the document locally in your browser and does not upload it to ToolNest. Keep a copy of the original PDF."
         }
       ],
       "tips": "Use page ranges to extract only the pages you need. Large documents may be limited by available device memory; this version supports PDFs up to 30 MB and 300 pages."
@@ -1626,6 +1930,14 @@
         {
           "question": "Does ToolNest store the URLs I shorten?",
           "answer": "ToolNest does not store the submitted URL. It is sent directly from your browser to the shortening provider, which processes and stores the short link under its own policies."
+        },
+        {
+          "question": "Do short links keep working forever?",
+          "answer": "A short link depends on the third-party redirect provider and its service policies. Do not assume permanent availability; test the link and keep the original URL."
+        },
+        {
+          "question": "Can I choose my own short-link alias?",
+          "answer": "The tool offers an optional custom alias when the provider accepts it and the alias is available."
         }
       ],
       "tips": "Short links can hide their destination. Only shorten addresses you trust, and explain the destination when sharing a link with others."
@@ -1665,6 +1977,14 @@
         {
           "question": "Are my images uploaded to ToolNest?",
           "answer": "No. Image processing and PDF creation happen in your browser. The PDF library is loaded from a public CDN, but your selected images are not sent to ToolNest."
+        },
+        {
+          "question": "Can I combine several images into one PDF?",
+          "answer": "Yes. Add supported PNG or JPEG images, arrange their order, choose page settings and create a PDF with one image per page."
+        },
+        {
+          "question": "How should I choose PDF page orientation?",
+          "answer": "Use portrait for taller images and documents or landscape for wider images. Preview the pages to confirm that important content fits."
         }
       ],
       "tips": "Use clear, correctly oriented images and check their order before creating the PDF. Each image is limited to 15 MB and 40 megapixels; a job can contain up to 20 images, 60 MB combined and 100 megapixels total. Large jobs may be limited by available device memory."
@@ -1703,6 +2023,14 @@
         {
           "question": "Are PDF pages converted locally in my browser?",
           "answer": "No. PDF rendering and image conversion happen in your browser. PDF.js and ZIP support are loaded from public CDNs when needed."
+        },
+        {
+          "question": "Should I export a PDF page as PNG or JPG?",
+          "answer": "PNG is suitable when you want lossless output; JPG can produce smaller files for photographic pages but uses lossy compression."
+        },
+        {
+          "question": "Why does a high-resolution export take longer?",
+          "answer": "Higher output resolution creates more pixels and requires more browser memory and processing. Use the lowest resolution that meets your viewing or print needs."
         }
       ],
       "tips": "Choose PNG for sharp text and diagrams. JPG is useful when smaller image files are more important. Large exports are limited to protect device memory."
@@ -1741,6 +2069,14 @@
         {
           "question": "Is PDF text extraction performed on my device?",
           "answer": "No. PDF parsing and text extraction run locally in your browser."
+        },
+        {
+          "question": "Can this tool extract text from a scanned PDF?",
+          "answer": "Only selectable text can be extracted directly. A scanned page that contains only an image generally needs OCR, which this tool does not provide."
+        },
+        {
+          "question": "Why is some PDF text missing or out of order?",
+          "answer": "PDFs may store text in unusual reading order, use custom fonts or contain image-only pages. Compare the extracted text with the original pages."
         }
       ],
       "tips": "Image-only scans need OCR first. Password-protected or damaged PDFs may not open."
@@ -1780,6 +2116,14 @@
         {
           "question": "Are PDF files uploaded?",
           "answer": "No. The document is modified locally in your browser using pdf-lib and canvas."
+        },
+        {
+          "question": "Can I apply a watermark to only selected PDF pages?",
+          "answer": "Yes. Choose all pages or specify the page range supported by the tool, then review the output before sharing it."
+        },
+        {
+          "question": "Will a watermark prevent someone from copying a PDF?",
+          "answer": "No. A watermark can identify or label a document, but it is not access control or copy protection."
         }
       ],
       "tips": "Preview the output before sharing. Non-Latin glyph appearance depends on fonts available in the browser."
@@ -1818,6 +2162,14 @@
         {
           "question": "What are the file limits?",
           "answer": "The tool limits source files to 100 items, 25 MB per file and 50 MB total, with a 50 MB archive limit and 50 MB expanded extraction limit."
+        },
+        {
+          "question": "Can I inspect a ZIP archive before extracting files?",
+          "answer": "Yes. Load the archive and review its entries, then select the files you want to include in the extracted output."
+        },
+        {
+          "question": "Why might a ZIP archive fail to open?",
+          "answer": "The archive may be damaged, use an unsupported compression method, or exceed browser file and expanded-size limits."
         }
       ],
       "tips": "Only open archives from sources you trust. The tool blocks unsafe archive paths and limits the number and expanded size of entries."
@@ -1856,6 +2208,14 @@
         {
           "question": "Are images uploaded?",
           "answer": "No. Image resizing and icon generation happen locally in your browser."
+        },
+        {
+          "question": "Which favicon sizes should a website provide?",
+          "answer": "Common browser icon sizes include 16×16 and 32×32 pixels, while Apple touch and modern app contexts may use larger PNG icons."
+        },
+        {
+          "question": "Where do I add the generated favicon HTML?",
+          "answer": "Place the generated link elements in the document head and upload the icon files to paths that match the references."
         }
       ],
       "tips": "Use a simple square source image with a clear subject. Check the generated icon at 16×16 pixels because small details may not remain visible."
@@ -1893,6 +2253,14 @@
         {
           "question": "What are the limits?",
           "answer": "PDF files are limited to 30 MB and 300 pages."
+        },
+        {
+          "question": "Can I rotate and reorder pages in the same PDF?",
+          "answer": "Yes. Arrange the page sequence and apply supported rotations, then inspect the final page thumbnails before downloading."
+        },
+        {
+          "question": "Does organizing pages change the source PDF?",
+          "answer": "The tool creates a reorganized output in your browser. Keep the original file as a backup."
         }
       ],
       "tips": "Enter every page number exactly once. For example, 3,1,2 places the third page first."
@@ -1930,6 +2298,14 @@
         {
           "question": "Can I sort numbers as numbers instead of text?",
           "answer": "Yes. Choose Numeric ascending or Numeric descending to sort values such as 2 and 10 in numeric order."
+        },
+        {
+          "question": "When should I use numeric sorting instead of alphabetical sorting?",
+          "answer": "Use numeric sorting when lines represent numbers and you want numerical order, such as 2 before 10. Alphabetical sorting compares text characters."
+        },
+        {
+          "question": "Can I preserve blank lines while sorting?",
+          "answer": "The tool includes a blank-line option. Choose the behavior that fits your text and check the output for section boundaries."
         }
       ],
       "tips": "Place one item on each line for predictable results."
@@ -1967,6 +2343,14 @@
         {
           "question": "Can I replace only the first match?",
           "answer": "Yes. Turn off Replace all matches to replace only the first occurrence."
+        },
+        {
+          "question": "What is the difference between replacing the first match and all matches?",
+          "answer": "Replacing the first match changes only the earliest matching occurrence. Replace all changes every match that meets the selected options."
+        },
+        {
+          "question": "When should I enable whole-word matching?",
+          "answer": "Use whole-word matching when you want to replace a complete word without changing the same character sequence inside longer words."
         }
       ],
       "tips": "Review the output before copying it into an important document."
@@ -2004,6 +2388,14 @@
         {
           "question": "Should I paste a production access token?",
           "answer": "Avoid sharing sensitive credentials. Treat tokens as secrets even when using a local decoder."
+        },
+        {
+          "question": "Does decoding a JWT verify its signature?",
+          "answer": "No. This tool decodes the header and payload for inspection. It does not verify the signature, issuer, audience or token trustworthiness."
+        },
+        {
+          "question": "Is it safe to paste a production access token into a decoder?",
+          "answer": "Avoid sharing sensitive production tokens with online tools. This decoder works locally in your browser, but follow your organization's security policy and never expose active credentials."
         }
       ],
       "tips": "Never trust claims until the token's signature and relevant claims have been verified by the intended application."
@@ -2041,6 +2433,14 @@
         {
           "question": "Does formatting change the meaning of XML?",
           "answer": "The formatter parses valid XML and changes its indentation for readability. It does not intentionally change element names or values."
+        },
+        {
+          "question": "What does an XML parser error mean?",
+          "answer": "It usually indicates malformed XML, such as an unclosed tag, mismatched nesting or an invalid character. Review the reported location and correct the source."
+        },
+        {
+          "question": "Does formatting XML change its data?",
+          "answer": "Formatting adds indentation and line breaks to make valid XML easier to read. Review whitespace-sensitive content before using the output in a system."
         }
       ],
       "tips": "Keep a copy of the original XML before making structural edits."
@@ -2079,6 +2479,14 @@
         {
           "question": "Does it perform OCR?",
           "answer": "No. It extracts embedded raster image objects; it does not recognize text or convert a scanned page into a new image."
+        },
+        {
+          "question": "Why might an image in a PDF not be extracted?",
+          "answer": "Some visible graphics are vector drawings, page backgrounds or part of a full-page scan rather than separate embedded raster images."
+        },
+        {
+          "question": "Will extracted images always match what I see on the PDF page?",
+          "answer": "Not always. The PDF may apply cropping, masks, rotation or color transformations when displaying an image. Compare extracted files with the source page."
         }
       ],
       "tips": "Keep the original PDF. Color profiles, transparency masks and PDF-specific image transformations can affect how an extracted image appears. Byte-for-byte recovery of the original source asset is not guaranteed."
