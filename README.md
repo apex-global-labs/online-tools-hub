@@ -8,6 +8,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `css/phase2.css` — search/navigation styling, dark-mode contrast and animated sun/moon scene
 - `app.js` — tool catalogue, filters, workspace rendering, theme toggle and tool implementations
 - `js/live-search.js` — search autocomplete, keyboard navigation, category menu behavior and slash shortcut
+- `js/share-tools.js` and `css/share-tools.css` — homepage native sharing, copy-link, WhatsApp and Telegram actions
 - `js/tools-data.json` — metadata for all 55 tools used by the modular hash router
 - `js/router.js` — route parsing/resolution
 - `js/router-bridge.js` — bridge from modular routes to the existing tool workspace
@@ -42,6 +43,7 @@ A static, browser-based multi-tool website. No backend or build step is required
 - Autocomplete suggestions; Enter, Escape and arrow-key navigation
 - `Ctrl+K` / `Cmd+K` focuses the search field; `/` is an additional shortcut when not typing
 - Category filter chips and a Categories dropdown
+- Homepage sharing via the device share sheet where supported, copy-link fallback, WhatsApp and Telegram
 - Light / Night theme toggle with a rising sun or moon scene and subtle stars at night
 - Theme preference is saved when browser storage is available
 - Responsive layout and reduced-motion support for the decorative scene
