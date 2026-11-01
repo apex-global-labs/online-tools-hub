@@ -10,6 +10,9 @@ test("Phase 5 map assigns one unique primary keyword and exact guide URL to all 
   const rows = [...map.matchAll(/^\| (\d+) \| ([^|]+) \| \*\*([^*]+)\*\* \|.*?\| \[([^\]]+)\]\(([^)]+)\) \|$/gm)];
   assert.equal(tools.length, 55);
   assert.equal(rows.length, 55, "keyword map must contain exactly 55 tool rows");
+  const rowNumbers = [...map.matchAll(/^\\|\\s*(\\d+)\\s*\\|/gm)].map((row) => Number(row[1]));
+  assert.deepEqual([...rowNumbers].sort((a, b) => a - b), Array.from({ length: 55 }, (_, index) => index + 1),
+    "keyword map numbering must run from 1 through 55 without gaps or duplicates");
   assert.equal(new Set(rows.map((row) => row[3].trim().toLowerCase())).size, 55,
     "each tool must have a distinct primary keyword");
   assert.equal(new Set(rows.map((row) => row[5])).size, 55,
