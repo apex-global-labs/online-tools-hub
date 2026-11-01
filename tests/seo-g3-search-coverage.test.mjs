@@ -8,7 +8,7 @@ const llms = read("../llms.txt");
 const tools = JSON.parse(read("../js/tools-data.json"));
 const site = "https://apex-global-labs.github.io/online-tools-hub/";
 
-const rows = [...map.matchAll(/^\\| (\\d+) \\| ([^|]+) \\| \\*\\*([^*]+)\\*\\* \\| ([^|]+) \\| ([^|]+) \\| ([^|]+) \\| ([^|]+) \\| ([^|]+) \\| \\[([^\\]]+)\\]\\(([^)]+)\\) \\|$/gm)];
+const rows = [...map.matchAll(/^\| (\d+) \| ([^|]+) \| \*\*([^*]+)\*\* \| ([^|]+) \| ([^|]+) \| ([^|]+) \| ([^|]+) \| ([^|]+) \| \[([^\]]+)\]\(([^)]+)\) \|$/gm)];
 
 test("G3 keyword map has 55 complete, unambiguous rows", () => {
   assert.equal(rows.length, tools.length, "every map row must have all ten columns, including a long-tail query");
