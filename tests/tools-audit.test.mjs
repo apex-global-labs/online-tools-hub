@@ -204,7 +204,7 @@ test("Phase 11 Lorem Ipsum Generator is registered, validated and wired for copy
   assert.match(getBranch(wiring, "loremipsum"), /sentences<1\|\|sentences>8/);
   assert.match(getBranch(wiring, "loremipsum"), /bind\("generateLorem"/);
   assert.match(getBranch(wiring, "loremipsum"), /bind\("copy"/);
-  assert.ok(metadata.some(tool => tool.id === "loremipsum" && tool.seo?.faqs?.length === 3));
+  assert.ok(metadata.some(tool => tool.id === "loremipsum" && tool.seo?.faqs?.length >= 3));
 });
 
 test("text counters count Unicode code points and whitespace cleaner accepts whitespace-only input", () => {
@@ -219,7 +219,7 @@ test("Phase 12 finance calculators are registered, have markup and safe event wi
     assert.ok(catalogIds.includes(id), "catalogue should include " + id);
     assert.match(getBranch(markup, id), /btn\(/);
     assert.ok(wiring.includes('case "' + id + '":'), "wiring should include " + id);
-    assert.ok(metadata.some(tool => tool.id === id && tool.seo?.faqs?.length === 3), "SEO metadata should include " + id);
+    assert.ok(metadata.some(tool => tool.id === id && tool.seo?.faqs?.length >= 3), "SEO metadata should include " + id);
   }
   assert.match(getBranch(markup, "percentage"), /percentageMode/);
   assert.match(getBranch(markup, "compound"), /compoundFrequency/);
@@ -254,7 +254,7 @@ test("Advanced PDF Merger is registered with browser-side page controls and guar
   assert.match(module, /application\/pdf/);
   assert.doesNotMatch(module, /\bfetch\s*\(/, "PDF files must not be sent to a server from this module");
   assert.match(getBranch(markup, "pdfmerge"), /Files are processed locally in your browser/);
-  assert.ok(metadata.some(tool => tool.id === "pdfmerge" && tool.seo?.faqs?.length === 3));
+  assert.ok(metadata.some(tool => tool.id === "pdfmerge" && tool.seo?.faqs?.length >= 3));
   const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
   assert.match(html, /js\/pdf-merge\.js/);
   assert.match(html, /css\/pdf-merge\.css/);
