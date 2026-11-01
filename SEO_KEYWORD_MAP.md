@@ -1,6 +1,6 @@
 # ToolNest SEO Keyword Map — Phase 5
 
-Last updated: 2026-10-30  
+Last updated: 2026-11-01  
 Project: [ToolNest](https://apex-global-labs.github.io/online-tools-hub/)  
 Scope: 55 crawlable tool-guide pages
 
@@ -32,6 +32,14 @@ Google recommends descriptive, concise titles, useful people-first content, anti
    - Base64 Encoder / Decoder = text Base64; image Base64 tools = image data conversion.
    - Robots.txt Generator = crawler directives; XML Sitemap Generator = URL inventory.
 6. Do not force the brand name into every keyword. Use ToolNest naturally in branding where helpful.
+
+## AI discovery and machine-readable site summary
+
+The project publishes a site-root `llms.txt` at [ToolNest llms.txt](https://apex-global-labs.github.io/online-tools-hub/llms.txt). It lists the canonical homepage, directory, policy pages and all 55 individual tool guides, using the current tool descriptions and explicit capability/privacy caveats.
+
+This is a best-effort machine-readable summary for systems that choose to consume it. It is not a Google ranking factor, a guaranteed AI crawler directive, or a guarantee that ChatGPT, Gemini, Copilot or another assistant will crawl, cite or recommend ToolNest. Keep the file synchronized with `js/tools-data.json`, the canonical guide pages and the sitemap.
+
+This repository is a GitHub Pages project site on the shared `github.io` host. A repository-root `robots.txt` would be served under the project path rather than the host's origin-root `/robots.txt`, so this project does not publish a misleading project-path robots file. Use the verified Search Console property and sitemap submission interface for search-engine discovery.
 
 ## 55-tool keyword map
 
