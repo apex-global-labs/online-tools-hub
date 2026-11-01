@@ -584,3 +584,14 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - PR #93: https://github.com/apex-global-labs/online-tools-hub/pull/93 was squash-merged at `c7d9a767005f188b2df6567645bf9d5bc7bcc6d3`.
 - PR regression workflow #468 passed **156/156 tests**; post-merge main workflow #469 passed **156/156 tests**; Pages deployment #136 succeeded.
 - Live browser QA using representative PDFs on desktop and mobile has not been independently performed in this session; the owner should confirm drag/drop, mobile move buttons, extracted-image correctness and downloads with real files.
+
+
+## G4 — Current sitemap and technical SEO audit (2026-11-01)
+
+- Re-audit baseline: `main` at `31cfbdcfbea534bb6dc7be9b03f79b02c76b8f89`, after G3 search-intent coverage; current inventory is 55 active tools, 55 static guides and 61 sitemap URLs.
+- Earlier open PRs #40 and #47 were authored against a 40-tool / 42-URL baseline and are not safe to merge unchanged. Their source findings and tests are superseded by the current 55-tool audit.
+- G4 adds a current 61-URL sitemap regression test. It compares the XML URL set against the active JSON catalogue plus homepage, directory and four trust/policy pages; checks URL uniqueness, canonical alignment, project-path scope, query/hash exclusion and valid `lastmod` dates.
+- The audit distinguishes repository-verifiable facts from external outcomes. CI can verify source consistency, not Googlebot fetches, indexing, rankings, impressions, clicks or AdSense approval.
+- GitHub Pages project-site constraint remains: a repository-level `robots.txt` is served below `/online-tools-hub/`, not at the shared host origin's `/robots.txt`; do not publish an ineffective file or claim it controls origin-wide crawling.
+- Owner-side Google Search Console actions remain: inspect the existing sitemap entry or submit `sitemap.xml`, record fetch status and discovered URLs, then inspect representative high-priority guide URLs. These actions require the owner's authenticated browser session.
+- Live browser rendering, Lighthouse/Core Web Vitals and Search Console reports remain unverified until measured directly. Do not describe CI or deployment success as proof of those outcomes.

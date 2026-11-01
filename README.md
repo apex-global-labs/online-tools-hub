@@ -134,6 +134,15 @@ A static, browser-based multi-tool website. No backend or build step is required
 - The homepage has a canonical URL plus Open Graph and Twitter title/description metadata. About, Contact, Privacy and Terms pages are linked from the homepage and guide directory. A social preview image is not yet configured.
 - Search engines decide independently whether and how to crawl, index, and display the site. Inclusion in a sitemap does not guarantee indexing or rankings.
 
+
+## Current sitemap and crawling verification (G4 — 2026-11-01)
+
+- The current sitemap inventory is 61 canonical URLs: homepage, tool directory, all 55 static tool guides, and About, Contact, Privacy and Terms.
+- Regression coverage compares the XML sitemap against the active `js/tools-data.json` catalogue, checks URL uniqueness and project-path scope, validates each static page's canonical URL, and checks W3C-format `lastmod` dates.
+- Hash-based workspace routes are intentionally excluded because they are fragments of the homepage, not separate static documents.
+- A repository-level `robots.txt` is intentionally absent: this GitHub Pages project site cannot use a file under `/online-tools-hub/` to control the shared host's origin-root robots policy.
+- Google Search Console sitemap submission, fetch status, URL Inspection and indexing reports require the site owner's authenticated session. CI cannot establish indexing or rankings.
+
 ## Run locally
 Open `index.html` in a modern browser while connected to the internet. Tailwind CSS and `qr-code-styling` are loaded from CDNs. PDF.js loads on demand for PDF-to-image and PDF text extraction; `pdf-lib` loads on demand for PDF editing; JSZip loads only when a tool needs a multi-file ZIP download. Image to PDF supports up to 20 PNG/JPEG images (15 MB each, 60 MB total) and creates one page per image. URL Shortener sends submitted destination URLs directly to Spoo.me; anonymous API use is currently limited to 20 requests per minute and 1,000 per day.
 
