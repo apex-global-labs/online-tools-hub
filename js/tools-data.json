@@ -8,32 +8,42 @@
     "description": "Generate a QR code for text or a URL.",
     "tagline": "Turn text or links into QR codes",
     "seo": {
-      "description": "Create QR codes for website links, plain text or contact details. Customize the design, preview the result and download a scannable PNG.",
+      "description": "Create QR codes for plain text or website links. Customize colors and dot styles, blend a background image, preview your design, and download PNG or SVG files.",
       "steps": [
-        "Enter text or paste a complete URL in the input field.",
-        "Select Generate QR Code to create the code preview.",
-        "Use Download to save the QR image as a PNG file."
+        "Enter plain text or paste a complete website URL.",
+        "Choose Default or Custom Mode. In Custom Mode, adjust the foreground and background colors, dot style and optional background artwork.",
+        "Select Generate QR Code to preview the result, then download it as PNG or SVG."
       ],
       "features": [
-        "You can create QR codes for links, contact details or short text without creating an account.",
-        "Converts text and URLs into QR codes.",
-        "Generates the code in your browser after the page loads."
+        "Creates QR codes from plain text or complete website URLs.",
+        "Customizes foreground and background colors and offers square, dots and rounded dot styles.",
+        "Blends a PNG, JPG or WebP background image and lets you adjust its opacity.",
+        "Previews the QR design and exports PNG or SVG files.",
+        "Generates the QR code in your browser after the QR library loads."
       ],
       "faqs": [
         {
           "question": "Can I create a QR code for a website?",
-          "answer": "Yes. Paste the complete website address, including https://, then generate the QR code."
+          "answer": "Yes. Paste the complete website address, including https://, or enter plain text."
+        },
+        {
+          "question": "Can I customize the QR code design?",
+          "answer": "Yes. Custom Mode lets you change colors and dot style, and blend a PNG, JPG or WebP background image."
+        },
+        {
+          "question": "Can I add a logo in the centre of the QR code?",
+          "answer": "This tool currently supports background artwork blending, not a dedicated centre-logo feature."
+        },
+        {
+          "question": "Can I download the QR code as an SVG?",
+          "answer": "Yes. You can download the generated QR code as either a PNG or SVG file."
         },
         {
           "question": "Is my text uploaded to ToolNest?",
-          "answer": "The QR code is generated in your browser; ToolNest does not receive the text you enter."
-        },
-        {
-          "question": "How can I save the QR image?",
-          "answer": "Generate the code first, then use Download result to save it as a PNG image."
+          "answer": "QR generation happens in your browser after the QR library loads. ToolNest does not receive the text you enter."
         }
       ],
-      "tips": "Keep strong contrast between the QR pattern and its background. Scan the downloaded image with another device before printing or sharing it."
+      "tips": "Keep strong contrast between the QR pattern and its background. Avoid artwork that makes the pattern hard to distinguish, and scan-test the downloaded PNG or SVG with another device before printing or sharing it."
     }
   },
   {
