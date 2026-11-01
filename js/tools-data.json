@@ -1955,9 +1955,8 @@
       "description": "Scan document photos into a clean PDF with camera capture, automatic page detection, perspective correction, image enhancement and ZIP export in your browser.",
       "steps": [
         "Open the rear camera and capture each document page, or add photos from your device.",
-        "Add up to 50 images with a combined source limit of 200 MB, then arrange or remove pages.",
-        "Choose Auto Color / Clean, Grayscale or Black & White and set the PDF page size.",
-        "Review the automatically refreshed preview and download one combined PDF or separate PDFs in a ZIP."
+        "Add up to 50 images within the 200 MB combined limit, then arrange or remove pages and choose scan enhancement and PDF page settings.",
+        "Review the automatically refreshed PDF preview, then download one combined PDF or separate one-page PDFs in a ZIP."
       ],
       "features": [
         "Capture document pages with a supported mobile browser camera or upload JPG, PNG and WebP images.",
