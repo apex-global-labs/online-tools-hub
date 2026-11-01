@@ -27,3 +27,5 @@
 .image-pdf-tool button:disabled{opacity:.45;cursor:not-allowed}
 @media(max-width:760px){.image-pdf-settings{grid-template-columns:repeat(2,minmax(0,1fr))}.image-pdf-list{grid-template-columns:1fr}}
 @media(max-width:480px){.image-pdf-settings{grid-template-columns:1fr}.image-pdf-preview-wrap iframe{min-height:300px}}
+
+.image-pdf-tool [hidden]{display:none!important}
