@@ -8,7 +8,7 @@
     "description": "Generate a QR code for text or a URL.",
     "tagline": "Turn text or links into QR codes",
     "seo": {
-      "description": "Create QR codes from text or website links. Customize colors and dot styles, blend a background image, preview your design, and download PNG or SVG files.",
+      "description": "Create QR codes for plain text or website links. Customize colors and dot styles, blend a background image, preview your design, and download PNG or SVG files.",
       "steps": [
         "Enter plain text or paste a complete website URL.",
         "Choose Default or Custom Mode. In Custom Mode, adjust the foreground and background colors, dot style and optional background artwork.",
