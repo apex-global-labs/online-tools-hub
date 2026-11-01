@@ -9,24 +9,52 @@ Last updated: 2026-11-01
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Latest main / production deployment source commit: `8f6f3b38dfdf86fa6b6218bf243d5553064d6285` (PR #104: contextual guide links and keyword-map integrity).
-- Catalogue: **55 unique tools**, **55 individual SEO guide pages**, and **61 unique sitemap URLs** (homepage + directory + 55 guides + About, Contact, Privacy and Terms).
-- PR #102 merged at `9f1eb64717bbe59ad568ac8162d05678ce5a6be2`: homepage sharing with native share, copy-link, WhatsApp and Telegram options.
-- PR #103 merged at `49df2adaef40198750040abb93d5687d314918d1`: QR guide claims aligned with implemented plain-text/URL payloads, customization and PNG/SVG export; visible FAQs and structured data synchronized.
-- PR #104 merged at `8f6f3b38dfdf86fa6b6218bf243d5553064d6285`: three contextual related-tool links added to ten guides; keyword-map numbering corrected; regression coverage added for those links and all 55 keyword-map rows.
-- Latest main regression workflow **#508** (run `41266677358`) completed successfully for this commit: **171 tests passed, 0 failed**; JavaScript syntax-check step also succeeded.
-- GitHub Pages deployment workflow **#148** (run `41266677356`) completed successfully for the same commit; build, artifact upload, deployment and status-report jobs all succeeded. This confirms the deployment workflow, not independent visual testing on every browser/device.
-- PR regression workflows: #498 passed 158/158 tests; #506 passed 161/161; #504 passed 168/168. These are PR checks; the main-branch result is separately recorded above.
-- Repository source audit confirms 55 unique tool metadata records, 55 guide pages, 61 unique sitemap URLs, unique meta descriptions, 55 distinct primary keyword rows, one H1 per guide, matching canonicals, WebApplication/BreadcrumbList/FAQPage structured data, visible FAQ content, how-to content and tool-specific practical tips.
-- All 55 guides have FAQ content and FAQPage structured data. The SEO metadata regression tests check visible FAQ questions and answers against the shared tool metadata.
-- Internal guide-link review found between one and four cross-guide links per page. Ten guides added by PR #104 have exactly three tested, unique, catalogue-valid contextual links. Follow-up opportunities remain for PDF Splitter (one cross-guide link) and several PDF guides with two links.
-- Sitemap and catalogue parity: all 55 guide URLs are present exactly once; four information/policy URLs are also present. PR #104 changed ten guide pages on 2026-11-01 but their sitemap `lastmod` values remain 2026-10-31; review whether those dates should be advanced because the changes were primarily internal navigation.
-- Google Search Console connector is connected to the exact ToolNest property `https://apex-global-labs.github.io/online-tools-hub/`. Windsor.ai returned no Search Analytics rows for 2026-10-25 through 2026-11-01 and no sitemap rows for that property. Therefore impressions, clicks, CTR, average position, query/page performance and sitemap indexing counts remain unverified; do not infer zero traffic or rankings from an empty connector response.
-- Keyword research limits remain explicit: search volume and keyword difficulty have not been measured. Query-based cannibalization cannot yet be assessed without Search Console performance data.
-- The live-site fetch/browser inspection was unavailable during this verification session. GitHub Pages deployment succeeded, but independently rendered production-page checks for homepage, directory, QR guide and sample guides remain pending.
-- Architecture: static HTML, CSS and vanilla JavaScript on GitHub Pages; no application backend or build step.
-- Zero-cost architecture is retained. Some tools use public CDNs or third-party public APIs; do not claim every tool is fully offline or that all submitted data stays exclusively on the device.
-- `app.js`, `js/tools-data.json`, `tools/index.html`, individual guide pages, `SEO_KEYWORD_MAP.md` and `sitemap.xml` must remain synchronized.
+- Latest main commit: `ca9b9ad737c6a5f8b48fcdff09b5068947270fe6` (PR #107: exact duplicate copy removed across tool guides).
+- Catalogue: **55 unique tools**, **55 individual crawlable SEO guides**, and **61 unique sitemap URLs** (homepage + directory + 55 guides + About, Contact, Privacy and Terms).
+- PR #102 merged: homepage native sharing, copy-link, WhatsApp and Telegram.
+- PR #103 merged at `49df2adaef40198750040abb93d5687d314918d1`: QR guide claims aligned with the implemented plain-text/URL payloads, customization and PNG/SVG export; visible FAQs and structured data synchronized.
+- PR #104 merged at `8f6f3b38dfdf86fa6b6218bf243d5553064d6285`: contextual links on ten guides and keyword-map integrity tests.
+- PR #105 merged at `79904296c60f8b95e64f11b88059f525c616f607`: production baseline and project documentation refreshed.
+- PR #106 merged at `176318174d767c53c76592c71fff939c24d02137`: homepage Organization/WebSite schema, 55-item directory CollectionPage/ItemList schema, site-root `llms.txt`, sitemap lastmod updates, improved internal links and G2 SEO regression coverage.
+- PR #107 merged at `ca9b9ad737c6a5f8b48fcdff09b5068947270fe6`: repeated FAQ questions, how-to steps and feature statements removed across the shared metadata and corresponding static guides.
+- Latest main regression workflow **#520** (run `41268111737`) completed successfully: **178 tests passed, 0 failed**; JavaScript syntax checks passed.
+- GitHub Pages deployment workflow **#151** (run `41268111458`) completed successfully: Jekyll build, artifact upload, deploy and build-status reporting all succeeded.
+- All 55 tool guide titles and meta descriptions are unique; descriptions remain within the existing 110–160 character test range. All 55 guides have the expected canonical URL, exactly one H1, index/follow directive, crawlable static HTML, WebApplication/BreadcrumbList/FAQPage JSON-LD, visible FAQ content, how-to steps, features and practical guidance.
+- Exact FAQ-question, how-to-step and feature-statement duplication across the 55 tool metadata records is now covered by regression tests and has been removed.
+- All 55 guides have at least two unique, catalogue-valid related-tool links. The regression test checks each target against the active catalogue, prevents self-links and rejects duplicate targets.
+- The tool directory contains crawlable links to all 55 guides and now publishes a CollectionPage/ItemList schema with 55 canonical URLs. The homepage publishes Organization and WebSite schemas.
+- `llms.txt` is published at the ToolNest project-site root and lists the canonical pages, all 55 guides, current descriptions and important feature/privacy caveats. It is best-effort machine-readable context, not a universal crawler directive or ranking factor.
+- Sitemap contains **61 unique canonical URLs**. The lastmod date was refreshed for the 15 guide pages edited in the SEO passes and for the updated directory and About page. The URL inventory remains unchanged.
+- Google Search Console is verified for the exact property `https://apex-global-labs.github.io/online-tools-hub/`. Windsor.ai returned no Search Analytics rows for 2026-10-25 through 2026-11-01; impressions, clicks, CTR, average position, query/page performance and indexing counts therefore remain unverified. An external public search query for the site also returned no results during this check; this is not definitive proof of non-indexing.
+- Search volume and keyword difficulty have not been measured. The 55-row keyword map assigns one unique primary keyword and target URL per tool; query-based cannibalization cannot be assessed until Search Console data is available.
+- This is a GitHub Pages project site on the shared `github.io` origin. Do **not** add a repository-root `robots.txt` expecting it to control the origin-root crawler policy; it would be served below the project path. No misleading project-path robots file is published.
+- Source-level performance checks cover deferred/lazy QR library loading, the absence of remote Google Font imports and existing responsive/mobile regression checks. A live Lighthouse/Core Web Vitals report was not available in this session.
+- GitHub Pages deployment is confirmed, but independent live browser rendering of the homepage, directory and sample guides could not be completed because the live site could not be fetched by the available inspection routes. Do not describe that as a successful browser QA.
+- The sitemap is published and linked from the site. The connected Windsor.ai Search Console integration is read/report oriented; manual sitemap submission and URL Inspection inside Google Search Console still require the site owner to use the Search Console interface.
+- Architecture remains static HTML, CSS, vanilla JavaScript and JSON on GitHub Pages. Zero-cost hosting and no new paid services or project dependencies were introduced.
+- Some tools use public CDNs or external APIs. Do not claim every tool is fully offline or that all submitted data stays exclusively on the device.
+- `app.js`, `js/tools-data.json`, `tools/index.html`, individual guide pages, `SEO_KEYWORD_MAP.md`, `llms.txt` and `sitemap.xml` must remain synchronized.
+
+## G2 SEO completion status
+
+### G2-A — 55-page SEO audit
+- Source-level audit and regression coverage completed for unique titles/descriptions, canonical URLs, one H1, robots directives, static crawlable content, FAQ accuracy/synchronization, structured data and internal links.
+- Exact duplicate FAQ questions, steps and feature statements were removed across the shared tool metadata and static guide HTML.
+- Remaining external validation limits are recorded above: query-level cannibalization and index status require Search Console data; independent browser rendering and Lighthouse/Core Web Vitals were not available.
+
+### G2-B — Search intent optimization
+- The 55-tool keyword map retains one unique primary query theme and canonical target URL per tool, with secondary/long-tail variants and clear boundaries for overlapping tools.
+- Tool-specific titles, descriptions, instructions, features, practical notes and FAQs describe the actual supported task. No search-volume or keyword-difficulty figures were invented, and no keyword stuffing was added.
+
+### G2-C — Internal linking
+- Homepage and directory provide crawlable discovery paths to all 55 guides.
+- Every guide now has at least two unique, active, contextual related-tool links, with automated target validation. Links are not forced to an arbitrary fixed count.
+
+### G2-D — Technical SEO
+- Repository-controlled technical work is implemented: canonical and indexability checks, 61-URL sitemap, accurate lastmod dates for changed pages, homepage and directory identity schemas, guide WebApplication/BreadcrumbList/FAQPage schemas, Open Graph/Twitter metadata, mobile/responsive regression coverage and the AI-readable catalogue.
+- A project-path `robots.txt` was intentionally not added because it cannot control the shared host's origin-root crawler policy.
+- External crawler discovery, Search Console sitemap submission, indexing, rankings, AI citations and live performance measurements remain outside what a repository change can guarantee.
+
 
 ## G2-A — 55-page SEO audit (initial source audit)
 
