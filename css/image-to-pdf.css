@@ -1,11 +1,13 @@
 .image-pdf-tool{display:grid;gap:1rem;max-width:100%;min-width:0}
-.image-pdf-intro{padding:1.1rem;border:1px solid var(--line);border-radius:1rem;background:linear-gradient(135deg,rgba(99,102,241,.08),rgba(6,182,212,.06))}
+.image-pdf-intro{padding:1.1rem;border:1px solid var(--line);border-radius:1rem;background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(6,182,212,.07))}
 .image-pdf-kicker{font-size:.72rem;font-weight:900;letter-spacing:.12em;color:#6366f1}
-.image-pdf-intro h3{font-size:1.45rem;font-weight:850;margin:.4rem 0}
+.image-pdf-intro h3{font-size:1.5rem;font-weight:850;margin:.4rem 0}
 .image-pdf-intro p{max-width:72ch;line-height:1.65;color:var(--muted)}
+.image-pdf-camera-panel{display:grid;gap:.65rem;padding:1rem;border:1px solid var(--line);border-radius:1rem;background:#111827}
+.image-pdf-camera-panel video{width:100%;max-height:55vh;object-fit:contain;background:#000;border-radius:.75rem}
 .image-pdf-drop{padding:1rem;border:1px dashed #818cf8;border-radius:1rem;background:rgba(99,102,241,.035)}
-.image-pdf-drop.is-dragging{border-color:#4f46e5;background:rgba(99,102,241,.12);box-shadow:0 0 0 3px rgba(99,102,241,.12)}
-.image-pdf-settings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem}
+.image-pdf-drop.is-dragging{border-color:#4f46e5;background:rgba(99,102,241,.12)}
+.image-pdf-settings{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem}
 .image-pdf-setting{display:grid;gap:.4rem;min-width:0}
 .image-pdf-setting label{font-size:.84rem;font-weight:750}
 .image-pdf-summary{font-size:.9rem;font-weight:750;color:var(--muted)}
@@ -14,17 +16,16 @@
 .image-pdf-card{display:grid;grid-template-columns:76px minmax(0,1fr);gap:.65rem;align-items:center;padding:.7rem;border:1px solid var(--line);border-radius:.9rem;background:var(--panel);min-width:0}
 .image-pdf-card>img{width:76px;height:76px;object-fit:cover;border-radius:.55rem;background:var(--bg)}
 .image-pdf-card-info{display:grid;gap:.2rem;min-width:0;overflow-wrap:anywhere}
-.image-pdf-card-info strong{font-size:.86rem}
-.image-pdf-card-info span{font-size:.76rem;color:var(--muted)}
+.image-pdf-card-info strong{font-size:.86rem}.image-pdf-card-info span{font-size:.76rem;color:var(--muted)}
 .image-pdf-card-actions{grid-column:1/-1;display:flex;gap:.4rem;justify-content:flex-end;flex-wrap:wrap}
 .image-pdf-card-actions button{min-height:34px;padding:.3rem .6rem;font-size:.8rem}
-.image-pdf-actions{display:flex;gap:.6rem;flex-wrap:wrap}
-.image-pdf-actions button{min-height:44px}
+.image-pdf-actions{display:flex;gap:.6rem;flex-wrap:wrap}.image-pdf-actions button{min-height:44px}
 .image-pdf-status{padding:.8rem 1rem;border-radius:.75rem;background:rgba(100,116,139,.09);color:var(--muted);font-size:.9rem;line-height:1.5}
-.image-pdf-status.is-success{background:rgba(16,185,129,.1);color:#047857}
-.image-pdf-status.is-error{background:rgba(239,68,68,.09);color:#b91c1c}
-.image-pdf-preview-wrap{display:grid;gap:.6rem}
-.image-pdf-preview-wrap iframe{width:100%;height:min(70vh,680px);min-height:360px;border:1px solid var(--line);border-radius:.9rem;background:white}
+.image-pdf-status.is-success{background:rgba(16,185,129,.1);color:#047857}.image-pdf-status.is-error{background:rgba(239,68,68,.09);color:#b91c1c}
+.image-pdf-preview-wrap{display:grid;gap:.6rem}.image-pdf-preview-wrap iframe{width:100%;height:min(70vh,680px);min-height:360px;border:1px solid var(--line);border-radius:.9rem;background:white}
 .image-pdf-privacy{padding:.9rem 1rem;border-left:3px solid #6366f1;background:rgba(99,102,241,.06);font-size:.86rem;line-height:1.6;color:var(--muted)}
 .image-pdf-tool button:disabled{opacity:.45;cursor:not-allowed}
-@media(max-width:650px){.image-pdf-settings{grid-template-columns:1fr}.image-pdf-list{grid-template-columns:1fr}.image-pdf-preview-wrap iframe{min-height:300px}}
+@media(max-width:760px){.image-pdf-settings{grid-template-columns:repeat(2,minmax(0,1fr))}.image-pdf-list{grid-template-columns:1fr}}
+@media(max-width:480px){.image-pdf-settings{grid-template-columns:1fr}.image-pdf-preview-wrap iframe{min-height:300px}}
+
+.image-pdf-tool [hidden]{display:none!important}

@@ -1,286 +1,44 @@
 (() => {
   "use strict";
-
-  const MAX_FILES = 20;
-  const MAX_FILE_BYTES = 15 * 1024 * 1024;
-  const MAX_TOTAL_BYTES = 60 * 1024 * 1024;
-  const MAX_IMAGE_PIXELS = 40_000_000;
-  const MAX_TOTAL_PIXELS = 100_000_000;
-  const MAX_DIMENSION = 12000;
-  const state = { items: [], busy: false, resultUrl: null };
-  let pdfPromise = null;
-  const $ = (selector) => document.querySelector(selector);
-
-  function status(message, kind = "") {
-    const node = $("#imagePdfStatus");
-    if (!node) return;
-    node.textContent = message;
-    node.className = "image-pdf-status" + (kind ? " is-" + kind : "");
+  const MAX_FILES=50, MAX_TOTAL_BYTES=200*1024*1024, MAX_FILE_BYTES=25*1024*1024;
+  const MAX_IMAGE_PIXELS=40_000_000, MAX_TOTAL_PIXELS=180_000_000, MAX_DIMENSION=12000;
+  const state={items:[],busy:false,resultUrl:null,zipUrl:null,cameraStream:null,mode:"color"};
+  let pdfPromise=null,zipPromise=null,cvPromise=null,renderTimer=0;
+  const $=s=>document.querySelector(s);
+  const status=(message,kind="")=>{const n=$("#imagePdfStatus");if(n){n.textContent=message;n.className="image-pdf-status"+(kind?" is-"+kind:"");}};
+  const bytes=()=>state.items.reduce((n,x)=>n+x.file.size,0);
+  const pixels=()=>state.items.reduce((n,x)=>n+x.width*x.height,0);
+  const fmt=n=>n>=1048576?(n/1048576).toFixed(1)+" MB":(n/1024).toFixed(1)+" KB";
+  const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  function loadScript(src,globalName){
+    return new Promise((resolve,reject)=>{if(globalName==="PDFLib"&&window.PDFLib?.PDFDocument)return resolve(window.PDFLib);if(globalName==="JSZip"&&window.JSZip)return resolve(window.JSZip);const script=document.createElement("script");script.src=src;script.async=true;script.onload=()=>window[globalName]?resolve(window[globalName]):reject(new Error(globalName+" did not initialize."));script.onerror=()=>reject(new Error("Could not load "+globalName+". Check your internet connection."));document.head.appendChild(script);});
   }
-
-  function loadPdfLib() {
-    if (window.PDFLib?.PDFDocument) return Promise.resolve(window.PDFLib);
-    if (pdfPromise) return pdfPromise;
-    pdfPromise = new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      script.src = "https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js";
-      script.async = true;
-      script.onload = () => window.PDFLib?.PDFDocument
-        ? resolve(window.PDFLib)
-        : reject(new Error("The PDF library did not initialize. Reload the page and try again."));
-      script.onerror = () => {
-        pdfPromise = null;
-        reject(new Error("Could not load the PDF engine. Check your internet connection and retry."));
-      };
-      document.head.appendChild(script);
-    });
-    return pdfPromise;
+  const loadPDF=()=>pdfPromise||(pdfPromise=loadScript("https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js","PDFLib"));
+  const loadZIP=()=>zipPromise||(zipPromise=loadScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js","JSZip"));
+  function loadCV(){return cvPromise||(cvPromise=new Promise((resolve,reject)=>{if(window.cv?.Mat)return resolve(window.cv);const s=document.createElement("script");s.src="https://docs.opencv.org/4.x/opencv.js";s.async=true;s.onload=()=>{const started=Date.now();const poll=()=>{if(window.cv?.Mat)return resolve(window.cv);if(Date.now()-started>20000)return reject(new Error("Automatic page-edge detection is unavailable. Basic image enhancement will still work."));setTimeout(poll,100);};poll();};s.onerror=()=>reject(new Error("Perspective correction library could not load."));document.head.appendChild(s);}));}
+  function revokeOutput(){if(state.resultUrl)URL.revokeObjectURL(state.resultUrl);if(state.zipUrl)URL.revokeObjectURL(state.zipUrl);state.resultUrl=state.zipUrl=null;const p=$("#imagePdfPreview");if(p){p.removeAttribute("src");p.hidden=true;}$("#imagePdfDownload").disabled=true;$("#imagePdfZipDownload").disabled=true;}
+  function revokeItem(x){if(x.previewUrl)URL.revokeObjectURL(x.previewUrl);}
+  function drawCard(x,i){return '<article class="image-pdf-card" data-image-id="'+x.id+'"><img src="'+x.previewUrl+'" alt="Processed preview '+(i+1)+'"><div class="image-pdf-card-info"><strong>Page '+(i+1)+': '+esc(x.file.name)+'</strong><span>'+x.width+' × '+x.height+' px · '+fmt(x.file.size)+' · Auto enhanced</span></div><div class="image-pdf-card-actions"><button type="button" class="btn-secondary" data-action="up" data-id="'+x.id+'" '+(i===0?"disabled":"")+'>↑</button><button type="button" class="btn-secondary" data-action="down" data-id="'+x.id+'" '+(i===state.items.length-1?"disabled":"")+'>↓</button><button type="button" class="btn-secondary" data-action="remove" data-id="'+x.id+'">Remove</button></div></article>';}
+  function render(){const list=$("#imagePdfList");if(!list)return;list.innerHTML=state.items.length?state.items.map(drawCard).join(""):'<div class="image-pdf-empty">Capture or add documents. Processed pages will appear here.</div>';$("#imagePdfSummary").textContent=state.items.length+" / 50 pages · "+fmt(bytes())+" / 200 MB · "+(pixels()/1e6).toFixed(1)+" MP";$("#imagePdfFiles").disabled=state.busy||state.items.length>=MAX_FILES;$("#imagePdfCreate").disabled=state.busy||!state.items.length;$("#imagePdfCreate").textContent=state.busy?"Building PDF…":"Refresh PDF preview";$("#imagePdfClear").disabled=state.busy;$("#imagePdfCamera").disabled=state.busy;$("#imagePdfDownload").disabled=state.busy||!state.resultUrl;$("#imagePdfZipDownload").disabled=state.busy||!state.items.length;list.querySelectorAll("button").forEach(b=>b.disabled=state.busy||b.disabled);}
+  function imageFromFile(file){return new Promise((resolve,reject)=>{const url=URL.createObjectURL(file),img=new Image();img.onload=()=>{URL.revokeObjectURL(url);if(!img.naturalWidth||img.naturalWidth>MAX_DIMENSION||img.naturalHeight>MAX_DIMENSION||img.naturalWidth*img.naturalHeight>MAX_IMAGE_PIXELS)return reject(new Error(file.name+" exceeds the 40 MP image limit."));resolve(img);};img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error("Could not read "+file.name));};img.src=url;});}
+  function detectAndWarp(canvas){
+    return loadCV().then(cv=>{const src=cv.imread(canvas),gray=new cv.Mat(),blur=new cv.Mat(),edges=new cv.Mat(),contours=new cv.MatVector(),hierarchy=new cv.Mat();try{cv.cvtColor(src,gray,cv.COLOR_RGBA2GRAY);cv.GaussianBlur(gray,blur,new cv.Size(5,5),0);cv.Canny(blur,edges,45,130);cv.findContours(edges,contours,hierarchy,cv.RETR_LIST,cv.CHAIN_APPROX_SIMPLE);let best=null,bestArea=canvas.width*canvas.height*.12;for(let i=0;i<contours.size();i++){const c=contours.get(i),peri=cv.arcLength(c,true),approx=new cv.Mat();cv.approxPolyDP(c,approx,.02*peri,true);const area=Math.abs(cv.contourArea(approx));if(approx.rows===4&&area>bestArea){bestArea=area;best=approx.clone();}approx.delete();c.delete();}if(!best)return canvas;const pts=[];for(let i=0;i<4;i++)pts.push({x:best.data32S[i*2],y:best.data32S[i*2+1]});best.delete();const sum=p=>p.x+p.y,diff=p=>p.x-p.y;const tl=pts.reduce((a,b)=>sum(a)<sum(b)?a:b),br=pts.reduce((a,b)=>sum(a)>sum(b)?a:b),tr=pts.reduce((a,b)=>diff(a)>diff(b)?a:b),bl=pts.reduce((a,b)=>diff(a)<diff(b)?a:b);const w=Math.round(Math.max(Math.hypot(br.x-bl.x,br.y-bl.y),Math.hypot(tr.x-tl.x,tr.y-tl.y))),h=Math.round(Math.max(Math.hypot(tr.x-br.x,tr.y-br.y),Math.hypot(tl.x-bl.x,tl.y-bl.y)));if(w<120||h<120||w*h>40e6)return canvas;const srcPts=cv.matFromArray(4,1,cv.CV_32FC2,[tl.x,tl.y,tr.x,tr.y,br.x,br.y,bl.x,bl.y]),dstPts=cv.matFromArray(4,1,cv.CV_32FC2,[0,0,w-1,0,w-1,h-1,0,h-1]),M=cv.getPerspectiveTransform(srcPts,dstPts),dst=new cv.Mat();cv.warpPerspective(src,dst,M,new cv.Size(w,h),cv.INTER_CUBIC,cv.BORDER_REPLICATE);const out=document.createElement("canvas");out.width=w;out.height=h;cv.imshow(out,dst);srcPts.delete();dstPts.delete();M.delete();dst.delete();return out;}finally{src.delete();gray.delete();blur.delete();edges.delete();contours.delete();hierarchy.delete();}}).catch(()=>canvas);
   }
-
-  function revokeResult() {
-    if (state.resultUrl) URL.revokeObjectURL(state.resultUrl);
-    state.resultUrl = null;
-    const preview = $("#imagePdfPreview");
-    if (preview) { preview.removeAttribute("src"); preview.hidden = true; }
-    const download = $("#imagePdfDownload");
-    if (download) download.disabled = true;
-  }
-
-  function revokeItem(item) {
-    if (item?.previewUrl) URL.revokeObjectURL(item.previewUrl);
-  }
-
-  function totalBytes() { return state.items.reduce((sum, item) => sum + item.file.size, 0); }
-  function totalPixels() { return state.items.reduce((sum, item) => sum + item.width * item.height, 0); }
-  function formatBytes(bytes) { return bytes >= 1024 * 1024 ? (bytes / 1024 / 1024).toFixed(2) + " MB" : (bytes / 1024).toFixed(1) + " KB"; }
-
-  function render() {
-    const list = $("#imagePdfList");
-    const summary = $("#imagePdfSummary");
-    const create = $("#imagePdfCreate");
-    const input = $("#imagePdfFiles");
-    if (!list || !summary || !create) return;
-    if (!state.items.length) {
-      list.innerHTML = '<div class="image-pdf-empty">Your selected images and page order will appear here.</div>';
-    } else {
-      list.innerHTML = state.items.map((item, index) =>
-        '<article class="image-pdf-card" data-image-id="' + item.id + '">' +
-          '<img src="' + item.previewUrl + '" alt="Preview of ' + escapeHtml(item.file.name) + '">' +
-          '<div class="image-pdf-card-info"><strong>' + escapeHtml(item.file.name) + '</strong><span>' +
-          item.width + ' × ' + item.height + ' px · ' + formatBytes(item.file.size) + '</span></div>' +
-          '<div class="image-pdf-card-actions">' +
-          '<button type="button" class="btn-secondary" data-action="up" data-id="' + item.id + '"' + (index === 0 ? ' disabled' : '') + ' aria-label="Move image up">↑</button>' +
-          '<button type="button" class="btn-secondary" data-action="down" data-id="' + item.id + '"' + (index === state.items.length - 1 ? ' disabled' : '') + ' aria-label="Move image down">↓</button>' +
-          '<button type="button" class="btn-secondary" data-action="remove" data-id="' + item.id + '">Remove</button></div></article>'
-      ).join("");
-    }
-    summary.textContent = state.items.length + " image(s) · " + formatBytes(totalBytes()) + " total · " +
-      (totalPixels() / 1_000_000).toFixed(1) + " megapixels";
-    if (input) input.disabled = state.busy || state.items.length >= MAX_FILES;
-    list.querySelectorAll("button").forEach(button => { button.disabled = state.busy || button.disabled; });
-    create.disabled = state.busy || state.items.length === 0;
-    create.textContent = state.busy ? "Creating PDF…" : "Create PDF";
-    const preview = $("#imagePdfPreview");
-    const download = $("#imagePdfDownload");
-    if (preview && state.resultUrl) { preview.src = state.resultUrl; preview.hidden = false; }
-    if (download) download.disabled = state.busy || !state.resultUrl;
-    $("#imagePdfClear").disabled = state.busy;
-    $("#imagePdfPageSize").disabled = state.busy;
-    $("#imagePdfOrientation").disabled = state.busy;
-    $("#imagePdfMargin").disabled = state.busy;
-  }
-
-  function escapeHtml(value) {
-    return String(value).replace(/[&<>"']/g, char => ({
-      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-    }[char]));
-  }
-
-  function readImage(file) {
-    return new Promise((resolve, reject) => {
-      const url = URL.createObjectURL(file);
-      const image = new Image();
-      image.onload = () => {
-        URL.revokeObjectURL(url);
-        const width = image.naturalWidth, height = image.naturalHeight;
-        if (!width || !height || width > MAX_DIMENSION || height > MAX_DIMENSION || width * height > MAX_IMAGE_PIXELS) {
-          reject(new Error(file.name + " exceeds the safe image dimension limit (12,000 px per side / 40 megapixels)."));
-          return;
-        }
-        resolve({ width, height });
-      };
-      image.onerror = () => { URL.revokeObjectURL(url); reject(new Error("Could not read " + file.name + ". The image may be damaged.")); };
-      image.src = url;
-    });
-  }
-
-  function validSignature(bytes, type) {
-    if (type === "image/png") return bytes.length >= 8 &&
-      [0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a].every((v, i) => bytes[i] === v);
-    if (type === "image/jpeg") return bytes.length >= 3 && bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff;
-    return false;
-  }
-
-  async function addFiles(fileList) {
-    if (state.busy) return;
-    const files = Array.from(fileList || []);
-    if (!files.length) return;
-    revokeResult();
-    try {
-      for (const file of files) {
-        if (state.items.length >= MAX_FILES) throw new Error("You can add up to 20 images per PDF.");
-        if (!["image/png", "image/jpeg"].includes(file.type) || !/\.(png|jpe?g)$/i.test(file.name)) {
-          throw new Error(file.name + ": choose a PNG or JPEG image.");
-        }
-        if (file.size <= 0 || file.size > MAX_FILE_BYTES) throw new Error(file.name + ": each image must be 15 MB or smaller.");
-        if (totalBytes() + file.size > MAX_TOTAL_BYTES) throw new Error("The combined image size cannot exceed 60 MB.");
-        const bytes = new Uint8Array(await file.arrayBuffer());
-        if (!validSignature(bytes, file.type)) throw new Error(file.name + ": the file content does not match a valid PNG or JPEG image.");
-        const dimensions = await readImage(file);
-        if (totalPixels() + dimensions.width * dimensions.height > MAX_TOTAL_PIXELS) {
-          throw new Error("The combined image resolution cannot exceed 100 megapixels.");
-        }
-        state.items.push({
-          id: state.items.length ? Math.max(...state.items.map(item => item.id)) + 1 : 1,
-          file, bytes, type: file.type, ...dimensions, previewUrl: URL.createObjectURL(file)
-        });
-      }
-      status(files.length + " image(s) added. Arrange the order, choose page settings, then create your PDF.", "success");
-    } catch (error) {
-      status(error.message || "Could not add the selected images.", "error");
-    } finally {
-      $("#imagePdfFiles").value = "";
-      render();
-    }
-  }
-
-  function moveItem(id, direction) {
-    const index = state.items.findIndex(item => item.id === Number(id));
-    const target = index + direction;
-    if (index < 0 || target < 0 || target >= state.items.length) return;
-    [state.items[index], state.items[target]] = [state.items[target], state.items[index]];
-    revokeResult();
-    render();
-  }
-
-  function removeItem(id) {
-    const index = state.items.findIndex(item => item.id === Number(id));
-    if (index < 0) return;
-    revokeItem(state.items[index]);
-    state.items.splice(index, 1);
-    revokeResult();
-    status("Image removed.", "success");
-    render();
-  }
-
-  function pageDimensions(pageSize, orientation, imageWidth, imageHeight) {
-    const sizes = {
-      a4: [595.28, 841.89],
-      letter: [612, 792],
-      legal: [612, 1008]
-    };
-    let [width, height] = sizes[pageSize] || sizes.a4;
-    const landscape = orientation === "landscape" || (orientation === "auto" && imageWidth > imageHeight);
-    if (landscape) [width, height] = [height, width];
-    return [width, height];
-  }
-
-  async function createPdf() {
-    if (state.busy || !state.items.length) return;
-    state.busy = true;
-    revokeResult();
-    render();
-    status("Preparing your images and creating the PDF in this browser…");
-    try {
-      const PDF = await loadPdfLib();
-      const output = await PDF.PDFDocument.create();
-      const pageSize = $("#imagePdfPageSize").value;
-      const orientation = $("#imagePdfOrientation").value;
-      const marginMm = Number($("#imagePdfMargin").value);
-      const margin = marginMm * 72 / 25.4;
-      for (const item of state.items) {
-        const embedded = item.type === "image/png"
-          ? await output.embedPng(item.bytes)
-          : await output.embedJpg(item.bytes);
-        const [pageWidth, pageHeight] = pageDimensions(pageSize, orientation, item.width, item.height);
-        const availableWidth = Math.max(1, pageWidth - margin * 2);
-        const availableHeight = Math.max(1, pageHeight - margin * 2);
-        const scale = Math.min(availableWidth / embedded.width, availableHeight / embedded.height);
-        const drawWidth = embedded.width * scale, drawHeight = embedded.height * scale;
-        const page = output.addPage([pageWidth, pageHeight]);
-        page.drawRectangle({ x: 0, y: 0, width: pageWidth, height: pageHeight, color: PDF.rgb(1, 1, 1) });
-        page.drawImage(embedded, {
-          x: (pageWidth - drawWidth) / 2,
-          y: (pageHeight - drawHeight) / 2,
-          width: drawWidth,
-          height: drawHeight
-        });
-      }
-      const bytes = await output.save({ useObjectStreams: true });
-      const blob = new Blob([bytes], { type: "application/pdf" });
-      state.resultUrl = URL.createObjectURL(blob);
-      const preview = $("#imagePdfPreview");
-      preview.src = state.resultUrl;
-      preview.hidden = false;
-      $("#imagePdfDownload").disabled = false;
-      status("PDF created successfully: " + state.items.length + " page(s), " + formatBytes(blob.size) + ". Review the preview or download it.", "success");
-    } catch (error) {
-      status(error.message || "Could not create the PDF. Try fewer or smaller images.", "error");
-    } finally {
-      state.busy = false;
-      render();
-      if (state.resultUrl) $("#imagePdfDownload").disabled = false;
-    }
-  }
-
-  function download() {
-    if (!state.resultUrl) return;
-    const link = document.createElement("a");
-    link.href = state.resultUrl;
-    link.download = "toolnest-images-to-pdf.pdf";
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    status("PDF download started.", "success");
-  }
-
-  function clear() {
-    if (state.busy) return;
-    state.items.forEach(revokeItem);
-    state.items = [];
-    revokeResult();
-    $("#imagePdfFiles").value = "";
-    status("All images and the generated PDF have been cleared.");
-    render();
-  }
-
-  function init() {
-    const input = $("#imagePdfFiles"), list = $("#imagePdfList"), drop = $("#imagePdfDrop");
-    if (!input || !list || !drop) return;
-    input.addEventListener("change", () => addFiles(input.files));
-    list.addEventListener("click", event => {
-      const button = event.target.closest("[data-action]");
-      if (!button || state.busy) return;
-      const id = button.dataset.id;
-      if (button.dataset.action === "up") moveItem(id, -1);
-      if (button.dataset.action === "down") moveItem(id, 1);
-      if (button.dataset.action === "remove") removeItem(id);
-    });
-    drop.addEventListener("dragover", event => { event.preventDefault(); drop.classList.add("is-dragging"); });
-    drop.addEventListener("dragleave", () => drop.classList.remove("is-dragging"));
-    drop.addEventListener("drop", event => {
-      event.preventDefault();
-      drop.classList.remove("is-dragging");
-      addFiles(event.dataTransfer?.files);
-    });
-    $("#imagePdfCreate").addEventListener("click", createPdf);
-    $("#imagePdfDownload").addEventListener("click", download);
-    $("#imagePdfClear").addEventListener("click", clear);
-    [$("#imagePdfPageSize"), $("#imagePdfOrientation"), $("#imagePdfMargin")].forEach(control => {
-      control.addEventListener("change", () => { revokeResult(); render(); status("Page settings updated. Create the PDF again to apply them."); });
-    });
-    render();
-  }
-
-  window.ToolNestImageToPdf = { init, clear, createPdf, download };
+  function enhance(canvas,mode){const out=document.createElement("canvas"),ctx=out.getContext("2d",{willReadFrequently:true});out.width=canvas.width;out.height=canvas.height;ctx.drawImage(canvas,0,0);const im=ctx.getImageData(0,0,out.width,out.height),d=im.data;let min=255,max=0;for(let i=0;i<d.length;i+=4){const y=.299*d[i]+.587*d[i+1]+.114*d[i+2];min=Math.min(min,y);max=Math.max(max,y);}const range=Math.max(1,max-min);for(let i=0;i<d.length;i+=4){let r=d[i],g=d[i+1],b=d[i+2],y=.299*r+.587*g+.114*b;if(mode==="bw"){const v=(y>165?255:0);r=g=b=v;}else if(mode==="gray"){r=g=b=y;}else{const v=Math.max(0,Math.min(255,(y-min)*255/range));const lift=y<150?Math.min(24,(150-y)*.12):0;const factor=v/(y||1);r=Math.min(255,r*factor+lift);g=Math.min(255,g*factor+lift);b=Math.min(255,b*factor+lift);}d[i]=r;d[i+1]=g;d[i+2]=b;}ctx.putImageData(im,0,0);return out;}
+  async function processFile(file){const img=await imageFromFile(file),base=document.createElement("canvas");base.width=img.naturalWidth;base.height=img.naturalHeight;base.getContext("2d").drawImage(img,0,0);let corrected=base;try{corrected=await detectAndWarp(base);}catch(_){}const mode=$("#imagePdfFilter").value,finalCanvas=enhance(corrected,mode);return new Promise(resolve=>finalCanvas.toBlob(blob=>{if(!blob)return resolve(null);const processedFile=new File([blob],file.name.replace(/\.[^.]+$/,"")+".jpg",{type:"image/jpeg"});resolve({file,processedFile,blob,width:finalCanvas.width,height:finalCanvas.height,previewUrl:URL.createObjectURL(blob),type:"image/jpeg"});},"image/jpeg",.94));}
+  async function addFiles(fileList){if(state.busy)return;const files=Array.from(fileList||[]);if(!files.length)return;let added=0;revokeOutput();state.busy=true;render();try{for(const file of files){if(state.items.length>=MAX_FILES)throw new Error("Maximum 50 images per scan.");if(!/^image\/(jpeg|png|webp)$/i.test(file.type))throw new Error(file.name+": choose JPG, PNG or WebP.");if(file.size<=0||file.size>MAX_FILE_BYTES)throw new Error(file.name+": each image must be 25 MB or smaller.");if(bytes()+file.size>MAX_TOTAL_BYTES)throw new Error("Combined source images cannot exceed 200 MB.");const result=await processFile(file);if(!result)throw new Error("Could not process "+file.name);if(pixels()+result.width*result.height>MAX_TOTAL_PIXELS)throw new Error("Combined processed resolution exceeds the safe 180 MP limit.");state.items.push({id:state.items.length?Math.max(...state.items.map(x=>x.id))+1:1,...result});added++;render();status("Auto scanned "+added+" of "+files.length+" selected image(s)…");}}catch(e){status(e.message||"Could not process images.","error");}finally{state.busy=false;$("#imagePdfFiles").value="";render();if(state.items.length)await createPdf();}}
+  function pageDims(size,orientation,w,h){const sizes={a4:[595.28,841.89],letter:[612,792],legal:[612,1008],original:[w*72/300,h*72/300]};let [pw,ph]=sizes[size]||sizes.a4;if(orientation==="landscape"||(orientation==="auto"&&w>h))[pw,ph]=[ph,pw];return[pw,ph];}
+  async function buildPdf(items){const PDF=await loadPDF(),doc=await PDF.PDFDocument.create(),font=await doc.embedFont(PDF.StandardFonts.Helvetica);for(const item of items){const image=await doc.embedJpg(await item.blob.arrayBuffer()),[pw,ph]=pageDims($("#imagePdfPageSize").value,$("#imagePdfOrientation").value,item.width,item.height),margin=Number($("#imagePdfMargin").value)*72/25.4,footer=22,scale=Math.min((pw-margin*2)/image.width,(ph-margin*2-footer)/image.height),w=image.width*scale,h=image.height*scale,page=doc.addPage([pw,ph]);page.drawRectangle({x:0,y:0,width:pw,height:ph,color:PDF.rgb(1,1,1)});page.drawImage(image,{x:(pw-w)/2,y:footer+(ph-footer-h)/2,width:w,height:h});page.drawRectangle({x:margin,y:15,width:pw-margin*2,height:.5,color:PDF.rgb(.86,.88,.92)});page.drawRectangle({x:pw/2-22,y:4,width:12,height:12,color:PDF.rgb(.31,.27,.9)});page.drawText("T",{x:pw/2-18.5,y:7,size:8,font,color:PDF.rgb(1,1,1)});page.drawText("ToolNest",{x:pw/2-7,y:7,size:7,font,color:PDF.rgb(.36,.39,.45)});}return new Blob([await doc.save({useObjectStreams:true})],{type:"application/pdf"});}
+  async function createPdf(){if(state.busy||!state.items.length)return;state.busy=true;revokeOutput();render();status("Creating branded PDF preview locally…");try{const blob=await buildPdf(state.items);state.resultUrl=URL.createObjectURL(blob);$("#imagePdfPreview").src=state.resultUrl;$("#imagePdfPreview").hidden=false;status("PDF preview ready · "+state.items.length+" pages · "+fmt(blob.size)+". Choose one PDF or separate PDFs in ZIP.","success");}catch(e){status(e.message||"PDF creation failed.","error");}finally{state.busy=false;render();}}
+  async function makeZip(){if(state.busy||!state.items.length)return;state.busy=true;render();status("Creating separate branded PDFs and packing ZIP…");try{const JSZip=await loadZIP(),zip=new JSZip();for(let i=0;i<state.items.length;i++){const blob=await buildPdf([state.items[i]]);zip.file("ToolNest-Scan-Page-"+String(i+1).padStart(2,"0")+".pdf",blob);}const blob=await zip.generateAsync({type:"blob",compression:"DEFLATE",compressionOptions:{level:5}});state.zipUrl=URL.createObjectURL(blob);state.zipUrl=URL.createObjectURL(blob);status("ZIP ready with "+state.items.length+" separate PDF files · "+fmt(blob.size)+". Download started.","success");download(state.zipUrl,"toolnest-separate-scan-pdfs.zip");}catch(e){status(e.message||"Could not create ZIP.","error");}finally{state.busy=false;render();}}
+  function download(url,name){if(!url)return;const a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();}
+  async function startCamera(){if(state.cameraStream)return;try{if(!navigator.mediaDevices?.getUserMedia)throw new Error("Camera access is not supported in this browser. Use Take photo / upload instead.");state.cameraStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"},width:{ideal:2560},height:{ideal:1920}},audio:false});const v=$("#imagePdfCameraView");v.srcObject=state.cameraStream;$("#imagePdfCameraPanel").hidden=false;await v.play();status("Camera ready. Keep the full document inside the frame, then capture.","success");}catch(e){status(e.message||"Camera permission was not granted.","error");}}
+  function stopCamera(){if(state.cameraStream)state.cameraStream.getTracks().forEach(t=>t.stop());state.cameraStream=null;const v=$("#imagePdfCameraView");if(v)v.srcObject=null;$("#imagePdfCameraPanel").hidden=true;}
+  async function capture(){const v=$("#imagePdfCameraView");if(!v?.videoWidth)return;const c=document.createElement("canvas");c.width=v.videoWidth;c.height=v.videoHeight;c.getContext("2d").drawImage(v,0,0);const blob=await new Promise(r=>c.toBlob(r,"image/jpeg",.94));if(!blob)return;const f=new File([blob],"camera-scan-"+(state.items.length+1)+".jpg",{type:"image/jpeg"});await addFiles([f]);}
+  function move(id,dir){const i=state.items.findIndex(x=>x.id===Number(id)),j=i+dir;if(i<0||j<0||j>=state.items.length)return;[state.items[i],state.items[j]]=[state.items[j],state.items[i]];revokeOutput();render();schedulePreview();}
+  function remove(id){const i=state.items.findIndex(x=>x.id===Number(id));if(i<0)return;revokeItem(state.items[i]);state.items.splice(i,1);revokeOutput();render();schedulePreview();}
+  function schedulePreview(){clearTimeout(renderTimer);renderTimer=setTimeout(()=>{if(state.items.length)createPdf();},450);}
+  function clear(){if(state.busy)return;stopCamera();state.items.forEach(revokeItem);state.items=[];revokeOutput();$("#imagePdfFiles").value="";render();status("All scan pages and generated files cleared.");}
+  function init(){const input=$("#imagePdfFiles"),list=$("#imagePdfList"),drop=$("#imagePdfDrop");if(!input||!list||!drop)return;input.addEventListener("change",()=>addFiles(input.files));list.addEventListener("click",e=>{const b=e.target.closest("[data-action]");if(!b||state.busy)return;if(b.dataset.action==="up")move(b.dataset.id,-1);if(b.dataset.action==="down")move(b.dataset.id,1);if(b.dataset.action==="remove")remove(b.dataset.id);});drop.addEventListener("dragover",e=>{e.preventDefault();drop.classList.add("is-dragging");});drop.addEventListener("dragleave",()=>drop.classList.remove("is-dragging"));drop.addEventListener("drop",e=>{e.preventDefault();drop.classList.remove("is-dragging");addFiles(e.dataTransfer?.files);});$("#imagePdfCamera").addEventListener("click",startCamera);$("#imagePdfCapture").addEventListener("click",capture);$("#imagePdfCameraStop").addEventListener("click",stopCamera);$("#imagePdfCreate").addEventListener("click",createPdf);$("#imagePdfDownload").addEventListener("click",()=>download(state.resultUrl,"toolnest-smart-scan.pdf"));$("#imagePdfZipDownload").addEventListener("click",makeZip);$("#imagePdfClear").addEventListener("click",clear);["#imagePdfPageSize","#imagePdfOrientation","#imagePdfMargin","#imagePdfFilter"].forEach(s=>$(s).addEventListener("change",()=>{revokeOutput();if(state.items.length)schedulePreview();}));render();}
+  window.ToolNestImageToPdf={init,clear,createPdf,download:()=>download(state.resultUrl,"toolnest-smart-scan.pdf")};
 })();

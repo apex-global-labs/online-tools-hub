@@ -1952,42 +1952,48 @@
     "description": "Convert multiple JPG, JPEG and PNG images into one PDF, arrange their order, choose page size and orientation, and download locally.",
     "tagline": "Turn pictures into a single PDF",
     "seo": {
-      "description": "Convert JPG and PNG images into one PDF. Arrange pages, choose A4, Letter or Legal size, set orientation and margins, then preview and download.",
+      "description": "Scan document photos into a clean PDF with camera capture, automatic page detection, perspective correction, image enhancement and ZIP export in your browser.",
       "steps": [
-        "Select one or more PNG or JPEG images from your device, or drag them into the upload area.",
-        "Arrange the images in the page order you want, then choose paper size, orientation and margins.",
-        "Select Create PDF, review the preview, and download your file."
+        "Open the rear camera and capture each document page, or add photos from your device.",
+        "Add up to 50 images within the 200 MB combined limit, then arrange or remove pages and choose scan enhancement and PDF page settings.",
+        "Review the automatically refreshed PDF preview, then download one combined PDF or separate one-page PDFs in a ZIP."
       ],
       "features": [
-        "Combine up to 20 PNG or JPEG images into one PDF, with one image per page.",
-        "Reorder or remove images before creating the document.",
-        "Choose A4, US Letter or US Legal paper with automatic or fixed orientation.",
-        "Set 0 mm, 10 mm or 20 mm page margins.",
-        "Process image files locally in your browser without uploading them to ToolNest."
+        "Capture document pages with a supported mobile browser camera or upload JPG, PNG and WebP images.",
+        "Automatically detect document edges and correct perspective when a clear page boundary is visible.",
+        "Enhance scans with color cleanup, grayscale or black-and-white processing.",
+        "Add up to 50 images, with a 25 MB per-image limit and 200 MB combined source limit.",
+        "Export one multi-page PDF or separate one-page PDFs in a ZIP archive.",
+        "Include permanent small ToolNest branding on every generated PDF page.",
+        "Process selected photos locally in the browser without uploading them to ToolNest."
       ],
       "faqs": [
         {
-          "question": "Which image formats can I convert?",
-          "answer": "This version accepts PNG and JPEG images, including JPG files."
+          "question": "Can I scan documents with my phone camera?",
+          "answer": "Yes. Open Camera, allow camera access and capture each page. Camera availability depends on browser permissions and HTTPS."
         },
         {
-          "question": "Can I combine multiple images into one PDF?",
-          "answer": "Yes. Add multiple images, arrange their order, and create one PDF with one image per page."
+          "question": "How many images can I scan at once?",
+          "answer": "Up to 50 images can be added in one job, with a combined source-file limit of 200 MB and a 25 MB per-image limit."
         },
         {
-          "question": "Are my images uploaded to ToolNest?",
-          "answer": "No. Image processing and PDF creation happen in your browser. The PDF library is loaded from a public CDN, but your selected images are not sent to ToolNest."
+          "question": "Does the scanner straighten tilted documents?",
+          "answer": "It attempts automatic edge detection and perspective correction when a clear document boundary is visible. Review the preview because difficult backgrounds or low contrast can prevent reliable detection."
         },
         {
-          "question": "Can I combine several images into one PDF?",
-          "answer": "Yes. Add supported PNG or JPEG images, arrange their order, choose page settings and create a PDF with one image per page."
+          "question": "Can I download separate PDFs together?",
+          "answer": "Yes. Download all pages as one PDF or create one PDF per page and download them together in a ZIP archive."
         },
         {
-          "question": "How should I choose PDF page orientation?",
-          "answer": "Use portrait for taller images and documents or landscape for wider images. Preview the pages to confirm that important content fits."
+          "question": "Can I remove ToolNest branding from the PDF?",
+          "answer": "No. A small ToolNest footer is permanently included on every generated PDF page."
+        },
+        {
+          "question": "Are my photos uploaded?",
+          "answer": "No. Photo processing and PDF generation happen locally in your browser. Public CDN libraries are loaded when needed, but selected image files are not sent to ToolNest."
         }
       ],
-      "tips": "Use clear, correctly oriented images and check their order before creating the PDF. Each image is limited to 15 MB and 40 megapixels; a job can contain up to 20 images, 60 MB combined and 100 megapixels total. Large jobs may be limited by available device memory."
+      "tips": "Place the document on a contrasting, flat surface and keep all four edges visible. Edge detection may not work for every background, shadow or low-resolution photo, so inspect the preview before using an important document."
     }
   },
   {
