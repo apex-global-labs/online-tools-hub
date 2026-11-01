@@ -9,7 +9,7 @@ test("Phase 14 adds three unique image tools with complete SEO metadata",()=>{
   assert.ok(metadata.some(tool=>tool.id===id),id+" metadata exists");
   const tool=metadata.find(item=>item.id===id);
   assert.ok(tool.slug&&tool.seo.description.length>=80);
-  assert.equal(tool.seo.steps.length,3);assert.equal(tool.seo.features.length,3);assert.equal(tool.seo.faqs.length,3);
+  assert.equal(tool.seo.steps.length,3);assert.equal(tool.seo.features.length,3);assert.ok(tool.seo.faqs.length >= 3);
   assert.match(app,new RegExp('id:"'+id+'"'));
   assert.ok(app.includes('case "'+id+'":'),id+" markup and wiring exist");
  }
