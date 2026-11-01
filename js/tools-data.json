@@ -43,10 +43,6 @@
           "answer": "QR generation happens in your browser after the QR library loads. ToolNest does not receive the text you enter."
         },
         {
-          "question": "Can I create a QR code for Wi-Fi or contact details?",
-          "answer": "This generator currently encodes plain text or a website URL. It does not provide dedicated Wi-Fi, vCard or contact-card fields."
-        },
-        {
           "question": "Why should I test a QR code before printing it?",
           "answer": "A QR code may become difficult to scan if its contrast is weak or artwork covers the pattern. Scan the downloaded file with another device before printing or sharing it."
         }
