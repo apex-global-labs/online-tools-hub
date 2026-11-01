@@ -19,7 +19,7 @@ test("sitemap exactly matches the current 55-tool static page inventory", () => 
   const xml = read("../sitemap.xml");
   assert.match(xml, /^<\?xml version="1\.0" encoding="UTF-8"\?>/);
   assert.ok(xml.includes('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'));
-  assert.match(xml, /<urlset[\s\S]*<\/urlset>$/);
+  assert.match(xml, /<urlset[\s\S]*<\/urlset>\s*$/);
 
   const urls = [...xml.matchAll(/<loc>([\s\S]*?)<\/loc>/g)]
     .map((match) => decodeXml(match[1].trim()));
