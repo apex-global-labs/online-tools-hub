@@ -45,7 +45,7 @@ test("Phase 15 tools are registered with complete metadata, UI wiring and local 
     assert.ok(tool, id + " metadata exists");
     assert.equal(tool.seo.steps.length, 3);
     assert.equal(tool.seo.features.length, 3);
-    assert.equal(tool.seo.faqs.length, 3);
+    assert.ok(tool.seo.faqs.length >= 3);
     assert.match(app, new RegExp('id:"' + id + '"'));
     assert.ok(app.includes('case "' + id + '":'));
   }

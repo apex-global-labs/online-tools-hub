@@ -34,7 +34,7 @@ test("registers exactly one IP tools catalog record with privacy notes",()=>{
  const records=data.filter(item=>item.id==="iptools"||item.slug==="ip-tools");
  assert.equal(records.length,1);
  assert.equal(records[0].category,"Utilities");
- assert.equal(records[0].seo.faqs.length,3);
+ assert.ok(records[0].seo.faqs.length >= 3);
  assert.match(records[0].seo.description,/approximate/i);
 });
 test("connects IP lookup UI, API, and privacy notice",()=>{

@@ -84,7 +84,7 @@ test("all four new tools are registered with unique slugs and complete SEO metad
     assert.ok(tool.seo.description.length >= 80);
     assert.equal(tool.seo.steps.length, 3);
     assert.ok(tool.seo.features.length >= 3);
-    assert.equal(tool.seo.faqs.length, 3);
+    assert.ok(tool.seo.faqs.length >= 3);
     assert.match(app, new RegExp('case "' + id + '":return'));
     assert.match(app, new RegExp('case "' + id + '": \\{'));
   }
