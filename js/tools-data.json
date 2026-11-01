@@ -41,6 +41,14 @@
         {
           "question": "Is my text uploaded to ToolNest?",
           "answer": "QR generation happens in your browser after the QR library loads. ToolNest does not receive the text you enter."
+        },
+        {
+          "question": "Can I create a QR code for Wi-Fi or contact details?",
+          "answer": "This generator currently encodes plain text or a website URL. It does not provide dedicated Wi-Fi, vCard or contact-card fields."
+        },
+        {
+          "question": "Why should I test a QR code before printing it?",
+          "answer": "A QR code may become difficult to scan if its contrast is weak or artwork covers the pattern. Scan the downloaded file with another device before printing or sharing it."
         }
       ],
       "tips": "Keep strong contrast between the QR pattern and its background. Avoid artwork that makes the pattern hard to distinguish, and scan-test the downloaded PNG or SVG with another device before printing or sharing it."
@@ -152,6 +160,14 @@
         {
           "question": "Why is my JSON invalid?",
           "answer": "Common causes include single-quoted strings, trailing commas, unquoted property names or mismatched brackets."
+        },
+        {
+          "question": "Can a JSON formatter check my data against an API schema?",
+          "answer": "No. This tool checks JSON syntax and formatting. It does not validate your data against a JSON Schema or an API-specific contract."
+        },
+        {
+          "question": "What is the difference between formatting and minifying JSON?",
+          "answer": "Formatting adds indentation and line breaks to make JSON easier to read. Minifying removes unnecessary whitespace to make the same JSON data more compact."
         }
       ],
       "tips": "Use double quotes for JSON keys and string values. Standard JSON does not allow comments or trailing commas."
@@ -707,6 +723,14 @@
         {
           "question": "Can I count a long document?",
           "answer": "You can paste text into the input; very large documents may be limited by your browser and device memory."
+        },
+        {
+          "question": "Does the character count include spaces and line breaks?",
+          "answer": "Yes. Spaces and line breaks are included in the character total, so the count reflects the full text length."
+        },
+        {
+          "question": "Why can word counts differ between two websites?",
+          "answer": "Different counters may treat punctuation, hyphenated terms, symbols and some language-specific text differently. This counter separates words at whitespace boundaries."
         }
       ],
       "tips": "Word counts can differ between editors for hyphens, symbols and some languages. Use one counting method consistently."
@@ -929,6 +953,14 @@
         {
           "question": "Is the original image changed?",
           "answer": "No. The tool creates a new downloadable file and leaves your original file unchanged."
+        },
+        {
+          "question": "Will image compression always make the file smaller?",
+          "answer": "Not in every case. The result depends on the original image, output format and quality setting. Compare the preview and file size before downloading."
+        },
+        {
+          "question": "Does the compressor resize the image dimensions?",
+          "answer": "The compressor is intended to change output encoding and quality, not to replace an image-resizing tool. Use the Image Resizer when you need different pixel dimensions."
         }
       ],
       "tips": "Keep an original copy and compare the compressed image at its intended display size before replacing the source file."
