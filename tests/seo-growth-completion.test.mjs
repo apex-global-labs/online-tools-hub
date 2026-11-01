@@ -108,3 +108,14 @@ test("sitemap lastmod reflects the latest edits to directory and updated guide p
   assert.equal(existsSync(new URL("../robots.txt", import.meta.url)), false,
     "do not add a misleading project-path robots.txt for the shared github.io origin");
 });
+
+test("55-tool SEO questions, steps and feature statements avoid exact cross-page duplication", () => {
+  const collect = selector => tools.flatMap(tool => selector(tool).map(value => value.toLowerCase().trim()));
+  for (const [label, values] of [
+    ["FAQ questions", collect(tool => tool.seo.faqs.map(faq => faq.question))],
+    ["How-to steps", collect(tool => tool.seo.steps)],
+    ["Feature statements", collect(tool => tool.seo.features)]
+  ]) {
+    assert.equal(new Set(values).size, values.length, "duplicate " + label + " found across tool guides");
+  }
+});

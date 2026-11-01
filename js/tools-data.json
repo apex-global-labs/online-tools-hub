@@ -693,7 +693,7 @@
       "features": [
         "Counts words and characters.",
         "Also reports sentence and paragraph counts where available.",
-        "Processes text locally in your browser."
+        "Calculates text statistics in the current browser session without sending the text to a server."
       ],
       "faqs": [
         {
@@ -816,7 +816,7 @@
           "answer": "Yes. Leave Remove blank lines unchecked to preserve empty lines."
         },
         {
-          "question": "Is my text uploaded?",
+          "question": "Does Extra Spaces Remover send my text to a server?",
           "answer": "No. The cleanup runs locally in your browser."
         }
       ],
@@ -882,7 +882,7 @@
       ],
       "faqs": [
         {
-          "question": "Are my images uploaded?",
+          "question": "Does resizing happen on my device?",
           "answer": "No. Image resizing uses your browser's image and canvas features."
         },
         {
@@ -908,7 +908,7 @@
     "seo": {
       "description": "Compress local JPEG, PNG or WebP images into smaller JPEG or WebP files. Adjust output quality and preview the result before download.",
       "steps": [
-        "Choose a PNG, JPEG or WebP image under 10 MB.",
+        "Select a supported PNG, JPEG or WebP source image (up to 10 MB).",
         "Choose JPEG or WebP output and adjust the quality slider.",
         "Select Compress image, compare the file sizes and download the result."
       ],
@@ -1252,7 +1252,7 @@
       ],
       "faqs": [
         {
-          "question": "Are my images uploaded?",
+          "question": "Is the selected image sent to ToolNest?",
           "answer": "No. The selected image is processed locally in your browser."
         },
         {
@@ -1278,7 +1278,7 @@
     "seo": {
       "description": "Convert local PNG, JPEG and WebP images between common formats, adjust quality and download a preview processed in your browser.",
       "steps": [
-        "Choose a PNG, JPEG or WebP image from your device.",
+        "Pick the source picture file that you want to save in another format.",
         "Select PNG, JPEG or WebP as the target format and adjust quality if needed.",
         "Convert the image, review the preview and download the result."
       ],
@@ -1559,7 +1559,7 @@
           "answer": "Yes. Use the page checkboxes or enter a range such as 1-3,5 to choose which pages become separate PDF files."
         },
         {
-          "question": "Are my PDF files uploaded?",
+          "question": "Does PDF Splitter upload my document?",
           "answer": "No. PDF processing happens locally in your browser. The PDF and ZIP libraries are loaded from public CDNs when needed; your document is not sent to ToolNest."
         }
       ],
@@ -1673,7 +1673,7 @@
           "answer": "Yes. A single page downloads as an image; multiple pages are packaged into a ZIP file."
         },
         {
-          "question": "Are my PDF files uploaded?",
+          "question": "Are PDF pages converted locally in my browser?",
           "answer": "No. PDF rendering and image conversion happen in your browser. PDF.js and ZIP support are loaded from public CDNs when needed."
         }
       ],
@@ -1711,7 +1711,7 @@
           "answer": "Yes. Enter a range such as 1-3,5 or leave the field blank for all pages."
         },
         {
-          "question": "Are my files uploaded?",
+          "question": "Is PDF text extraction performed on my device?",
           "answer": "No. PDF parsing and text extraction run locally in your browser."
         }
       ],
@@ -1780,7 +1780,7 @@
       ],
       "faqs": [
         {
-          "question": "Are my files uploaded?",
+          "question": "Does ZIP Manager upload my selected files?",
           "answer": "No. ZIP creation and extraction happen in your browser. The ZIP library is loaded from a public CDN when needed."
         },
         {
@@ -1855,7 +1855,7 @@
       ],
       "faqs": [
         {
-          "question": "Are my PDF files uploaded?",
+          "question": "Is my PDF sent to a ToolNest server?",
           "answer": "No. The PDF is processed locally in your browser. The PDF editing library is loaded from a public CDN when needed."
         },
         {
@@ -1933,7 +1933,7 @@
           "answer": "The original input remains in its box; the changed text appears separately in the result."
         },
         {
-          "question": "Is my text uploaded?",
+          "question": "Is the text I edit shared with ToolNest?",
           "answer": "No. Find and replace runs locally in your browser."
         },
         {
@@ -2041,7 +2041,7 @@
       ],
       "faqs": [
         {
-          "question": "Are my PDF files uploaded?",
+          "question": "Does image extraction send my PDF anywhere?",
           "answer": "No. PDF parsing and image extraction run locally. PDF.js and ZIP libraries load from public CDNs when needed."
         },
         {
