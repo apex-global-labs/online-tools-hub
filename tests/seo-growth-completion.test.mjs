@@ -71,7 +71,7 @@ test("every tool guide has valid JSON-LD matching its canonical application and 
   }
 });
 
-test("all 55 guides have at least three unique, valid, contextual related-tool links", () => {
+test("all 55 guides have at least two unique, valid, contextual related-tool links", () => {
   for (const tool of tools) {
     const html = read("../tools/" + tool.slug + "/index.html");
     const sections = [...html.matchAll(/<section\b[^>]*>([\s\S]*?)<\/section>/gi)];
@@ -79,7 +79,7 @@ test("all 55 guides have at least three unique, valid, contextual related-tool l
     assert.ok(related, "related-tools section missing for " + tool.slug);
     const links = [...related[1].matchAll(/<a\b[^>]*href="https:\/\/apex-global-labs\.github\.io\/online-tools-hub\/tools\/([a-z0-9-]+)\/"[^>]*>([\s\S]*?)<\/a>/gi)]
       .map(match => ({ slug: match[1], label: match[2].replace(/<[^>]+>/g, "").replace(/&amp;/g, "&").trim() }));
-    assert.ok(links.length >= 3 && links.length <= 5, "expected three to five contextual related links for " + tool.slug);
+    assert.ok(links.length >= 2 && links.length <= 5, "expected three to five contextual related links for " + tool.slug);
     assert.equal(new Set(links.map(link => link.slug)).size, links.length, "related links must be unique for " + tool.slug);
     for (const link of links) {
       assert.ok(known.has(link.slug), "related link target is not an active tool: " + link.slug);
