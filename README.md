@@ -36,6 +36,8 @@ A static, browser-based multi-tool website. No backend or build step is required
 - `tools/` — static, individually crawlable tool guide pages and the tool-guide directory
 - `about/`, `contact/`, `privacy/`, `terms/` — crawlable project information and policy pages
 - `sitemap.xml` — 61 canonical URLs: homepage, tool directory, 55 tool guides and four information/policy pages
+- `llms.txt` — concise machine-readable summary of the site, all 55 tool guides, privacy notes and feature limitations
+- `tests/seo-growth-completion.test.mjs` — validates site identity schemas, the 55-item directory schema, AI-readable catalogue, all guide schemas, all 55 related-link groups and sitemap freshness
 - `PROJECT_STATE.md` — current status, verification notes and next-step roadmap
 
 ## Current UI features
