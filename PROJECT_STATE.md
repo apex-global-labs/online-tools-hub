@@ -9,7 +9,7 @@ Last updated: 2026-11-01
 - Repository: https://github.com/apex-global-labs/online-tools-hub
 - Live site: https://apex-global-labs.github.io/online-tools-hub/
 - Production branch: `main`
-- Latest main commit: `ca9b9ad737c6a5f8b48fcdff09b5068947270fe6` (PR #107: exact duplicate copy removed across tool guides).
+- Latest verified SEO implementation baseline: `ca9b9ad737c6a5f8b48fcdff09b5068947270fe6` (PR #107: exact duplicate copy removed across tool guides). Subsequent documentation-only PR #108 merged at `55e8713b7b0b209611043f5b482eefd9f77c1120`.
 - Catalogue: **55 unique tools**, **55 individual crawlable SEO guides**, and **61 unique sitemap URLs** (homepage + directory + 55 guides + About, Contact, Privacy and Terms).
 - PR #102 merged: homepage native sharing, copy-link, WhatsApp and Telegram.
 - PR #103 merged at `49df2adaef40198750040abb93d5687d314918d1`: QR guide claims aligned with the implemented plain-text/URL payloads, customization and PNG/SVG export; visible FAQs and structured data synchronized.
@@ -17,8 +17,9 @@ Last updated: 2026-11-01
 - PR #105 merged at `79904296c60f8b95e64f11b88059f525c616f607`: production baseline and project documentation refreshed.
 - PR #106 merged at `176318174d767c53c76592c71fff939c24d02137`: homepage Organization/WebSite schema, 55-item directory CollectionPage/ItemList schema, site-root `llms.txt`, sitemap lastmod updates, improved internal links and G2 SEO regression coverage.
 - PR #107 merged at `ca9b9ad737c6a5f8b48fcdff09b5068947270fe6`: repeated FAQ questions, how-to steps and feature statements removed across the shared metadata and corresponding static guides.
-- Latest main regression workflow **#520** (run `41268111737`) completed successfully: **178 tests passed, 0 failed**; JavaScript syntax checks passed.
-- GitHub Pages deployment workflow **#151** (run `41268111458`) completed successfully: Jekyll build, artifact upload, deploy and build-status reporting all succeeded.
+- PR #108 merged at `55e8713b7b0b209611043f5b482eefd9f77c1120`: final G2 completion status and external validation limits documented.
+- Final main regression workflow **#522** (run `41268226315`) completed successfully on the documentation-updated main commit: **178 tests passed, 0 failed**; JavaScript syntax checks passed.
+- Final GitHub Pages deployment workflow **#152** (run `41268225756`) completed successfully: Jekyll build, artifact upload, deploy and build-status reporting all succeeded.
 - All 55 tool guide titles and meta descriptions are unique; descriptions remain within the existing 110–160 character test range. All 55 guides have the expected canonical URL, exactly one H1, index/follow directive, crawlable static HTML, WebApplication/BreadcrumbList/FAQPage JSON-LD, visible FAQ content, how-to steps, features and practical guidance.
 - Exact FAQ-question, how-to-step and feature-statement duplication across the 55 tool metadata records is now covered by regression tests and has been removed.
 - All 55 guides have at least two unique, catalogue-valid related-tool links. The regression test checks each target against the active catalogue, prevents self-links and rejects duplicate targets.
