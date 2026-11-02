@@ -4,8 +4,8 @@ import { readFileSync } from 'node:fs';
 
 const xml = readFileSync(new URL('../sitemap.xml', import.meta.url), 'utf8');
 const text = readFileSync(new URL('../sitemap.txt', import.meta.url), 'utf8');
-const xmlUrls = [...xml.matchAll(/<loc>([^<]+)<\\/loc>/g)].map((match) => match[1]);
-const textUrls = text.trim().split(/\\r?\\n/);
+const xmlUrls = [...xml.matchAll(new RegExp('<loc>([^<]+)</loc>', 'g'))].map((match) => match[1]);
+const textUrls = text.trim().split('\n').map((url) => url.trim()).filter(Boolean);
 const base = 'https://apex-global-labs.github.io/online-tools-hub/';
 
 test('plain-text sitemap mirrors the canonical XML sitemap exactly', () => {
