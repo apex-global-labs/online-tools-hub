@@ -608,3 +608,13 @@ Build a modern, fast, mobile-friendly multi-utility website with a light/night t
 - GitHub Pages project-site constraint remains: a repository-level `robots.txt` would be served below `/online-tools-hub/`, not at the shared host origin's `/robots.txt`; do not publish an ineffective file or claim it controls origin-wide crawling.
 - Live browser/mobile interaction testing and a real Lighthouse/PageSpeed/Core Web Vitals report remain unverified. GitHub CI and deployment success are not substitutes for those tests.
 - Next technical work should begin only if Search Console later exposes a concrete sitemap fetch error (HTTP status, robots block, redirect, parsing error, etc.). Until then, preserve the valid 61-URL sitemap and avoid repeated resubmissions.
+
+
+## G5 — Plain-text sitemap fallback (2026-11-02)
+
+- PR #123 `https://github.com/apex-global-labs/online-tools-hub/pull/123` was squash-merged to `main` at merge commit `cc7d9604f8a5062c0965f566d4bd15c869eec3c7`.
+- Added root-level `sitemap.txt` containing the same 61 absolute canonical project URLs, in the exact order, as `sitemap.xml`. Verified the merged `main` file contains 61 lines; the branch regression test checked exact XML/TXT parity, uniqueness, project-path scope and exclusion of query/hash URLs.
+- PR GitHub Actions run `41398857394` completed successfully. The Node regression job, JavaScript syntax step and regression-test step all reported success.
+- The XML sitemap remains the primary sitemap advertised by the homepage. The text sitemap is an optional alternative submission for Search Console diagnostics; do not submit repeated duplicates while Google reports the current XML fetch state.
+- Merge is confirmed. Live GitHub Pages deployment, public HTTP response for `/sitemap.txt`, Google Search Console fetch/Last read, discovered pages and indexing are not yet independently confirmed. Do not report those as fixed or complete until verified.
+- If Search Console continues to show `Couldn't fetch`, use the exact error details and test the plain-text sitemap as a separate submission; retain the XML sitemap. Google controls fetch scheduling and indexing, so neither submission guarantees indexing.
