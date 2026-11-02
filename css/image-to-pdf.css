@@ -29,3 +29,11 @@
 @media(max-width:480px){.image-pdf-settings{grid-template-columns:1fr}.image-pdf-preview-wrap iframe{min-height:300px}}
 
 .image-pdf-tool [hidden]{display:none!important}
+
+.image-pdf-progress{display:grid;gap:.55rem;padding:.9rem 1rem;border:1px solid var(--line);border-radius:.85rem;background:var(--panel)}
+.image-pdf-progress[hidden]{display:none!important}
+.image-pdf-progress-heading{display:flex;justify-content:space-between;gap:.75rem;font-size:.9rem}
+.image-pdf-progress-heading span{font-variant-numeric:tabular-nums;font-weight:800;color:#4f46e5}
+.image-pdf-progress-track{height:10px;overflow:hidden;border-radius:999px;background:rgba(100,116,139,.18)}
+.image-pdf-progress-track span{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#4f46e5,#06b6d4);transition:width .2s ease}
+.image-pdf-progress p{margin:0;font-size:.82rem;line-height:1.5;color:var(--muted)}
