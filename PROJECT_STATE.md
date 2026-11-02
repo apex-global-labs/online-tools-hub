@@ -1,8 +1,17 @@
 # ToolNest / Online Tools Hub — Project State
 
-Last updated: 2026-11-01
+Last updated: 2026-11-02
 
 > **Authoritative status:** This section reflects the latest verified repository, CI and GitHub Pages deployment baseline. Historical phase notes below must not override it.
+
+## 2026-11-02 — Search Console sitemap recovery
+
+- Search Console showed both `/sitemap-index.xml` and `/sitemap.xml` as `Type: Unknown`, `Couldn't fetch`, with blank `Last read` and zero discovered pages.
+- The owner ran URL Inspection live test for `sitemap-index.xml`: `Page fetch: Successful`, `Crawl allowed: Yes`. This proves that live URL Inspection could retrieve that URL and was not blocked by robots in that test; it does **not** prove that the Sitemaps report successfully parsed the XML.
+- Repository inspection found three sitemap endpoints: a sitemap index, its child sitemap, and a legacy flat sitemap. The homepage advertised the index while the directory advertised the flat sitemap. The child and legacy flat sitemap were byte-identical, creating unnecessary duplication and inconsistent discovery.
+- Recovery change makes the homepage and directory advertise one canonical flat `sitemap.xml` containing the 61 canonical URLs. The two prior endpoints are retained temporarily for compatibility; they are no longer advertised by the homepage.
+- This repository cleanup is a controlled simplification, **not proof of the root cause**. After deployment, Search Console should be monitored for the canonical `/sitemap.xml`. Do not delete existing submissions until the canonical submission is confirmed readable.
+- No robots.txt was added: this project path cannot control the shared `github.io` origin-root robots policy. No claim of Google indexing, ranking or AdSense approval is made.
 
 ## Current production baseline
 
