@@ -77,8 +77,10 @@ test("homepage, directory and information pages match their sitemap canonicals",
   }
   const homepage = read("../index.html");
   const directory = read("../tools/index.html");
-  assert.ok(homepage.includes('rel="sitemap"') && homepage.includes(site + "sitemap-index.xml"));
+  assert.ok(homepage.includes('rel="sitemap"') && homepage.includes(site + "sitemap.xml"));
   assert.ok(directory.includes('rel="sitemap"') && directory.includes(site + "sitemap.xml"));
+  assert.equal((homepage.match(/rel="sitemap"/g) || []).length, 1);
+  assert.equal((directory.match(/rel="sitemap"/g) || []).length, 1);
 });
 
 test("the tool directory exposes crawlable links to all 55 guide URLs", () => {
