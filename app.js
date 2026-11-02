@@ -509,6 +509,11 @@ function toolMarkup(id){
  <section class="image-pdf-camera-panel" id="imagePdfCameraPanel" hidden><video id="imagePdfCameraView" autoplay playsinline muted></video><div class="image-pdf-actions"><button type="button" class="btn-primary" id="imagePdfCapture">Capture Document</button><button type="button" class="btn-secondary" id="imagePdfCameraStop">Close Camera</button></div></section>
  <div class="image-pdf-drop" id="imagePdfDrop"><strong>Drop document photos here</strong><p class="muted text-sm">Or use Add Photos / Images. Up to 50 images · 25 MB each · 200 MB total. JPG, PNG and WebP.</p></div>
  <div class="image-pdf-summary" id="imagePdfSummary" role="status" aria-live="polite">0 / 50 pages · 0 MB / 200 MB</div>
+  <section class="image-pdf-progress" id="imagePdfProgress" hidden aria-label="PDF creation progress">
+   <div class="image-pdf-progress-heading"><strong id="imagePdfProgressStep">Ready</strong><span id="imagePdfProgressPercent">0%</span></div>
+   <div class="image-pdf-progress-track"><span id="imagePdfProgressBar" role="progressbar" aria-label="PDF creation progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></span></div>
+   <p id="imagePdfProgressDetail" aria-live="polite">Add photos to begin.</p>
+  </section>
  <div class="image-pdf-settings">
   <div class="image-pdf-setting"><label for="imagePdfFilter">Scan enhancement</label><select class="field" id="imagePdfFilter"><option value="color">Auto Color / Clean</option><option value="gray">Grayscale</option><option value="bw">Black &amp; White Document</option></select></div>
   <div class="image-pdf-setting"><label for="imagePdfPageSize">PDF page size</label><select class="field" id="imagePdfPageSize"><option value="a4">A4</option><option value="letter">US Letter</option><option value="legal">US Legal</option><option value="original">Original Proportions</option></select></div>
