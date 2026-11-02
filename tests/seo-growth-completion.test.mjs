@@ -23,7 +23,7 @@ function jsonLd(html, label) {
 test("homepage exposes canonical site identity and machine-readable discovery links", () => {
   assert.ok(homepage.includes('<link rel="canonical" href="' + site + '">'));
   assert.match(homepage, /<meta name="robots" content="index,follow">/i);
-  assert.ok(homepage.includes('href="' + site + 'sitemap.xml"'));
+  assert.ok(homepage.includes('href="' + site + 'sitemap-index.xml"'));
   assert.ok(homepage.includes('href="' + site + 'llms.txt"'));
   const schemas = jsonLd(homepage, "homepage");
   assert.ok(schemas.some(schema => schema["@type"] === "Organization" && schema.name === "ToolNest"));
